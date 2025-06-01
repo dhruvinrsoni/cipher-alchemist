@@ -19,9 +19,9 @@ function generatePassword() {
         const sub = substitutions[char] || char;
         password += sub;
         if (sub !== char) {
-            explanation += `<li><b>${step}.</b> <b>${char}</b> → <b>${sub}</b></li>`;
+            explanation += `<li><b>${char}</b> → <b>${sub}</b></li>`;
         } else {
-            explanation += `<li><b>${step}.</b> <b>${char}</b> (no change)</li>`;
+            explanation += `<li><b>${char}</b> (no change)</li>`;
         }
         step++;
     }
