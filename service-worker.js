@@ -1,7 +1,7 @@
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open('password-generator-v1').then((cache) => {
+        caches.open('cipher-alchemist-v1').then((cache) => {
             return cache.addAll([
                 '/',
                 '/index.html',
