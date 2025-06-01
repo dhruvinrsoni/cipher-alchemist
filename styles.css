@@ -138,11 +138,16 @@ footer {
 
 @media (max-width: 600px) {
   #themeToggleBtn {
+    position: fixed;
     top: 0.5rem;
     right: 0.5rem;
+    left: auto;
     width: 38px;
     height: 38px;
     font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .container {
     padding: 1rem 0.5rem 1rem 0.5rem;
