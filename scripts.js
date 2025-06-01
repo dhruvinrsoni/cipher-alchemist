@@ -118,4 +118,26 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error('No button with id="downloadBtn" found');
     }
+
+    // Theme toggle functionality
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    function setTheme(dark) {
+        if (dark) {
+            document.body.classList.add('dark-theme');
+            themeToggleBtn.textContent = '☀️';
+        } else {
+            document.body.classList.remove('dark-theme');
+            themeToggleBtn.textContent = '🌙';
+        }
+        localStorage.setItem('theme', dark ? 'dark' : 'light');
+    }
+    if (themeToggleBtn) {
+        // Load theme preference
+        const savedTheme = localStorage.getItem('theme');
+        setTheme(savedTheme === 'dark');
+        themeToggleBtn.addEventListener('click', function() {
+            const isDark = document.body.classList.contains('dark-theme');
+            setTheme(!isDark);
+        });
+    }
 });
