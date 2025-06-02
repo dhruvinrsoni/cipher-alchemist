@@ -2,11 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title>Cipher Alchemist</title>
+    <meta name="description" content="Cipher Alchemist: Secure, creative phrase-to-password generator PWA by Dhruvin Soni. Generate strong passwords, use offline, and enjoy a beautiful, modern portfolio experience." />
+    <meta name="theme-color" content="#007BFF" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Cipher Alchemist">
+    <meta name="application-name" content="Cipher Alchemist">
+    <meta property="og:title" content="Cipher Alchemist - Secure Password Generator by Dhruvin Soni" />
+    <meta property="og:description" content="A creative, secure phrase-to-password generator PWA. Portfolio of Dhruvin Soni." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dhruvinrsoni.github.io/cipher-alchemist/" />
+    <meta property="og:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/icon-512.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cipher Alchemist - Secure Password Generator by Dhruvin Soni" />
+    <meta name="twitter:description" content="A creative, secure phrase-to-password generator PWA. Portfolio of Dhruvin Soni." />
+    <meta name="twitter:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/icon-512.png" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="favicon.ico" />
+    <link rel="apple-touch-icon" href="icon-192.png" />
     <meta name="app-version" content="__APP_VERSION__">
 </head>
 <body>
@@ -19,14 +36,15 @@
         <button id="downloadBtn">Download Cheat Sheet PDF</button>
         <div id="passwordOutput"></div>
         <div id="strengthMeter"></div>
+        <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" />
         <footer>
-            <span id="footer-version"></span><br />
+            <span id="footer-version" aria-live="polite"></span><br />
             Built with ❤️ by Dhruvin Soni
             (<a href="https://github.com/dhruvinrsoni" target="_blank" rel="noopener">@dhruvinrsoni</a>)<br />
-            Copyright (c) 2025 Dhruvin Rupesh Soni<br />
+            <small>Copyright (c) 2025 Dhruvin Rupesh Soni</small><br />
             <a href="https://github.com/dhruvinrsoni/cipher-alchemist" target="_blank" rel="noopener">GitHub Project</a><br />
         </footer>
     </div>
-    <script src="scripts.js"></script>
+    <script src="scripts.js" defer></script>
 </body>
 </html>
