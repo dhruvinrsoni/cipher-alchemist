@@ -19,9 +19,9 @@ jobs:
           echo "IST_TIME=$IST_TIME" >> $GITHUB_OUTPUT
       - name: Generate CHANGELOG.md
         run: |
-          echo "# 📝 Changelog\n" > CHANGELOG.md
-          echo "_Last 50 meaningful changes. Auto-generated on each push to main._\n" >> CHANGELOG.md
-          git log --pretty=format:"- %s (%h) [%an, %ad]" --date=short --no-merges -n 50 | grep -v -i 'chore: update version.txt' >> CHANGELOG.md
+          echo "# 📝 Changelog" > CHANGELOG.md
+          echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._\n" >> CHANGELOG.md
+          git log --pretty=format:"### %ad\n- %s (%h)\n  _by %an_\n\n> %b\n" --date='iso-local' --no-merges -n 50 | grep -v -i '\[skip ci\]' >> CHANGELOG.md
       - name: Commit version.txt and CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
