@@ -23,17 +23,17 @@ jobs:
       - name: Generate CHANGELOG.md
         run: |
           echo "# 📝 Changelog" > CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md          echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._" >> CHANGELOG.md
           echo "" >> CHANGELOG.md
           echo "---" >> CHANGELOG.md
           echo "" >> CHANGELOG.md
-        
+          
           # Get the repository info for links
           REPO_URL="https://github.com/${{ github.repository }}"
             # Generate detailed changelog entries
-          git log --no-merges -n 50 --grep="\[skip ci\]" --invert-grep --pretty=format:"%H|%cd|%an|%s|%b" --date=format:"%Y-%m-%d %H:%M:%S %z" | while IFS='|' read -r hash date author subject body; do
-            if [ ! -z "$hash" ]; then
+          git log --no-merges -n 50 --grep="\[skip ci\]" --invert-grep --pretty=format:"%H~%cd~%an~%s~%b" --date=format:"%Y-%m-%d %H:%M:%S %z" 2>/dev/null | while IFS='~' read -r hash date author subject body; do
+            # Skip empty lines and ensure all required fields are present
+            if [ ! -z "$hash" ] && [ ! -z "$date" ] && [ ! -z "$author" ] && [ ! -z "$subject" ]; then
               short_hash=$(echo "$hash" | cut -c1-7)
               
               echo "**Date:** $date  " >> CHANGELOG.md
@@ -44,7 +44,7 @@ jobs:
               echo "" >> CHANGELOG.md
               
               # Add body if it exists and is not empty
-              if [ ! -z "$body" ] && [ "$body" != " " ]; then
+              if [ ! -z "$body" ] && [ "$body" != " " ] && [ "$body" != "" ]; then
                 echo "$body" >> CHANGELOG.md
                 echo "" >> CHANGELOG.md
               fi
