@@ -44,5 +44,34 @@ This is a Progressive Web App (PWA) for generating secure passwords from phrases
 3. Update your domain’s DNS settings:
    - Add a **CNAME record** pointing to `dhruvinrsoni.github.io`.
 
+## 📋 CURRENT PROJECT STATUS:
+
+Your Cipher Alchemist PWA is now fully optimized with:
+
+- 🎨 Theme System - Working dark/light toggle in top-right corner with responsive positioning
+- 📱 Mobile Responsive - Fixed textarea overflow and button positioning issues
+- 🔍 SEO Optimized - Comprehensive meta tags for social sharing and search engines
+- ⚡ PWA Ready - Fixed manifest.json for proper Progressive Web App installation
+- 📝 Professional Changelog - Clean, properly formatted changelog with commit history
+- 🛠️ Service Worker - Offline support with proper caching for GitHub Pages
+- 🔗 Footer - Static attribution with dynamic version display and GitHub links
+
+## GitHub Workflow
+
+### 📋 What the Workflow Now Does:
+
+- Triggers on every push to the main branch
+- Generates Version with commit hash and IST timezone timestamp
+- Creates Simple CHANGELOG with last 50 commits as bullet points
+- Auto-commits both version.txt and CHANGELOG.md files back to the repository
+
+### ✨ Workflow Features:
+
+- ✅ IST Timezone - Uses Asia/Kolkata timezone for timestamps
+- ✅ Skip CI Logic - Excludes commits with [skip ci] tag to prevent loops
+- ✅ Clean Changelog - Simple bullet-point format for easy reading
+- ✅ Error Handling - Won't fail if there are no changes to commit
+- ✅ Valid YAML - No syntax errors, properly formatted
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
