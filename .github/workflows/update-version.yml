@@ -19,9 +19,9 @@ jobs:
           echo "IST_TIME=$IST_TIME" >> $GITHUB_OUTPUT
       - name: Generate CHANGELOG.md
         run: |
-          echo "# 📝 Changelog" > CHANGELOG.md
+          echo "# 📝 Changelog\n" > CHANGELOG.md
           echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._\n" >> CHANGELOG.md
-          git log --pretty=format:"### %ad\n- %s (%h)\n  _by %an_\n\n> %b\n" --date='iso-local' --no-merges -n 50 | grep -v -i '\[skip ci\]' >> CHANGELOG.md
+          git log --pretty=format:"---\n**Date:** %ad  \n**Commit:** [%h](https://github.com/dhruvinrsoni/cipher-alchemist/commit/%H)  \n**Author:** %an\n\n#### %s\n\n%b\n" --date='iso-local' --no-merges -n 50 | grep -v -i '\[skip ci\]' >> CHANGELOG.md
       - name: Commit version.txt and CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
