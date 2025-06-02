@@ -145,10 +145,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const splitIdx = versionString.indexOf('· 🚀');
         if (splitIdx !== -1) {
             document.getElementById('footer-version').textContent = versionString.slice(0, splitIdx).trim();
-            document.getElementById('footer-built').textContent = versionString.slice(splitIdx + 2).trim();
         } else {
             document.getElementById('footer-version').textContent = versionString;
-            document.getElementById('footer-built').textContent = '';
         }
         window.APP_VERSION = versionString;
     } else {
@@ -159,16 +157,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const splitIdx = version.indexOf('· 🚀');
             if (splitIdx !== -1) {
                 document.getElementById('footer-version').textContent = version.slice(0, splitIdx).trim();
-                document.getElementById('footer-built').textContent = version.slice(splitIdx + 2).trim();
             } else {
                 document.getElementById('footer-version').textContent = version.trim();
-                document.getElementById('footer-built').textContent = '';
             }
             window.APP_VERSION = version.trim();
           })
           .catch(() => {
             document.getElementById('footer-version').textContent = '🔖 vDEV · Local Build';
-            document.getElementById('footer-built').textContent = 'Built with ❤️ by Dhruvin Soni';
             window.APP_VERSION = 'vDEV · Local Build';
           });
     }
