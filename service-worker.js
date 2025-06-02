@@ -3,12 +3,15 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('cipher-alchemist-v1').then((cache) => {
             return cache.addAll([
-                '/',
-                '/index.html',
-                '/styles.css',
-                '/scripts.js',
-                '/manifest.json',
-                '/cheat_sheet.pdf'
+                './',
+                './index.html',
+                './styles.css',
+                './scripts.js',
+                './manifest.json',
+                './cheat_sheet.pdf',
+                './icon-192.png',
+                './icon-512.png',
+                './favicon.ico'
             ]);
         })
     );
