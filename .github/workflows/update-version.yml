@@ -14,7 +14,7 @@ jobs:
         run: |
           COMMIT_HASH=$(git rev-parse --short HEAD)
           IST_TIME=$(TZ='Asia/Kolkata' date +'%Y-%m-%d %H:%M:%S IST')
-          echo "🔖 v$COMMIT_HASH · $IST_TIME · 🚀 Built with ❤️ by Dhruvin Soni" > version.txt
+          echo "🔖 v$COMMIT_HASH · $IST_TIME · 🚀" > version.txt
           echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_OUTPUT
           echo "IST_TIME=$IST_TIME" >> $GITHUB_OUTPUT
       - name: Commit version.txt

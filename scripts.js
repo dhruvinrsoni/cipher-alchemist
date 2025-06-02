@@ -137,15 +137,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Fetch and display version from version.txt
-    fetch('version.txt')
-      .then(res => res.text())
-      .then(version => {
-        document.getElementById('footer-version').textContent = version.trim();
-        window.APP_VERSION = version.trim(); // Set global variable for version
-      })
-      .catch(() => {
-        document.getElementById('footer-version').textContent = 'Version: dev';
-        window.APP_VERSION = 'dev';
-      });
+    // Version display from meta tag (for static and automated injection)
+    const versionMeta = document.querySelector('meta[name="app-version"]');
+    let versionString = versionMeta ? versionMeta.content : '';
+    if (versionString && !versionString.includes('__APP_VERSION__')) {
+        // Split for mobile: everything before '· 🚀' on one line, rest below
+        const splitIdx = versionString.indexOf('· 🚀');
+        if (splitIdx !== -1) {
+            document.getElementById('footer-version').textContent = versionString.slice(0, splitIdx).trim();
+            document.getElementById('footer-built').textContent = versionString.slice(splitIdx + 2).trim();
+        } else {
+            document.getElementById('footer-version').textContent = versionString;
+            document.getElementById('footer-built').textContent = '';
+        }
+        window.APP_VERSION = versionString;
+    } else {
+        // fallback to version.txt (for local/dev)
+        fetch('version.txt')
+          .then(res => res.text())
+          .then(version => {
+            const splitIdx = version.indexOf('· 🚀');
+            if (splitIdx !== -1) {
+                document.getElementById('footer-version').textContent = version.slice(0, splitIdx).trim();
+                document.getElementById('footer-built').textContent = version.slice(splitIdx + 2).trim();
+            } else {
+                document.getElementById('footer-version').textContent = version.trim();
+                document.getElementById('footer-built').textContent = '';
+            }
+            window.APP_VERSION = version.trim();
+          })
+          .catch(() => {
+            document.getElementById('footer-version').textContent = '🔖 vDEV · Local Build';
+            document.getElementById('footer-built').textContent = 'Built with ❤️ by Dhruvin Soni';
+            window.APP_VERSION = 'vDEV · Local Build';
+          });
+    }
 });
