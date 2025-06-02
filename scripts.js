@@ -136,4 +136,16 @@ document.addEventListener('DOMContentLoaded', function() {
             setTheme(isDark ? 'light-theme' : 'dark-theme');
         });
     }
+
+    // Fetch and display version from version.txt
+    fetch('version.txt')
+      .then(res => res.text())
+      .then(version => {
+        document.getElementById('footer-version').textContent = version.trim();
+        window.APP_VERSION = version.trim(); // Set global variable for version
+      })
+      .catch(() => {
+        document.getElementById('footer-version').textContent = 'Version: dev';
+        window.APP_VERSION = 'dev';
+      });
 });
