@@ -23,7 +23,8 @@ jobs:
       - name: Generate CHANGELOG.md
         run: |
           echo "# 📝 Changelog" > CHANGELOG.md
-          echo "" >> CHANGELOG.md          echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._" >> CHANGELOG.md
+          echo "" >> CHANGELOG.md
+          echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._" >> CHANGELOG.md
           echo "" >> CHANGELOG.md
           echo "---" >> CHANGELOG.md
           echo "" >> CHANGELOG.md
@@ -31,26 +32,34 @@ jobs:
           # Get the repository info for links
           REPO_URL="https://github.com/${{ github.repository }}"
             # Generate detailed changelog entries
-          git log --no-merges -n 50 --grep="\[skip ci\]" --invert-grep --pretty=format:"%H~%cd~%an~%s~%b" --date=format:"%Y-%m-%d %H:%M:%S %z" 2>/dev/null | while IFS='~' read -r hash date author subject body; do
-            # Skip empty lines and ensure all required fields are present
-            if [ ! -z "$hash" ] && [ ! -z "$date" ] && [ ! -z "$author" ] && [ ! -z "$subject" ]; then
-              short_hash=$(echo "$hash" | cut -c1-7)
+          git log --no-merges -n 50 --grep="\[skip ci\]" --invert-grep --pretty=format:"%H" 2>/dev/null | while read -r hash; do
+            if [ ! -z "$hash" ]; then
+              # Get individual commit details to preserve multi-line bodies
+              date=$(git show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S %z" "$hash")
+              author=$(git show -s --format="%an" "$hash")
+              subject=$(git show -s --format="%s" "$hash")
+              body=$(git show -s --format="%b" "$hash")
               
-              echo "**Date:** $date  " >> CHANGELOG.md
-              echo "**Commit:** [$short_hash]($REPO_URL/commit/$hash)  " >> CHANGELOG.md
-              echo "**Author:** $author" >> CHANGELOG.md
-              echo "" >> CHANGELOG.md
-              echo "#### $subject" >> CHANGELOG.md
-              echo "" >> CHANGELOG.md
-              
-              # Add body if it exists and is not empty
-              if [ ! -z "$body" ] && [ "$body" != " " ] && [ "$body" != "" ]; then
-                echo "$body" >> CHANGELOG.md
+              # Skip empty lines and ensure all required fields are present
+              if [ ! -z "$hash" ] && [ ! -z "$date" ] && [ ! -z "$author" ] && [ ! -z "$subject" ]; then
+                short_hash=$(echo "$hash" | cut -c1-7)
+                
+                echo "**Date:** $date  " >> CHANGELOG.md
+                echo "**Commit:** [$short_hash]($REPO_URL/commit/$hash)  " >> CHANGELOG.md
+                echo "**Author:** $author" >> CHANGELOG.md
+                echo "" >> CHANGELOG.md
+                echo "#### $subject" >> CHANGELOG.md
+                echo "" >> CHANGELOG.md
+                
+                # Add full body if it exists and is not empty
+                if [ ! -z "$body" ] && [ "$body" != " " ] && [ "$body" != "" ]; then
+                  echo "$body" >> CHANGELOG.md
+                  echo "" >> CHANGELOG.md
+                fi
+                
+                echo "---" >> CHANGELOG.md
                 echo "" >> CHANGELOG.md
               fi
-              
-              echo "---" >> CHANGELOG.md
-              echo "" >> CHANGELOG.md
             fi
           done
       - name: Commit version.txt and CHANGELOG.md
