@@ -4,6 +4,32 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-03 23:32:28 +0530  
+**Commit:** [0dde88d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0dde88ded32931a435dbc900420c920a48ea9b66)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: enhance website metadata and SEO optimization
+
+Reason:
+- Improve website discoverability and presentation in search results
+- Align branding consistently with "@dhruvinrsoni" handle
+
+Changes:
+- Enhanced meta tags with more descriptive content and emojis
+- Improved title and description for better SEO performance
+- Refined social media sharing metadata for Twitter and Open Graph
+- Reformatted HTML structure for better readability
+- Cleared redundant content from git-commit-template.txt
+
+Impact:
+- Better search engine visibility and ranking potential
+- Improved appearance when shared on social media platforms
+- Clearer communication of the app's purpose and features
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-03 23:19:08 +0530  
 **Commit:** [ba562d3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ba562d30ddaf9f39e7d464dacbcdd6165d1c3d9c)  
 **Author:** Dhruvin Rupesh Soni
