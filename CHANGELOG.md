@@ -4,6 +4,44 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-03 23:19:08 +0530  
+**Commit:** [ba562d3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ba562d30ddaf9f39e7d464dacbcdd6165d1c3d9c)  
+**Author:** Dhruvin Rupesh Soni
+
+#### refactor: standardize icon file naming to favicon prefix
+
+Reason:
+- Inconsistent icon naming convention between favicon.ico and icon-*.png files
+- Need unified naming scheme for better file organization and clarity
+- Align with standard favicon naming conventions
+
+Changes:
+- Updated icon-192.png references to favicon-192.png in all files
+- Updated icon-512.png references to favicon-512.png in all files
+- Modified index.html meta tags for OpenGraph and Twitter cards
+- Updated manifest.json PWA icon sources
+- Updated service-worker.js cache array with new icon paths
+
+Impact:
+- Improves file naming consistency across the project
+- Maintains PWA functionality with proper icon references
+- Ensures social media sharing uses correct icon paths
+- No breaking changes to functionality or user experience
+
+Files Modified:
+- index.html: 3 icon reference updates
+- manifest.json: 2 PWA icon source updates
+- service-worker.js: 2 cache path updates
+
+Compatibility:
+- Requires renaming physical icon files to match new references
+- No impact on existing functionality once files are renamed
+- PWA installation and social sharing will work seamlessly
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-03 22:49:43 +0530  
 **Commit:** [2f6a92b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2f6a92bef59156734e9f62091649de7450cee49d)  
 **Author:** Dhruvin Rupesh Soni
