@@ -39,15 +39,35 @@ function generatePassword() {
         explanationElem.id = 'transformationExplanation';
         passwordElem.insertAdjacentElement('afterend', explanationElem);
     }
-    // Responsive and dynamic transformation explanation
+    
+    // Create collapsible transformation explanation
     explanationElem.innerHTML = `
-        <div style="margin-top:10px; max-height:30vh; min-height:40px; overflow-y:auto; border:1px solid #ccc; border-radius:6px; background:#f9f9f9; padding:10px; box-sizing:border-box; transition:max-height 0.3s;">
-            <b>Transformation Steps:</b>
-            <ol style="margin:0 0 0 20px; padding-right:10px; word-break:break-all; font-size:1em;">
-                ${explanation}
-            </ol>
+        <div class="transformation-container">
+            <div class="transformation-header" onclick="toggleTransformation()" aria-expanded="true" role="button" tabindex="0">
+                <span class="transformation-title">Transformation Steps</span>
+                <span class="transformation-icon" id="transformationIcon">▼</span>
+            </div>
+            <div class="transformation-content" id="transformationContent">
+                <ol>
+                    ${explanation}
+                </ol>
+            </div>
         </div>
     `;
+    
+    // Auto-expand the transformation section with animation
+    setTimeout(() => {
+        const transformationContent = document.getElementById('transformationContent');
+        const transformationIcon = document.getElementById('transformationIcon');
+        const transformationHeader = document.querySelector('.transformation-header');
+        
+        if (transformationContent && transformationContent.classList.contains('collapsed')) {
+            transformationContent.classList.remove('collapsed');
+            transformationIcon.classList.remove('collapsed');
+            transformationIcon.textContent = '▼';
+            transformationHeader.setAttribute('aria-expanded', 'true');
+        }
+    }, 100);
     // Smooth scroll to password output if on mobile/small screens
     if (window.innerWidth < 600) {
         passwordElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -196,3 +216,73 @@ function tryExample() {
         }, 300);
     }, 150);
 }
+
+// Function to toggle the description section
+function toggleDescription() {
+    const content = document.getElementById('descriptionContent');
+    const icon = document.getElementById('descriptionIcon');
+    const header = document.querySelector('.app-description-header');
+    
+    if (content.classList.contains('collapsed')) {
+        // Expand
+        content.classList.remove('collapsed');
+        icon.classList.remove('collapsed');
+        icon.textContent = '▼';
+        header.setAttribute('aria-expanded', 'true');
+    } else {
+        // Collapse
+        content.classList.add('collapsed');
+        icon.classList.add('collapsed');
+        icon.textContent = '▶';
+        header.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Handle keyboard navigation for the description header
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.app-description-header');
+    if (header) {
+        header.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleDescription();
+            }
+        });
+    }
+});
+
+// Function to toggle the transformation section
+function toggleTransformation() {
+    const content = document.getElementById('transformationContent');
+    const icon = document.getElementById('transformationIcon');
+    const header = document.querySelector('.transformation-header');
+    
+    if (content && icon && header) {
+        if (content.classList.contains('collapsed')) {
+            // Expand
+            content.classList.remove('collapsed');
+            icon.classList.remove('collapsed');
+            icon.textContent = '▼';
+            header.setAttribute('aria-expanded', 'true');
+        } else {
+            // Collapse
+            content.classList.add('collapsed');
+            icon.classList.add('collapsed');
+            icon.textContent = '▶';
+            header.setAttribute('aria-expanded', 'false');
+        }
+    }
+}
+
+// Handle keyboard navigation for the transformation header
+document.addEventListener('DOMContentLoaded', function() {
+    // This will be set up dynamically when transformation section is created
+    document.addEventListener('keydown', function(e) {
+        if (e.target.classList.contains('transformation-header')) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleTransformation();
+            }
+        }
+    });
+});

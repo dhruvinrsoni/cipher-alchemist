@@ -30,18 +30,24 @@
     <button id="themeToggleBtn" aria-label="Toggle theme">🌙</button>
     <div class="container">
         <h1>Cipher Alchemist</h1>
-        
-        <!-- App Description Section -->
-        <div class="app-description">
-            <p class="tagline">Transform memorable phrases into unbreakable passwords</p>            <p class="description">
-                Turn <strong class="example-phrase" onclick="tryExample()" title="Click to try this example!">"AhamBrahmasmi@108"</strong> into <code>4h4m8r4hm45m1@108</code> 
-                — combining Vedic wisdom, sacred numerology, and modern security.
-            </p>
-            <div class="features">
-                <span class="feature">🧠 Easy to remember</span>
-                <span class="feature">🔐 Cryptographically strong</span>
-                <span class="feature">✨ Creative & unique</span>
-                <span class="feature">📱 Works offline</span>
+          <!-- App Description Section -->
+        <div class="app-description-container">
+            <div class="app-description-header" onclick="toggleDescription()" aria-expanded="true" role="button" tabindex="0">
+                <span class="section-title">About Cipher Alchemist</span>
+                <span class="expand-icon" id="descriptionIcon">▼</span>
+            </div>
+            <div class="app-description-content" id="descriptionContent">
+                <p class="tagline">Transform memorable phrases into unbreakable passwords</p>
+                <p class="description">
+                    Turn <strong class="example-phrase" onclick="tryExample()" title="Click to try this example!">"AhamBrahmasmi@108"</strong> into <code>4#@/\/\8r@#/\/\@5/\/\!@ioB</code> 
+                    — combining Vedic wisdom, sacred numerology, and modern security.
+                </p>
+                <div class="features">
+                    <span class="feature">🧠 Easy to remember</span>
+                    <span class="feature">🔐 Cryptographically strong</span>
+                    <span class="feature">✨ Creative & unique</span>
+                    <span class="feature">📱 Works offline</span>
+                </div>
             </div>
         </div>
         

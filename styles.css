@@ -48,14 +48,64 @@ h1 {
 }
 
 /* App Description Section */
-.app-description {
-  text-align: center;
+.app-description-container {
   margin: 0.5rem 0 1.5rem 0;
-  padding: 1rem;
   background: var(--transformation-bg);
   border: 1px solid var(--transformation-border);
   border-radius: 12px;
   transition: background 0.2s, border-color 0.2s;
+  overflow: hidden;
+}
+
+.app-description-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+  border-radius: 12px 12px 0 0;
+}
+
+.app-description-header:hover {
+  background: var(--card-bg);
+}
+
+.app-description-header:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: -2px;
+}
+
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.expand-icon {
+  font-size: 1rem;
+  color: var(--button-bg);
+  transition: transform 0.3s ease, color 0.2s;
+  font-weight: bold;
+}
+
+.expand-icon.collapsed {
+  transform: rotate(-90deg);
+}
+
+.app-description-content {
+  padding: 0 1.2rem 1.2rem 1.2rem;
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.3s ease;
+  opacity: 1;
+}
+
+.app-description-content.collapsed {
+  max-height: 0;
+  padding: 0 1.2rem;
+  opacity: 0;
 }
 
 .tagline {
@@ -126,9 +176,24 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  .app-description {
+  .app-description-container {
     margin: 0.5rem 0 1rem 0;
-    padding: 0.8rem;
+  }
+  
+  .app-description-header {
+    padding: 0.8rem 1rem;
+  }
+  
+  .app-description-content {
+    padding: 0 1rem 1rem 1rem;
+  }
+  
+  .app-description-content.collapsed {
+    padding: 0 1rem;
+  }
+  
+  .section-title {
+    font-size: 1rem;
   }
   
   .tagline {
@@ -201,6 +266,94 @@ button:hover, button:focus {
 #strengthMeter {
   margin-top: 0.5rem;
   text-align: center;
+}
+
+/* Transformation Explanation Section */
+.transformation-container {
+  margin-top: 0.5rem;
+  background: var(--transformation-bg);
+  border: 1px solid var(--transformation-border);
+  border-radius: 8px;
+  transition: background 0.2s, border-color 0.2s;
+  overflow: hidden;
+}
+
+.transformation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s;
+  border-radius: 8px 8px 0 0;
+}
+
+.transformation-header:hover {
+  background: var(--card-bg);
+}
+
+.transformation-header:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: -2px;
+}
+
+.transformation-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.transformation-icon {
+  font-size: 0.9rem;
+  color: var(--button-bg);
+  transition: transform 0.3s ease, color 0.2s;
+  font-weight: bold;
+}
+
+.transformation-icon.collapsed {
+  transform: rotate(-90deg);
+}
+
+.transformation-content {
+  padding: 0 1rem 1rem 1rem;
+  max-height: 30vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.3s ease;
+  opacity: 1;
+}
+
+.transformation-content.collapsed {
+  max-height: 0;
+  padding: 0 1rem;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.transformation-content ol {
+  margin: 0 0 0 20px;
+  padding-right: 10px;
+  word-break: break-all;
+  font-size: 1em;
+}
+
+@media (max-width: 600px) {
+  .transformation-header {
+    padding: 0.6rem 0.8rem;
+  }
+  
+  .transformation-content {
+    padding: 0 0.8rem 0.8rem 0.8rem;
+  }
+  
+  .transformation-content.collapsed {
+    padding: 0 0.8rem;
+  }
+  
+  .transformation-title {
+    font-size: 0.9rem;
+  }
 }
 
 #transformationExplanation > div {
