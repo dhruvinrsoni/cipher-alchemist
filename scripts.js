@@ -25,11 +25,12 @@ function generatePassword() {
         }
         step++;
     }
-    const passwordElem = document.getElementById('passwordOutput');
-    if (!passwordElem) {
+    const passwordElem = document.getElementById('passwordOutput');    if (!passwordElem) {
         console.error('No element with id="passwordOutput" found');
         return;
-    }    passwordElem.innerHTML = `<span style="font-weight:bold;font-size:1.3em;word-break:break-all;">${password}</span>`;
+    }
+    
+    passwordElem.innerHTML = `<span style="font-weight:bold;font-size:1.3em;word-break:break-all;">${password}</span>`;
     
     // Show transformation explanation
     let explanationElem = document.getElementById('transformationExplanation');
@@ -86,6 +87,204 @@ function copyPassword() {
     });
 }
 
+function calculatePasswordScore(password, originalPhrase = '') {
+    let score = 0;
+    let criteria = {
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        numbers: false,
+        symbols: false,
+        special: false
+    };
+    
+    // Length scoring (0-40 points)
+    if (password.length >= 8) {
+        score += 10;
+        criteria.length = true;
+    }
+    if (password.length >= 12) score += 10;
+    if (password.length >= 16) score += 10;
+    if (password.length >= 20) score += 10;
+    
+    // If we have the original phrase, analyze it for better criteria detection
+    if (originalPhrase) {
+        // Check original phrase for character types
+        if (/[a-z]/.test(originalPhrase)) {
+            criteria.lowercase = true;
+            score += 10;
+        }
+        if (/[A-Z]/.test(originalPhrase)) {
+            criteria.uppercase = true;
+            score += 10;
+        }
+        if (/[0-9]/.test(originalPhrase)) {
+            criteria.numbers = true;
+            score += 10;
+        }
+        if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>?]/.test(originalPhrase)) {
+            criteria.symbols = true;
+            score += 10;
+        }
+        
+        // Check if cipher transformation created advanced symbols
+        if (/\/\\\/\\|\|\\|\||<|\|>|cl|ph|><|\(\)|0_|\(_\)/.test(password)) {
+            criteria.special = true;
+            score += 10;
+        }
+    } else {
+        // Fallback: analyze the transformed password directly
+        // This includes both original and cipher-transformed characters
+        
+        // Lowercase letters (original + cipher equivalents that stay lowercase)
+        if (/[a-z]/.test(password) || /[eqryv]/.test(password)) {
+            score += 10;
+            criteria.lowercase = true;
+        }
+        
+        // Uppercase letters (original + cipher equivalents)  
+        if (/[A-Z]/.test(password) || /PH|G|R|Y/.test(password)) {
+            score += 10;
+            criteria.uppercase = true;
+        }
+        
+        // Numbers (both original and transformed)
+        if (/[0-9]/.test(password)) {
+            score += 10;
+            criteria.numbers = true;
+        }
+        
+        // Standard symbols
+        if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>?]/.test(password)) {
+            score += 10;
+            criteria.symbols = true;
+        }
+        
+        // Advanced cipher symbols
+        if (/\/\\\/\\|\|\\|\||<|\|>|cl|ph|><|\(\)|0_|\(_\)|\/\\/.test(password)) {
+            score += 10;
+            criteria.special = true;
+        }
+    }
+    
+    // Bonus points (0-10 points)
+    if (password.length > 24) score += 5;
+    if (Object.values(criteria).filter(Boolean).length >= 4) score += 5;
+    
+    return { score: Math.min(score, 100), criteria };
+}
+
+function checkStrength(password, originalPhrase = '') {
+    console.log('checkStrength called with password:', password);
+    const strengthContainer = document.getElementById('strengthMeter');
+    if (!strengthContainer) {
+        console.error('No element with id="strengthMeter" found');
+        return;
+    }
+    
+    if (!password) {
+        strengthContainer.innerHTML = '';
+        return;
+    }
+    
+    const { score, criteria } = calculatePasswordScore(password, originalPhrase);
+    const percentage = score;
+    
+    let level = 'weak';
+    let color = '#ff4757';
+    let emoji = '⚠️';
+    let text = 'Weak';
+    let description = 'Password needs improvement';
+    
+    if (percentage >= 80) {
+        level = 'excellent';
+        color = '#2ed573';
+        emoji = '🚀';
+        text = 'Excellent';
+        description = 'Exceptionally strong password';
+    } else if (percentage >= 60) {
+        level = 'strong';
+        color = '#5fba7d';
+        emoji = '💪';
+        text = 'Strong';
+        description = 'Very secure password';
+    } else if (percentage >= 40) {
+        level = 'medium';
+        color = '#ffa502';
+        emoji = '👌';
+        text = 'Medium';
+        description = 'Moderately secure password';
+    } else if (percentage >= 20) {
+        level = 'fair';
+        color = '#ff7675';
+        emoji = '⚡';
+        text = 'Fair';
+        description = 'Could be stronger';
+    }
+    
+    // Create modern strength meter with circular progress
+    strengthContainer.innerHTML = `
+        <div class="strength-meter-modern">
+            <div class="strength-circle-container">
+                <svg class="strength-circle" viewBox="0 0 120 120">
+                    <circle class="strength-circle-bg" cx="60" cy="60" r="54" />
+                    <circle class="strength-circle-progress" cx="60" cy="60" r="54" 
+                            style="--progress: ${percentage}; --color: ${color};" />
+                </svg>
+                <div class="strength-score">
+                    <span class="strength-emoji">${emoji}</span>
+                    <span class="strength-percentage">${percentage}%</span>
+                </div>
+            </div>
+            <div class="strength-info">
+                <div class="strength-label" style="color: ${color};">
+                    <strong>${text}</strong>
+                </div>
+                <div class="strength-description">${description}</div>                <div class="strength-criteria">
+                    <div class="criteria-item ${criteria.length ? 'met' : ''}" data-tooltip="Passwords with 8+ characters are harder to crack. Longer passwords provide exponentially better security.">
+                        <span class="criteria-icon">${criteria.length ? '✓' : '○'}</span>
+                        <span>8+ characters</span>
+                        <span class="tooltip-trigger">ℹ️</span>
+                    </div>
+                    <div class="criteria-item ${criteria.uppercase ? 'met' : ''}" data-tooltip="Including uppercase letters (A-Z) increases the character space and password complexity.">
+                        <span class="criteria-icon">${criteria.uppercase ? '✓' : '○'}</span>
+                        <span>Uppercase letters</span>
+                        <span class="tooltip-trigger">ℹ️</span>
+                    </div>
+                    <div class="criteria-item ${criteria.lowercase ? 'met' : ''}" data-tooltip="Including lowercase letters (a-z) is essential for password diversity and security.">
+                        <span class="criteria-icon">${criteria.lowercase ? '✓' : '○'}</span>
+                        <span>Lowercase letters</span>
+                        <span class="tooltip-trigger">ℹ️</span>
+                    </div>
+                    <div class="criteria-item ${criteria.numbers ? 'met' : ''}" data-tooltip="Numbers (0-9) add complexity and are commonly required by security policies.">
+                        <span class="criteria-icon">${criteria.numbers ? '✓' : '○'}</span>
+                        <span>Numbers</span>
+                        <span class="tooltip-trigger">ℹ️</span>
+                    </div>
+                    <div class="criteria-item ${criteria.symbols ? 'met' : ''}" data-tooltip="Special symbols (!@#$%^&*) dramatically increase password strength by expanding the character set.">
+                        <span class="criteria-icon">${criteria.symbols ? '✓' : '○'}</span>
+                        <span>Special symbols</span>
+                        <span class="tooltip-trigger">ℹ️</span>
+                    </div>
+                    <div class="criteria-item ${criteria.special ? 'met' : ''}" data-tooltip="Advanced multi-character cipher symbols like /\\/\\ (M), |\\| (N), |< (K) that dramatically increase password complexity beyond standard characters">
+                        <span class="criteria-icon">${criteria.special ? '✓' : '○'}</span>
+                        <span>Cipher complexity</span>
+                        <span class="tooltip-trigger">ℹ️</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Animate the progress circle
+    setTimeout(() => {
+        const progressCircle = strengthContainer.querySelector('.strength-circle-progress');
+        if (progressCircle) {
+            progressCircle.style.animation = 'strengthProgress 1.5s ease-out forwards';
+        }
+    }, 100);
+}
+
 function downloadPDF() {
     console.log('downloadPDF called');
     window.open('cheat_sheet.pdf', '_blank');
@@ -100,6 +299,39 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         console.error('No button with id="generateBtn" found');
+    }
+    
+    // Add real-time password strength checking
+    const phraseInput = document.getElementById('phraseInput');
+    if (phraseInput) {
+        let typingTimer;
+        const typingDelay = 300; // milliseconds
+        
+        phraseInput.addEventListener('input', function() {
+            clearTimeout(typingTimer);
+            const phrase = this.value.trim();
+            
+            if (phrase.length === 0) {
+                checkStrength('');
+                return;
+            }
+              // Debounce the strength checking
+            typingTimer = setTimeout(() => {
+                // Generate password preview for strength checking
+                let previewPassword = '';
+                for (let char of phrase) {
+                    const sub = substitutions[char] || char;
+                    previewPassword += sub;
+                }
+                checkStrength(previewPassword, phrase);
+            }, typingDelay);
+        });
+          // Clear strength meter on focus if empty
+        phraseInput.addEventListener('focus', function() {
+            if (this.value.trim().length === 0) {
+                checkStrength('', '');
+            }
+        });
     }
     const copyBtn = document.getElementById('copyBtn');
     if (copyBtn) {
@@ -186,9 +418,20 @@ function tryExample() {
     phraseInput.style.transform = 'scale(1.02)';
     phraseInput.style.boxShadow = '0 4px 16px rgba(0, 120, 215, 0.3)';
     
+    // Trigger the input event to show strength meter
+    const inputEvent = new Event('input', { bubbles: true });
+    phraseInput.dispatchEvent(inputEvent);
+    
     // Generate the password immediately
     setTimeout(() => {
         generatePassword();
+          // Manually trigger strength check for the example (backup)
+        let previewPassword = '';
+        for (let char of examplePhrase) {
+            const sub = substitutions[char] || char;
+            previewPassword += sub;
+        }
+        checkStrength(previewPassword, examplePhrase);
         
         // Reset the animation after a short delay
         setTimeout(() => {

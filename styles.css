@@ -457,3 +457,264 @@ body.dark-theme .description .example-phrase:hover {
   color: #a5d6a7; /* Lighter green on hover */
   text-decoration-color: #a5d6a7;
 }
+
+/* Modern Password Strength Meter */
+.strength-meter-modern {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.strength-circle-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.strength-circle {
+  width: 80px;
+  height: 80px;
+}
+
+.strength-circle-bg {
+  fill: none;
+  stroke: var(--input-border);
+  stroke-width: 8;
+  opacity: 0.3;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.strength-circle-progress {
+  fill: none;
+  stroke: var(--color, #ff4757);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 339.292; /* 2 * π * 54 */
+  stroke-dashoffset: calc(339.292 - (339.292 * var(--progress, 0) / 100));
+  transition: stroke-dashoffset 1.5s ease-out, stroke 0.3s ease;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+@keyframes strengthProgress {
+  from {
+    stroke-dashoffset: 339.292;
+  }
+  to {
+    stroke-dashoffset: calc(339.292 - (339.292 * var(--progress, 0) / 100));
+  }
+}
+
+.strength-score {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-weight: bold;
+}
+
+.strength-emoji {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+
+.strength-percentage {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.strength-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.strength-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.strength-description {
+  color: var(--footer);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.strength-criteria {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.criteria-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--footer);
+  transition: color 0.3s ease;
+}
+
+.criteria-item.met {
+  color: var(--text);
+}
+
+.criteria-icon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.criteria-item:not(.met) .criteria-icon {
+  color: var(--footer);
+  border: 1px solid var(--input-border);
+}
+
+.criteria-item.met .criteria-icon {
+  color: #2ed573;
+  background: rgba(46, 213, 115, 0.1);
+}
+
+/* Tooltip System */
+.criteria-item {
+  position: relative;
+}
+
+.tooltip-trigger {
+  font-size: 0.7rem;
+  color: var(--button-bg);
+  cursor: help;
+  margin-left: 0.2rem;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.tooltip-trigger:hover {
+  opacity: 1;
+}
+
+.criteria-item[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--text);
+  color: var(--container-bg);
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: normal;
+  width: 250px;
+  max-width: 90vw;
+  text-align: left;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 1000;
+  margin-bottom: 0.5rem;
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+.criteria-item[data-tooltip]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--text);
+  z-index: 1000;
+  margin-bottom: -6px;
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .strength-meter-modern {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+    .strength-criteria {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+  
+  .criteria-item {
+    justify-content: center;
+  }
+  
+  .criteria-item[data-tooltip]:hover::after {
+    width: 220px;
+    font-size: 0.7rem;
+    left: 0;
+    transform: none;
+    margin-left: 0;
+  }
+  
+  .criteria-item[data-tooltip]:hover::before {
+    left: 2rem;
+    transform: none;
+  }
+}
+
+/* Dark theme adjustments */
+body.dark-theme .strength-circle-bg {
+  stroke: #444;
+}
+
+body.dark-theme .criteria-item.met .criteria-icon {
+  background: rgba(46, 213, 115, 0.2);
+}
+
+body.dark-theme .strength-description {
+  color: #bbb;
+}
+
+body.dark-theme .criteria-item:not(.met) .criteria-icon {
+  border-color: #555;
+  color: #888;
+}
+
+/* Enhanced animation on load */
+.strength-meter-modern {
+  animation: strengthMeterFadeIn 0.5s ease-out;
+}
+
+@keyframes strengthMeterFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

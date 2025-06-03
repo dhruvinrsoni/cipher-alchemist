@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+    <meta charset="UTF-8" />    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title>Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni</title>
-    <meta name="description" content="🔮 Cipher Alchemist: Turn memorable phrases into cryptographically strong passwords. Vedic wisdom meets modern security. By @dhruvinrsoni - PWA with offline support." />
+    <meta name="description" content="🔮 Cipher Alchemist: Turn memorable phrases into cryptographically strong passwords with real-time strength analysis. Vedic wisdom meets modern security. By @dhruvinrsoni - PWA with offline support." />
     <meta name="theme-color" content="#007BFF" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Cipher Alchemist">
-    <meta name="application-name" content="Cipher Alchemist">
-    <meta property="og:title" content="Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni" />
-    <meta property="og:description" content="🔮 Transform memorable phrases into cryptographically strong passwords. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
+    <meta name="application-name" content="Cipher Alchemist">    <meta property="og:title" content="Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni" />
+    <meta property="og:description" content="🔮 Transform memorable phrases into cryptographically strong passwords with real-time strength analysis. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dhruvinrsoni.github.io/cipher-alchemist/" />
-    <meta property="og:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/favicon-512.png" />
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/favicon-512.png" />    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni" />
-    <meta name="twitter:description" content="🔮 Transform memorable phrases into cryptographically strong passwords. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
+    <meta name="twitter:description" content="🔮 Transform memorable phrases into cryptographically strong passwords with real-time strength analysis. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
     <meta name="twitter:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/favicon-512.png" />
     <link rel="stylesheet" href="styles.css" />
     <link rel="manifest" href="manifest.json" />
@@ -37,21 +34,22 @@
                 <span class="expand-icon" id="descriptionIcon">▼</span>
             </div>
             <div class="app-description-content" id="descriptionContent">
-                <p class="tagline">Transform memorable phrases into unbreakable passwords</p>
-                <p class="description">
+                <p class="tagline">Transform memorable phrases into unbreakable passwords</p>                <p class="description">
                     Turn <strong class="example-phrase" onclick="tryExample()" title="Click to try this example!">"AhamBrahmasmi@108"</strong> into <code>4#@/\/\8r@#/\/\@5/\/\!@ioB</code> 
-                    — combining Vedic wisdom, sacred numerology, and modern security.
-                </p>
-                <div class="features">
+                    — combining Vedic wisdom, sacred numerology, and modern security with real-time strength analysis.
+                </p>                <div class="features">
                     <span class="feature">🧠 Easy to remember</span>
                     <span class="feature">🔐 Cryptographically strong</span>
-                    <span class="feature">✨ Creative & unique</span>
+                    <span class="feature">⚡ Real-time analysis</span>
                     <span class="feature">📱 Works offline</span>
                 </div>
             </div>
         </div>
+          <textarea id="phraseInput" placeholder="Enter your phrase here..."></textarea>
         
-        <textarea id="phraseInput" placeholder="Enter your phrase here..."></textarea>
+        <!-- Password Strength Meter -->
+        <div id="strengthMeter"></div>
+        
         <button id="generateBtn">Generate Password</button>
         <button id="copyBtn">Copy to Clipboard</button>        <button id="downloadBtn">Download Cheat Sheet PDF</button>
         <div id="passwordOutput"></div>

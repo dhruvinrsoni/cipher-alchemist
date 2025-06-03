@@ -17,6 +17,50 @@ Unlike traditional password generators that create random, hard-to-remember stri
 ```
 *Ancient Sanskrit wisdom + Sacred numerology = Modern security*
 
+## 🎯 **Advanced Password Analysis**
+
+Cipher Alchemist features a state-of-the-art password strength analyzer that provides real-time feedback:
+
+- **🎯 Circular Progress Visualization** - Beautiful animated progress ring showing overall strength
+- **📊 Multi-Criteria Analysis** - Evaluates length, character variety, and complexity
+- **⚡ Real-time Feedback** - Instant analysis as you type your phrase
+- **🎨 Color-coded Strength Levels** - From weak (red) to excellent (green) with smooth gradients
+- **✅ Criteria Breakdown** - Visual checklist showing which security requirements are met
+- **💡 Interactive Tooltips** - Hover over any criterion for detailed explanations
+- **📱 Responsive Design** - Perfect display on all devices from mobile to desktop
+
+### **Password Strength Criteria with Interactive Help**
+
+Each password criterion includes helpful tooltips explaining why it matters:
+
+1. **Length (8+ characters)** - Longer passwords provide exponentially better security
+2. **Uppercase Letters (A-Z)** - Increases character space and complexity
+3. **Lowercase Letters (a-z)** - Essential for password diversity
+4. **Numbers (0-9)** - Adds complexity, commonly required by security policies
+5. **Special Symbols (!@#$%)** - Dramatically increases strength by expanding character set
+6. **Cipher Complexity** - Advanced multi-character symbols created by the cipher transformation
+
+### **What is Cipher Complexity?**
+
+The "Cipher Complexity" criterion is unique to Cipher Alchemist and represents the most advanced level of password security:
+
+**Multi-Character Cipher Symbols:**
+- `m` → `/\/\` (visual representation of letter M)
+- `n` → `|\|` (visual representation of letter N)  
+- `w` → `\/\/` (visual representation of letter W)
+- `k` → `|<` (visual representation of letter K)
+- `U` → `(_)` (visual representation of letter U)
+- `d` → `cl` (phonetic substitution)
+- `f` → `ph` (phonetic substitution)
+
+**Security Benefits:**
+- **Expanded Character Space** - Beyond standard 94 printable ASCII characters
+- **Visual Pattern Recognition** - Creates memorable yet secure symbol combinations
+- **Dictionary Resistance** - Not found in common password dictionaries
+- **Exponential Complexity** - Each multi-character symbol dramatically increases cracking time
+
+The analyzer uses advanced algorithms to score passwords based on multiple factors including length, character diversity, and symbolic complexity, providing scores from 0-100% with detailed explanations and interactive tooltips for each criterion.
+
 ## 🚀 **Key Features**
 
 ### 🔐 **Security & Privacy**
@@ -28,6 +72,8 @@ Unlike traditional password generators that create random, hard-to-remember stri
 ### 🧠 **User Experience**
 - **Memorable Transformation** - Turn phrases you love into secure passwords
 - **Interactive Examples** - Click to try Vedic philosophy demonstrations
+- **Real-time Strength Analysis** - Modern circular progress meter with live feedback
+- **Interactive Tooltips** - Helpful explanations for all password criteria on hover
 - **Collapsible Interface** - Clean, organized UI with smooth animations
 - **Dark/Light Themes** - Adaptive design for any preference
 
@@ -40,6 +86,7 @@ Unlike traditional password generators that create random, hard-to-remember stri
 ### 🎨 **Creative Elements**
 - **Vedic Integration** - Sanskrit phrases and sacred numerology
 - **Symbolic Alchemy** - Transform characters through mystical substitution
+- **Advanced Strength Meter** - Real-time circular progress visualization with criteria breakdown
 - **Transformation Steps** - See exactly how your phrase becomes secure
 
 ## 🛠️ **Quick Setup & Deployment**
@@ -79,6 +126,8 @@ python -m http.server 8000
 ### **Security Implementation**
 - **Client-Side Only** - All processing happens in browser
 - **Symbolic Substitution** - Advanced character transformation algorithms
+- **Advanced Strength Analysis** - 100-point scoring system evaluating multiple criteria
+- **Real-time Feedback** - Instant password strength visualization as you type
 - **No External Dependencies** - Zero third-party security risks
 
 ### **File Structure**
@@ -86,12 +135,39 @@ python -m http.server 8000
 cipher-alchemist/
 ├── index.html           # Main application
 ├── styles.css          # Responsive styling + themes
-├── scripts.js          # Core password generation logic
+├── scripts.js          # Core password generation logic + strength analysis
 ├── service-worker.js   # PWA offline functionality
 ├── manifest.json       # PWA installation manifest
 ├── favicon-*.png       # PWA icons
 └── .github/workflows/  # Automated versioning
 ```
+
+### **Password Strength Algorithm**
+The advanced strength analyzer uses a comprehensive 100-point scoring system:
+
+**Length Assessment (0-40 points):**
+- 8+ characters: 10 points
+- 12+ characters: +10 points  
+- 16+ characters: +10 points
+- 20+ characters: +10 points
+
+**Character Variety (0-50 points):**
+- Lowercase letters: 10 points
+- Uppercase letters: 10 points
+- Numbers: 10 points
+- Standard symbols: 10 points
+- Advanced symbols: 10 points
+
+**Bonus Criteria (0-10 points):**
+- 24+ characters: 5 points
+- 4+ character types: 5 points
+
+**Visual Feedback:**
+- **0-19%**: Weak (Red) - Needs significant improvement
+- **20-39%**: Fair (Orange-Red) - Could be stronger  
+- **40-59%**: Medium (Orange) - Moderately secure
+- **60-79%**: Strong (Green) - Very secure
+- **80-100%**: Excellent (Bright Green) - Exceptionally strong
 
 ## 🎨 **Design Philosophy**
 
@@ -109,6 +185,7 @@ Cipher Alchemist bridges the gap between ancient wisdom and modern security need
 - **Offline Capable** - Full functionality without internet
 - **Installable** - Native app experience
 - **Responsive** - One codebase, all devices
+- **Performance Optimized** - Debounced real-time analysis for smooth UX
 
 ## 📊 **Current Project Status**
 
@@ -122,7 +199,9 @@ Cipher Alchemist bridges the gap between ancient wisdom and modern security need
 - 🔗 **Professional Footer** - Attribution and contact information
 - 🎯 **Interactive UI** - Collapsible sections with smooth animations
 - 🕉️ **Vedic Integration** - Sanskrit examples and sacred numerology
-- 🔐 **Basic Cryptography** - Simple yet effective transformation algorithms
+- 🔐 **Advanced Security Analysis** - Real-time circular strength meter with criteria breakdown
+- ⚡ **Live Password Preview** - Instant strength feedback as you type
+- 💡 **Interactive Tooltips** - Helpful explanations for all password criteria with hover details
 
 ### 🔄 **Automated Workflows**
 
