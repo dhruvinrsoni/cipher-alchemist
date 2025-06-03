@@ -9,8 +9,8 @@ self.addEventListener('install', (event) => {
                 './scripts.js',
                 './manifest.json',
                 './cheat_sheet.pdf',
-                './icon-192.png',
-                './icon-512.png',
+                './favicon-192.png',
+                './favicon-512.png',
                 './favicon.ico'
             ]);
         })
