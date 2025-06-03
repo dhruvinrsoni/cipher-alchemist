@@ -4,6 +4,47 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-03 23:50:57 +0530  
+**Commit:** [60e594e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/60e594e7589afcc6a43d36b66e505ffc8ea67303)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: Standardize icons and enhance branding
+
+Reason:
+- Improve consistency in icon naming for PWA compliance.
+- Enhance project branding and documentation for better networking.
+
+Changes:
+- Standardized icon file names from `icon-*.png` to `favicon-*.png`.
+- Updated page title and meta descriptions with engaging branding and `@dhruvinrsoni` handle.
+- Enhanced PWA manifest with full descriptive name and added description field.
+- Recreated README.md with modern documentation structure.
+- Removed duplicate and obsolete icon files.
+
+Impact:
+- Improved branding consistency across the project.
+- Enhanced user experience with better documentation and metadata.
+- Simplified file structure by removing unnecessary files.
+
+Test:
+- Verified icon references in HTML, manifest.json, and service-worker.js.
+- Validated syntax for all modified files.
+- Checked for remaining `icon-` references; none found.
+
+Docs:
+- README.md completely rewritten with professional sections.
+- Updated deployment and usage instructions.
+
+Compatibility:
+- No breaking changes; backward compatibility maintained.
+
+Dependencies:
+- No new dependencies introduced.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-03 23:32:28 +0530  
 **Commit:** [0dde88d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0dde88ded32931a435dbc900420c920a48ea9b66)  
 **Author:** Dhruvin Rupesh Soni
