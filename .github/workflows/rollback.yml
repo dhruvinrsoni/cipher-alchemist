@@ -26,6 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      # Note: Workflow files are excluded from rollback to avoid permission issues
 
     steps:
       - name: 🛒 Checkout Code
@@ -48,19 +49,35 @@ jobs:
         id: current_version
         run: |
           CURRENT_VERSION=$(cat version.txt | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 || echo "unknown")
-          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
-          echo "Current version: $CURRENT_VERSION"
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT          echo "Current version: $CURRENT_VERSION"
           echo "Target version: v${{ github.event.inputs.target_version }}"
+
+      - name: 🔍 Preview Rollback Changes
+        run: |
+          echo "📋 Files that will be affected by rollback:"
+          echo "=============================================="
+          
+          # Show differences between current state and target version
+          git diff --name-only HEAD "v${{ github.event.inputs.target_version }}" | grep -v "^\.github/workflows/" | head -20
+          
+          echo ""
+          echo "🔒 Workflow files (.github/workflows/) will be PRESERVED"
+          echo "=============================================="
 
       - name: 🔄 Perform Rollback
         run: |
           if [ "${{ github.event.inputs.rollback_type }}" = "hard" ]; then
-            echo "🔥 Performing HARD rollback (resets to exact state)"
-            git reset --hard "v${{ github.event.inputs.target_version }}"
-          else
-            echo "🔄 Performing SOFT rollback (preserves newer changes)"
+            echo "🔥 Performing HARD rollback (resets to exact state, excluding workflows)"
+            # Reset everything except workflow files
             git checkout "v${{ github.event.inputs.target_version }}" -- .
+            git checkout HEAD -- .github/workflows/
+          else
+            echo "🔄 Performing SOFT rollback (preserves newer changes, excluding workflows)"
+            # Checkout specific files/directories, excluding workflows
+            git checkout "v${{ github.event.inputs.target_version }}" -- . ':!.github/workflows'
           fi
+          
+          echo "🔒 Workflow files preserved to avoid permission issues"
 
       - name: 📝 Update Version File for Rollback
         run: |
@@ -162,6 +179,10 @@ jobs:
           echo "   • To: v${{ github.event.inputs.target_version }}"
           echo "   • Type: ${{ github.event.inputs.rollback_type }}"
           echo "   • Date: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          echo ""
+          echo "🔒 Protected Elements:"
+          echo "   • GitHub Actions workflows preserved"
+          echo "   • Release infrastructure maintained"
           echo ""
           if [ "${{ github.event.inputs.create_rollback_release }}" = "true" ]; then
             echo "🏷️ Rollback release created and deployment triggered"
