@@ -1,0 +1,178 @@
+name: 🔄 Rollback to Previous Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_version:
+        description: 'Version to rollback to (e.g., 1.0.0)'
+        required: true
+        type: string
+      rollback_type:
+        description: 'Type of rollback'
+        required: true
+        default: 'soft'
+        type: choice
+        options:
+          - soft
+          - hard
+      create_rollback_release:
+        description: 'Create a new release for rollback and auto-deploy'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 🛒 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔍 Validate Target Version
+        run: |
+          if ! git tag -l | grep -q "^v${{ github.event.inputs.target_version }}$"; then
+            echo "❌ Version v${{ github.event.inputs.target_version }} does not exist!"
+            echo "Available versions:"
+            git tag -l | grep "^v" | sort -V
+            exit 1
+          fi
+          echo "✅ Target version v${{ github.event.inputs.target_version }} found"
+
+      - name: 📋 Get Current Version
+        id: current_version
+        run: |
+          CURRENT_VERSION=$(cat version.txt | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+' | head -1 || echo "unknown")
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+          echo "Target version: v${{ github.event.inputs.target_version }}"
+
+      - name: 🔄 Perform Rollback
+        run: |
+          if [ "${{ github.event.inputs.rollback_type }}" = "hard" ]; then
+            echo "🔥 Performing HARD rollback (resets to exact state)"
+            git reset --hard "v${{ github.event.inputs.target_version }}"
+          else
+            echo "🔄 Performing SOFT rollback (preserves newer changes)"
+            git checkout "v${{ github.event.inputs.target_version }}" -- .
+          fi
+
+      - name: 📝 Update Version File for Rollback
+        run: |
+          echo "🔄 v${{ github.event.inputs.target_version }}-rollback · $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST') · ↩️ Rollback" > version.txt
+          echo "✅ Updated version.txt for rollback"
+
+      - name: 📊 Generate Rollback Notes
+        run: |
+          echo "# 🔄 Rollback to v${{ github.event.inputs.target_version }}" > ROLLBACK_NOTES.md
+          echo "" >> ROLLBACK_NOTES.md
+          echo "**Rollback Date:** $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')" >> ROLLBACK_NOTES.md
+          echo "**Previous Version:** ${{ steps.current_version.outputs.current_version }}" >> ROLLBACK_NOTES.md
+          echo "**Target Version:** v${{ github.event.inputs.target_version }}" >> ROLLBACK_NOTES.md
+          echo "**Rollback Type:** ${{ github.event.inputs.rollback_type }}" >> ROLLBACK_NOTES.md
+          echo "" >> ROLLBACK_NOTES.md
+          echo "## 📋 Rollback Reason" >> ROLLBACK_NOTES.md
+          echo "Manual rollback initiated to restore stable version v${{ github.event.inputs.target_version }}." >> ROLLBACK_NOTES.md
+          echo "" >> ROLLBACK_NOTES.md
+          echo "## 🔗 Links" >> ROLLBACK_NOTES.md
+          echo "- 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)" >> ROLLBACK_NOTES.md
+          echo "- 📱 **Repository:** [github.com/dhruvinrsoni/cipher-alchemist](https://github.com/dhruvinrsoni/cipher-alchemist)" >> ROLLBACK_NOTES.md
+          echo "" >> ROLLBACK_NOTES.md
+          echo "---" >> ROLLBACK_NOTES.md
+          echo "*🔮 Rolled back to stable version for reliability.*" >> ROLLBACK_NOTES.md
+
+      - name: 💾 Commit Rollback
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          git add .
+          git commit -m "🔄 Rollback to v${{ github.event.inputs.target_version }}
+
+          - Rolled back from ${{ steps.current_version.outputs.current_version }} to v${{ github.event.inputs.target_version }}
+          - Rollback type: ${{ github.event.inputs.rollback_type }}
+          - Date: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
+          
+          [skip ci]" || echo "No changes to commit"
+
+      - name: 🏷️ Create Rollback Tag
+        id: create_tag
+        if: ${{ github.event.inputs.create_rollback_release == 'true' }}
+        run: |
+          ROLLBACK_TAG="v${{ github.event.inputs.target_version }}-rollback-$(date +%Y%m%d%H%M%S)"
+          git tag -a "$ROLLBACK_TAG" -m "🔄 Rollback to v${{ github.event.inputs.target_version }}
+
+          Rollback from: ${{ steps.current_version.outputs.current_version }}
+          Rollback to: v${{ github.event.inputs.target_version }}
+          Rollback type: ${{ github.event.inputs.rollback_type }}
+          Date: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          
+          echo "rollback_tag=$ROLLBACK_TAG" >> $GITHUB_OUTPUT
+          git push origin "$ROLLBACK_TAG"
+
+      - name: 📤 Push Rollback
+        run: |
+          git push origin main
+
+      - name: 🚀 Create Rollback Release
+        if: ${{ github.event.inputs.create_rollback_release == 'true' }}
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.create_tag.outputs.rollback_tag }}
+          release_name: 🔄 Rollback to v${{ github.event.inputs.target_version }}
+          body_path: ROLLBACK_NOTES.md
+          draft: false
+          prerelease: true
+
+      - name: 🚀 Auto-Deploy Rollback
+        if: ${{ github.event.inputs.create_rollback_release == 'true' }}
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log('🚀 Triggering deployment for rollback version: v${{ github.event.inputs.target_version }}');
+            
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy-by-version.yml',
+              ref: 'main',
+              inputs: {
+                version_tag: 'v${{ github.event.inputs.target_version }}',
+                deployment_environment: 'production',
+                force_deploy: 'true'
+              }
+            });
+            
+            console.log('✅ Rollback deployment triggered successfully!');
+
+      - name: 🎉 Rollback Summary
+        run: |
+          echo "🎉 Rollback completed successfully!"
+          echo ""
+          echo "📋 Rollback Details:"
+          echo "   • From: ${{ steps.current_version.outputs.current_version }}"
+          echo "   • To: v${{ github.event.inputs.target_version }}"
+          echo "   • Type: ${{ github.event.inputs.rollback_type }}"
+          echo "   • Date: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          echo ""
+          if [ "${{ github.event.inputs.create_rollback_release }}" = "true" ]; then
+            echo "🏷️ Rollback release created and deployment triggered"
+            echo "🚀 Monitor deployment: https://github.com/${{ github.repository }}/actions"
+          else
+            echo "💡 To deploy this rollback:"
+            echo "   Go to Actions → 'Deploy Release by Version' → Run with version: v${{ github.event.inputs.target_version }}"
+          fi
+          echo ""
+          echo "🔗 Links:"
+          echo "   • Live Demo: https://dhruvinrsoni.github.io/cipher-alchemist/"
+          echo "   • Repository: https://github.com/${{ github.repository }}"
+          echo ""
+          echo "✅ Application rolled back successfully!"
