@@ -40,7 +40,6 @@ Unlike traditional password generators that create random, hard-to-remember stri
 ### 🎨 **Creative Elements**
 - **Vedic Integration** - Sanskrit phrases and sacred numerology
 - **Symbolic Alchemy** - Transform characters through mystical substitution
-- **Strength Meter** - Real-time password security analysis
 - **Transformation Steps** - See exactly how your phrase becomes secure
 
 ## 🛠️ **Quick Setup & Deployment**
@@ -80,7 +79,6 @@ python -m http.server 8000
 ### **Security Implementation**
 - **Client-Side Only** - All processing happens in browser
 - **Symbolic Substitution** - Advanced character transformation algorithms
-- **Strength Analysis** - Real-time password security evaluation
 - **No External Dependencies** - Zero third-party security risks
 
 ### **File Structure**
@@ -124,7 +122,7 @@ Cipher Alchemist bridges the gap between ancient wisdom and modern security need
 - 🔗 **Professional Footer** - Attribution and contact information
 - 🎯 **Interactive UI** - Collapsible sections with smooth animations
 - 🕉️ **Vedic Integration** - Sanskrit examples and sacred numerology
-- 🔐 **Security Analysis** - Real-time password strength evaluation
+- 🔐 **Basic Cryptography** - Simple yet effective transformation algorithms
 
 ### 🔄 **Automated Workflows**
 
@@ -154,6 +152,59 @@ Cipher Alchemist bridges the gap between ancient wisdom and modern security need
 - **CSS Variables** - Use existing theme system
 - **Accessibility** - Include ARIA attributes
 - **Performance** - Optimize for mobile devices
+
+## 🏷️ **Version Management**
+
+### **Current Version: v1.0.0**
+
+Cipher Alchemist uses a comprehensive version management system with automated GitHub Actions workflows for releases and rollbacks.
+
+### **Version Management Tools**
+
+#### **GitHub Actions Workflows**
+All release operations are now handled by GitHub Actions for consistency and reliability:
+
+```bash
+# Create release via GitHub Actions (recommended)
+# Go to GitHub → Actions → Run "Manual Release & Tag Creation" workflow
+# Set version: 1.0.0, branch: main, release type: release
+```
+
+#### **Local Validation Scripts** (Windows)
+```bash
+# Validate release readiness (reporting only)
+validate-release.bat
+
+# Quick release status report
+quick-release.bat
+
+# V1.0.0 specific validation
+release-v1.0.0.bat
+```
+
+#### **Rollback Capabilities**
+```bash
+# Rollback to previous version via GitHub Actions
+# Go to GitHub → Actions → Run "Rollback to Previous Version" workflow
+# Set target_version: 0.9.0, rollback_type: soft
+```
+
+### **Version Files**
+- `version.txt` - Human-readable version with IST timezone
+- `manifest.json` - PWA version for app stores
+- `CHANGELOG.md` - Detailed release notes
+
+### **Release Process**
+1. **Validate Release**: Use `validate-release.bat` for pre-release checks
+2. **GitHub Actions**: All release execution via "Manual Release & Tag Creation" workflow
+3. **Version Bump**: Automatic version updates with IST timezone
+4. **Git Operations**: Automated commit, tag creation, and deployment
+5. **Rollback**: Quick revert capabilities via "Rollback to Previous Version" workflow
+
+### **Semantic Versioning**
+- **Major (X.0.0)** - Breaking changes, new architecture
+- **Minor (0.X.0)** - New features, backward compatible
+- **Patch (0.0.X)** - Bug fixes, security updates
 
 ## 🌟 **Connect & Support**
 

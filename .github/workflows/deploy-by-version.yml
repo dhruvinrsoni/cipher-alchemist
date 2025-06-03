@@ -1,0 +1,204 @@
+name: 🚀 Deploy Release by Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'Version tag to deploy (e.g., v1.0.0)'
+        required: true
+        type: string
+      deployment_environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+          - preview
+      force_deploy:
+        description: '🔥 Force deploy even if validation fails'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  validate-version:
+    runs-on: ubuntu-latest
+    outputs:
+      tag_exists: ${{ steps.check_tag.outputs.exists }}
+      version_clean: ${{ steps.version_info.outputs.clean_version }}
+    steps:
+      - name: 🛒 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔍 Validate Version Tag Exists
+        id: check_tag
+        run: |
+          git fetch --tags
+          if git tag -l | grep -q "^${{ github.event.inputs.version_tag }}$"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Version tag ${{ github.event.inputs.version_tag }} exists"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "❌ Version tag ${{ github.event.inputs.version_tag }} does not exist!"
+            echo ""
+            echo "Available tags:"
+            git tag -l | grep "^v" | sort -V | tail -10
+            if [ "${{ github.event.inputs.force_deploy }}" != "true" ]; then
+              exit 1
+            else
+              echo "⚠️ Force deploy enabled - continuing despite missing tag"
+            fi
+          fi
+
+      - name: 📋 Get Version Info
+        id: version_info
+        run: |
+          # Extract clean version (remove 'v' prefix if present)
+          CLEAN_VERSION="${{ github.event.inputs.version_tag }}"
+          if [[ "$CLEAN_VERSION" == v* ]]; then
+            CLEAN_VERSION="${CLEAN_VERSION:1}"
+          fi
+          echo "clean_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
+          echo "Clean version: $CLEAN_VERSION"
+
+  deploy-release:
+    runs-on: ubuntu-latest
+    needs: validate-version
+    if: ${{ needs.validate-version.outputs.tag_exists == 'true' || github.event.inputs.force_deploy == 'true' }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 🛒 Checkout Release Tag
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.version_tag }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 📋 Display Deployment Info
+        run: |
+          echo "🚀 Deploying Cipher Alchemist"
+          echo ""
+          echo "📋 Deployment Details:"
+          echo "   • Version: ${{ github.event.inputs.version_tag }}"
+          echo "   • Clean Version: ${{ needs.validate-version.outputs.version_clean }}"
+          echo "   • Environment: ${{ github.event.inputs.deployment_environment }}"
+          echo "   • Commit: $(git rev-parse --short HEAD)"
+          echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          echo ""
+          
+          # Show version.txt content if exists
+          if [ -f version.txt ]; then
+            echo "📄 Version file content:"
+            cat version.txt
+          fi
+
+      - name: 🔧 Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📦 Build Release Package
+        run: |
+          echo "📦 Preparing deployment package..."
+          
+          # Create deployment directory
+          mkdir -p _site
+          
+          # Copy all necessary files (exclude dev/build artifacts)
+          cp index.html _site/ 2>/dev/null || echo "⚠️ index.html not found"
+          cp styles.css _site/ 2>/dev/null || echo "⚠️ styles.css not found"
+          cp scripts.js _site/ 2>/dev/null || echo "⚠️ scripts.js not found"
+          cp manifest.json _site/ 2>/dev/null || echo "⚠️ manifest.json not found"
+          cp service-worker.js _site/ 2>/dev/null || echo "⚠️ service-worker.js not found"
+          cp version.txt _site/ 2>/dev/null || echo "⚠️ version.txt not found"
+          cp *.png _site/ 2>/dev/null || echo "⚠️ No PNG files found"
+          cp *.ico _site/ 2>/dev/null || echo "⚠️ No ICO files found"
+          cp LICENSE _site/ 2>/dev/null || echo "⚠️ LICENSE not found"
+          
+          # List deployed files
+          echo ""
+          echo "📁 Files included in deployment:"
+          ls -la _site/
+
+      - name: 🔍 Validate Deployment Package
+        run: |
+          echo "🔍 Validating deployment package..."
+          
+          # Check required files
+          MISSING_FILES=""
+          
+          [ ! -f "_site/index.html" ] && MISSING_FILES="$MISSING_FILES index.html"
+          [ ! -f "_site/styles.css" ] && MISSING_FILES="$MISSING_FILES styles.css"
+          [ ! -f "_site/scripts.js" ] && MISSING_FILES="$MISSING_FILES scripts.js"
+          [ ! -f "_site/manifest.json" ] && MISSING_FILES="$MISSING_FILES manifest.json"
+          
+          if [ -n "$MISSING_FILES" ]; then
+            echo "❌ Missing critical files: $MISSING_FILES"
+            if [ "${{ github.event.inputs.force_deploy }}" != "true" ]; then
+              echo "💡 Use 'Force deploy' option to deploy anyway."
+              exit 1
+            else
+              echo "⚠️ Force deploy enabled - continuing with missing files"
+            fi
+          else
+            echo "✅ All critical files present"
+          fi
+          
+          # Check file sizes
+          if [ -f "_site/index.html" ]; then
+            SIZE=$(wc -c < "_site/index.html")
+            echo "📊 index.html size: $SIZE bytes"
+            if [ $SIZE -lt 100 ]; then
+              echo "⚠️ index.html seems very small - possible issue"
+            fi
+          fi
+
+      - name: 📤 Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+      - name: 🌐 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: 🔗 Update Release with Deployment Info
+        if: ${{ needs.validate-version.outputs.tag_exists == 'true' }}
+        run: |
+          echo "🔗 Adding deployment info to release..."
+          
+          # Get release info
+          RELEASE_URL="https://github.com/${{ github.repository }}/releases/tag/${{ github.event.inputs.version_tag }}"
+          PAGES_URL="${{ steps.deployment.outputs.page_url }}"
+          
+          echo "📋 Deployment completed:"
+          echo "   • Release: $RELEASE_URL"
+          echo "   • Live Site: $PAGES_URL"
+          echo "   • Environment: ${{ github.event.inputs.deployment_environment }}"
+
+      - name: 🎉 Deployment Summary
+        run: |
+          echo "🎉 Deployment completed successfully!"
+          echo ""
+          echo "📋 Deployment Summary:"
+          echo "   • Version: ${{ github.event.inputs.version_tag }}"
+          echo "   • Environment: ${{ github.event.inputs.deployment_environment }}"
+          echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          echo ""
+          echo "🔗 Links:"
+          echo "   • 🌐 Live Site: ${{ steps.deployment.outputs.page_url }}"
+          echo "   • 📦 Release: https://github.com/${{ github.repository }}/releases/tag/${{ github.event.inputs.version_tag }}"
+          echo "   • 📱 Repository: https://github.com/${{ github.repository }}"
+          echo ""
+          echo "✅ Cipher Alchemist ${{ github.event.inputs.version_tag }} is now live!"

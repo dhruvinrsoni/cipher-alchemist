@@ -263,11 +263,6 @@ button:hover, button:focus {
   border: 1px solid var(--card-border);
 }
 
-#strengthMeter {
-  margin-top: 0.5rem;
-  text-align: center;
-}
-
 /* Transformation Explanation Section */
 .transformation-container {
   margin-top: 0.5rem;

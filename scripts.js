@@ -29,9 +29,8 @@ function generatePassword() {
     if (!passwordElem) {
         console.error('No element with id="passwordOutput" found');
         return;
-    }
-    passwordElem.innerHTML = `<span style="font-weight:bold;font-size:1.3em;word-break:break-all;">${password}</span>`;
-    checkStrength(password);
+    }    passwordElem.innerHTML = `<span style="font-weight:bold;font-size:1.3em;word-break:break-all;">${password}</span>`;
+    
     // Show transformation explanation
     let explanationElem = document.getElementById('transformationExplanation');
     if (!explanationElem) {
@@ -85,24 +84,6 @@ function copyPassword() {
     navigator.clipboard.writeText(password).then(() => {
         alert('Password copied to clipboard');
     });
-}
-
-function checkStrength(password) {
-    console.log('checkStrength called with password:', password);
-    const strength = document.getElementById('strengthMeter');
-    if (!strength) {
-        console.error('No element with id="strengthMeter" found');
-        return;
-    }
-    let text = '', color = '', emoji = '';
-    if (password.length >= 14) {
-        text = 'Strong'; color = 'green'; emoji = '💪';
-    } else if (password.length >= 8) {
-        text = 'Medium'; color = 'orange'; emoji = '👌';
-    } else {
-        text = 'Weak'; color = 'red'; emoji = '⚠️';
-    }
-    strength.innerHTML = `<span style="font-weight:bold;color:${color};font-size:1.1em;">${emoji} Password Strength: ${text}</span>`;
 }
 
 function downloadPDF() {

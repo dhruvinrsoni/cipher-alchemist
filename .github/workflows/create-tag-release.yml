@@ -1,0 +1,306 @@
+name: 🏷️ Create Tag & Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release Version (e.g., 1.0.0, 1.1.0-beta.1)'
+        required: true
+        type: string
+      branch:
+        description: 'Branch to create release from'
+        required: true
+        default: 'main'
+        type: string
+      release_type:
+        description: 'Type of release'
+        required: true
+        default: 'release'
+        type: choice
+        options:
+          - release
+          - prerelease
+      generate_changelog:
+        description: 'Auto-generate changelog from commits'
+        required: true
+        default: true
+        type: boolean
+      auto_deploy:
+        description: '🚀 Also deploy this release after creating it'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  validate-branch:
+    runs-on: ubuntu-latest
+    outputs:
+      branch_exists: ${{ steps.check_branch.outputs.exists }}
+    steps:
+      - name: 🛒 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔍 Validate Branch Exists
+        id: check_branch
+        run: |
+          git fetch --all
+          if git show-ref --verify --quiet refs/remotes/origin/${{ github.event.inputs.branch }}; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Branch '${{ github.event.inputs.branch }}' exists"
+          elif [ "${{ github.event.inputs.branch }}" = "$(git rev-parse --abbrev-ref HEAD)" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "✅ Using current branch '${{ github.event.inputs.branch }}'"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "❌ Branch '${{ github.event.inputs.branch }}' does not exist"
+            echo "Available branches:"
+            git branch -r | grep -v HEAD | sed 's/origin\///' | sort
+            exit 1
+          fi
+
+  create-release:
+    runs-on: ubuntu-latest
+    needs: validate-branch
+    if: needs.validate-branch.outputs.branch_exists == 'true'
+    permissions:
+      contents: write
+      pull-requests: read
+    outputs:
+      release_success: ${{ steps.release_status.outputs.success }}
+      tag_name: ${{ steps.tag_info.outputs.tag_name }}
+
+    steps:
+      - name: 🛒 Checkout Code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🔍 Validate Version Format
+        run: |
+          if [[ ! "${{ github.event.inputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9\.-]+)?$ ]]; then
+            echo "❌ Invalid version format. Please use semantic versioning (e.g., 1.0.0, 1.1.0-beta.1)"
+            exit 1
+          fi
+          echo "✅ Version format is valid: ${{ github.event.inputs.version }}"
+
+      - name: 🏷️ Check if Tag Already Exists
+        run: |
+          if git tag -l | grep -q "^v${{ github.event.inputs.version }}$"; then
+            echo "❌ Tag v${{ github.event.inputs.version }} already exists"
+            echo "Existing tags:"
+            git tag -l | sort -V | tail -10
+            exit 1
+          fi
+          echo "✅ Tag v${{ github.event.inputs.version }} is available"
+
+      - name: 📝 Update Version File
+        run: |
+          IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
+          echo "🔖 v${{ github.event.inputs.version }} · $IST_TIME · 🚀 Release" > version.txt
+          echo "✅ Updated version.txt with v${{ github.event.inputs.version }}"
+
+      - name: 📝 Update Manifest Version
+        run: |
+          if [ -f manifest.json ]; then
+            # Check if version field exists
+            if grep -q '"version"' manifest.json; then
+              # Update existing version
+              sed -i 's/"version": "[^"]*"/"version": "${{ github.event.inputs.version }}"/' manifest.json
+            else
+              # Add version field after name field
+              sed -i '/"name":/a\  "version": "${{ github.event.inputs.version }}",' manifest.json
+            fi
+            echo "✅ Updated manifest.json with v${{ github.event.inputs.version }}"
+          else
+            echo "⚠️ manifest.json not found, skipping version update"
+          fi
+
+      - name: 📊 Generate Release Changelog
+        if: ${{ github.event.inputs.generate_changelog == 'true' }}
+        run: |
+          IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
+          echo "# 🚀 Release v${{ github.event.inputs.version }}" > RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "**Release Date:** $IST_TIME" >> RELEASE_NOTES.md
+          echo "**Branch:** ${{ github.event.inputs.branch }}" >> RELEASE_NOTES.md
+          echo "**Release Type:** ${{ github.event.inputs.release_type }}" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          
+          # Get the latest tag for comparison
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          
+          if [ -n "$LATEST_TAG" ]; then
+            echo "## 📋 Changes since $LATEST_TAG" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            git log ${LATEST_TAG}..HEAD --pretty=format:"- **%s** (%h) by %an" --no-merges >> RELEASE_NOTES.md
+          else
+            echo "## 📋 Initial Release Changes" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            git log --pretty=format:"- **%s** (%h) by %an" --no-merges -20 >> RELEASE_NOTES.md
+          fi
+          
+          echo "" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "## 🔗 Links" >> RELEASE_NOTES.md
+          echo "- 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)" >> RELEASE_NOTES.md
+          echo "- 📱 **Repository:** [github.com/dhruvinrsoni/cipher-alchemist](https://github.com/dhruvinrsoni/cipher-alchemist)" >> RELEASE_NOTES.md
+          echo "- 📥 **Download:** [Download v${{ github.event.inputs.version }}](https://github.com/dhruvinrsoni/cipher-alchemist/archive/refs/tags/v${{ github.event.inputs.version }}.zip)" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "---" >> RELEASE_NOTES.md
+          echo "*🔮 Transform your thoughts into security. Ancient wisdom meets modern technology.*" >> RELEASE_NOTES.md
+          echo "" >> RELEASE_NOTES.md
+          echo "**Built with ❤️ by [@dhruvinrsoni](https://github.com/dhruvinrsoni)**" >> RELEASE_NOTES.md
+
+      - name: 💾 Commit Version Update
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          git add version.txt
+          if [ -f manifest.json ]; then
+            git add manifest.json
+          fi
+          if [ -f RELEASE_NOTES.md ]; then
+            git add RELEASE_NOTES.md
+          fi
+          
+          git commit -m "🔖 Release v${{ github.event.inputs.version }}
+
+          - Updated version.txt to v${{ github.event.inputs.version }}
+          - Updated manifest.json version to v${{ github.event.inputs.version }}
+          - Generated release notes for v${{ github.event.inputs.version }}
+          - Release from branch: ${{ github.event.inputs.branch }}
+          - Release type: ${{ github.event.inputs.release_type }}
+          
+          [skip ci]" || echo "No changes to commit"
+
+      - name: 🏷️ Create Git Tag
+        id: tag_info
+        run: |
+          IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
+          TAG_NAME="v${{ github.event.inputs.version }}"
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          
+          git tag -a "$TAG_NAME" -m "🚀 Release v${{ github.event.inputs.version }}
+
+          Release Date: $IST_TIME
+          Branch: ${{ github.event.inputs.branch }}
+          Release Type: ${{ github.event.inputs.release_type }}
+
+          🔮 Cipher Alchemist - Advanced cryptographic toolkit PWA for secure password generation and analysis.
+          
+          Built with ❤️ by @dhruvinrsoni"
+
+      - name: 📤 Push Changes and Tag
+        run: |
+          git push origin ${{ github.event.inputs.branch }}
+          git push origin "v${{ github.event.inputs.version }}"
+
+      - name: 📦 Create Release Archive
+        run: |
+          mkdir -p release-assets
+          zip -r "release-assets/cipher-alchemist-v${{ github.event.inputs.version }}.zip" . \
+            -x "*.git*" "*.github*" "release-assets/*" "*.bat" "*.sh" "RELEASE_NOTES.md" "*.md"
+          
+          # Create source tarball
+          tar -czf "release-assets/cipher-alchemist-v${{ github.event.inputs.version }}.tar.gz" \
+            --exclude='.git*' --exclude='.github*' --exclude='release-assets' \
+            --exclude='*.bat' --exclude='*.sh' --exclude='RELEASE_NOTES.md' .
+
+      - name: 🚀 Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.event.inputs.version }}
+          release_name: 🔮 Cipher Alchemist v${{ github.event.inputs.version }}
+          body_path: RELEASE_NOTES.md
+          draft: false
+          prerelease: ${{ github.event.inputs.release_type == 'prerelease' }}
+
+      - name: 📎 Upload ZIP Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release-assets/cipher-alchemist-v${{ github.event.inputs.version }}.zip
+          asset_name: cipher-alchemist-v${{ github.event.inputs.version }}.zip
+          asset_content_type: application/zip
+
+      - name: 📎 Upload TAR Archive
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./release-assets/cipher-alchemist-v${{ github.event.inputs.version }}.tar.gz
+          asset_name: cipher-alchemist-v${{ github.event.inputs.version }}.tar.gz
+          asset_content_type: application/gzip
+
+      - name: ✅ Mark Release Success
+        id: release_status
+        run: |
+          echo "success=true" >> $GITHUB_OUTPUT
+          echo "✅ Release v${{ github.event.inputs.version }} created successfully!"
+
+      - name: 🎉 Release Summary
+        run: |
+          echo "🎉 Release v${{ github.event.inputs.version }} completed successfully!"
+          echo ""
+          echo "📋 Release Details:"
+          echo "   • Version: v${{ github.event.inputs.version }}"
+          echo "   • Branch: ${{ github.event.inputs.branch }}"
+          echo "   • Type: ${{ github.event.inputs.release_type }}"
+          echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          echo ""
+          echo "🔗 Release URL: https://github.com/${{ github.repository }}/releases/tag/v${{ github.event.inputs.version }}"
+          echo ""
+          if [ "${{ github.event.inputs.auto_deploy }}" = "true" ]; then
+            echo "🚀 Auto-deployment enabled - triggering deployment workflow..."
+          else
+            echo "📋 To deploy this release:"
+            echo "   Go to Actions → 'Deploy Release by Version' → Run with version: v${{ github.event.inputs.version }}"
+          fi
+
+  trigger-deployment:
+    runs-on: ubuntu-latest
+    needs: create-release
+    if: ${{ github.event.inputs.auto_deploy == 'true' && needs.create-release.outputs.release_success == 'true' }}
+    steps:
+      - name: 🚀 Trigger Deployment Workflow
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            console.log('🚀 Triggering deployment for version: ${{ needs.create-release.outputs.tag_name }}');
+            
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'deploy-by-version.yml',
+              ref: 'main',
+              inputs: {
+                version_tag: '${{ needs.create-release.outputs.tag_name }}',
+                deployment_environment: 'production'
+              }
+            });
+            
+            console.log('✅ Deployment workflow triggered successfully!');
+
+      - name: 🎯 Auto-Deploy Summary  
+        run: |
+          echo "🎯 Auto-deployment triggered!"
+          echo ""
+          echo "📋 Deployment Details:"
+          echo "   • Version: ${{ needs.create-release.outputs.tag_name }}"
+          echo "   • Environment: production"
+          echo "   • Monitor: https://github.com/${{ github.repository }}/actions"
+          echo ""
+          echo "🌐 Live Demo: https://dhruvinrsoni.github.io/cipher-alchemist/"

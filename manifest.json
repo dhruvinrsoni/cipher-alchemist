@@ -1,6 +1,7 @@
 {
     "name": "Cipher Alchemist - Transform Phrases into Unbreakable Passwords",
     "short_name": "Cipher Alchemist",
+    "version": "1.0.0",
     "description": "Transform memorable phrases into cryptographically strong passwords using Vedic wisdom and modern security by @dhruvinrsoni",
     "start_url": ".",
     "display": "standalone",
