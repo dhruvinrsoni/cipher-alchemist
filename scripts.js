@@ -168,3 +168,31 @@ document.addEventListener('DOMContentLoaded', function() {
           });
     }
 });
+
+// Function to try the example phrase
+function tryExample() {
+    const phraseInput = document.getElementById('phraseInput');
+    const examplePhrase = 'AhamBrahmasmi@108';
+    
+    // Set the example phrase in the input
+    phraseInput.value = examplePhrase;
+    
+    // Focus on the input to show the change
+    phraseInput.focus();
+    
+    // Add a subtle animation to draw attention
+    phraseInput.style.transition = 'all 0.3s ease';
+    phraseInput.style.transform = 'scale(1.02)';
+    phraseInput.style.boxShadow = '0 4px 16px rgba(0, 120, 215, 0.3)';
+    
+    // Generate the password immediately
+    setTimeout(() => {
+        generatePassword();
+        
+        // Reset the animation after a short delay
+        setTimeout(() => {
+            phraseInput.style.transform = 'scale(1)';
+            phraseInput.style.boxShadow = '';
+        }, 300);
+    }, 150);
+}

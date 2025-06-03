@@ -47,6 +47,108 @@ h1 {
   letter-spacing: 1px;
 }
 
+/* App Description Section */
+.app-description {
+  text-align: center;
+  margin: 0.5rem 0 1.5rem 0;
+  padding: 1rem;
+  background: var(--transformation-bg);
+  border: 1px solid var(--transformation-border);
+  border-radius: 12px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--button-bg);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.description {
+  font-size: 1rem;
+  margin: 0 0 1.2rem 0;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.description strong {
+  color: var(--button-bg);
+  font-weight: 600;
+}
+
+.description .example-phrase {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  transition: color 0.2s, text-decoration-color 0.2s;
+  position: relative;
+}
+
+.description .example-phrase:hover {
+  color: var(--button-hover-bg);
+  text-decoration-color: var(--button-hover-bg);
+}
+
+.description .example-phrase:active {
+  transform: translateY(1px);
+}
+
+.description code {
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9rem;
+  border: 1px solid var(--card-border);
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.feature {
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid var(--card-border);
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .app-description {
+    margin: 0.5rem 0 1rem 0;
+    padding: 0.8rem;
+  }
+  
+  .tagline {
+    font-size: 1.1rem;
+  }
+  
+  .description {
+    font-size: 0.95rem;
+  }
+  
+  .features {
+    gap: 0.5rem;
+  }
+  
+  .feature {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.6rem;
+  }
+}
+
 textarea#phraseInput {
   width: 100%;
   min-height: 80px;
@@ -192,4 +294,18 @@ body.dark-theme {
   --transformation-border: #444;
   --toggle-bg: #232323;
   --toggle-color: #f1f1f1;
+}
+
+/* Dark theme specific overrides for better visibility */
+body.dark-theme .tagline {
+  color: #64b5f6; /* Light blue for better contrast */
+}
+
+body.dark-theme .description strong {
+  color: #81c784; /* Light green for clickable example */
+}
+
+body.dark-theme .description .example-phrase:hover {
+  color: #a5d6a7; /* Lighter green on hover */
+  text-decoration-color: #a5d6a7;
 }
