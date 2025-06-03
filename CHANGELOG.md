@@ -4,6 +4,42 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-03 23:54:08 +0530  
+**Commit:** [5898b1e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5898b1eb5b644416cc62adf169430a66bd3f8e19)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: Rewrite README with modern structure
+
+Reason:
+- Improve project documentation for better user onboarding and networking.
+- Highlight key features, deployment steps, and technical architecture.
+
+Changes:
+- Recreated README.md with professional sections and enhanced branding.
+- Added live demo links, contributing guidelines, and project status.
+- Detailed technical architecture and design philosophy.
+
+Impact:
+- Enhanced user experience with clear and engaging documentation.
+- Improved project visibility and networking opportunities.
+
+Test:
+- Verified README.md formatting and content accuracy.
+- Checked links and deployment instructions for correctness.
+
+Docs:
+- README.md updated with comprehensive sections and modern structure.
+
+Compatibility:
+- No breaking changes; backward compatibility maintained.
+
+Dependencies:
+- No new dependencies introduced.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-03 23:50:57 +0530  
 **Commit:** [60e594e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/60e594e7589afcc6a43d36b66e505ffc8ea67303)  
 **Author:** Dhruvin Rupesh Soni
