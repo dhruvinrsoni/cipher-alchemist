@@ -84,7 +84,8 @@ jobs:
           echo "🔄 v${{ github.event.inputs.target_version }}-rollback · $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST') · ↩️ Rollback" > version.txt
           echo "✅ Updated version.txt for rollback"
 
-      - name: 📊 Generate Rollback Notes
+      - name: 📊 Generate Rollback Notes (DISABLED - using RELEASES.md)
+        if: false  # Temporarily disabled - using consolidated RELEASES.md instead
         run: |
           echo "# 🔄 Rollback to v${{ github.event.inputs.target_version }}" > ROLLBACK_NOTES.md
           echo "" >> ROLLBACK_NOTES.md
@@ -135,9 +136,9 @@ jobs:
       - name: 📤 Push Rollback
         run: |
           git push origin main
-
-      - name: 🚀 Create Rollback Release
-        if: ${{ github.event.inputs.create_rollback_release == 'true' }}
+          
+      - name: 🚀 Create Rollback Release (DISABLED - using consolidated docs)
+        if: false  # Temporarily disabled - body_path references non-existent file
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

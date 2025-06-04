@@ -249,16 +249,20 @@ All release operations are now handled by GitHub Actions for consistency and rel
 # Set version: 1.0.0, branch: main, release type: release
 ```
 
-#### **Local Validation Scripts** (Windows)
+#### **Local Release Validator** (Windows)
 ```bash
-# Validate release readiness (reporting only)
-validate-release.bat
+# Validate release readiness (comprehensive validation)
+release-validator.bat
 
-# Quick release status report
-quick-release.bat
+# Validate specific version
+release-validator.bat 1.1.0
 
-# V1.0.0 specific validation
-release-v1.0.0.bat
+# The validator provides:
+# - Version consistency checks
+# - File integrity validation
+# - Feature implementation verification
+# - Git repository status
+# - GitHub Actions workflow validation
 ```
 
 #### **Rollback Capabilities**
@@ -274,11 +278,16 @@ release-v1.0.0.bat
 - `CHANGELOG.md` - Detailed release notes
 
 ### **Release Process**
-1. **Validate Release**: Use `validate-release.bat` for pre-release checks
+1. **Validate Release**: Use `release-validator.bat` for comprehensive pre-release validation
 2. **GitHub Actions**: All release execution via "Manual Release & Tag Creation" workflow
 3. **Version Bump**: Automatic version updates with IST timezone
 4. **Git Operations**: Automated commit, tag creation, and deployment
 5. **Rollback**: Quick revert capabilities via "Rollback to Previous Version" workflow
+
+### **Documentation**
+- 📋 **Release History**: See [RELEASES.md](RELEASES.md) for version details
+- 🛠️ **Development Guide**: See [DEVELOPMENT.md](DEVELOPMENT.md) for technical details
+- 📝 **Changelog**: Auto-generated in [CHANGELOG.md](CHANGELOG.md)
 
 ### **Semantic Versioning**
 - **Major (X.0.0)** - Breaking changes, new architecture

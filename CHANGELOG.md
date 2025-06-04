@@ -121,10 +121,8 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 - SIMPLIFICATION-SUMMARY.md - Project simplification summary
 - Updated README.md and CHANGELOG.md with actual features
 
-🔧 **Enhanced Validation System**:
-- validate-release.bat - Generic, version-independent validation
-- release-v1.0.0.bat - Specific v1.0.0 validation reporting
-- quick-release.bat - Release status and GitHub Actions guidance
+🔧 **Unified Validation System**:
+- release-validator.bat - Unified generic validation script combining functionality from validate-release.bat, release-v1.0.0.bat, and quick-release.bat
 
 🕐 **IST Timezone Support**:
 - Updated version.txt with IST timezone format

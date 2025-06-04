@@ -54,7 +54,8 @@ jobs:
           echo "RELEASE_COUNT=$RELEASE_COUNT" >> $GITHUB_ENV
           echo "📊 Total releases: $RELEASE_COUNT"
 
-      - name: 📊 Generate Status Report
+      - name: 📊 Generate Status Report (DISABLED - using consolidated docs)
+        if: false  # Temporarily disabled - using consolidated documentation structure
         run: |
           echo "# 📊 Cipher Alchemist Deployment Status" > STATUS_REPORT.md
           echo "" >> STATUS_REPORT.md
