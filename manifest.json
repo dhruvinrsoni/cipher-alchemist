@@ -1,22 +1,22 @@
 {
-    "name": "Cipher Alchemist - Transform Phrases into Unbreakable Passwords",
-    "short_name": "Cipher Alchemist",
-    "version": "1.0.0",
-    "description": "Transform memorable phrases into cryptographically strong passwords using Vedic wisdom and modern security by @dhruvinrsoni",
-    "start_url": ".",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#007BFF",
-    "icons": [
-        {
-            "src": "favicon-192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "favicon-512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        }
-    ]
+  "name": "Cipher Alchemist - Transform Phrases into Unbreakable Passwords",
+  "short_name": "Cipher Alchemist",
+  "version": "1.1.0",
+  "description": "Transform memorable phrases into cryptographically strong passwords using Vedic wisdom and modern security by @dhruvinrsoni",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#007BFF",
+  "icons": [
+    {
+      "src": "favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
