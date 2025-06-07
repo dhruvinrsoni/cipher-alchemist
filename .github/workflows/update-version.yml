@@ -1,73 +1,117 @@
-name: Update Version
+name: 🔄 Auto Version Update
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+    # ✅ FIXED: Enhanced path filtering to prevent infinite loops
+    paths-ignore:
+      - '.github/workflows/**'
+      - '**.md'
+      - 'LICENSE'
+  workflow_dispatch:
 
 jobs:
   update-version:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: 🛒 Checkout Repository
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch full history for better changelog
-      - name: Get commit info and IST time
-        id: version
+          fetch-depth: 0
+
+      - name: 🔍 Check Skip Conditions
+        id: check_skip
+        run: |
+          # ✅ ENHANCED: Multiple skip conditions
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an')
+          
+          # Skip if commit message contains skip flags
+          if [[ "$COMMIT_MSG" == *"[skip ci]"* ]] || [[ "$COMMIT_MSG" == *"[ci skip]"* ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "reason=Skip CI flag in commit message" >> $GITHUB_OUTPUT
+            echo "⏭️ Skipping due to skip CI flag"
+            exit 0
+          fi
+          
+          # Skip if commit is from GitHub Actions
+          if [[ "$COMMIT_AUTHOR" == "github-actions[bot]" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "reason=Commit from GitHub Actions bot" >> $GITHUB_OUTPUT
+            echo "⏭️ Skipping GitHub Actions bot commit"
+            exit 0
+          fi
+          
+          # Skip if only version.txt was changed
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          if [[ "$CHANGED_FILES" == "version.txt" ]]; then
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "reason=Only version.txt changed" >> $GITHUB_OUTPUT
+            echo "⏭️ Skipping version-only update"
+            exit 0
+          fi
+          
+          echo "skip=false" >> $GITHUB_OUTPUT
+          echo "✅ All checks passed, proceeding with version update"
+
+      - name: 📝 Update Development Version
+        if: steps.check_skip.outputs.skip == 'false'
         run: |
           COMMIT_HASH=$(git rev-parse --short HEAD)
-          IST_TIME=$(TZ='Asia/Kolkata' date +'%Y-%m-%d %H:%M:%S IST')
-          echo "🔖 v$COMMIT_HASH · $IST_TIME · 🚀" > version.txt
-          echo "COMMIT_HASH=$COMMIT_HASH" >> $GITHUB_OUTPUT
-          echo "IST_TIME=$IST_TIME" >> $GITHUB_OUTPUT
-      
-      - name: Generate CHANGELOG.md
-        run: |
-          echo "# 📝 Changelog" > CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
-          echo "---" >> CHANGELOG.md
-          echo "" >> CHANGELOG.md
+          IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
+          BRANCH_NAME=$(git branch --show-current)
           
-          # Get the repository info for links
-          REPO_URL="https://github.com/${{ github.repository }}"
-            # Generate detailed changelog entries
-          git log --no-merges -n 50 --grep="\[skip ci\]" --invert-grep --pretty=format:"%H" 2>/dev/null | while read -r hash; do
-            if [ ! -z "$hash" ]; then
-              # Get individual commit details to preserve multi-line bodies
-              date=$(git show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S %z" "$hash")
-              author=$(git show -s --format="%an" "$hash")
-              subject=$(git show -s --format="%s" "$hash")
-              body=$(git show -s --format="%b" "$hash")
-              
-              # Skip empty lines and ensure all required fields are present
-              if [ ! -z "$hash" ] && [ ! -z "$date" ] && [ ! -z "$author" ] && [ ! -z "$subject" ]; then
-                short_hash=$(echo "$hash" | cut -c1-7)
-                
-                echo "**Date:** $date  " >> CHANGELOG.md
-                echo "**Commit:** [$short_hash]($REPO_URL/commit/$hash)  " >> CHANGELOG.md
-                echo "**Author:** $author" >> CHANGELOG.md
-                echo "" >> CHANGELOG.md
-                echo "#### $subject" >> CHANGELOG.md
-                echo "" >> CHANGELOG.md
-                
-                # Add full body if it exists and is not empty
-                if [ ! -z "$body" ] && [ "$body" != " " ] && [ "$body" != "" ]; then
-                  echo "$body" >> CHANGELOG.md
-                  echo "" >> CHANGELOG.md
-                fi
-                
-                echo "---" >> CHANGELOG.md
-                echo "" >> CHANGELOG.md
-              fi
-            fi
-          done
-      - name: Commit version.txt and CHANGELOG.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # ✅ ENHANCED: Include branch info and commit count
+          COMMIT_COUNT=$(git rev-list --count HEAD)
+          echo "🔄 v${COMMIT_HASH} · $IST_TIME · 🚧 Dev Build #${COMMIT_COUNT} · ${BRANCH_NAME}" > version.txt
+
+      - name: 💾 Commit Version Update
+        if: steps.check_skip.outputs.skip == 'false'
         run: |
-          git config --global user.name 'github-actions'
-          git config --global user.email 'github-actions@github.com'
-          git add version.txt CHANGELOG.md
-          git commit -m "🔖 chore: update version.txt and CHANGELOG.md [skip ci]" || echo "No changes to commit"
-          git push
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          if git diff --quiet version.txt; then
+            echo "No version changes to commit"
+          else
+            git add version.txt
+            git commit -m "🔄 Auto-update version to $(git rev-parse --short HEAD) [skip ci]
+            
+            Build: #$(git rev-list --count HEAD)
+            Trigger: ${{ github.event_name }}
+            Files changed: $(git diff --name-only HEAD~1 HEAD | tr '\n' ' ')"
+            git push origin main
+          fi
+
+      - name: 🏗️ Setup Pages
+        if: steps.check_skip.outputs.skip == 'false'
+        uses: actions/configure-pages@v4
+
+      - name: 📤 Upload to Pages
+        if: steps.check_skip.outputs.skip == 'false'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: 🌐 Deploy to GitHub Pages
+        if: steps.check_skip.outputs.skip == 'false'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: ✅ Summary
+        run: |
+          if [ "${{ steps.check_skip.outputs.skip }}" = "true" ]; then
+            echo "⏭️ Version update skipped"
+            echo "📋 Reason: ${{ steps.check_skip.outputs.reason }}"
+          else
+            echo "✅ Version update completed"
+            echo "📋 Details:"
+            echo "   • New Version: $(cat version.txt)"
+            echo "   • Deployed: ${{ steps.deployment.outputs.page_url || 'N/A' }}"
+            echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          fi

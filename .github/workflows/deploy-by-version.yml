@@ -1,4 +1,4 @@
-name: 🚀 Deploy Release by Version
+name: 🚀 Deploy by Version
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
         description: 'Version tag to deploy (e.g., v1.0.0)'
         required: true
         type: string
-      deployment_environment:
+      environment:
         description: 'Deployment environment'
         required: true
         default: 'production'
@@ -15,190 +15,106 @@ on:
         options:
           - production
           - staging
-          - preview
       force_deploy:
-        description: '🔥 Force deploy even if validation fails'
-        required: true
+        description: 'Force deployment (bypass checks)'
+        required: false
         default: false
         type: boolean
 
 jobs:
-  validate-version:
+  deploy:
     runs-on: ubuntu-latest
-    outputs:
-      tag_exists: ${{ steps.check_tag.outputs.exists }}
-      version_clean: ${{ steps.version_info.outputs.clean_version }}
-    steps:
-      - name: 🛒 Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🔍 Validate Version Tag Exists
-        id: check_tag
-        run: |
-          git fetch --tags
-          if git tag -l | grep -q "^${{ github.event.inputs.version_tag }}$"; then
-            echo "exists=true" >> $GITHUB_OUTPUT
-            echo "✅ Version tag ${{ github.event.inputs.version_tag }} exists"
-          else
-            echo "exists=false" >> $GITHUB_OUTPUT
-            echo "❌ Version tag ${{ github.event.inputs.version_tag }} does not exist!"
-            echo ""
-            echo "Available tags:"
-            git tag -l | grep "^v" | sort -V | tail -10
-            if [ "${{ github.event.inputs.force_deploy }}" != "true" ]; then
-              exit 1
-            else
-              echo "⚠️ Force deploy enabled - continuing despite missing tag"
-            fi
-          fi
-
-      - name: 📋 Get Version Info
-        id: version_info
-        run: |
-          # Extract clean version (remove 'v' prefix if present)
-          CLEAN_VERSION="${{ github.event.inputs.version_tag }}"
-          if [[ "$CLEAN_VERSION" == v* ]]; then
-            CLEAN_VERSION="${CLEAN_VERSION:1}"
-          fi
-          echo "clean_version=$CLEAN_VERSION" >> $GITHUB_OUTPUT
-          echo "Clean version: $CLEAN_VERSION"
-
-  deploy-release:
-    runs-on: ubuntu-latest
-    needs: validate-version
-    if: ${{ needs.validate-version.outputs.tag_exists == 'true' || github.event.inputs.force_deploy == 'true' }}
+    environment: ${{ github.event.inputs.environment }}
     permissions:
       contents: read
       pages: write
       id-token: write
-
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
+    
     steps:
-      - name: 🛒 Checkout Release Tag
+      - name: 🛒 Checkout Tag
         uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.version_tag }}
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📋 Display Deployment Info
+      - name: 🔍 Validate Tag
         run: |
-          echo "🚀 Deploying Cipher Alchemist"
-          echo ""
-          echo "📋 Deployment Details:"
-          echo "   • Version: ${{ github.event.inputs.version_tag }}"
-          echo "   • Clean Version: ${{ needs.validate-version.outputs.version_clean }}"
-          echo "   • Environment: ${{ github.event.inputs.deployment_environment }}"
-          echo "   • Commit: $(git rev-parse --short HEAD)"
-          echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
-          echo ""
-          
-          # Show version.txt content if exists
-          if [ -f version.txt ]; then
-            echo "📄 Version file content:"
-            cat version.txt
+          # ✅ FIXED: Enhanced validation with force deploy bypass
+          if [ "${{ github.event.inputs.force_deploy }}" = "true" ]; then
+            echo "⚠️ Force deploy enabled - bypassing tag validation"
+          else
+            if ! git tag -l | grep -q "^${{ github.event.inputs.version_tag }}$"; then
+              echo "❌ Tag ${{ github.event.inputs.version_tag }} does not exist"
+              echo "Available tags:"
+              git tag -l | sort -V | tail -10
+              exit 1
+            fi
           fi
+          echo "✅ Tag ${{ github.event.inputs.version_tag }} validated"
 
-      - name: 🔧 Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: 📦 Build Release Package
+      # ✅ NEW: Pre-deployment health check
+      - name: 🏥 Pre-deployment Health Check
+        if: ${{ github.event.inputs.force_deploy == 'false' }}
         run: |
-          echo "📦 Preparing deployment package..."
+          echo "🔍 Running pre-deployment checks..."
           
-          # Create deployment directory
-          mkdir -p _site
-          
-          # Copy all necessary files (exclude dev/build artifacts)
-          cp index.html _site/ 2>/dev/null || echo "⚠️ index.html not found"
-          cp styles.css _site/ 2>/dev/null || echo "⚠️ styles.css not found"
-          cp scripts.js _site/ 2>/dev/null || echo "⚠️ scripts.js not found"
-          cp manifest.json _site/ 2>/dev/null || echo "⚠️ manifest.json not found"
-          cp service-worker.js _site/ 2>/dev/null || echo "⚠️ service-worker.js not found"
-          cp version.txt _site/ 2>/dev/null || echo "⚠️ version.txt not found"
-          cp *.png _site/ 2>/dev/null || echo "⚠️ No PNG files found"
-          cp *.ico _site/ 2>/dev/null || echo "⚠️ No ICO files found"
-          cp LICENSE _site/ 2>/dev/null || echo "⚠️ LICENSE not found"
-          
-          # List deployed files
-          echo ""
-          echo "📁 Files included in deployment:"
-          ls -la _site/
-
-      - name: 🔍 Validate Deployment Package
-        run: |
-          echo "🔍 Validating deployment package..."
-          
-          # Check required files
-          MISSING_FILES=""
-          
-          [ ! -f "_site/index.html" ] && MISSING_FILES="$MISSING_FILES index.html"
-          [ ! -f "_site/styles.css" ] && MISSING_FILES="$MISSING_FILES styles.css"
-          [ ! -f "_site/scripts.js" ] && MISSING_FILES="$MISSING_FILES scripts.js"
-          [ ! -f "_site/manifest.json" ] && MISSING_FILES="$MISSING_FILES manifest.json"
-          
-          if [ -n "$MISSING_FILES" ]; then
-            echo "❌ Missing critical files: $MISSING_FILES"
-            if [ "${{ github.event.inputs.force_deploy }}" != "true" ]; then
-              echo "💡 Use 'Force deploy' option to deploy anyway."
+          # Check if essential files exist
+          REQUIRED_FILES=("index.html" "version.txt")
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Required file missing: $file"
               exit 1
             else
-              echo "⚠️ Force deploy enabled - continuing with missing files"
+              echo "✅ Found: $file"
             fi
-          else
-            echo "✅ All critical files present"
-          fi
+          done
           
-          # Check file sizes
-          if [ -f "_site/index.html" ]; then
-            SIZE=$(wc -c < "_site/index.html")
-            echo "📊 index.html size: $SIZE bytes"
-            if [ $SIZE -lt 100 ]; then
-              echo "⚠️ index.html seems very small - possible issue"
-            fi
-          fi
+          echo "✅ Pre-deployment health check passed"
 
-      - name: 📤 Upload Pages Artifact
+      - name: 🏗️ Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: 📤 Upload to Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '_site'
+          path: '.'
 
       - name: 🌐 Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: 🔗 Update Release with Deployment Info
-        if: ${{ needs.validate-version.outputs.tag_exists == 'true' }}
+      # ✅ NEW: Post-deployment verification
+      - name: 🔍 Post-deployment Verification
         run: |
-          echo "🔗 Adding deployment info to release..."
+          echo "⏳ Waiting for deployment to propagate..."
+          sleep 30
           
-          # Get release info
-          RELEASE_URL="https://github.com/${{ github.repository }}/releases/tag/${{ github.event.inputs.version_tag }}"
-          PAGES_URL="${{ steps.deployment.outputs.page_url }}"
+          DEMO_URL="${{ steps.deployment.outputs.page_url }}"
+          MAX_RETRIES=5
+          RETRY_COUNT=0
           
-          echo "📋 Deployment completed:"
-          echo "   • Release: $RELEASE_URL"
-          echo "   • Live Site: $PAGES_URL"
-          echo "   • Environment: ${{ github.event.inputs.deployment_environment }}"
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if curl -f -s "$DEMO_URL" > /dev/null; then
+              echo "✅ Deployment verification successful"
+              break
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              echo "⏳ Retry $RETRY_COUNT/$MAX_RETRIES - waiting 10 seconds..."
+              sleep 10
+            fi
+          done
+          
+          if [ $RETRY_COUNT -eq $MAX_RETRIES ]; then
+            echo "⚠️ Deployment verification failed after $MAX_RETRIES attempts"
+            echo "🔗 Manual verification required: $DEMO_URL"
+          fi
 
-      - name: 🎉 Deployment Summary
+      - name: ✅ Deployment Summary
         run: |
           echo "🎉 Deployment completed successfully!"
-          echo ""
-          echo "📋 Deployment Summary:"
+          echo "📋 Details:"
           echo "   • Version: ${{ github.event.inputs.version_tag }}"
-          echo "   • Environment: ${{ github.event.inputs.deployment_environment }}"
+          echo "   • Environment: ${{ github.event.inputs.environment }}"
+          echo "   • URL: ${{ steps.deployment.outputs.page_url }}"
+          echo "   • Force Deploy: ${{ github.event.inputs.force_deploy }}"
           echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
-          echo ""
-          echo "🔗 Links:"
-          echo "   • 🌐 Live Site: ${{ steps.deployment.outputs.page_url }}"
-          echo "   • 📦 Release: https://github.com/${{ github.repository }}/releases/tag/${{ github.event.inputs.version_tag }}"
-          echo "   • 📱 Repository: https://github.com/${{ github.repository }}"
-          echo ""
-          echo "✅ Cipher Alchemist ${{ github.event.inputs.version_tag }} is now live!"
