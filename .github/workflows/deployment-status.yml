@@ -102,23 +102,60 @@ jobs:
           
           # Generate the status report with actual values
           echo "🔍 Gathering repository information..."
-          
-          # Capture git information
+            # Capture git information
           CURRENT_VERSION=$(cat version.txt 2>/dev/null || echo "Unknown")
           LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "No tags")
-          TOTAL_RELEASES=$(git tag -l | grep "^v" | wc -l)
+          
+          # Calculate total releases with better logic
+          if git tag -l | grep "^v" > /dev/null 2>&1; then
+            TOTAL_RELEASES=$(git tag -l | grep "^v" | wc -l)
+            echo "📊 Found $TOTAL_RELEASES version tags with 'v' prefix"
+          elif git tag -l > /dev/null 2>&1; then
+            TOTAL_RELEASES=$(git tag -l | wc -l)
+            echo "📊 Found $TOTAL_RELEASES total tags (no 'v' prefix filter)"
+          else
+            TOTAL_RELEASES="0"
+            echo "📊 No tags found in repository"
+          fi
+          
           LAST_COMMIT=$(git log -1 --pretty=format:"%h - %s (%cr)" 2>/dev/null || echo "No commits")
           TOTAL_COMMITS=$(git rev-list --all --count 2>/dev/null || echo "0")
           CONTRIBUTORS=$(git log --format='%an' | sort -u | wc -l 2>/dev/null || echo "0")
           REMOTE_BRANCHES=$(git branch -r | wc -l 2>/dev/null || echo "0")
-          
-          # Generate recent versions list
+            # Generate recent versions list
           echo "🏷️ Gathering recent versions..."
-          git tag -l | grep "^v" | sort -V | tail -5 > recent_versions.tmp 2>/dev/null || echo "No version tags" > recent_versions.tmp
+          echo "📝 Checking for version tags..."
           
-          # Generate recent activity
+          # Check if any tags exist first
+          if git tag | head -1 > /dev/null 2>&1; then
+            echo "✅ Tags found, filtering for version tags..."
+            # Try to get version tags (with 'v' prefix)
+            if git tag -l | grep "^v" | sort -V | tail -5 > recent_versions.tmp 2>/dev/null && [ -s recent_versions.tmp ]; then
+              echo "✅ Version tags with 'v' prefix found"
+            else
+              echo "📝 No 'v' prefixed tags found, checking all tags..."
+              # If no 'v' tags, get all tags
+              if git tag -l | sort -V | tail -5 > recent_versions.tmp 2>/dev/null && [ -s recent_versions.tmp ]; then
+                echo "✅ All tags retrieved"
+              else
+                echo "📝 No tags found, using current version"
+                echo "$(cat version.txt 2>/dev/null || echo 'No version information')" > recent_versions.tmp
+              fi
+            fi
+          else
+            echo "📝 No git tags found, using current version from version.txt"
+            echo "$(cat version.txt 2>/dev/null || echo 'No version information available')" > recent_versions.tmp
+          fi
+            # Generate recent activity
           echo "📋 Gathering recent activity..."
-          git log --oneline -5 > recent_activity.tmp 2>/dev/null || echo "No recent activity" > recent_activity.tmp
+          echo "📝 Checking git log..."
+          
+          if git log --oneline -5 > recent_activity.tmp 2>/dev/null && [ -s recent_activity.tmp ]; then
+            echo "✅ Recent commits retrieved"
+          else
+            echo "📝 No recent activity found, creating placeholder"
+            echo "No recent commit activity available" > recent_activity.tmp
+          fi
           
           # Generate the status report
           cat > STATUS_REPORT.md << EOF
@@ -139,15 +176,14 @@ jobs:
           - **Latest Tag:** ${LATEST_TAG}
           - **Total Releases:** ${TOTAL_RELEASES}
           - **Last Commit:** ${LAST_COMMIT}
-          
-          ## 🔄 Available Versions
+            ## 🔄 Available Versions
           \`\`\`
-          $(cat recent_versions.tmp)
+          $(if [ -s recent_versions.tmp ]; then cat recent_versions.tmp; else echo "Current: $(cat version.txt 2>/dev/null || echo 'No version info')"; fi)
           \`\`\`
           
           ## 📋 Recent Activity
           \`\`\`
-          $(cat recent_activity.tmp)
+          $(if [ -s recent_activity.tmp ]; then cat recent_activity.tmp; else echo "Latest: $(cat version.txt 2>/dev/null || echo 'No activity info')"; fi)
           \`\`\`
           
           ## 📈 Repository Stats
