@@ -139,6 +139,31 @@ We welcome contributions! Our advanced CI/CD pipeline ensures:
 - 🔄 **[CI/CD Docs](CHANGELOG.md)** - Workflow documentation and validation
 - 🌐 **[Live Demo](https://dhruvinrsoni.github.io/cipher-alchemist/)** - Try it yourself!
 
+## 📚 **Developer Resources**
+
+### **Git Workflow & Conflict Resolution**
+- 📖 **[Complete Git Workflow Guide](GIT_WORKFLOW_GUIDE.md)** - Comprehensive development workflow
+- 🔧 **[Conflict Resolution Cheatsheet](CONFLICT_RESOLUTION_CHEATSHEET.md)** - Quick reference for Git conflicts
+- 🚨 **[Emergency Procedures](GIT_WORKFLOW_GUIDE.md#-emergency-procedures)** - Critical fixes and hotfixes
+
+### **Quick Reference**
+```bash
+# Daily workflow
+git pull origin main          # Start your session
+git commit -m "your changes"  # Commit your work
+git push origin main          # Push changes
+
+# Conflict resolution
+git pull --rebase origin main  # Resolve diverged branches
+git commit -m "fix [skip ci]"  # Emergency fixes
+
+# Get help
+git status                    # Check current state
+```
+
+### **Auto-Conflict Prevention**
+Our enhanced CI/CD pipeline automatically prevents most merge conflicts. When conflicts are detected, you'll see clear guidance in the workflow output on what to do next.
+
 ---
 
 **🔮 Cipher Alchemist** - *Where cryptography meets modern DevOps excellence*
