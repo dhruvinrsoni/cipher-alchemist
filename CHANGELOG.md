@@ -4,8 +4,32 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-08 00:39:33 +0530  
+**Commit:** [b3b12ab](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b3b12abcd9a05d73c23eef6977bbbe92962b85bd)  
+**Author:** Dhruvin Rupesh Soni
+
+#### chore: remove deprecated release management scripts
+
+This commit removes obsolete release management scripts, workflow files, and
+documentation that are no longer needed in the project. These files were
+experimental or replaced by a more streamlined CI/CD process.
+
+- Removed multiple GitHub workflow files that were redundant
+- Deleted various batch scripts for release validation and testing
+- Removed temporary markdown files and changelog drafts
+- Cleaned up version management scripts (both .bat and .sh)
+
+Impact:
+- CI/CD: Simplified by removing redundant workflow files
+- VCS: Reduced repository size by removing unnecessary files
+- Code quality: Improved by removing unmaintained scripts
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-06 08:53:55 +0530  
-**Commit:** [64ec3bc](https://github.com/dhruvinrsoni/cipher-alchemist/commit/64ec3bc33ed8ab4eef626cceae06c3669c8a87ef)  
+**Commit:** [2c6a762](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2c6a76237db8205a12d5db1b24e802593aaf6582)  
 **Author:** Dhruvin Rupesh Soni
 
 #### feat: implement release management infrastructure
@@ -33,7 +57,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-05 00:13:20 +0530  
-**Commit:** [b3eb089](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b3eb08923d4fcc783af7f12cde6bacc7b938c9d9)  
+**Commit:** [99583ed](https://github.com/dhruvinrsoni/cipher-alchemist/commit/99583ed552330d776b569f83e64b1d98a282da1a)  
 **Author:** Dhruvin Rupesh Soni
 
 #### docs: Consolidate documentation structure and protect workflows
@@ -119,7 +143,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-04 03:39:14 +0530  
-**Commit:** [da5dfed](https://github.com/dhruvinrsoni/cipher-alchemist/commit/da5dfed9a2d8f81939efdf31caefb074b5103f08)  
+**Commit:** [5434fa5](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5434fa58dfbbb365e04de6b4434594718af7f781)  
 **Author:** Dhruvin Rupesh Soni
 
 #### feat: add real-time password strength analyzer with visualization
@@ -152,7 +176,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-04 03:01:23 +0530  
-**Commit:** [2282fd0](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2282fd0caaea73400c01a101d265e1f80e27de47)  
+**Commit:** [6a6b12f](https://github.com/dhruvinrsoni/cipher-alchemist/commit/6a6b12f5697e109a93ed0c0409f9fe3980fa3846)  
 **Author:** Dhruvin Rupesh Soni
 
 #### fix: Preserve workflow files during rollback operations
@@ -174,7 +198,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-04 02:52:18 +0530  
-**Commit:** [c40754d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c40754d806ffa548f98e961c9c583a2ddbd7491a)  
+**Commit:** [702fac2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/702fac23c6136fcac2cdbe43f30823e4dfe7e045)  
 **Author:** Dhruvin Rupesh Soni
 
 #### 🔧 Fix deployment-status.yml formatting and add timestamp-based artifact naming
@@ -189,7 +213,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-04 02:38:08 +0530  
-**Commit:** [bba02b3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/bba02b32ed7491bc2f989d1a57de784805393717)  
+**Commit:** [ccce3e3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ccce3e31c326d8641126cb0a546d2366865f42e4)  
 **Author:** Dhruvin Rupesh Soni
 
 #### fix: upgrade upload-artifact from v3 to v4 in deployment-status workflow
@@ -204,7 +228,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-04 02:06:26 +0530  
-**Commit:** [e4d924d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/e4d924ddc10c7dbaec8af3bcd90c1eac44fb2c1a)  
+**Commit:** [1a91e0a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/1a91e0a0a4157f3e6e64b537fc752e0bfb6ed3f8)  
 **Author:** Dhruvin Rupesh Soni
 
 #### Add .github/workflows/rollback.yml
@@ -214,7 +238,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-04 02:05:10 +0530  
-**Commit:** [682f1d4](https://github.com/dhruvinrsoni/cipher-alchemist/commit/682f1d4081d260c041040cd6ea61fdc2483fa8be)  
+**Commit:** [2617eb6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2617eb60c4bc9936f91f220a27378be8ce581903)  
 **Author:** Dhruvin Rupesh Soni
 
 #### 🏗️ Complete modular release architecture implementation
@@ -257,7 +281,7 @@ Next: Test end-to-end modular workflow with v1.0.0 release
 ---
 
 **Date:** 2025-06-03 23:54:08 +0530  
-**Commit:** [5898b1e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5898b1eb5b644416cc62adf169430a66bd3f8e19)  
+**Commit:** [dc16003](https://github.com/dhruvinrsoni/cipher-alchemist/commit/dc160035efcede2c515a707822310a74fbcb7722)  
 **Author:** Dhruvin Rupesh Soni
 
 #### docs: Rewrite README with modern structure
@@ -293,7 +317,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-03 23:50:57 +0530  
-**Commit:** [60e594e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/60e594e7589afcc6a43d36b66e505ffc8ea67303)  
+**Commit:** [899f74c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/899f74c7c34cd7a4aa80352a5654b9706e9b5e1f)  
 **Author:** Dhruvin Rupesh Soni
 
 #### feat: Standardize icons and enhance branding
@@ -334,7 +358,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-03 23:32:28 +0530  
-**Commit:** [0dde88d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0dde88ded32931a435dbc900420c920a48ea9b66)  
+**Commit:** [aae44e2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/aae44e22524349c11852433c0e1a859f78592c51)  
 **Author:** Dhruvin Rupesh Soni
 
 #### docs: enhance website metadata and SEO optimization
@@ -360,7 +384,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-03 23:19:08 +0530  
-**Commit:** [ba562d3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ba562d30ddaf9f39e7d464dacbcdd6165d1c3d9c)  
+**Commit:** [5c16d75](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5c16d75dd769ae217b3eedda245ee86eeeb00fba)  
 **Author:** Dhruvin Rupesh Soni
 
 #### refactor: standardize icon file naming to favicon prefix
@@ -398,7 +422,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-03 22:49:43 +0530  
-**Commit:** [2f6a92b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2f6a92bef59156734e9f62091649de7450cee49d)  
+**Commit:** [20a404a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/20a404a9a813eb7ada80aa1c1d7c37585f18e3ec)  
 **Author:** Dhruvin Rupesh Soni
 
 #### feat: implement collapsible UI sections for better user experience
@@ -424,7 +448,7 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 ---
 
 **Date:** 2025-06-03 12:27:44 +0530  
-**Commit:** [b4f9672](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b4f9672f61adcb8a4a2a877d8fda2d386d8a4906)  
+**Commit:** [9201d1b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9201d1be2c3ac338bdc3ece53fa9f231dde860be)  
 **Author:** Dhruvin Rupesh Soni
 
 #### feat: enhance UI with app description and interactive example
@@ -450,7 +474,7 @@ Impact:
 ---
 
 **Date:** 2025-06-03 04:05:21 +0530  
-**Commit:** [c91ae82](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c91ae82086e2dbcf386f6c6f89bb46eddc67b2ad)  
+**Commit:** [e7d82c0](https://github.com/dhruvinrsoni/cipher-alchemist/commit/e7d82c0d0774d70e563f0c403104548214a83ad3)  
 **Author:** Dhruvin Rupesh Soni
 
 #### fix: improve changelog generation to properly handle multiline commit bodies
@@ -479,7 +503,7 @@ CI/CD:
 ---
 
 **Date:** 2025-06-03 03:56:06 +0530  
-**Commit:** [5eba9fc](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5eba9fce290cc2e0fb9446e58b30fa2ed4ff5595)  
+**Commit:** [8cbd8f6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8cbd8f63e05525e7eb4b51a8cbf6912c5cb372d7)  
 **Author:** Dhruvin Rupesh Soni
 
 #### fix: improve changelog generation with robust parsing
@@ -505,7 +529,7 @@ Impact:
 ---
 
 **Date:** 2025-06-03 03:46:33 +0530  
-**Commit:** [57e4c06](https://github.com/dhruvinrsoni/cipher-alchemist/commit/57e4c066a3c771c9a05a665e37624ba5b8a5c6b2)  
+**Commit:** [da179f2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/da179f278fad9d59a88b9cdc9f1f08db6972b6bc)  
 **Author:** Dhruvin Rupesh Soni
 
 #### chore: refactor version update workflow automation
@@ -522,7 +546,7 @@ changelog format by removing the redundant auto-generation notice.
 ---
 
 **Date:** 2025-06-03 03:40:49 +0530  
-**Commit:** [33de212](https://github.com/dhruvinrsoni/cipher-alchemist/commit/33de2123f0630626641fe7ff370d3073b5552b7c)  
+**Commit:** [c152833](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c15283303f2061946ac220bf29b043285f3d6c6e)  
 **Author:** Dhruvin Rupesh Soni
 
 #### docs: add auto-generation notice to changelog file
@@ -541,7 +565,7 @@ Docs:
 ---
 
 **Date:** 2025-06-03 03:34:11 +0530  
-**Commit:** [77b7fb0](https://github.com/dhruvinrsoni/cipher-alchemist/commit/77b7fb0870328c0d8843501fd77859330f31fcb3)  
+**Commit:** [d912561](https://github.com/dhruvinrsoni/cipher-alchemist/commit/d912561a0ade5f75674ab84c33713bd88c2dade6)  
 **Author:** Dhruvin Rupesh Soni
 
 #### chore: make version update workflow manually triggered
@@ -562,7 +586,7 @@ CI/CD:
 ---
 
 **Date:** 2025-06-03 03:20:29 +0530  
-**Commit:** [b4aea25](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b4aea25c962bc49367a678cb0c8139a06de3098d)  
+**Commit:** [fcc1a08](https://github.com/dhruvinrsoni/cipher-alchemist/commit/fcc1a0897f63fd60bb0a5988d4a7550d49dba721)  
 **Author:** Dhruvin Rupesh Soni
 
 #### feat(docs): enhance changelog with dual format generation
@@ -592,7 +616,7 @@ Test:
 ---
 
 **Date:** 2025-06-03 02:33:34 +0530  
-**Commit:** [817e003](https://github.com/dhruvinrsoni/cipher-alchemist/commit/817e003c17b5a00ed0162acb5fef941c2ed082b3)  
+**Commit:** [f3c0f60](https://github.com/dhruvinrsoni/cipher-alchemist/commit/f3c0f609f289dfda21c0f0f1b9fc904d06ef506d)  
 **Author:** Dhruvin Rupesh Soni
 
 #### style: enhance CHANGELOG.md formatting for better readability
@@ -611,7 +635,7 @@ Changes:
 ---
 
 **Date:** 2025-06-03 02:26:46 +0530  
-**Commit:** [a8d13cb](https://github.com/dhruvinrsoni/cipher-alchemist/commit/a8d13cbc260da453b7bd896f407f0a44d1984448)  
+**Commit:** [93926f3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/93926f3519eb74b7b0146826ffb0338d0d46ed5c)  
 **Author:** Dhruvin Rupesh Soni
 
 #### feat: enhance PWA capabilities and improve SEO metadata
@@ -627,7 +651,7 @@ Changes:
 ---
 
 **Date:** 2025-06-03 01:48:32 +0530  
-**Commit:** [53861e0](https://github.com/dhruvinrsoni/cipher-alchemist/commit/53861e0a0bfdcc7455dc7f3c50b13f56f5199245)  
+**Commit:** [ef5e059](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ef5e059fe4f78fe95dae706bb1fcb00ce447f0a5)  
 **Author:** Dhruvin Rupesh Soni
 
 #### refactor: update footer to use static attribution information
@@ -643,8 +667,8 @@ JavaScript complexity and making the footer structure more maintainable.
 ---
 
 **Date:** 2025-06-03 01:33:41 +0530  
-**Commit:** [5341ae7](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5341ae721fc95d8608f54be72372b8729cc72cea)  
-**Author:** Dhruvin Soni
+**Commit:** [978b656](https://github.com/dhruvinrsoni/cipher-alchemist/commit/978b656a644b6a8bf5ecae1d13b7217878344a6d)  
+**Author:** Dhruvin Rupesh Soni
 
 #### feat: add automated CHANGELOG generation
 
@@ -666,8 +690,8 @@ Technical Details:
 ---
 
 **Date:** 2025-06-03 01:16:38 +0530  
-**Commit:** [655fc9c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/655fc9c0e0aad098a0acbf24180b673659269be9)  
-**Author:** Dhruvin Soni
+**Commit:** [b86d103](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b86d1038ff7506780017ed464a8317d46b3266ac)  
+**Author:** Dhruvin Rupesh Soni
 
 #### refactor: improve version display and metadata handling
 
@@ -687,8 +711,8 @@ deployment scenarios.
 ---
 
 **Date:** 2025-06-03 00:59:57 +0530  
-**Commit:** [b21ec7c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b21ec7c30532f16cc9d45eb8813238f3fc1c9f6a)  
-**Author:** Dhruvin Soni
+**Commit:** [6ce195e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/6ce195e3b5397635e0b114442f45f50739423bb4)  
+**Author:** Dhruvin Rupesh Soni
 
 #### 🔧 chore: enhance version format with IST time and better display
 
@@ -700,8 +724,8 @@ deployment scenarios.
 ---
 
 **Date:** 2025-06-03 00:42:08 +0530  
-**Commit:** [520e67f](https://github.com/dhruvinrsoni/cipher-alchemist/commit/520e67f5974cd2c454cf20f72a2501ee92da0630)  
-**Author:** Dhruvin Soni
+**Commit:** [fcc731e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/fcc731e2ca1224eaf51454014ae931c405ca2f70)  
+**Author:** Dhruvin Rupesh Soni
 
 #### feat: Add version tracking system and GitHub project link
 
@@ -725,8 +749,8 @@ Note:
 ---
 
 **Date:** 2025-06-02 22:49:10 +0530  
-**Commit:** [0c3b796](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0c3b796d5e3c9dc2d2db3a9e5dfae337823438de)  
-**Author:** Dhruvin Soni
+**Commit:** [9cd546c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9cd546c7c12d8de9e9aaf54b8472ce8ffeae66ac)  
+**Author:** Dhruvin Rupesh Soni
 
 #### fix: Offline support for Cipher Alchemist
 
@@ -746,16 +770,16 @@ Signed-off-by: Dhruvin Soni <dhruvin.soni@zebra.com>
 ---
 
 **Date:** 2025-06-02 01:07:29 +0530  
-**Commit:** [0e281b6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0e281b6b528db130de628ad218accf046e5a0d96)  
-**Author:** Dhruvin Soni
+**Commit:** [2b4d68a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2b4d68a362138dacabd5baaa56e5ee9eac39f0de)  
+**Author:** Dhruvin Rupesh Soni
 
 #### Fix name in main page and add icons
 
 ---
 
 **Date:** 2025-06-02 01:01:23 +0530  
-**Commit:** [66b43a5](https://github.com/dhruvinrsoni/cipher-alchemist/commit/66b43a54e211160b947f368b2fd9e7bb80170b59)  
-**Author:** Dhruvin Soni
+**Commit:** [2badf16](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2badf167844310f0e61f8b6bb6192da06e92641c)  
+**Author:** Dhruvin Rupesh Soni
 
 #### Replace PNG icons with favicon.ico in manifest.json
 
@@ -766,8 +790,8 @@ and PWA installations.
 ---
 
 **Date:** 2025-06-02 00:53:30 +0530  
-**Commit:** [928a41e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/928a41ef958842b7a618806ece49667e27572f42)  
-**Author:** Dhruvin Soni
+**Commit:** [525aa5d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/525aa5d7931e8d111c6ad7858ab805f1162659c4)  
+**Author:** Dhruvin Rupesh Soni
 
 #### fix(service-worker): implement immediate cache refresh on update
 
@@ -783,16 +807,16 @@ after new deployments until manually refreshing the page.
 ---
 
 **Date:** 2025-06-02 00:47:41 +0530  
-**Commit:** [83d2f5c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/83d2f5c87b1f9f483e34a6eea5befef1df2254af)  
-**Author:** Dhruvin Soni
+**Commit:** [42cecb4](https://github.com/dhruvinrsoni/cipher-alchemist/commit/42cecb4ef471eff508234735f5b64e2e1ee99dba)  
+**Author:** Dhruvin Rupesh Soni
 
 #### fix: resolve textarea overflow and improve mobile responsiveness
 
 ---
 
 **Date:** 2025-06-02 00:41:30 +0530  
-**Commit:** [50831ef](https://github.com/dhruvinrsoni/cipher-alchemist/commit/50831efcccc827905477d26b6ffc3b2b64faadc5)  
-**Author:** Dhruvin Soni
+**Commit:** [92ca7de](https://github.com/dhruvinrsoni/cipher-alchemist/commit/92ca7defbd009a98c918651049a517fdf47a7690)  
+**Author:** Dhruvin Rupesh Soni
 
 #### fix: improve theme toggle functionality for mobile devices
 
@@ -804,8 +828,8 @@ after new deployments until manually refreshing the page.
 ---
 
 **Date:** 2025-06-02 00:34:21 +0530  
-**Commit:** [ad8a7f9](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ad8a7f9fb467f667e6de1c6dda651618ff3a0511)  
-**Author:** Dhruvin Soni
+**Commit:** [cf557e7](https://github.com/dhruvinrsoni/cipher-alchemist/commit/cf557e777e67265ca3c03f608c7833013e1f1d85)  
+**Author:** Dhruvin Rupesh Soni
 
 #### Fix theme toggle button functionality and styles
 
@@ -820,8 +844,8 @@ after new deployments until manually refreshing the page.
 ---
 
 **Date:** 2025-06-02 00:20:48 +0530  
-**Commit:** [55837c6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/55837c6131d8a27428121e6efd07cf5683bf7f4d)  
-**Author:** Dhruvin Soni
+**Commit:** [70629ab](https://github.com/dhruvinrsoni/cipher-alchemist/commit/70629abd4b6fa7d4e05ae2ddc33347326ca3c482)  
+**Author:** Dhruvin Rupesh Soni
 
 #### Update app name,url,PWA,config,docs,service worker
 
@@ -842,8 +866,8 @@ and documentation clarity.
 ---
 
 **Date:** 2025-06-01 23:54:26 +0530  
-**Commit:** [9314ffa](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9314ffa4e147df3199b9f4c0d849cfd158b7024d)  
-**Author:** Dhruvin Soni
+**Commit:** [98ed462](https://github.com/dhruvinrsoni/cipher-alchemist/commit/98ed46225368d6358e4e2cd9877d513109d00252)  
+**Author:** Dhruvin Rupesh Soni
 
 #### Update app name and title with icon link
 
@@ -853,8 +877,8 @@ Also, add a favicon link to the HTML file.
 ---
 
 **Date:** 2025-06-01 23:33:48 +0530  
-**Commit:** [10f4f28](https://github.com/dhruvinrsoni/cipher-alchemist/commit/10f4f28ee06add0a5e4c59ef7b5865513da27ecd)  
-**Author:** Dhruvin Soni
+**Commit:** [8e51344](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8e51344943d65535372c413e2212d29a63e4f8eb)  
+**Author:** Dhruvin Rupesh Soni
 
 #### Add favicon.ico files
 
@@ -863,7 +887,7 @@ added the favicon ico files to the repository
 ---
 
 **Date:** 2025-06-01 23:17:07 +0530  
-**Commit:** [dfe79e9](https://github.com/dhruvinrsoni/cipher-alchemist/commit/dfe79e9de0dbe8b1d0add90da9b429f6a28f2b56)  
+**Commit:** [2d2c173](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2d2c1731ae919f5f6cc3e4dbad838ddc83049378)  
 **Author:** Dhruvin Rupesh Soni
 
 #### Initial commit
