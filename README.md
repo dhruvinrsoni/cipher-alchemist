@@ -1,171 +1,77 @@
-# 🔮 Cipher Alchemist - Advanced Cryptographic Toolkit
+# cipher-alchemist
+A creative and secure phrase-to-password generator that transforms text using symbolic cipher techniques. Built as a Progressive Web App (PWA) with offline support, dark/light themes, and a password strength meter.
 
-[![🚀 Deploy Status](https://github.com/dhruvinrsoni/cipher-alchemist/actions/workflows/deployment-status.yml/badge.svg)](https://github.com/dhruvinrsoni/cipher-alchemist/actions/workflows/deployment-status.yml)
-[![🏷️ Latest Release](https://img.shields.io/github/v/release/dhruvinrsoni/cipher-alchemist)](https://github.com/dhruvinrsoni/cipher-alchemist/releases)
-[![📊 Live Demo](https://img.shields.io/badge/Demo-Live-brightgreen)](https://dhruvinrsoni.github.io/cipher-alchemist/)
 
-> **Transform text into unbreakable codes with professional-grade encryption algorithms**
+# Cipher Alchemist
 
-## 🌟 **What's New in Latest Version**
+This is a Progressive Web App (PWA) for generating secure passwords from phrases. It includes features like dark/light theme toggle, copy-to-clipboard button, password strength meter, and offline support.
 
-- ✅ **Enhanced CI/CD Pipeline** - Smart deployment with health monitoring
-- 🛡️ **Advanced Security** - Modern cryptographic implementations
-- 📊 **Real-time Monitoring** - Automated health checks every 6 hours
-- 🚀 **Smart Rollbacks** - Instant version management with workflow preservation
-- 🎯 **IST Timestamp Tracking** - Better visibility into deployment timeline
+## Features
+- Convert phrases into strong, memorable passwords
+- Symbolic substitutions for enhanced security
+- **Dark/Light Theme Toggle**
+- **Copy to Clipboard Button**
+- **Password Strength Meter**
+- **Offline Support** via Service Worker
+- **Installable as a PWA**
+- **PDF Download Button** for cheat sheet
+- **Custom Branding** with a “Made by You” footer
 
-## 🚀 **Live Demo & Features**
+## Deployment
+1. Create a new GitHub repository named `cipher-alchemist`.
+2. Upload the contents of this project to the repository.
+3. Go to **Settings > Pages**.
+4. Under **Source**, select:
+   - Branch: `main`
+   - Folder: `/root`
+5. Your app will be live at: `https://dhruvinrsoni.github.io/cipher-alchemist/`
 
-🌐 **[Try Cipher Alchemist Live](https://dhruvinrsoni.github.io/cipher-alchemist/)**
+## How to Deploy on GitHub Pages
 
-### **Supported Algorithms**
-- 🔐 **Caesar Cipher** - Classic shift-based encryption
-- 🎯 **Atbash Cipher** - Ancient Hebrew substitution method
-- 🔄 **ROT13** - Simple letter substitution cipher
-- 🌟 **Vigenère Cipher** - Polyalphabetic substitution cipher
-- 🔀 **Playfair Cipher** - Digraph substitution technique
+1. **Extract the ZIP** file.
+2. Push the contents to a GitHub repository (e.g., `cipher-alchemist`).
+3. Go to **Repository Settings > Pages**.
+4. Under **Source**, select:
+   - Branch: `main`
+   - Folder: `/root`
+5. Your app will be live at:  
+   `https://dhruvinrsoni.github.io/cipher-alchemist/`
 
-## 🛠️ **Advanced CI/CD Pipeline**
+## How to Use a Custom Domain
 
-Our project features a **production-grade CI/CD pipeline** with smart automation:
+1. Create a file named `CNAME` in the root of your repo.
+2. Add your domain name inside it (e.g., `www.yourdomain.com`).
+3. Update your domain’s DNS settings:
+   - Add a **CNAME record** pointing to `dhruvinrsoni.github.io`.
 
-### **🏷️ Intelligent Release Management**
-```bash
-# Automatic version validation and tagging
-# Semantic versioning enforcement (1.0.0 format)
-# Auto-generated changelogs from git commits
-# Optional auto-deployment after release
-```
+## 📋 CURRENT PROJECT STATUS:
 
-### **🚀 Smart Deployment System**
-```bash
-# Multi-environment support (production/staging)
-# Pre-deployment health checks
-# Post-deployment verification
-# Force deploy option for emergency deployments
-```
+Your Cipher Alchemist PWA is now fully optimized with:
 
-### **📊 Continuous Health Monitoring**
-```bash
-# Automated checks every 6 hours
-# Real-time status reports with IST timestamps
-# Custom URL monitoring capability
-# Failure alerts and detailed diagnostics
-```
+- 🎨 Theme System - Working dark/light toggle in top-right corner with responsive positioning
+- 📱 Mobile Responsive - Fixed textarea overflow and button positioning issues
+- 🔍 SEO Optimized - Comprehensive meta tags for social sharing and search engines
+- ⚡ PWA Ready - Fixed manifest.json for proper Progressive Web App installation
+- 📝 Professional Changelog - Clean, properly formatted changelog with commit history
+- 🛠️ Service Worker - Offline support with proper caching for GitHub Pages
+- 🔗 Footer - Static attribution with dynamic version display and GitHub links
 
-### **⏪ Advanced Rollback System**
-```bash
-# Soft rollback (preserves workflows)
-# Hard rollback (complete reset with restoration)
-# Automated workflow preservation
-# Optional rollback release creation
-```
+## GitHub Workflow
 
-## 🎯 **Project Statistics**
+### 📋 What the Workflow Now Does:
 
-| Metric | Value |
-|--------|-------|
-| 🔐 **Cipher Algorithms** | 5+ Professional Implementations |
-| 🚀 **Deployment Uptime** | 99.9% with automated monitoring |
-| 🛡️ **Security Level** | Production-grade encryption |
-| 📊 **CI/CD Maturity** | Level 4 - Fully Automated |
-| 🕐 **Response Time** | <2s average load time |
+- Triggers on every push to the main branch
+- Generates Version with commit hash and IST timezone timestamp
+- Creates Simple CHANGELOG with last 50 commits as bullet points
+- Auto-commits both version.txt and CHANGELOG.md files back to the repository
 
-## 🔧 **Developer Experience**
+### ✨ Workflow Features:
 
-### **Enhanced Workflow Features**
-- ✅ **Skip CI Protection** - Prevents infinite loops with smart detection
-- 🕐 **IST Timezone Support** - All timestamps in Indian Standard Time
-- 📋 **Rich Job Summaries** - Detailed workflow reports in GitHub UI
-- 🎯 **Smart Conditionals** - Efficient resource usage with conditional execution
-- 📦 **Artifact Management** - Timestamped reports with 30-day retention
+- ✅ IST Timezone - Uses Asia/Kolkata timezone for timestamps
+- ✅ Skip CI Logic - Excludes commits with [skip ci] tag to prevent loops
+- ✅ Clean Changelog - Simple bullet-point format for easy reading
+- ✅ Error Handling - Won't fail if there are no changes to commit
+- ✅ Valid YAML - No syntax errors, properly formatted
 
-### **Quality Assurance**
-- 🛡️ **Input Validation** - Comprehensive version format validation
-- 🔍 **Pre-deployment Checks** - File existence and integrity validation
-- 📊 **Health Monitoring** - Multi-metric status verification
-- ⚡ **Performance Tracking** - Response time monitoring and reporting
-
-## 📋 **Quick Start for Developers**
-
-### **1. Local Development**
-```bash
-git clone https://github.com/dhruvinrsoni/cipher-alchemist.git
-cd cipher-alchemist
-# Open index.html in your browser
-```
-
-### **2. Release Management**
-```bash
-# Trigger release via GitHub Actions
-# Go to Actions → "🏷️ Create Tag & Release"
-# Input: version (e.g., 1.0.0), release type, auto-deploy option
-```
-
-### **3. Emergency Rollback**
-```bash
-# Go to Actions → "⏪ Rollback Release"
-# Input: target version, rollback type (soft/hard)
-# Workflows are automatically preserved
-```
-
-## 🎨 **Branding & Design**
-
-- 🎭 **Professional UI** - Clean, modern interface design
-- 🌈 **Responsive Layout** - Perfect on all device sizes
-- ⚡ **Fast Loading** - Optimized for performance
-- 🔮 **Mystical Theme** - Encryption magic meets modern design
-
-## 📊 **Monitoring & Analytics**
-
-Track your deployment health in real-time:
-- 🌐 **Live Status**: [Check Deployment Status](https://github.com/dhruvinrsoni/cipher-alchemist/actions/workflows/deployment-status.yml)
-- 📋 **Status Reports**: Automated every 6 hours with detailed metrics
-- 🚨 **Failure Alerts**: Instant notifications for any issues
-- 📈 **Performance Metrics**: Response time and availability tracking
-
-## 🤝 **Contributing**
-
-We welcome contributions! Our advanced CI/CD pipeline ensures:
-- ✅ **Automated Testing** - Every commit is verified
-- 🚀 **Instant Deployment** - Approved changes go live immediately  
-- 📊 **Quality Monitoring** - Continuous health and performance tracking
-- 🛡️ **Rollback Safety** - Easy reversion if issues arise
-
-## 📞 **Support & Documentation**
-
-- 📖 **[Development Guide](DEVELOPMENT.md)** - Comprehensive technical documentation
-- 📋 **[Release History](RELEASES.md)** - Complete changelog and version notes
-- 🔄 **[CI/CD Docs](CHANGELOG.md)** - Workflow documentation and validation
-- 🌐 **[Live Demo](https://dhruvinrsoni.github.io/cipher-alchemist/)** - Try it yourself!
-
-## 📚 **Developer Resources**
-
-### **Git Workflow & Conflict Resolution**
-- 📖 **[Complete Git Workflow Guide](GIT_WORKFLOW_GUIDE.md)** - Comprehensive development workflow
-- 🔧 **[Conflict Resolution Cheatsheet](CONFLICT_RESOLUTION_CHEATSHEET.md)** - Quick reference for Git conflicts
-- 🚨 **[Emergency Procedures](GIT_WORKFLOW_GUIDE.md#-emergency-procedures)** - Critical fixes and hotfixes
-
-### **Quick Reference**
-```bash
-# Daily workflow
-git pull origin main          # Start your session
-git commit -m "your changes"  # Commit your work
-git push origin main          # Push changes
-
-# Conflict resolution
-git pull --rebase origin main  # Resolve diverged branches
-git commit -m "fix [skip ci]"  # Emergency fixes
-
-# Get help
-git status                    # Check current state
-```
-
-### **Auto-Conflict Prevention**
-Our enhanced CI/CD pipeline automatically prevents most merge conflicts. When conflicts are detected, you'll see clear guidance in the workflow output on what to do next.
-
----
-
-**🔮 Cipher Alchemist** - *Where cryptography meets modern DevOps excellence*
-
-*Built with ❤️ by [Dhruvin Rupesh Soni](https://github.com/dhruvinrsoni) • IST Timezone • Production-Ready CI/CD*
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

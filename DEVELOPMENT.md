@@ -473,10 +473,14 @@ graph TD
     F -->|Yes| G[🚀 Deploy by Version]
     F -->|No| H[Manual Deploy Later]
     
-    I[Every 6 Hours] --> J[📊 Deployment Status]
+    G --> J[📊 Auto Status Check]
+    C --> J
+    
+    I[Every 6 Hours] --> J
     J --> K[📋 Status Report]
     
     L[Emergency] --> M[⏪ Rollback Release]
+    M --> J
     M --> N[🛡️ Workflow Preservation]
 ```
 
@@ -497,10 +501,11 @@ graph TD
 - **Purpose**: Version-specific deployments with validation
 - **Features**: Environment selection, health checks, force deploy option
 
-#### **4. 📊 Deployment Status**
-- **Trigger**: Every 6 hours + Manual
-- **Purpose**: Continuous health monitoring and reporting
-- **Features**: Custom URL monitoring, failure alerts, performance metrics
+#### **4. 📊 Deployment Status** *(Auto-Triggered + Scheduled)*
+- **Trigger**: Auto after deployments + Every 6 hours + Manual
+- **Purpose**: Real-time deployment monitoring and health verification
+- **Features**: Smart auto-triggering, custom URL monitoring, failure alerts, IST timestamps
+- **Auto-Triggers**: Runs automatically after Deploy by Version, Create Tag & Release, and Rollback workflows
 
 #### **5. ⏪ Rollback Release**
 - **Trigger**: Manual emergency workflow

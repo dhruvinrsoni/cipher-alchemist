@@ -158,11 +158,22 @@ jobs:
                 inputs: {
                   version_tag: '${{ needs.create-release.outputs.tag_name }}',
                   environment: 'production'
-                }
-              });
-              console.log('✅ Deployment workflow triggered successfully');
-            } catch (error) {
+                }              });
+              console.log('✅ Deployment workflow triggered successfully');            } catch (error) {
               console.error('❌ Failed to trigger deployment:', error);
               core.setFailed('Failed to trigger auto-deployment');
             }
+
+      - name: 🎉 Release Summary
+        run: |
+          echo "🏷️ Release created and deployment initiated!"
+          echo "📋 Summary:"
+          echo "   • Tag: ${{ needs.create-release.outputs.tag_name }}"
+          echo "   • Auto-deployment: Triggered for production"
+          echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
+          echo ""
+          echo "📊 Next Steps:"
+          echo "   • Deployment workflow will run automatically"
+          echo "   • Status workflow will verify deployment health"
+          echo "   • Check Actions tab for progress updates"
 

@@ -12,6 +12,14 @@ on:
         description: 'Custom URL to check (optional)'
         required: false
         type: string
+  # ✅ NEW: Auto-trigger after deployments
+  workflow_run:
+    workflows: 
+      - "🚀 Deploy by Version"
+      - "🏷️ Create Tag & Release"
+      - "🔄 Rollback to Previous Version"
+    types:
+      - completed
   schedule:
     - cron: '0 */6 * * *'  # Every 6 hours
 
@@ -20,20 +28,35 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    # ✅ NEW: Dynamic job name with IST timestamp
-    name: Health Check - ${{ format('{0}', github.run_id) }}
+    # ✅ ENHANCED: Skip check if triggering workflow failed
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    # ✅ NEW: Dynamic job name with timestamp
+    name: "Health Check - Run ${{ github.run_id }}"
     
     steps:
       - name: 🛒 Checkout Repository
         uses: actions/checkout@v4
 
+      - name: 🔄 Check Trigger Source
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "🚀 Auto-triggered after deployment workflow: ${{ github.event.workflow_run.name }}"
+            echo "📊 Deployment Status: ${{ github.event.workflow_run.conclusion }}"
+            echo "🔗 Workflow URL: ${{ github.event.workflow_run.html_url }}"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            echo "⏰ Scheduled health check (every 6 hours)"          else
+            echo "🎯 Manual health check triggered"
+          fi
+
       - name: 🕐 Set IST Timestamp
         id: timestamp
         run: |
           IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
-          IST_SHORT=$(TZ='Asia/Kolkata' date '+%m/%d %H:%M IST')
+          IST_SHORT_SAFE=$(TZ='Asia/Kolkata' date '+%m-%d_%H-%M')
+          IST_DISPLAY=$(TZ='Asia/Kolkata' date '+%m/%d %H:%M IST')
           echo "ist_time=${IST_TIME}" >> $GITHUB_OUTPUT
-          echo "ist_short=${IST_SHORT}" >> $GITHUB_OUTPUT
+          echo "ist_short_safe=${IST_SHORT_SAFE}" >> $GITHUB_OUTPUT
+          echo "ist_display=${IST_DISPLAY}" >> $GITHUB_OUTPUT
           echo "📅 Current IST Time: ${IST_TIME}"
 
       - name: 🔍 Check Demo Status
@@ -131,7 +154,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # ✅ ENHANCED: Include IST timestamp in artifact name
-          name: deployment-status-${{ steps.timestamp.outputs.ist_short }}-run${{ github.run_id }}
+          name: deployment-status-${{ steps.timestamp.outputs.ist_short_safe }}-run${{ github.run_id }}
           path: STATUS_REPORT.md
           retention-days: 30
 
@@ -198,6 +221,11 @@ jobs:
           | 🕐 Check Time | ${{ steps.timestamp.outputs.ist_time }} |
           | 🎯 Trigger | ${{ github.event_name }} |
           
+          $(if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "| 🚀 Triggered By | ${{ github.event.workflow_run.name }} |"
+            echo "| 📊 Source Status | ${{ github.event.workflow_run.conclusion }} |"
+          fi)
+          
           ## 📦 Quick Stats
           - **Current Version:** \$(cat version.txt 2>/dev/null || echo "Unknown")
-          - **Latest Tag:** \$(git describe --tags --abbrev=0 2
+          - **Latest Tag:** \$(git describe --tags --abbrev=0 2>/dev/null || echo "No tags")

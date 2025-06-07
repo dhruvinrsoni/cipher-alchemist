@@ -107,8 +107,7 @@ jobs:
             ### Rollback Details
             - **Strategy:** ${{ github.event.inputs.rollback_type == 'soft' && 'Soft (workflows preserved)' || 'Hard (complete reset with workflow restoration)' }}
             - **Workflows:** Preserved for system integrity
-            - **Commit:** ${{ github.sha }}
-          draft: false
+            - **Commit:** ${{ github.sha }}          draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -123,3 +122,8 @@ jobs:
           if [ "${{ github.event.inputs.create_rollback_release }}" = "true" ]; then
             echo "   • Rollback Release: Created with tag ${{ steps.generate_tag.outputs.tag_name }}"
           fi
+          echo ""
+          echo "📊 Next Steps:"
+          echo "   • Deployment status workflow will auto-verify rollback"
+          echo "   • Check Actions tab for health verification"
+          echo "   • Monitor deployment status for stability"
