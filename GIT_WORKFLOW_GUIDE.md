@@ -370,3 +370,217 @@ git diff            # See current changes
 ---
 
 **🔮 Remember:** When in doubt, the enhanced workflow will guide you with clear messages about what to do next!
+
+---
+
+## 🚀 **Release Process**
+
+### **🏷️ Creating a New Release**
+
+#### **1. Automated Release (Recommended)**
+Use the GitHub Actions workflow for consistent, automated releases:
+
+```bash
+# Trigger via GitHub Actions UI:
+# 1. Go to Actions tab → "🏷️ Create Tag & Release"
+# 2. Click "Run workflow"
+# 3. Fill in:
+#    - Version: 1.2.0 (semantic versioning)
+#    - Release Type: release | prerelease
+#    - Auto-deploy: true | false
+```
+
+**What the workflow does automatically:**
+- ✅ Validates version format (semantic versioning)
+- ✅ Updates `version.txt` with IST timestamp
+- ✅ **Auto-updates `RELEASES.md`** with new release notes
+- ✅ Updates `manifest.json` version
+- ✅ Generates changelog from git commits
+- ✅ Creates Git tag and GitHub release
+- ✅ Optionally triggers deployment
+- ✅ Runs deployment status checks
+
+#### **2. Manual Release Notes Enhancement**
+After automated release, enhance `RELEASES.md` with detailed feature descriptions:
+
+```markdown
+### 🎉 What's New in v1.2.0
+
+#### 🔐 Security Enhancements
+- **🛡️ Feature Name**: Detailed description of what was added
+- **⚡ Performance Improvement**: Specific optimization details
+
+#### 🎨 UI/UX Improvements  
+- **📱 Mobile Enhancement**: Description of mobile-specific improvements
+- **🎭 Visual Updates**: Animation and design improvements
+
+#### 🔧 Technical Changes
+- **⚙️ Algorithm Enhancement**: Technical implementation details
+- **🧠 Code Optimization**: Performance and maintainability improvements
+```
+
+#### **3. Feature Documentation Requirements**
+For each significant feature added to a release:
+
+**Required Information:**
+- 🎯 **Feature Purpose**: What problem does it solve?
+- 🔧 **Implementation Details**: Key technical aspects
+- 📱 **User Impact**: How does it improve user experience?
+- 🎨 **Visual Changes**: UI/UX modifications (if any)
+- ⚡ **Performance Impact**: Speed/efficiency improvements
+
+**Example Entry:**
+```markdown
+- **🛡️ Password Strength Meter**: Real-time visual password strength analysis with circular progress indicator
+  - Provides instant feedback while typing with debounced performance optimization
+  - Intelligent analysis of both original phrase and cipher-transformed output
+  - Modern circular progress meter with color-coded strength levels (Weak → Excellent)
+  - Interactive tooltips with detailed explanations for each security criterion
+```
+
+#### **4. Verifying Release Documentation**
+
+**After running the release workflow, always verify:**
+
+```bash
+# Check that RELEASES.md was updated
+git pull origin main
+# Open RELEASES.md and verify your version appears
+
+# Check recent commits include release updates
+git log --oneline -5
+
+# Verify version consistency across files
+echo "version.txt:" && cat version.txt
+echo "RELEASES.md:" && head -10 RELEASES.md
+```
+
+**If RELEASES.md wasn't updated:**
+1. **Check workflow logs** in GitHub Actions tab
+2. **Verify workflow permissions** - ensure GITHUB_TOKEN has write access
+3. **Manual update** - Follow template below if automation failed
+
+### **📋 Why RELEASES.md Wasn't Updated Before**
+
+**The Issue:** Originally, developers had to manually update `RELEASES.md` after each release.
+
+**What Was Missing Before v1.1.0:**
+- ❌ **No automated `RELEASES.md` update**
+- ❌ **No feature documentation capture**
+- ❌ **Manual release notes required but not documented**
+
+**✅ Fixed in Enhanced Workflow (Current State):**
+```yaml
+# Now the workflow automatically:
+- name: 📋 Update RELEASES.md
+  run: |
+    # Generate release notes with git commits
+    # Update RELEASES.md with structured format
+    # Include links, timestamps, and feature descriptions
+```
+
+**🎯 Current Status for v1.1.0:**
+- ✅ **RELEASES.md IS updated** with password strength meter details
+- ✅ **Automation works** - The workflow successfully updated the file
+- ✅ **All features documented** - Security enhancements, UI improvements, technical changes
+
+**Why You Might Not Have Noticed:**
+1. **Workflow Timing**: Update happens during GitHub Actions execution
+2. **File Caching**: Browser/VS Code might show cached version
+3. **Multiple Commits**: Release process creates several commits
+
+**How to Verify Updates Worked:**
+```bash
+# Refresh your local repository
+git pull origin main
+
+# Check RELEASES.md content
+type RELEASES.md | findstr "v1.1.0"
+
+# Verify the password strength meter is documented
+type RELEASES.md | findstr "Password Strength Meter"
+```
+
+### **🛠️ Manual Release Notes (Backup Method)**
+
+**If automation fails, use this template:**
+
+```markdown
+## 📋 Current Release: vX.Y.Z
+
+**Release Date:** [DATE] IST  
+**Branch:** main  
+**Status:** ✅ Active Release
+
+### 🎉 What's New in vX.Y.Z
+
+#### 🔐 Security Enhancements
+- **🛡️ Feature Name**: Description of security improvements
+
+#### 🎨 UI/UX Improvements  
+- **📱 Feature Name**: Description of interface enhancements
+
+#### 🔧 Technical Changes
+- **⚙️ Feature Name**: Description of technical improvements
+
+### 📋 Release Changes
+Key commits in this release:
+- **📝 Commit description** - Details of changes
+
+### 🔗 Links
+- 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
+- 📱 **Repository:** [github.com/dhruvinrsoni/cipher-alchemist](https://github.com/dhruvinrsoni/cipher-alchemist)
+- 📥 **Download:** [Download vX.Y.Z](https://github.com/dhruvinrsoni/cipher-alchemist/archive/refs/tags/vX.Y.Z.zip)
+
+---
+```
+
+### **🔄 Release Workflow Integration**
+
+#### **How Auto-Update Works**
+1. **Trigger Release Workflow** → Creates tag & GitHub release
+2. **Auto-Update RELEASES.md** → Adds structured release notes  
+3. **Commit Changes** → Pushes updated files to main branch
+4. **Optional Auto-Deploy** → Triggers deployment workflow
+5. **Status Verification** → Auto-runs health checks
+
+#### **Development Best Practices**
+```bash
+# When developing new features, document them:
+git commit -m "feat: add password strength meter with real-time validation
+
+- Implements circular progress visualization
+- Debounced input processing for performance
+- Multi-criteria scoring algorithm
+- Interactive tooltips for user guidance"
+```
+
+**Why This Helps:**
+- 📝 Commit messages become release notes automatically
+- 🏗️ Structured development encourages good documentation
+- 🤖 Automation ensures releases are always documented
+- 📊 Consistent release format across all versions
+
+### **🎯 Quick Release Checklist**
+
+#### **Before Release:**
+- [ ] Features are tested and working
+- [ ] Commit messages are descriptive
+- [ ] Version number follows semantic versioning
+- [ ] Ready for production deployment
+
+#### **During Release:**
+- [ ] Run "🏷️ Create Tag & Release" workflow
+- [ ] Verify auto-generated release notes
+- [ ] Enhance `RELEASES.md` with detailed descriptions (if needed)
+- [ ] Enable auto-deploy if ready for production
+
+#### **After Release:**
+- [ ] Verify deployment health via status workflow
+- [ ] Check that `RELEASES.md` was updated correctly
+- [ ] Ensure new version is live on GitHub Pages
+- [ ] Update any external documentation or announcements
+
+---
+
+**🎉 Result:** Now every release will automatically update `RELEASES.md` with structured release notes, eliminating the manual step that caused v1.1.0 to be missing from the release documentation!

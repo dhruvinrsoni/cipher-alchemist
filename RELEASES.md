@@ -1,10 +1,59 @@
 # 🚀 Release History
 
-## 📋 Current Release: v1.0.0
+## 📋 Current Release: v1.1.0
+
+**Release Date:** 2025-06-08 02:27:10 IST  
+**Branch:** main  
+**Status:** ✅ Active Release
+
+### 🎉 What's New in v1.1.0
+
+#### 🔐 Enhanced Security Features
+- **🛡️ Password Strength Meter**: Real-time visual password strength analysis with circular progress indicator
+- **📊 Advanced Scoring System**: Comprehensive password criteria evaluation (length, character types, cipher complexity)
+- **⚡ Live Validation**: Instant feedback while typing with debounced performance optimization
+- **🎯 Smart Criteria Detection**: Intelligent analysis of both original phrase and cipher-transformed output
+
+#### 🎨 UI/UX Improvements
+- **🔄 Modern Strength Visualization**: Circular progress meter with color-coded strength levels (Weak → Excellent)
+- **💡 Interactive Tooltips**: Detailed explanations for each password strength criterion
+- **📱 Enhanced Mobile Experience**: Improved responsive design and touch interactions
+- **🎭 Visual Feedback**: Smooth animations and transitions for better user engagement
+
+#### 🔧 Technical Enhancements
+- **⚙️ Performance Optimization**: Debounced input processing for smooth real-time analysis
+- **🧠 Advanced Algorithm**: Multi-factor scoring considering original phrase and cipher transformations
+- **🔍 Better Detection**: Enhanced recognition of cipher-specific symbols and patterns
+- **📈 Scalable Architecture**: Modular code structure for easier future enhancements
+
+#### 🚀 DevOps & Automation
+- **🤖 Enhanced CI/CD Pipeline**: Improved GitHub Actions workflows with auto-triggering
+- **📊 Deployment Status Monitoring**: Automated health checks and status reporting
+- **🔄 Smart Conflict Prevention**: Enhanced merge protection and validation systems
+- **⏰ IST Timezone Support**: Consistent Indian Standard Time across all operations
+
+### 📋 Release Changes
+Key commits in this release:
+- **🛡️ Implement advanced password strength meter** - Real-time security analysis
+- **🎨 Enhanced UI with modern strength visualization** - Circular progress indicators
+- **⚡ Performance optimization with debounced validation** - Smooth user experience
+- **🤖 Enhanced GitHub Actions automation** - Auto-triggered deployment status
+- **📊 Advanced scoring algorithm implementation** - Multi-criteria password analysis
+
+### 🔗 Links
+- 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
+- 📱 **Repository:** [github.com/dhruvinrsoni/cipher-alchemist](https://github.com/dhruvinrsoni/cipher-alchemist)
+- 📥 **Download:** [Download v1.1.0](https://github.com/dhruvinrsoni/cipher-alchemist/archive/refs/tags/v1.1.0.zip)
+
+---
+
+## 📚 Previous Releases
+
+## 📋 Release: v1.0.0
 
 **Release Date:** 2025-06-04 02:24:07 IST  
 **Branch:** main  
-**Status:** ✅ Active Release
+**Status:** 📦 Archived
 
 ### 🎉 What's New in v1.0.0
 

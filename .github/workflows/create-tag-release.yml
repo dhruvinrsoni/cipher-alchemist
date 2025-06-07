@@ -46,8 +46,7 @@ jobs:
           
           if git tag -l | grep -q "^v${{ github.event.inputs.version }}$"; then
             echo "❌ Tag v${{ github.event.inputs.version }} already exists"
-            exit 1
-          fi
+            exit 1          fi
           
           echo "✅ Version v${{ github.event.inputs.version }} is valid"
 
@@ -68,6 +67,64 @@ jobs:
           
           echo "✅ Updated version files"
 
+      - name: 📋 Update RELEASES.md
+        run: |
+          # Generate release notes content
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
+          
+          if [ -n "$LATEST_TAG" ]; then
+            CHANGES=$(git log ${LATEST_TAG}..HEAD --pretty=format:"- **%s** - %b" --no-merges | head -10)
+          else
+            CHANGES=$(git log --pretty=format:"- **%s** - %b" --no-merges -10)
+          fi
+          
+          # Handle empty changelog case
+          if [ -z "$CHANGES" ]; then
+            CHANGES="- **Initial release** - First version of Cipher Alchemist"
+          fi
+          
+          # Create temporary file with new release content
+          cat > temp_release.md << 'EOF'
+          # 🚀 Release History
+          
+          ## 📋 Current Release: v${{ github.event.inputs.version }}
+          
+          **Release Date:** IST_TIME_PLACEHOLDER  
+          **Branch:** main  
+          **Status:** ✅ Active Release
+          
+          ### 🎉 What's New in v${{ github.event.inputs.version }}
+          
+          #### 🚀 Key Features & Improvements
+          CHANGES_PLACEHOLDER
+          
+          ### 🔗 Links
+          - 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
+          - 📱 **Repository:** [github.com/dhruvinrsoni/cipher-alchemist](https://github.com/dhruvinrsoni/cipher-alchemist)
+          - 📥 **Download:** [Download v${{ github.event.inputs.version }}](https://github.com/dhruvinrsoni/cipher-alchemist/archive/refs/tags/v${{ github.event.inputs.version }}.zip)
+          
+          ---
+          
+          ## 📚 Previous Releases
+          
+          EOF
+          
+          # Replace placeholders
+          sed -i "s/IST_TIME_PLACEHOLDER/$IST_TIME/g" temp_release.md
+          sed -i "s/CHANGES_PLACEHOLDER/$CHANGES/g" temp_release.md
+          
+          # If RELEASES.md exists, extract previous releases and append
+          if [ -f RELEASES.md ]; then
+            # Extract everything after "## 📚 Previous Releases" or after first "---"
+            awk '/^## 📚 Previous Releases|^---/{found=1; next} found' RELEASES.md >> temp_release.md
+          fi
+          
+          # Replace the original file
+          mv temp_release.md RELEASES.md
+          
+          echo "✅ Updated RELEASES.md with v${{ github.event.inputs.version }} information"
+
       - name: 📊 Generate Changelog
         id: changelog
         run: |
@@ -83,8 +140,7 @@ jobs:
           if [ -z "$CHANGES" ]; then
             CHANGES="- Initial release"
           fi
-          
-          # Create changelog for release notes
+            # Create changelog for release notes
           {
             echo "CHANGELOG<<EOF"
             echo "## 🚀 What's New"
@@ -102,7 +158,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add version.txt
+          git add version.txt RELEASES.md
           # ✅ FIXED: Only add manifest.json if it exists
           if [ -f manifest.json ]; then
             git add manifest.json
@@ -111,7 +167,11 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "🔖 Release v${{ github.event.inputs.version }}"
+            git commit -m "🔖 Release v${{ github.event.inputs.version }}
+
+            - Updated version.txt with release information
+            - Updated RELEASES.md with new release notes
+            - Updated manifest.json version (if applicable)"
             git push origin main
           fi
 
