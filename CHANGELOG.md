@@ -16,11 +16,12 @@ Reason:
 - Enhance user experience with one-click phrase testing and exploration.
 
 Changes:
-- Implemented 6 categories of phrase suggestions (Motivation, Tech, Wisdom, Success, Wellness, Spiritual).
-- Added 48+ carefully curated inspirational phrases with emoji indicators.
+- Implemented 12 balanced thematic groups (Power & Motivation, Achievement & Victory, Learning & Growth, Tech & Innovation, Health & Vitality, Spiritual & Wisdom, Creative & Artistic, Focus & Excellence, Nature & Renewal, Problem Solving, Digital & Future, Celebration & Joy).
+- Optimized suggestion system: 4 phrases per group instead of 8 mixed suggestions for better focus.
+- Enhanced user experience with cohesive thematic groups and reduced cognitive load.
+- Improved refresh functionality to show complete thematic groups for better discovery.
 - Created interactive suggestion chips with smooth animations and visual feedback.
 - Integrated one-click phrase insertion with automatic strength analysis.
-- Added refresh functionality for discovering new suggestions.
 - Implemented collapsible UI section to optimize screen space.
 - Added keyboard navigation and accessibility support.
 
@@ -31,10 +32,11 @@ Impact:
 - Maintained clean, professional UI while adding substantial functionality.
 
 Test:
-- Verified all 48+ suggestions work correctly with cipher transformations.
-- Tested responsive design across mobile and desktop devices.
+- Verified all 48 suggestions work correctly with cipher transformations across 12 thematic groups.
+- Tested responsive design across mobile and desktop devices with optimized 4-suggestion layout.
 - Confirmed accessibility features and keyboard navigation.
 - Validated smooth animations and visual feedback systems.
+- Verified thematic group coherence and reduced cognitive load for users.
 
 Docs:
 - Updated README.md, DEVELOPMENT.md, and RELEASES.md with feature documentation.

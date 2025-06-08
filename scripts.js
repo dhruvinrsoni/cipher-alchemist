@@ -285,78 +285,100 @@ function checkStrength(password, originalPhrase = '') {
     }, 100);
 }
 
-// Phrase Suggestions Feature
+// Phrase Suggestions Feature - 12 Balanced Groups of 4 Suggestions Each
 const phraseSuggestions = {
-    // Inspirational & Motivational
-    motivation: [
+    // Group 1: Power & Motivation
+    powerMotivation: [
         { emoji: '💪', text: 'BeStrong@2025' },
         { emoji: '🚀', text: 'DreamBig!Launch' },
-        { emoji: '⭐', text: 'ShineEveryDay' },
-        { emoji: '🎯', text: 'Focus&Achieve' },
-        { emoji: '🌟', text: 'StartsToday!Now' },
         { emoji: '🔥', text: 'IgniteYourPath' },
-        { emoji: '💎', text: 'DiamondMindset' },
-        { emoji: '🦋', text: 'Transform2025' }
-    ],
-    
-    // Personal Growth & Wisdom
-    wisdom: [
-        { emoji: '🧠', text: 'LearnGrowWin' },
-        { emoji: '📚', text: 'KnowledgeIsPower' },
-        { emoji: '🎓', text: 'NeverStopLearning' },
-        { emoji: '🌱', text: 'GrowthMindset' },
-        { emoji: '🔮', text: 'WisdomSeeker' },
-        { emoji: '⚡', text: 'PowerOfThought' },
-        { emoji: '🌈', text: 'CreateYourPath' },
-        { emoji: '🔑', text: 'UnlockPotential' }
-    ],
-    
-    // Technology & Innovation
-    tech: [
-        { emoji: '💻', text: 'CodeYourDreams' },
-        { emoji: '🤖', text: 'FutureIsNow@AI' },
-        { emoji: '🌐', text: 'ConnectTheWorld' },
-        { emoji: '⚙️', text: 'BuildInnovate' },
-        { emoji: '🔧', text: 'FixItBetter' },
-        { emoji: '📱', text: 'DigitalNomad2025' },
-        { emoji: '🛠️', text: 'CreateSolutions' },
-        { emoji: '🎮', text: 'GameChanger!Pro' }
-    ],
-    
-    // Success & Achievement
-    success: [
-        { emoji: '🏆', text: 'ChampionMindset' },
-        { emoji: '👑', text: 'OwnYourCrown' },
-        { emoji: '🎊', text: 'CelebrateWins' },
-        { emoji: '🌟', text: 'ExcellenceDaily' },
-        { emoji: '💯', text: 'Perfect@Every' },
-        { emoji: '🥇', text: 'FirstPlace!Always' },
-        { emoji: '🎖️', text: 'EarnYourMedal' },
         { emoji: '⚡', text: 'LightningSuccess' }
     ],
     
-    // Health & Wellness
-    wellness: [
+    // Group 2: Achievement & Victory
+    achievementVictory: [
+        { emoji: '🏆', text: 'ChampionMindset' },
+        { emoji: '👑', text: 'OwnYourCrown' },
+        { emoji: '🥇', text: 'FirstPlace!Always' },
+        { emoji: '🎖️', text: 'EarnYourMedal' }
+    ],
+    
+    // Group 3: Learning & Growth
+    learningGrowth: [
+        { emoji: '🧠', text: 'LearnGrowWin' },
+        { emoji: '📚', text: 'KnowledgeIsPower' },
+        { emoji: '🎓', text: 'NeverStopLearning' },
+        { emoji: '🌱', text: 'GrowthMindset' }
+    ],
+    
+    // Group 4: Technology & Innovation
+    techInnovation: [
+        { emoji: '💻', text: 'CodeYourDreams' },
+        { emoji: '🤖', text: 'FutureIsNow@AI' },
+        { emoji: '🌐', text: 'ConnectTheWorld' },
+        { emoji: '⚙️', text: 'BuildInnovate' }
+    ],
+    
+    // Group 5: Health & Vitality
+    healthVitality: [
         { emoji: '🧘', text: 'MindBodySoul' },
         { emoji: '💚', text: 'HealthyChoices' },
         { emoji: '🏃', text: 'RunYourRace' },
+        { emoji: '☀️', text: 'SunshineVibes' }
+    ],
+    
+    // Group 6: Spiritual & Wisdom
+    spiritualWisdom: [
+        { emoji: '🕉️', text: 'AhamBrahmasmi@108' },
+        { emoji: '☯️', text: 'BalanceWithin' },
+        { emoji: '🔮', text: 'TrustTheUniverse' },
+        { emoji: '🙏', text: 'Gratitude@Heart' }
+    ],
+      // Group 7: Creative & Artistic
+    creativeArtistic: [
+        { emoji: '🎨', text: 'CreateMasterpiece' },
+        { emoji: '🌈', text: 'CreateYourPath' },
+        { emoji: '✨', text: 'CosmicEnergy' },
+        { emoji: '🦋', text: 'Transform2025' }
+    ],
+    
+    // Group 8: Focus & Excellence
+    focusExcellence: [
+        { emoji: '🎯', text: 'Focus&Achieve' },
+        { emoji: '💯', text: 'Perfect@Every' },
+        { emoji: '🌟', text: 'ExcellenceDaily' },
+        { emoji: '💎', text: 'DiamondMindset' }
+    ],
+    
+    // Group 9: Nature & Renewal
+    natureRenewal: [
         { emoji: '🌿', text: 'NaturalHealing' },
-        { emoji: '☀️', text: 'SunshineVibes' },
         { emoji: '🍃', text: 'FreshStart2025' },
         { emoji: '💧', text: 'FlowLikeWater' },
         { emoji: '🌸', text: 'BloomWhere@You' }
     ],
+      // Group 10: Problem Solving & Innovation
+    problemSolving: [
+        { emoji: '🔧', text: 'FixItBetter' },
+        { emoji: '🛠️', text: 'CreateSolutions' },
+        { emoji: '🔑', text: 'UnlockPotential' },
+        { emoji: '💡', text: 'BrightIdeas@Work' }
+    ],
     
-    // Spiritual & Philosophical  
-    spiritual: [
-        { emoji: '🕉️', text: 'AhamBrahmasmi@108' },
-        { emoji: '☯️', text: 'BalanceWithin' },
-        { emoji: '🔮', text: 'TrustTheUniverse' },
+    // Group 11: Digital & Future
+    digitalFuture: [
+        { emoji: '📱', text: 'DigitalNomad2025' },
+        { emoji: '🎮', text: 'GameChanger!Pro' },
         { emoji: '🌙', text: 'MoonlightWisdom' },
-        { emoji: '✨', text: 'CosmicEnergy' },
-        { emoji: '🙏', text: 'Gratitude@Heart' },
-        { emoji: '💫', text: 'SoulPurpose' },
         { emoji: '🌅', text: 'NewDawnRising' }
+    ],
+    
+    // Group 12: Celebration & Joy
+    celebrationJoy: [
+        { emoji: '🎊', text: 'CelebrateWins' },
+        { emoji: '⭐', text: 'ShineEveryDay' },
+        { emoji: '💫', text: 'SoulPurpose' },
+        { emoji: '🌟', text: 'StartsToday!Now' }
     ]
 };
 
@@ -364,29 +386,18 @@ let currentSuggestionSet = [];
 let currentCategoryIndex = 0;
 
 // Function to get random suggestions from different categories
-function getRandomSuggestions(count = 8) {
+function getRandomSuggestions(count = 4) {
     const categories = Object.keys(phraseSuggestions);
-    const suggestions = [];
-    const used = new Set();
     
-    // Ensure we get variety from different categories
-    while (suggestions.length < count && used.size < getTotalSuggestionsCount()) {
-        for (const category of categories) {
-            if (suggestions.length >= count) break;
-            
-            const categoryPhrases = phraseSuggestions[category];
-            const randomIndex = Math.floor(Math.random() * categoryPhrases.length);
-            const phrase = categoryPhrases[randomIndex];
-            const key = `${category}-${randomIndex}`;
-            
-            if (!used.has(key)) {
-                used.add(key);
-                suggestions.push({ ...phrase, category });
-            }
-        }
-    }
+    // Randomly select one category to ensure variety
+    const randomCategoryIndex = Math.floor(Math.random() * categories.length);
+    const selectedCategory = categories[randomCategoryIndex];
     
-    return suggestions.slice(0, count);
+    // Return all 4 suggestions from the selected category
+    return phraseSuggestions[selectedCategory].map(suggestion => ({
+        ...suggestion,
+        category: selectedCategory
+    }));
 }
 
 function getTotalSuggestionsCount() {
@@ -401,7 +412,7 @@ function populateSuggestions() {
         return;
     }
     
-    currentSuggestionSet = getRandomSuggestions(8);
+    currentSuggestionSet = getRandomSuggestions(4);
     
     suggestionsGrid.innerHTML = currentSuggestionSet
         .map(suggestion => `

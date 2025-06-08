@@ -457,39 +457,34 @@ class InputValidator {
 #### **💡 Phrase Suggestions System**
 ```javascript
 class PhraseSuggestionEngine {
-    constructor() {
-        this.categories = {
-            motivation: [
+    constructor() {        this.categories = {
+            powerMotivation: [
                 { emoji: '💪', text: 'BeStrong@2025' },
                 { emoji: '🚀', text: 'DreamBig!Launch' },
-                // ... more suggestions
+                { emoji: '🔥', text: 'IgniteYourPath' },
+                { emoji: '⚡', text: 'LightningSuccess' }
             ],
-            wisdom: [
-                { emoji: '🧠', text: 'LearnGrowWin' },
-                { emoji: '📚', text: 'KnowledgeIsPower' },
-                // ... more suggestions
+            achievementVictory: [
+                { emoji: '🏆', text: 'ChampionMindset' },
+                { emoji: '👑', text: 'OwnYourCrown' },
+                { emoji: '🥇', text: 'FirstPlace!Always' },
+                { emoji: '🎖️', text: 'EarnYourMedal' }
             ],
-            // ... 6 total categories with 48+ phrases
+            // ... 12 total groups with 4 phrases each
         };
         this.currentSet = [];
     }
-    
-    getRandomSuggestions(count = 8) {
-        // Ensure variety across categories
-        const suggestions = [];
+      getRandomSuggestions(count = 4) {
+        // Randomly select one complete thematic group
         const categories = Object.keys(this.categories);
+        const randomCategoryIndex = Math.floor(Math.random() * categories.length);
+        const selectedCategory = categories[randomCategoryIndex];
         
-        while (suggestions.length < count) {
-            for (const category of categories) {
-                if (suggestions.length >= count) break;
-                const phrases = this.categories[category];
-                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
-                if (!suggestions.find(s => s.text === randomPhrase.text)) {
-                    suggestions.push({ ...randomPhrase, category });
-                }
-            }
-        }
-        return suggestions;
+        // Return all 4 suggestions from the selected group
+        return this.categories[selectedCategory].map(suggestion => ({
+            ...suggestion, 
+            category: selectedCategory
+        }));
     }
     
     insertSuggestion(phrase) {
@@ -534,9 +529,9 @@ document.addEventListener('DOMContentLoaded', () => {
 ```
 
 **Key Features:**
-- **📚 6 Categories**: Motivation, Tech, Wisdom, Success, Wellness, Spiritual
-- **🎯 48+ Curated Phrases**: Short, memorable, inspiring examples
-- **🔄 Smart Rotation**: Ensures variety across different categories
+- **📚 12 Balanced Groups**: Power & Motivation, Achievement & Victory, Learning & Growth, Tech & Innovation, Health & Vitality, Spiritual & Wisdom, Creative & Artistic, Focus & Excellence, Nature & Renewal, Problem Solving, Digital & Future, Celebration & Joy
+- **🎯 48 Curated Phrases**: 4 phrases per group for focused, manageable choices
+- **🔄 Smart Group Rotation**: Each refresh shows a complete thematic group
 - **⚡ One-Click Insertion**: Instant phrase testing with visual feedback
 - **🎨 Smooth UX**: Animations, transitions, and responsive design
 - **♿ Accessibility**: Keyboard navigation and screen reader support

@@ -59,7 +59,7 @@ This is a Progressive Web App (PWA) for generating secure passwords from phrases
 Your Cipher Alchemist PWA is now fully optimized with:
 
 - 🎨 **Theme System** - Working dark/light toggle in top-right corner with responsive positioning
-- 💡 **Phrase Suggestions** - 48+ inspirational phrases across 6 categories (Motivation, Tech, Wisdom, Success, Wellness, Spiritual)
+- 💡 **Phrase Suggestions** - 48 inspirational phrases across 12 balanced groups (4 phrases each)
 - 🛡️ **Advanced Password Strength Meter** - Real-time analysis with circular progress and detailed criteria
 - 📱 **Mobile Responsive** - Fixed textarea overflow and button positioning issues
 - 🔍 **SEO Optimized** - Comprehensive meta tags for social sharing and search engines
