@@ -1,0 +1,164 @@
+/* CSS Variables and Theme System */
+
+:root {
+  /* Light theme colors */
+  --bg: #f7f7f7;
+  --text: #222;
+  --container-bg: #fff;
+  --input-bg: #fafafa;
+  --input-border: #ccc;
+  --button-bg: #0078d7;
+  --button-text: #fff;
+  --button-hover-bg: #005fa3;
+  --button-border: none;
+  --card-bg: #f3f3f3;
+  --card-border: #e0e0e0;
+  --footer: #888;
+  --transformation-bg: #f9f9f9;
+  --transformation-border: #ccc;
+  --toggle-bg: #fff;
+  --toggle-color: #222;
+  
+  /* Chip colors */
+  --chip-bg: #f8f9fa;
+  --chip-text: #495057;
+  --chip-border: #e9ecef;
+  --chip-hover-bg: #007bff;
+  --chip-hover-text: white;
+  
+  /* Secondary button colors */
+  --secondary-bg: #6c757d;
+  --secondary-text: white;
+  --secondary-border: #6c757d;
+  --secondary-hover-bg: #5a6268;
+  --secondary-hover-text: white;
+  
+  /* Success colors */
+  --success-bg: #28a745;
+  --success-text: white;
+  
+  /* Additional semantic colors */
+  --text-muted: #6c757d;
+  --border-light: #dee2e6;
+  --shadow-light: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme */
+body.dark-theme {
+  --bg: #1a1a1a;
+  --text: #e0e0e0;
+  --container-bg: #2a2a2a;
+  --input-bg: #333;
+  --input-border: #555;
+  --button-bg: #0078d7;
+  --button-text: #fff;
+  --button-hover-bg: #106ebe;
+  --button-border: none;
+  --card-bg: #333;
+  --card-border: #444;
+  --footer: #aaa;
+  --transformation-bg: #2e2e2e;
+  --transformation-border: #555;
+  --toggle-bg: #333;
+  --toggle-color: #e0e0e0;
+  
+  /* Dark chip colors */
+  --chip-bg: #3a3a3a;
+  --chip-text: #e0e0e0;
+  --chip-border: #555;
+  --chip-hover-bg: #0056b3;
+  --chip-hover-text: white;
+  
+  /* Dark secondary colors */
+  --secondary-bg: #495057;
+  --secondary-text: white;
+  --secondary-border: #495057;
+  --secondary-hover-bg: #343a40;
+  --secondary-hover-text: white;
+  
+  /* Dark success colors */
+  --success-bg: #28a745;
+  --success-text: white;
+  
+  /* Dark semantic colors */
+  --text-muted: #adb5bd;
+  --border-light: #495057;
+  --shadow-light: rgba(0, 0, 0, 0.3);
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: var(--toggle-bg);
+  color: var(--toggle-color);
+  border: 1px solid var(--input-border);
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 8px var(--shadow-light);
+}
+
+.theme-toggle:hover {
+  background: var(--button-bg);
+  color: var(--button-text);
+  transform: scale(1.1);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+}
+
+/* Focus styles */
+button:focus,
+input:focus,
+textarea:focus,
+[tabindex]:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background: var(--button-bg);
+  color: var(--button-text);
+}
+
+::-moz-selection {
+  background: var(--button-bg);
+  color: var(--button-text);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--input-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--input-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--footer);
+}

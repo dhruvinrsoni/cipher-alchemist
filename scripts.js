@@ -1,3 +1,13 @@
+// ========================================
+// 🚨 BACKUP FILE - CODE HAS BEEN MODULARIZED
+// ========================================
+// This file is kept as backup. The functionality has been split into modular files:
+// - js/cipher-algorithms.js - Character substitution and password generation
+// - js/password-strength.js - Password strength calculation and display  
+// - js/phrase-suggestions.js - Phrase suggestions system with 12 categories
+// - js/main.js - Core app logic, initialization, and event handlers
+// ========================================
+
 const substitutions = {
     'a': '@', 'b': '6', 'c': '(', 'd': 'cl', 'e': 'e', 'f': 'ph', 'g': '9', 'h': '#', 'i': '!', 'j': ']', 'k': '|<', 'l': '1', 'm': '/\\/\\', 'n': '|\\|', 'o': '0', 'p': '|>', 'q': 'q', 'r': 'r', 's': '5', 't': '+', 'u': 'v', 'v': '\\/', 'w': '\\/\\/', 'x': '><', 'y': 'y', 'z': '2',
     'A': '4', 'B': '8', 'C': '(', 'D': '|)', 'E': '3', 'F': 'PH', 'G': 'G', 'H': '#', 'I': '1', 'J': ')', 'K': '|<', 'L': '1', 'M': '/\\/\\', 'N': '|\\|', 'O': '0', 'P': '|>', 'Q': '0_', 'R': 'R', 'S': '5', 'T': '7', 'U': '(_)', 'V': '\\/', 'W': '\\/\\/', 'X': '><', 'Y': 'Y', 'Z': '2',

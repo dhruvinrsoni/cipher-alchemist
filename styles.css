@@ -1,3 +1,13 @@
+/* ========================================
+🚨 BACKUP FILE - CSS HAS BEEN MODULARIZED  
+======================================== 
+This file is kept as backup. The styles have been split into modular files:
+- css/themes.css - CSS variables and theme system
+- css/main.css - Core layout and base styles
+- css/password-strength.css - Strength meter styles  
+- css/phrase-suggestions.css - Suggestion chips styles
+======================================== */
+
 :root {
   --bg: #f7f7f7;
   --text: #222;

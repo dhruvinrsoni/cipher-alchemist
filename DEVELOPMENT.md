@@ -2,6 +2,7 @@
 
 ## 📋 **Table of Contents**
 - [🎯 Application Development](#-application-development)
+- [📦 Modular Architecture](#-modular-architecture)
 - [🔮 Cipher Algorithms](#-cipher-algorithms)
 - [🏗️ Project Structure](#️-project-structure)
 - [🚀 CI/CD Pipeline](#-cicd-pipeline)
@@ -32,6 +33,88 @@ Cipher Alchemist is a **client-side cryptographic toolkit** built with vanilla H
 | **Cryptography** | Custom JavaScript implementations | Cipher algorithms |
 | **Build Process** | None (vanilla approach) | Simplicity and speed |
 | **Deployment** | GitHub Pages | Static hosting |
+
+---
+
+## 📦 **Modular Architecture**
+
+### **🎯 Code Organization Strategy**
+The codebase has been **refactored from a monolithic structure** to a clean, modular architecture for improved maintainability, code organization, and scalability.
+
+### **📁 Modular File Structure**
+```
+cipher-alchemist/
+├── css/                    # Modular CSS files
+│   ├── themes.css         # Theme system & CSS variables
+│   ├── main.css          # Core layout & base styles
+│   ├── password-strength.css # Strength meter styling
+│   └── phrase-suggestions.css # Suggestion UI styles
+├── js/                     # Modular JavaScript files
+│   ├── cipher-algorithms.js   # Password generation logic
+│   ├── password-strength.js   # Strength analysis system
+│   ├── phrase-suggestions.js  # Suggestion management
+│   └── main.js               # App initialization & core logic
+├── index.html              # Updated with modular imports
+├── scripts.js              # BACKUP - Original monolithic file
+├── styles.css              # BACKUP - Original monolithic file
+└── [other project files...]
+```
+
+### **🔧 Module Dependencies**
+```
+index.html
+├── CSS (parallel loading)
+│   ├── themes.css (base variables)
+│   ├── main.css (depends on themes)
+│   ├── password-strength.css (depends on themes)
+│   └── phrase-suggestions.css (depends on themes)
+└── JavaScript (sequential loading with defer)
+    ├── cipher-algorithms.js (provides: substitutions, generatePassword)
+    ├── password-strength.js (provides: calculatePasswordScore, checkStrength)
+    ├── phrase-suggestions.js (provides: populateSuggestions, toggleSuggestions)
+    └── main.js (provides: initializeApp, event handlers)
+```
+
+### **🚀 Benefits of Modular Architecture**
+
+#### **Code Organization**
+- **Separation of Concerns** - Each module handles a specific feature
+- **Maintainability** - Easier to locate and modify specific functionality
+- **Readability** - Smaller, focused files are easier to understand
+- **Collaboration** - Multiple developers can work on different modules
+
+#### **Performance**
+- **Parallel Loading** - CSS files load simultaneously
+- **Caching** - Individual modules can be cached separately
+- **Selective Updates** - Only modified modules need updating
+- **Debugging** - Easier to isolate issues to specific modules
+
+#### **Development Workflow**
+- **Feature Development** - Work on specific features without affecting others
+- **Testing** - Test individual modules in isolation
+- **Code Review** - Smaller, focused pull requests
+- **Deployment** - Granular control over what gets updated
+
+### **📝 Module Breakdown**
+
+#### **CSS Modules**
+- **`themes.css`** - CSS custom properties for light/dark themes
+- **`main.css`** - Core layout, typography, and base component styles
+- **`password-strength.css`** - Modern circular progress meter and criteria grid
+- **`phrase-suggestions.css`** - Suggestion chips, animations, and responsive behavior
+
+#### **JavaScript Modules**
+- **`cipher-algorithms.js`** - Character substitution mapping and password generation
+- **`password-strength.js`** - Real-time strength analysis and meter display
+- **`phrase-suggestions.js`** - 48 inspirational phrases across 12 categories
+- **`main.js`** - Application initialization, event binding, and core UI logic
+
+### **🔄 Migration Strategy**
+1. **✅ Complete** - Original monolithic files preserved as backups
+2. **✅ Complete** - All functionality extracted into focused modules
+3. **✅ Complete** - HTML updated to reference modular files
+4. **✅ Complete** - Load order optimized for dependencies
+5. **✅ Complete** - All features tested and validated
 
 ---
 
