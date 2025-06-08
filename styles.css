@@ -15,6 +15,21 @@
   --transformation-border: #ccc;
   --toggle-bg: #fff;
   --toggle-color: #222;
+  
+  --chip-bg: #f8f9fa;
+  --chip-text: #495057;
+  --chip-border: #e9ecef;
+  --chip-hover-bg: #007bff;
+  --chip-hover-text: white;
+  
+  --secondary-bg: #6c757d;
+  --secondary-text: white;
+  --secondary-border: #6c757d;
+  --secondary-hover-bg: #5a6268;
+  --secondary-hover-text: white;
+  
+  --success-bg: #28a745;
+  --success-text: white;
 }
 
 body {
@@ -651,6 +666,160 @@ body.dark-theme .description .example-phrase:hover {
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Phrase Suggestions Styles */
+.phrase-suggestions-container {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.phrase-suggestions-header {
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px 12px 0 0;
+  transition: background 0.2s;
+  user-select: none;
+}
+
+.phrase-suggestions-header:hover {
+  background: var(--card-bg);
+}
+
+.phrase-suggestions-header:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: -2px;
+}
+
+.phrase-suggestions-content {
+  padding: 0 1rem 1rem 1rem;
+  border-top: 1px solid var(--card-border);
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.phrase-suggestions-content.collapsed {
+  max-height: 0;
+  padding: 0 1rem;
+  opacity: 0;
+}
+
+.suggestions-description {
+  margin: 0 0 1rem 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.suggestions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.suggestion-chip {
+  background: var(--chip-bg);
+  color: var(--chip-text);
+  border: 1px solid var(--chip-border);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.suggestion-chip:hover {
+  background: var(--chip-hover-bg);
+  color: var(--chip-hover-text);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 12px rgba(0,123,255,0.2);
+}
+
+.suggestion-chip:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0,123,255,0.3);
+}
+
+.suggestion-chip .chip-emoji {
+  font-size: 1.1em;
+}
+
+.suggestion-chip .chip-text {
+  font-weight: 500;
+}
+
+.refresh-suggestions-btn {
+  background: var(--secondary-bg);
+  color: var(--secondary-text);
+  border: 1px solid var(--secondary-border);
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: block;
+  margin: 0 auto;
+  font-weight: 500;
+}
+
+.refresh-suggestions-btn:hover {
+  background: var(--secondary-hover-bg);
+  color: var(--secondary-hover-text);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Suggestion animation effects */
+.suggestion-chip.inserting {
+  animation: chipInsert 0.4s ease;
+}
+
+@keyframes chipInsert {
+  0% {
+    transform: scale(1);
+    background: var(--chip-bg);
+  }
+  50% {
+    transform: scale(1.05);
+    background: var(--success-bg);
+    color: var(--success-text);
+  }
+  100% {
+    transform: scale(1);
+    background: var(--chip-bg);
+  }
+}
+
+/* Mobile responsiveness for suggestions */
+@media (max-width: 768px) {
+  .suggestions-grid {
+    gap: 0.4rem;
+  }
+  
+  .suggestion-chip {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .refresh-suggestions-btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
   }
 }
 

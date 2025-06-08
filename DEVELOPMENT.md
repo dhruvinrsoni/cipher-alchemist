@@ -448,12 +448,98 @@ class InputValidator {
                 if (key.length < 1) {
                     throw new Error('Playfair cipher requires a key');
                 }
-                break;
-        }
+                break;        }
         return key;
     }
 }
 ```
+
+#### **💡 Phrase Suggestions System**
+```javascript
+class PhraseSuggestionEngine {
+    constructor() {
+        this.categories = {
+            motivation: [
+                { emoji: '💪', text: 'BeStrong@2025' },
+                { emoji: '🚀', text: 'DreamBig!Launch' },
+                // ... more suggestions
+            ],
+            wisdom: [
+                { emoji: '🧠', text: 'LearnGrowWin' },
+                { emoji: '📚', text: 'KnowledgeIsPower' },
+                // ... more suggestions
+            ],
+            // ... 6 total categories with 48+ phrases
+        };
+        this.currentSet = [];
+    }
+    
+    getRandomSuggestions(count = 8) {
+        // Ensure variety across categories
+        const suggestions = [];
+        const categories = Object.keys(this.categories);
+        
+        while (suggestions.length < count) {
+            for (const category of categories) {
+                if (suggestions.length >= count) break;
+                const phrases = this.categories[category];
+                const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+                if (!suggestions.find(s => s.text === randomPhrase.text)) {
+                    suggestions.push({ ...randomPhrase, category });
+                }
+            }
+        }
+        return suggestions;
+    }
+    
+    insertSuggestion(phrase) {
+        const input = document.getElementById('phraseInput');
+        input.value = phrase;
+        
+        // Visual feedback animation
+        this.animateInsertion(input);
+        
+        // Trigger real-time strength analysis
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        
+        // Auto-focus and scroll
+        input.focus();
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    animateInsertion(element) {
+        element.style.transition = 'all 0.3s ease';
+        element.style.transform = 'scale(1.02)';
+        element.style.boxShadow = '0 4px 16px rgba(40, 167, 69, 0.3)';
+        
+        setTimeout(() => {
+            element.style.transform = 'scale(1)';
+            element.style.boxShadow = '';
+        }, 300);
+    }
+}
+
+// Usage Example
+const suggestionEngine = new PhraseSuggestionEngine();
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    suggestionEngine.populateUI();
+    
+    // Refresh suggestions every interaction
+    document.getElementById('refreshBtn').addEventListener('click', () => {
+        suggestionEngine.refreshSuggestions();
+    });
+});
+```
+
+**Key Features:**
+- **📚 6 Categories**: Motivation, Tech, Wisdom, Success, Wellness, Spiritual
+- **🎯 48+ Curated Phrases**: Short, memorable, inspiring examples
+- **🔄 Smart Rotation**: Ensures variety across different categories
+- **⚡ One-Click Insertion**: Instant phrase testing with visual feedback
+- **🎨 Smooth UX**: Animations, transitions, and responsive design
+- **♿ Accessibility**: Keyboard navigation and screen reader support
 
 ---
 

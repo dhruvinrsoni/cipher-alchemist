@@ -1,4 +1,14 @@
-# cipher-alchemist
+# cipher## Features
+- Convert phrases into strong, memorable passwords
+- Symbolic substitutions for enhanced security
+- **💡 Phrase Suggestions** - Inspirational examples to get you started
+- **🛡️ Real-time Password Strength Analysis** - Advanced security scoring
+- **Dark/Light Theme Toggle**
+- **Copy to Clipboard Button**
+- **PDF Download Button** for cheat sheet
+- **Offline Support** via Service Worker
+- **Installable as a PWA**
+- **Custom Branding** with a "Made by You" footer
 A creative and secure phrase-to-password generator that transforms text using symbolic cipher techniques. Built as a Progressive Web App (PWA) with offline support, dark/light themes, and a password strength meter.
 
 
@@ -48,7 +58,15 @@ This is a Progressive Web App (PWA) for generating secure passwords from phrases
 
 Your Cipher Alchemist PWA is now fully optimized with:
 
-- 🎨 Theme System - Working dark/light toggle in top-right corner with responsive positioning
+- 🎨 **Theme System** - Working dark/light toggle in top-right corner with responsive positioning
+- 💡 **Phrase Suggestions** - 48+ inspirational phrases across 6 categories (Motivation, Tech, Wisdom, Success, Wellness, Spiritual)
+- 🛡️ **Advanced Password Strength Meter** - Real-time analysis with circular progress and detailed criteria
+- 📱 **Mobile Responsive** - Fixed textarea overflow and button positioning issues
+- 🔍 **SEO Optimized** - Comprehensive meta tags for social sharing and search engines
+- ⚡ **PWA Ready** - Fixed manifest.json for proper Progressive Web App installation
+- 📝 **Professional Changelog** - Clean, properly formatted changelog with commit history
+- 🛠️ **Service Worker** - Offline support with proper caching for GitHub Pages
+- 🔗 **Footer** - Static attribution with dynamic version display and GitHub links
 - 📱 Mobile Responsive - Fixed textarea overflow and button positioning issues
 - 🔍 SEO Optimized - Comprehensive meta tags for social sharing and search engines
 - ⚡ PWA Ready - Fixed manifest.json for proper Progressive Web App installation

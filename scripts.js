@@ -285,11 +285,245 @@ function checkStrength(password, originalPhrase = '') {
     }, 100);
 }
 
-function downloadPDF() {
-    console.log('downloadPDF called');
-    window.open('cheat_sheet.pdf', '_blank');
+// Phrase Suggestions Feature
+const phraseSuggestions = {
+    // Inspirational & Motivational
+    motivation: [
+        { emoji: '💪', text: 'BeStrong@2025' },
+        { emoji: '🚀', text: 'DreamBig!Launch' },
+        { emoji: '⭐', text: 'ShineEveryDay' },
+        { emoji: '🎯', text: 'Focus&Achieve' },
+        { emoji: '🌟', text: 'StartsToday!Now' },
+        { emoji: '🔥', text: 'IgniteYourPath' },
+        { emoji: '💎', text: 'DiamondMindset' },
+        { emoji: '🦋', text: 'Transform2025' }
+    ],
+    
+    // Personal Growth & Wisdom
+    wisdom: [
+        { emoji: '🧠', text: 'LearnGrowWin' },
+        { emoji: '📚', text: 'KnowledgeIsPower' },
+        { emoji: '🎓', text: 'NeverStopLearning' },
+        { emoji: '🌱', text: 'GrowthMindset' },
+        { emoji: '🔮', text: 'WisdomSeeker' },
+        { emoji: '⚡', text: 'PowerOfThought' },
+        { emoji: '🌈', text: 'CreateYourPath' },
+        { emoji: '🔑', text: 'UnlockPotential' }
+    ],
+    
+    // Technology & Innovation
+    tech: [
+        { emoji: '💻', text: 'CodeYourDreams' },
+        { emoji: '🤖', text: 'FutureIsNow@AI' },
+        { emoji: '🌐', text: 'ConnectTheWorld' },
+        { emoji: '⚙️', text: 'BuildInnovate' },
+        { emoji: '🔧', text: 'FixItBetter' },
+        { emoji: '📱', text: 'DigitalNomad2025' },
+        { emoji: '🛠️', text: 'CreateSolutions' },
+        { emoji: '🎮', text: 'GameChanger!Pro' }
+    ],
+    
+    // Success & Achievement
+    success: [
+        { emoji: '🏆', text: 'ChampionMindset' },
+        { emoji: '👑', text: 'OwnYourCrown' },
+        { emoji: '🎊', text: 'CelebrateWins' },
+        { emoji: '🌟', text: 'ExcellenceDaily' },
+        { emoji: '💯', text: 'Perfect@Every' },
+        { emoji: '🥇', text: 'FirstPlace!Always' },
+        { emoji: '🎖️', text: 'EarnYourMedal' },
+        { emoji: '⚡', text: 'LightningSuccess' }
+    ],
+    
+    // Health & Wellness
+    wellness: [
+        { emoji: '🧘', text: 'MindBodySoul' },
+        { emoji: '💚', text: 'HealthyChoices' },
+        { emoji: '🏃', text: 'RunYourRace' },
+        { emoji: '🌿', text: 'NaturalHealing' },
+        { emoji: '☀️', text: 'SunshineVibes' },
+        { emoji: '🍃', text: 'FreshStart2025' },
+        { emoji: '💧', text: 'FlowLikeWater' },
+        { emoji: '🌸', text: 'BloomWhere@You' }
+    ],
+    
+    // Spiritual & Philosophical  
+    spiritual: [
+        { emoji: '🕉️', text: 'AhamBrahmasmi@108' },
+        { emoji: '☯️', text: 'BalanceWithin' },
+        { emoji: '🔮', text: 'TrustTheUniverse' },
+        { emoji: '🌙', text: 'MoonlightWisdom' },
+        { emoji: '✨', text: 'CosmicEnergy' },
+        { emoji: '🙏', text: 'Gratitude@Heart' },
+        { emoji: '💫', text: 'SoulPurpose' },
+        { emoji: '🌅', text: 'NewDawnRising' }
+    ]
+};
+
+let currentSuggestionSet = [];
+let currentCategoryIndex = 0;
+
+// Function to get random suggestions from different categories
+function getRandomSuggestions(count = 8) {
+    const categories = Object.keys(phraseSuggestions);
+    const suggestions = [];
+    const used = new Set();
+    
+    // Ensure we get variety from different categories
+    while (suggestions.length < count && used.size < getTotalSuggestionsCount()) {
+        for (const category of categories) {
+            if (suggestions.length >= count) break;
+            
+            const categoryPhrases = phraseSuggestions[category];
+            const randomIndex = Math.floor(Math.random() * categoryPhrases.length);
+            const phrase = categoryPhrases[randomIndex];
+            const key = `${category}-${randomIndex}`;
+            
+            if (!used.has(key)) {
+                used.add(key);
+                suggestions.push({ ...phrase, category });
+            }
+        }
+    }
+    
+    return suggestions.slice(0, count);
 }
 
+function getTotalSuggestionsCount() {
+    return Object.values(phraseSuggestions).reduce((total, category) => total + category.length, 0);
+}
+
+// Function to populate suggestions in the UI
+function populateSuggestions() {
+    const suggestionsGrid = document.getElementById('suggestionsGrid');
+    if (!suggestionsGrid) {
+        console.error('No element with id="suggestionsGrid" found');
+        return;
+    }
+    
+    currentSuggestionSet = getRandomSuggestions(8);
+    
+    suggestionsGrid.innerHTML = currentSuggestionSet
+        .map(suggestion => `
+            <div class="suggestion-chip" 
+                 onclick="insertSuggestion('${suggestion.text}')" 
+                 data-phrase="${suggestion.text}"
+                 tabindex="0"
+                 role="button"
+                 aria-label="Insert phrase: ${suggestion.text}">
+                <span class="chip-emoji">${suggestion.emoji}</span>
+                <span class="chip-text">${suggestion.text}</span>
+            </div>
+        `).join('');
+    
+    // Add keyboard navigation for suggestion chips
+    const chips = suggestionsGrid.querySelectorAll('.suggestion-chip');
+    chips.forEach(chip => {
+        chip.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                const phrase = this.getAttribute('data-phrase');
+                insertSuggestion(phrase);
+            }
+        });
+    });
+}
+
+// Function to insert a suggestion into the input field
+function insertSuggestion(phrase) {
+    const phraseInput = document.getElementById('phraseInput');
+    if (!phraseInput) {
+        console.error('No input with id="phraseInput" found');
+        return;
+    }
+    
+    // Find the clicked chip and add insertion animation
+    const chips = document.querySelectorAll('.suggestion-chip');
+    chips.forEach(chip => {
+        if (chip.getAttribute('data-phrase') === phrase) {
+            chip.classList.add('inserting');
+            setTimeout(() => chip.classList.remove('inserting'), 400);
+        }
+    });
+    
+    // Insert the phrase
+    phraseInput.value = phrase;
+    phraseInput.focus();
+    
+    // Add visual feedback animation
+    phraseInput.style.transition = 'all 0.3s ease';
+    phraseInput.style.transform = 'scale(1.02)';
+    phraseInput.style.boxShadow = '0 4px 16px rgba(40, 167, 69, 0.3)';
+    
+    // Trigger input event for real-time strength checking
+    const inputEvent = new Event('input', { bubbles: true });
+    phraseInput.dispatchEvent(inputEvent);
+    
+    // Reset animation
+    setTimeout(() => {
+        phraseInput.style.transform = 'scale(1)';
+        phraseInput.style.boxShadow = '';
+    }, 300);
+    
+    // Scroll to the input field for better UX
+    phraseInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Function to refresh suggestions with new random phrases
+function refreshSuggestions() {
+    const suggestionsGrid = document.getElementById('suggestionsGrid');
+    const refreshBtn = document.querySelector('.refresh-suggestions-btn');
+    
+    if (!suggestionsGrid || !refreshBtn) return;
+    
+    // Add loading animation
+    refreshBtn.style.transform = 'rotate(360deg)';
+    refreshBtn.style.transition = 'transform 0.5s ease';
+    
+    // Fade out current suggestions
+    suggestionsGrid.style.opacity = '0.5';
+    suggestionsGrid.style.transform = 'scale(0.98)';
+    suggestionsGrid.style.transition = 'all 0.3s ease';
+    
+    setTimeout(() => {
+        // Populate new suggestions
+        populateSuggestions();
+        
+        // Fade in new suggestions
+        suggestionsGrid.style.opacity = '1';
+        suggestionsGrid.style.transform = 'scale(1)';
+        
+        // Reset refresh button
+        setTimeout(() => {
+            refreshBtn.style.transform = 'rotate(0deg)';
+        }, 100);
+    }, 300);
+}
+
+// Function to toggle suggestions section
+function toggleSuggestions() {
+    const content = document.getElementById('suggestionsContent');
+    const icon = document.getElementById('suggestionsIcon');
+    const header = document.querySelector('.phrase-suggestions-header');
+    
+    if (!content || !icon || !header) return;
+    
+    if (content.classList.contains('collapsed')) {
+        // Expand
+        content.classList.remove('collapsed');
+        icon.classList.remove('collapsed');
+        icon.textContent = '▼';
+        header.setAttribute('aria-expanded', 'true');
+    } else {
+        // Collapse
+        content.classList.add('collapsed');
+        icon.classList.add('collapsed');
+        icon.textContent = '▶';
+        header.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Initialize phrase suggestions on page load
 document.addEventListener('DOMContentLoaded', function() {
     const genBtn = document.getElementById('generateBtn');
     if (genBtn) {
@@ -399,6 +633,20 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('footer-version').textContent = '🔖 vDEV · Local Build';
             window.APP_VERSION = 'vDEV · Local Build';
           });
+    }
+    
+    // Initialize phrase suggestions
+    populateSuggestions();
+    
+    // Add keyboard navigation for suggestions header
+    const suggestionsHeader = document.querySelector('.phrase-suggestions-header');
+    if (suggestionsHeader) {
+        suggestionsHeader.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleSuggestions();
+            }
+        });
     }
 });
 

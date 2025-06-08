@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8" />    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
     <title>Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni</title>
-    <meta name="description" content="🔮 Cipher Alchemist: Turn memorable phrases into cryptographically strong passwords with real-time strength analysis. Vedic wisdom meets modern security. By @dhruvinrsoni - PWA with offline support." />
+    <meta name="description" content="🔮 Cipher Alchemist: Turn memorable phrases into cryptographically strong passwords with inspirational suggestions and real-time strength analysis. Vedic wisdom meets modern security. By @dhruvinrsoni - PWA with offline support." />
     <meta name="theme-color" content="#007BFF" />
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Cipher Alchemist">
     <meta name="application-name" content="Cipher Alchemist">    <meta property="og:title" content="Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni" />
-    <meta property="og:description" content="🔮 Transform memorable phrases into cryptographically strong passwords with real-time strength analysis. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
+    <meta property="og:description" content="🔮 Transform memorable phrases into cryptographically strong passwords with inspirational suggestions and real-time strength analysis. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dhruvinrsoni.github.io/cipher-alchemist/" />
     <meta property="og:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/favicon-512.png" />    <meta name="twitter:card" content="summary_large_image" />
@@ -45,7 +45,25 @@
                 </div>
             </div>
         </div>
-          <textarea id="phraseInput" placeholder="Enter your phrase here..."></textarea>
+        
+        <!-- Phrase Suggestions Section -->
+        <div class="phrase-suggestions-container">
+            <div class="phrase-suggestions-header" onclick="toggleSuggestions()" aria-expanded="true" role="button" tabindex="0">
+                <span class="section-title">💡 Phrase Suggestions</span>
+                <span class="expand-icon" id="suggestionsIcon">▼</span>
+            </div>
+            <div class="phrase-suggestions-content" id="suggestionsContent">
+                <p class="suggestions-description">Click any phrase to try it instantly:</p>
+                <div class="suggestions-grid" id="suggestionsGrid">
+                    <!-- Suggestions will be populated by JavaScript -->
+                </div>
+                <button class="refresh-suggestions-btn" onclick="refreshSuggestions()" aria-label="Get new suggestions">
+                    🔄 More Suggestions
+                </button>
+            </div>
+        </div>
+          
+        <textarea id="phraseInput" placeholder="Enter your phrase here..."></textarea>
         
         <!-- Password Strength Meter -->
         <div id="strengthMeter"></div>
