@@ -155,12 +155,33 @@ function populateSuggestions() {
     
     // Add keyboard navigation for suggestion chips
     const chips = suggestionsGrid.querySelectorAll('.suggestion-chip');
-    chips.forEach(chip => {
+    chips.forEach((chip, index) => {
         chip.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 const phrase = this.getAttribute('data-phrase');
                 insertSuggestion(phrase);
+            }
+            // Arrow key navigation
+            else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const prevIndex = index > 0 ? index - 1 : chips.length - 1;
+                chips[prevIndex].focus();
+            }
+            else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                const nextIndex = index < chips.length - 1 ? index + 1 : 0;
+                chips[nextIndex].focus();
+            }
+            // Home key - jump to first chip
+            else if (e.key === 'Home') {
+                e.preventDefault();
+                chips[0].focus();
+            }
+            // End key - jump to last chip
+            else if (e.key === 'End') {
+                e.preventDefault();
+                chips[chips.length - 1].focus();
             }
         });
     });

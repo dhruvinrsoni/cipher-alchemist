@@ -178,6 +178,34 @@ function initializeVersion() {
 }
 
 /**
+ * Register service worker for PWA functionality
+ */
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('config/sw.js')
+            .then((registration) => {
+                console.log('Service Worker registered successfully:', registration);
+                
+                // Check for updates
+                registration.addEventListener('updatefound', () => {
+                    const newWorker = registration.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // New content available, show update notification
+                            if (confirm('New version available! Click OK to update.')) {
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
+            })
+            .catch((error) => {
+                console.log('Service Worker registration failed:', error);
+            });
+    }
+}
+
+/**
  * Initialize all event listeners and functionality
  */
 function initializeApp() {
@@ -292,7 +320,65 @@ function initializeApp() {
         }
     });
 
+    // Add keyboard navigation for example phrase element
+    const examplePhrase = document.querySelector('.example-phrase');
+    if (examplePhrase) {
+        examplePhrase.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                tryExample();
+            }
+        });
+    }
+
+    // Add global keyboard shortcuts
+    document.addEventListener('keydown', function(e) {
+        // Ctrl+Enter to generate password
+        if (e.ctrlKey && e.key === 'Enter') {
+            e.preventDefault();
+            const generateBtn = document.getElementById('generateBtn');
+            if (generateBtn) {
+                generateBtn.click();
+            }
+        }
+        
+        // Ctrl+C to copy password when password output is focused
+        if (e.ctrlKey && e.key === 'c' && e.target.id === 'passwordOutput') {
+            e.preventDefault();
+            copyPassword();
+        }
+        
+        // Alt+1 to toggle description section
+        if (e.altKey && e.key === '1') {
+            e.preventDefault();
+            toggleDescription();
+        }
+        
+        // Alt+2 to toggle suggestions section
+        if (e.altKey && e.key === '2') {
+            e.preventDefault();
+            toggleSuggestions();
+        }
+        
+        // Escape key to close any expanded sections
+        if (e.key === 'Escape') {
+            const sections = [
+                { content: document.getElementById('descriptionContent'), toggle: toggleDescription },
+                { content: document.getElementById('suggestionsContent'), toggle: toggleSuggestions }
+            ];
+            
+            sections.forEach(section => {
+                if (section.content && !section.content.classList.contains('collapsed')) {
+                    section.toggle();
+                }
+            });
+        }
+    });
+
     console.log('Cipher Alchemist app initialized successfully!');
+    
+    // Register service worker after app initialization
+    registerServiceWorker();
 }
 
 // Initialize the app when DOM is loaded

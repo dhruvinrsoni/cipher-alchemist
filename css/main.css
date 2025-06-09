@@ -319,107 +319,125 @@ footer {
 }
 
 #themeToggleBtn:focus {
-  outline: 2px solid #0078d7;
+  outline: 2px solid var(--button-bg);
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 600px) {
-  .app-description-container {
-    margin: 0.5rem 0 1rem 0;
-  }
-  
-  .app-description-header {
-    padding: 0.8rem 1rem;
-  }
-  
-  .app-description-content {
-    padding: 0 1rem 1rem 1rem;
-  }
-  
-  .app-description-content.collapsed {
-    padding: 0 1rem;
-  }
-  
-  .section-title {
-    font-size: 1rem;
-  }
-  
-  .tagline {
-    font-size: 1.1rem;
-  }
-  
-  .description {
-    font-size: 0.95rem;
-  }
-  
-  .features {
-    gap: 0.5rem;
-  }
-  
-  .feature {
-    font-size: 0.85rem;
-    padding: 0.3rem 0.6rem;
-  }
+/* Enhanced Focus Management and Accessibility */
 
-  .transformation-header {
-    padding: 0.6rem 0.8rem;
-  }
-  
-  .transformation-content {
-    padding: 0 0.8rem 0.8rem 0.8rem;
-  }
-  
-  .transformation-content.collapsed {
-    padding: 0 0.8rem;
-  }
-  
-  .transformation-title {
-    font-size: 0.9rem;
-  }
+/* Universal focus styles for better accessibility */
+*:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+  outline-style: solid;
+}
 
-  #themeToggleBtn {
-    position: fixed;
-    top: 0.5rem;
-    right: 0.5rem;
-    left: auto;
-    width: 38px;
-    height: 38px;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Specific focus styles for interactive elements */
+button:focus,
+textarea:focus,
+[role="button"]:focus,
+[tabindex]:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+}
+
+/* Focus styles for clickable headers */
+.app-description-header:focus,
+.phrase-suggestions-header:focus,
+.transformation-header:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: -2px;
+  background: var(--card-bg);
+}
+
+/* Focus styles for the example phrase */
+.example-phrase:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+  background: rgba(0, 123, 255, 0.1);
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin: -2px -4px;
+}
+
+/* Focus styles for suggestion chips */
+.suggestion-chip:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+  background: var(--chip-hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+}
+
+/* Theme toggle button focus */
+#themeToggleBtn:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
+}
+
+/* Skip to main content link for screen readers */
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.skip-to-main:focus {
+  top: 6px;
+}
+
+/* Ensure proper tab order visual indicators */
+[tabindex="0"]:focus,
+[role="button"]:focus {
+  position: relative;
+  z-index: 1;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  *:focus {
+    outline: 3px solid;
+    outline-offset: 2px;
   }
   
-  .container {
-    padding: 1rem 0.5rem 1rem 0.5rem;
-    width: 100vw;
-    max-width: 100vw;
-    box-sizing: border-box;
-    overflow-x: hidden;
-  }
-  
-  h1 {
-    font-size: 1.3rem;
-  }
-  
-  textarea#phraseInput {
-    font-size: 1rem;
-    min-width: 0;
-    max-width: 100%;
-    margin: 0.5rem 0;
+  .suggestion-chip:focus {
+    border: 2px solid;
   }
 }
 
-/* Dark theme specific overrides */
-body.dark-theme .tagline {
-  color: #64b5f6; /* Light blue for better contrast */
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .suggestion-chip,
+  .example-phrase,
+  button,
+  [role="button"] {
+    transition: none;
+  }
+  
+  .suggestion-chip:focus {
+    transform: none;
+  }
 }
 
-body.dark-theme .description strong {
-  color: #81c784; /* Light green for clickable example */
+/* Dark theme focus adjustments */
+body.dark-theme *:focus {
+  outline-color: #64b5f6;
 }
 
-body.dark-theme .description .example-phrase:hover {
-  color: #a5d6a7; /* Lighter green on hover */
-  text-decoration-color: #a5d6a7;
+body.dark-theme button:focus,
+body.dark-theme [role="button"]:focus {
+  box-shadow: 0 0 0 4px rgba(100, 181, 246, 0.25);
+}
+
+body.dark-theme .example-phrase:focus {
+  background: rgba(100, 181, 246, 0.15);
+  outline-color: #64b5f6;
 }

@@ -12,23 +12,25 @@
     <meta name="application-name" content="Cipher Alchemist">    <meta property="og:title" content="Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni" />
     <meta property="og:description" content="🔮 Transform memorable phrases into cryptographically strong passwords with inspirational suggestions and real-time strength analysis. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://dhruvinrsoni.github.io/cipher-alchemist/" />
-    <meta property="og:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/favicon-512.png" />    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:url" content="https://dhruvinrsoni.github.io/cipher-alchemist/" />    <meta property="og:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/assets/icons/favicon-512.png" />    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni" />    <meta name="twitter:description" content="🔮 Transform memorable phrases into cryptographically strong passwords with real-time strength analysis. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
-    <meta name="twitter:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/favicon-512.png" />
+    <meta name="twitter:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/assets/icons/favicon-512.png" />
     <!-- Modular CSS Files -->
     <link rel="stylesheet" href="css/themes.css" />
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/password-strength.css" />
-    <link rel="stylesheet" href="css/phrase-suggestions.css" />
+    <link rel="stylesheet" href="css/password-strength.css" />    <link rel="stylesheet" href="css/phrase-suggestions.css" />
     <link rel="manifest" href="manifest.json" />
-    <link rel="icon" href="favicon.ico" />
-    <link rel="apple-touch-icon" href="favicon-192.png" />
+    <link rel="icon" href="assets/icons/favicon.ico" />
+    <link rel="apple-touch-icon" href="assets/icons/favicon-192.png" />
     <meta name="app-version" content="__APP_VERSION__">
 </head>
 <body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
     <button id="themeToggleBtn" aria-label="Toggle theme">🌙</button>
-    <div class="container">
+    
+    <div class="container" id="main-content">
         <h1>Cipher Alchemist</h1>
           <!-- App Description Section -->
         <div class="app-description-container">
@@ -38,7 +40,7 @@
             </div>
             <div class="app-description-content" id="descriptionContent">
                 <p class="tagline">Transform memorable phrases into unbreakable passwords</p>                <p class="description">
-                    Turn <strong class="example-phrase" onclick="tryExample()" title="Click to try this example!">"AhamBrahmasmi@108"</strong> into <code>4#@/\/\8r@#/\/\@5/\/\!@ioB</code> 
+                    Turn <strong class="example-phrase" onclick="tryExample()" title="Click to try this example!" tabindex="0" role="button">"AhamBrahmasmi@108"</strong> into <code>4#@/\/\8r@#/\/\@5/\/\!@ioB</code> 
                     — combining Vedic wisdom, sacred numerology, and modern security with real-time strength analysis.
                 </p>                <div class="features">
                     <span class="feature">🧠 Easy to remember</span>

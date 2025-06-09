@@ -81,6 +81,15 @@
   box-shadow: 0 3px 12px rgba(0,123,255,0.2);
 }
 
+.suggestion-chip:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+  background: var(--chip-hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+  z-index: 1;
+}
+
 .suggestion-chip:active {
   transform: translateY(0);
   box-shadow: 0 1px 4px rgba(0,123,255,0.3);
@@ -151,4 +160,28 @@
     font-size: 0.85rem;
     padding: 0.5rem 1rem;
   }
+}
+
+/* Enhanced suggestion chip focus and navigation styles */
+.suggestion-chip:focus::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border: 2px solid var(--button-bg);
+  border-radius: 22px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Dark theme adjustments for suggestion chips */
+body.dark-theme .suggestion-chip:focus {
+  outline-color: #64b5f6;
+  box-shadow: 0 4px 12px rgba(100, 181, 246, 0.25);
+}
+
+body.dark-theme .suggestion-chip:focus::before {
+  border-color: #64b5f6;
 }
