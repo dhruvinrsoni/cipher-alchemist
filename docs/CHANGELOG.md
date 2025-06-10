@@ -4,6 +4,45 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-11 03:04:11 +0530  
+**Commit:** [b6e43de](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b6e43de7567dfefb3d08ff8e3974b3d3fd0246bb)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: add smart PWA install button with cross-browser support
+
+Enhanced PWA installation experience with intelligent install button that appears only when the app is installable and provides fallback instructions for different browsers.
+
+Changes:
+• Add install button (📱) to top-right controls with smart visibility
+• Implement beforeinstallprompt event handling for Chrome/Edge
+• Add cross-browser detection with manual install instructions
+• Include install detection to hide button when app already installed
+• Add pulse animation and hover effects for install button
+• Update keyboard shortcuts help to include PWA install option
+• Enhance documentation with PWA installation guidance
+
+Impact:
+• Improved user experience with one-click PWA installation
+• Better discoverability of PWA functionality across browsers
+• Seamless installation flow with visual feedback
+• Enhanced mobile and desktop app adoption
+
+Technical Details:
+• Event-driven install prompt management
+• Standalone mode detection for iOS Safari
+• Display mode checking for installed state
+• User choice tracking and UI state management
+
+Documentation Updates:
+• Updated README.md with smart install button instructions
+• Enhanced DEVELOPMENT.md with PWA install feature details
+• Updated keyboard testing guide with install button reference
+• Improved documentation index with PWA installation links
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-11 02:48:18 +0530  
 **Commit:** [4b7df8d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/4b7df8dfbf22101ef40d71ef8c9ec28e7392873b)  
 **Author:** Dhruvin Rupesh Soni
@@ -1407,18 +1446,6 @@ Signed-off-by: Dhruvin Soni <dhruvin.soni@zebra.com>
 **Author:** Dhruvin Rupesh Soni
 
 #### Fix name in main page and add icons
-
----
-
-**Date:** 2025-06-02 01:01:23 +0530  
-**Commit:** [2badf16](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2badf167844310f0e61f8b6bb6192da06e92641c)  
-**Author:** Dhruvin Rupesh Soni
-
-#### Replace PNG icons with favicon.ico in manifest.json
-
-Standardize PWA icons by using the existing favicon.ico instead of
-separate PNG files to ensure consistent branding between browser
-and PWA installations.
 
 ---
 
