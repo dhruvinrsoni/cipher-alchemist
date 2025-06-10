@@ -4,6 +4,113 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-11 02:48:18 +0530  
+**Commit:** [4b7df8d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/4b7df8dfbf22101ef40d71ef8c9ec28e7392873b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### Create FUNDING.yml
+
+docs: Add comprehensive GitHub funding configuration
+
+Reason:
+• Establish funding infrastructure to support open-source development
+• Enable community contributions for project sustainability
+• Provide multiple sponsorship options for different user preferences
+
+Impact:
+• Users can now easily support the project through various funding platforms
+• Improves project visibility and potential for community contributions
+• Establishes foundation for long-term project maintenance and development
+• No impact on CI/CD, runtime, database, security, cloud integration, or VCS
+• Code style, logging, review process, code quality, and coverage remain unchanged
+• Project ownership and contribution guidelines are enhanced
+
+Changes:
+• Added GitHub Sponsors configuration (commented for future activation)
+• Included multiple alternative funding platforms (Patreon, Ko-fi, Buy Me a Coffee, etc.)
+• Added custom sponsorship URLs for project homepage and repository
+• Documented funding use cases including security research, accessibility, and documentation
+• Included clear messaging about supporting open-source security tools
+
+Dependencies:
+• No new code dependencies introduced
+• Relies on GitHub's native funding.yml support
+
+Compatibility:
+• Fully backward compatible
+• No breaking changes to existing functionality
+
+Docs:
+• Self-documenting funding configuration with inline comments
+• Clear explanation of funding goals and impact areas
+
+---
+
+**Date:** 2025-06-11 02:24:34 +0530  
+**Commit:** [c0ca58c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c0ca58c5783f5084d8a1141ce3bd4efe971eb23f)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: enhance documentation with comprehensive index and accessibility guide
+
+Significantly improved documentation structure and accessibility support across the project.
+
+• Added comprehensive documentation index (docs/INDEX.md) for centralized navigation
+• Enhanced keyboard accessibility guide with complete testing procedures and WCAG compliance
+• Expanded development guide with recent improvements section highlighting new features
+• Updated git workflow guide with detailed CI/CD documentation and emergency scenarios
+• Restructured main README with professional badges, clear sections, and improved navigation
+• Added thorough documentation for keyboard shortcuts, help modal system, and accessibility features
+• Included deployment guides, contribution guidelines, and troubleshooting procedures
+
+Impact:
+• Developers can now easily navigate all project documentation through centralized index
+• Complete accessibility testing procedures ensure WCAG 2.1 AA compliance
+• Enhanced onboarding experience for new contributors with clear setup instructions
+• Improved user experience with comprehensive keyboard shortcut documentation
+• Better project maintainability through organized documentation structure
+
+Test:
+• All documentation links verified and functional
+• Keyboard accessibility features tested across browsers
+• Documentation structure validated for completeness
+• Cross-references between documents confirmed
+
+Docs:
+• Added docs/INDEX.md as centralized documentation hub
+• Enhanced KEYBOARD_TESTING_GUIDE.md with comprehensive accessibility procedures
+• Updated DEVELOPMENT.md with recent improvements and architecture details
+• Expanded GIT_WORKFLOW_GUIDE.md with CI/CD workflows and emergency scenarios
+• Restructured README.md with professional presentation and clear navigation
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 01:50:20 +0530  
+**Commit:** [4c51c87](https://github.com/dhruvinrsoni/cipher-alchemist/commit/4c51c87f8c9df5397a6df9ce1a14c1abd527928a)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: add full history fetch to deployment status workflow
+
+Enhance GitHub Actions workflow to fetch complete git history including tags for improved deployment status tracking and potential version management.
+
+• Add fetch-depth: 0 parameter to checkout action
+• Ensures access to full repository history and tags
+• Improves workflow capabilities for version-dependent operations
+
+Impact:
+• Enhanced CI/CD pipeline with complete git context
+• Enables tag-based version tracking in deployment status checks
+• Minimal performance impact on workflow execution time
+
+Compatibility:
+• Backward compatible change with no breaking modifications
+• Maintains existing workflow functionality
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-11 01:37:24 +0530  
 **Commit:** [8a0da56](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8a0da56d31acad73f232a38081dd8b404b7350b0)  
 **Author:** Dhruvin Rupesh Soni
@@ -1312,44 +1419,6 @@ Signed-off-by: Dhruvin Soni <dhruvin.soni@zebra.com>
 Standardize PWA icons by using the existing favicon.ico instead of
 separate PNG files to ensure consistent branding between browser
 and PWA installations.
-
----
-
-**Date:** 2025-06-02 00:53:30 +0530  
-**Commit:** [525aa5d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/525aa5d7931e8d111c6ad7858ab805f1162659c4)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix(service-worker): implement immediate cache refresh on update
-
-Improve the service worker to ensure new deployments are immediately
-available to users by:
-- Adding skipWaiting() to activate updates without delay
-- Implementing proper activate event handler to clear old caches
-- Adding client claiming to update all open tabs
-
-This resolves the issue where users continued seeing outdated content
-after new deployments until manually refreshing the page.
-
----
-
-**Date:** 2025-06-02 00:47:41 +0530  
-**Commit:** [42cecb4](https://github.com/dhruvinrsoni/cipher-alchemist/commit/42cecb4ef471eff508234735f5b64e2e1ee99dba)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: resolve textarea overflow and improve mobile responsiveness
-
----
-
-**Date:** 2025-06-02 00:41:30 +0530  
-**Commit:** [92ca7de](https://github.com/dhruvinrsoni/cipher-alchemist/commit/92ca7defbd009a98c918651049a517fdf47a7690)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: improve theme toggle functionality for mobile devices
-
-- Refactor theme system to use explicit theme classes
-- Enhance mobile UI with fixed positioning for theme toggle button
-- Add flexbox alignment for better button appearance on small screens
-- Fix theme persistence by improving localStorage handling
 
 ---
 
