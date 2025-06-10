@@ -46,7 +46,12 @@ jobs:
           
           if git tag -l | grep -q "^v${{ github.event.inputs.version }}$"; then
             echo "❌ Tag v${{ github.event.inputs.version }} already exists"
-            exit 1          fi
+            exit 1
+          fi
+          
+          echo "✅ Version v${{ github.event.inputs.version }} is valid"
+            exit 1
+          fi
           
           echo "✅ Version v${{ github.event.inputs.version }} is valid"
 
