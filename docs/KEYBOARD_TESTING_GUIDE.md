@@ -40,6 +40,7 @@ Press any of these to see all shortcuts in the application:
 | Shortcut | Action | Context |
 |----------|--------|---------|
 | `Ctrl + T` | Toggle theme (dark/light) | Global |
+| `📱 Button` | Install as PWA app | Top-right install button |
 | `Ctrl + ?` | Open keyboard shortcuts help | Global |
 | `F1` | Open keyboard shortcuts help | Global |
 
@@ -88,6 +89,7 @@ Press any of these to see all shortcuts in the application:
 #### **4. Theme System**
 ```
 ✅ Press Ctrl+T → Theme toggles
+✅ Click 📱 button → PWA install prompt appears (if available)
 ✅ System preference detection works
 ✅ Theme persists after page reload
 ✅ High contrast mode support

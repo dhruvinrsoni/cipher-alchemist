@@ -178,6 +178,137 @@ function initializeVersion() {
 }
 
 /**
+ * PWA Install functionality
+ */
+let deferredPrompt;
+let installBtn;
+
+function initializePWAInstall() {
+    installBtn = document.getElementById('installBtn');
+    
+    // Listen for the beforeinstallprompt event
+    window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('PWA: beforeinstallprompt event fired');
+        
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        
+        // Stash the event so it can be triggered later
+        deferredPrompt = e;
+        
+        // Show the install button
+        if (installBtn) {
+            installBtn.style.display = 'inline-block';
+            installBtn.setAttribute('title', 'Install Cipher Alchemist as an app');
+        }
+    });
+    
+    // Handle install button click
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+            console.log('PWA: Install button clicked');
+            
+            if (!deferredPrompt) {
+                // Already installed or not installable
+                showInstallMessage();
+                return;
+            }
+            
+            // Hide the install button
+            installBtn.style.display = 'none';
+            
+            // Show the install prompt
+            deferredPrompt.prompt();
+            
+            // Wait for the user to respond to the prompt
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log(`PWA: User choice: ${outcome}`);
+            
+            if (outcome === 'accepted') {
+                console.log('PWA: User accepted the install prompt');
+            } else {
+                console.log('PWA: User dismissed the install prompt');
+                // Show the button again if user dismissed
+                installBtn.style.display = 'inline-block';
+            }
+            
+            // Clear the deferredPrompt variable
+            deferredPrompt = null;
+        });
+    }
+    
+    // Listen for app installed event
+    window.addEventListener('appinstalled', (e) => {
+        console.log('PWA: App was installed successfully');
+        
+        // Hide the install button since app is now installed
+        if (installBtn) {
+            installBtn.style.display = 'none';
+        }
+        
+        // Optional: Show a success message
+        showInstallSuccessMessage();
+        
+        // Clear the deferredPrompt
+        deferredPrompt = null;
+    });
+    
+    // Check if app is already installed
+    window.addEventListener('load', () => {
+        // For iOS Safari
+        if (window.navigator.standalone === true) {
+            console.log('PWA: App is running in standalone mode (iOS)');
+            if (installBtn) {
+                installBtn.style.display = 'none';
+            }
+        }
+        
+        // For other browsers, check display mode
+        if (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) {
+            console.log('PWA: App is running in standalone mode');
+            if (installBtn) {
+                installBtn.style.display = 'none';
+            }
+        }
+    });
+}
+
+function showInstallMessage() {
+    // Check if already installed
+    if (window.navigator.standalone === true || 
+        (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches)) {
+        alert('✅ Cipher Alchemist is already installed as an app!');
+        return;
+    }
+    
+    // Provide manual installation instructions
+    const userAgent = navigator.userAgent.toLowerCase();
+    let instructions = '';
+    
+    if (userAgent.includes('chrome') && !userAgent.includes('edg')) {
+        instructions = '📱 To install:\n1. Click the three dots menu (⋮)\n2. Select "Install Cipher Alchemist"\n3. Confirm the installation';
+    } else if (userAgent.includes('firefox')) {
+        instructions = '📱 To install:\n1. Click the address bar\n2. Look for the install icon\n3. Click "Install" or add to home screen';
+    } else if (userAgent.includes('safari')) {
+        instructions = '📱 To install on iOS:\n1. Tap the Share button (⬆️)\n2. Scroll and tap "Add to Home Screen"\n3. Tap "Add"';
+    } else if (userAgent.includes('edg')) {
+        instructions = '📱 To install:\n1. Click the three dots menu (⋯)\n2. Select "Apps" > "Install this site as an app"\n3. Click "Install"';
+    } else {
+        instructions = '📱 Look for an "Install" or "Add to Home Screen" option in your browser menu to install Cipher Alchemist as an app.';
+    }
+    
+    alert(instructions);
+}
+
+function showInstallSuccessMessage() {
+    // Optional: Show a toast or notification
+    console.log('PWA: Installation successful!');
+    
+    // You could implement a toast notification here
+    // For now, we'll just log it
+}
+
+/**
  * Register service worker for PWA functionality
  */
 function registerServiceWorker() {
@@ -277,10 +408,11 @@ function initializeApp() {
         });
     } else {
         console.error('No button with id="downloadBtn" found');
-    }
-
-    // Initialize theme functionality
+    }    // Initialize theme functionality
     initializeTheme();
+    
+    // Initialize PWA install functionality
+    initializePWAInstall();
 
     // Initialize version display
     initializeVersion();

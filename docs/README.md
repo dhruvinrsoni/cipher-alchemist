@@ -1,6 +1,11 @@
 # 🔮 Cipher Alchemist
 
-> **A modern, secure phrase-to-password generator that transforms memorable text into strong passwords using symbolic cipher techniques.**
+>### **Progressive Web App**
+- **📱 Mobile-First Design** - Responsive across all devices
+- **⚡ Offline Support** - Works without internet connection
+- **🏠 One-Click Install** - Smart install button appears when available
+- **🔄 Auto-Updates** - Background service worker updates
+- **📲 Cross-Platform** - Install on mobile, desktop, and tabletsmodern, secure phrase-to-password generator that transforms memorable text into strong passwords using symbolic cipher techniques.**
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Available-success)](https://dhruvinrsoni.github.io/cipher-alchemist/)
 [![PWA Ready](https://img.shields.io/badge/📱_PWA-Ready-blue)](https://dhruvinrsoni.github.io/cipher-alchemist/)
@@ -39,8 +44,13 @@ Visit **[https://dhruvinrsoni.github.io/cipher-alchemist/](https://dhruvinrsoni.
 
 ### **Option 2: Install as PWA**
 1. Visit the live demo link
-2. Look for "Install" prompt in your browser
-3. Click "Install" to add to your device
+2. Look for the install button (📱) in the top-right corner
+3. Click the install button and confirm
+4. The app will be added to your device as a standalone application
+
+**Alternative methods:**
+- Look for "Install" prompt in your browser
+- Use browser menu: "Install Cipher Alchemist" or "Add to Home Screen"
 
 ### **Option 3: Local Development**
 ```bash

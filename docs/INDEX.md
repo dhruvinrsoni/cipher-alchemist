@@ -20,7 +20,7 @@ Welcome to the comprehensive documentation for Cipher Alchemist! This guide will
 
 ### **Features**
 - **[Keyboard Shortcuts](KEYBOARD_TESTING_GUIDE.md)** - Complete accessibility guide
-- **[PWA Installation](README.md#option-2-install-as-pwa)** - Progressive Web App setup
+- **[PWA Installation](README.md#option-2-install-as-pwa)** - Progressive Web App setup with smart install button
 - **[Theme System](README.md#user-experience)** - Dark/Light mode and customization
 
 ---
