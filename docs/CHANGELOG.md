@@ -4,6 +4,33 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-11 04:04:30 +0530  
+**Commit:** [3edcb22](https://github.com/dhruvinrsoni/cipher-alchemist/commit/3edcb2257bbf9a52640ab0731f731e5b1ae5204f)  
+**Author:** Dhruvin Rupesh Soni
+
+#### style: Fix indentation and formatting in GitHub workflow
+
+Fixed inconsistent indentation and formatting issues in the update-version.yml workflow file to improve code readability and maintain consistent style standards.
+
+• Fixed indentation for comment about skipping version.txt changes
+• Corrected indentation for echo statement in version generation
+• Fixed malformed syntax with 'done' statement in changelog generation
+• Added proper spacing around git add command
+• Fixed indentation for echo statement in error handling section
+
+Impact:
+• Improved code readability and maintainability
+• Ensures consistent formatting standards across workflow files
+• No functional changes to CI/CD pipeline behavior
+
+Test:
+• Workflow syntax validation passes
+• No breaking changes to existing automation processes
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-11 03:56:16 +0530  
 **Commit:** [86db909](https://github.com/dhruvinrsoni/cipher-alchemist/commit/86db9091103fb9954ca9a2b755d9afdf1f0aa92b)  
 **Author:** Dhruvin Rupesh Soni
@@ -1456,27 +1483,6 @@ This change improves project documentation by maintaining an auto-updated change
 Technical Details:
 - CHANGELOG excludes version update commits to prevent noise
 - Format includes commit message, hash, author, and date for comprehensive history
-
----
-
-**Date:** 2025-06-03 01:16:38 +0530  
-**Commit:** [b86d103](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b86d1038ff7506780017ed464a8317d46b3266ac)  
-**Author:** Dhruvin Rupesh Soni
-
-#### refactor: improve version display and metadata handling
-
-This commit implements a more robust version display system with the following improvements:
-
-- Add meta tag in HTML for version injection during build time
-- Refactor version display logic to first check meta tag, then fall back to version.txt
-- Split version display into separate elements for better mobile presentation
-- Simplify the format in update-version.yml workflow
-- Restructure footer to prioritize version information
-
-These changes make the version display more maintainable and create a clearer
-separation between version metadata and attribution. The system now handles
-both build-time injection and runtime fetching, improving reliability across
-deployment scenarios.
 
 ---
 
