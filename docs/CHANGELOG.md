@@ -4,6 +4,55 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-11 03:42:46 +0530  
+**Commit:** [5da8ac1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5da8ac110a9411d1564886bd3b4de4026b275a8d)  
+**Author:** Dhruvin Rupesh Soni
+
+#### style: improve emoji rendering and alignment in install button
+
+Fixed inconsistent emoji rendering across different browsers and operating systems by standardizing font family usage. The install button emoji (phone icon) now displays consistently and is properly centered within its circular container.
+
+• Added cross-platform emoji font stack to ensure consistent rendering
+• Improved emoji centering with explicit alignment properties
+• Standardized line-height for better vertical alignment
+• Reduced font size slightly to ensure proper fit within button bounds
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 03:35:34 +0530  
+**Commit:** [45e71ae](https://github.com/dhruvinrsoni/cipher-alchemist/commit/45e71ae85352663462285e3d5fa6ac86c51ca177)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: update development guide to reflect actual architecture
+
+Comprehensive documentation update to align with current password generation implementation and correct misleading cipher algorithm references.
+
+- Replace outdated cipher algorithm documentation with actual character substitution implementation
+- Update project structure to reflect current modular architecture (css/, js/ directories)
+- Correct file references to match actual codebase organization
+- Simplify development workflow to focus on password generation enhancements
+- Remove complex cipher testing frameworks that don't apply to current implementation
+- Update feature roadmap to reflect completed PWA and accessibility work
+- Fix broken internal documentation links and file paths
+- Align terminology throughout guide (password generation vs cryptographic toolkit)
+
+Impact:
+- Developers now have accurate documentation matching the actual codebase
+- Eliminates confusion between documented cipher algorithms and implemented character substitution
+- Provides correct file paths for contributing developers
+- Updated development setup reflects actual technology stack and requirements
+
+Docs:
+- Updated DEVELOPMENT.md with accurate architecture documentation
+- Corrected INDEX.md links to match actual documentation structure
+- All internal references now point to existing files and implementations
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-11 03:04:11 +0530  
 **Commit:** [b6e43de](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b6e43de7567dfefb3d08ff8e3974b3d3fd0246bb)  
 **Author:** Dhruvin Rupesh Soni
@@ -1417,35 +1466,6 @@ Testing:
 Note:
 - Initial version is set to "dev" and will be updated by the workflow
 - No breaking changes or new dependencies introduced
-
----
-
-**Date:** 2025-06-02 22:49:10 +0530  
-**Commit:** [9cd546c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9cd546c7c12d8de9e9aaf54b8472ce8ffeae66ac)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: Offline support for Cipher Alchemist
-
-Enable offline support by caching essential files in the service worker.
-service worker is currently caching only absolute paths (e.g., index.html, styles.css). On GitHub Pages or similar static hosts, your files are likely served from a subdirectory (e.g., /cipher-alchemist/index.html), not from the root /.
-
-This means the service worker can't find or cache the files correctly, so offline mode fails.
-
-How to fix:
-
-Use relative paths (e.g., index.html, styles.css) in cache.addAll.
-Or, use the correct subdirectory path (e.g., /cipher-alchemist/index.html).
-update your service worker to cache the correct paths for GitHub Pages deployment.
-
-Signed-off-by: Dhruvin Soni <dhruvin.soni@zebra.com>
-
----
-
-**Date:** 2025-06-02 01:07:29 +0530  
-**Commit:** [2b4d68a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2b4d68a362138dacabd5baaa56e5ee9eac39f0de)  
-**Author:** Dhruvin Rupesh Soni
-
-#### Fix name in main page and add icons
 
 ---
 
