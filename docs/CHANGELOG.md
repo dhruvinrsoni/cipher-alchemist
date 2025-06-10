@@ -4,6 +4,55 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-11 03:56:16 +0530  
+**Commit:** [86db909](https://github.com/dhruvinrsoni/cipher-alchemist/commit/86db9091103fb9954ca9a2b755d9afdf1f0aa92b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### style: Remove redundant display property from button styles
+
+Remove unnecessary `display: inline-block` property from button CSS rules.
+
+• Reason: Clean up redundant CSS property that was not providing additional value
+• Impact: Slightly reduces CSS bundle size and improves code maintainability
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 03:52:06 +0530  
+**Commit:** [a19d6d4](https://github.com/dhruvinrsoni/cipher-alchemist/commit/a19d6d464b95e216046bef9dd26d05c9a936066b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: simplify GitHub Pages deployment configuration
+
+Streamlined deployment workflows by removing environment selection complexity and fixing syntax errors in verification scripts.
+
+• Removed environment input parameter from deploy-by-version workflow
+• Fixed hardcoded github-pages environment configuration
+• Corrected syntax error in post-deployment verification loop
+• Added consistent github-pages environment to update-version workflow
+• Updated deployment summary to reflect simplified environment setup
+
+Impact:
+• Eliminates user confusion from environment selection options
+• Ensures consistent GitHub Pages deployment across all workflows
+• Improves deployment reliability with fixed verification script
+• Reduces workflow complexity and potential misconfiguration
+
+Test:
+• Deployment verification script syntax corrected
+• Environment configuration standardized across workflows
+• Post-deployment checks will execute properly without syntax errors
+
+Compatibility:
+• BREAKING CHANGE: Removes staging environment option from manual deployments
+• All deployments now target github-pages environment exclusively
+• Existing deployment URLs and functionality remain unchanged
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-11 03:42:46 +0530  
 **Commit:** [5da8ac1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5da8ac110a9411d1564886bd3b4de4026b275a8d)  
 **Author:** Dhruvin Rupesh Soni
@@ -1428,44 +1477,6 @@ These changes make the version display more maintainable and create a clearer
 separation between version metadata and attribution. The system now handles
 both build-time injection and runtime fetching, improving reliability across
 deployment scenarios.
-
----
-
-**Date:** 2025-06-03 00:59:57 +0530  
-**Commit:** [6ce195e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/6ce195e3b5397635e0b114442f45f50739423bb4)  
-**Author:** Dhruvin Rupesh Soni
-
-#### 🔧 chore: enhance version format with IST time and better display
-
-- Add India Standard Time (IST) format to version information
-- Improve formatting with emojis and attribution
-- Store commit hash and time as step outputs for reuse
-- Update commit message for version updates to be more descriptive
-
----
-
-**Date:** 2025-06-03 00:42:08 +0530  
-**Commit:** [fcc731e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/fcc731e2ca1224eaf51454014ae931c405ca2f70)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: Add version tracking system and GitHub project link
-
-Reason:
-- Implement version tracking to provide transparency about which build users are interacting with
-- Improve project discoverability by adding a link to the GitHub repository
-
-Impact:
-- Version information now displays in the footer of the application
-- Automated GitHub Action will update version.txt on each commit to main
-- Users can easily navigate to the project repository
-
-Testing:
-- Verified version.txt is properly displayed in the UI
-- Confirmed GitHub Actions workflow updates version correctly on push
-
-Note:
-- Initial version is set to "dev" and will be updated by the workflow
-- No breaking changes or new dependencies introduced
 
 ---
 
