@@ -6,12 +6,12 @@
 - [🆕 Recent Improvements](#-recent-improvements)
 - [🎯 Application Development](#-application-development)
 - [📦 Modular Architecture](#-modular-architecture)
-- [🔮 Cipher Algorithms](#-cipher-algorithms)
-- [🏗️ Project Structure](#️-project-structure)
+- [🔮 Cipher Implementation](#-cipher-implementation)
+- [🏗️ Actual Project Structure](#️-actual-project-structure)
 - [🚀 CI/CD Pipeline](#-cicd-pipeline)
-- [🔧 Local Development](#-local-development)
-- [📊 Testing & Quality](#-testing--quality)
-- [🎨 UI/UX Development](#-uiux-development)
+- [🔧 Local Development & Testing](#-local-development--testing)
+- [📚 Documentation & Resources](#-documentation--resources)
+- [🎯 Next Steps & Roadmap](#-next-steps--roadmap)
 
 ---
 
@@ -55,13 +55,13 @@
 ## 🎯 **Application Development**
 
 ### **🔮 Core Application Overview**
-Cipher Alchemist is a **client-side cryptographic toolkit** built with vanilla HTML, CSS, and JavaScript. It implements multiple classical cipher algorithms with a modern, responsive interface.
+Cipher Alchemist is a **client-side password generation tool** built with vanilla HTML, CSS, and JavaScript. It implements character substitution to transform memorable phrases into strong passwords with a modern, responsive interface.
 
 ### **🏗️ Architecture Principles**
 - **🌐 Client-Side Only** - No server dependencies, runs entirely in browser
 - **📱 Progressive Enhancement** - Works on all devices and browsers
 - **⚡ Performance First** - Optimized for speed and responsiveness
-- **🛡️ Security Focused** - Implements cryptographic best practices
+- **🛡️ Security Focused** - Implements password generation best practices
 - **🎨 Modern UI/UX** - Clean, intuitive interface design
 
 ### **🔧 Technology Stack**
@@ -70,7 +70,7 @@ Cipher Alchemist is a **client-side cryptographic toolkit** built with vanilla H
 |-----------|------------|---------|
 | **Frontend** | HTML5, CSS3, JavaScript (ES6+) | Core application |
 | **Styling** | CSS Grid, Flexbox, Custom Properties | Responsive design |
-| **Cryptography** | Custom JavaScript implementations | Cipher algorithms |
+| **Password Generation** | Custom JavaScript implementations | Character substitution |
 | **Build Process** | None (vanilla approach) | Simplicity and speed |
 | **Deployment** | GitHub Pages | Static hosting |
 
@@ -158,326 +158,103 @@ index.html
 
 ---
 
-## 🔮 **Cipher Algorithms**
+## 🔮 **Cipher Implementation**
 
-### **🎯 Implemented Algorithms**
+### **🎯 Current Algorithm**
 
-#### **1. 🔐 Caesar Cipher**
+The application currently implements a **single character substitution cipher** that transforms characters using a predefined mapping for password generation.
+
+#### **Character Substitution Mapping**
 ```javascript
-// Core Implementation
-function caesarCipher(text, shift) {
-    return text.replace(/[A-Za-z]/g, char => {
-        const start = char <= 'Z' ? 65 : 97;
-        return String.fromCharCode(
-            ((char.charCodeAt(0) - start + shift) % 26 + 26) % 26 + start
-        );
-    });
-}
-
-// Features:
-- Variable shift values (1-25)
-- Preserves case (uppercase/lowercase)
-- Maintains non-alphabetic characters
-- Bidirectional (encrypt/decrypt)
+// Implementation: js/cipher-algorithms.js
+const substitutions = {
+    'a': '@', 'b': '6', 'c': '(', 'd': 'cl', 'e': 'e', 'f': 'ph', 
+    'g': '9', 'h': '#', 'i': '!', 'j': ']', 'k': '|<', 'l': '1', 
+    'm': '/\\/\\', 'n': '|\\|', 'o': '0', 'p': '|>', 'q': 'q', 'r': 'r', 
+    's': '5', 't': '+', 'u': 'v', 'v': '\\/', 'w': '\\/\\/', 'x': '><', 
+    'y': 'y', 'z': '2',
+    // Uppercase and numbers also supported
+};
 ```
 
-#### **2. 🎯 Atbash Cipher**
-```javascript
-// Core Implementation
-function atbashCipher(text) {
-    return text.replace(/[A-Za-z]/g, char => {
-        if (char <= 'Z') {
-            return String.fromCharCode(155 - char.charCodeAt(0));
-        } else {
-            return String.fromCharCode(219 - char.charCodeAt(0));
-        }
-    });
-}
+**Core Features:**
+- **Character-by-character transformation** - Each character maps to a specific substitute
+- **Mixed case support** - Both uppercase and lowercase transformations
+- **Number substitution** - Digits also get transformed
+- **Leetspeak-inspired** - Uses common symbol substitutions for security
 
-// Features:
-- Ancient Hebrew substitution method
-- Self-inverse (same function for encrypt/decrypt)
-- Case preservation
-- Simple A↔Z, B↔Y substitution pattern
-```
-
-#### **3. 🔄 ROT13 Cipher**
-```javascript
-// Core Implementation (specialized Caesar with shift=13)
-function rot13(text) {
-    return caesarCipher(text, 13);
-}
-
-// Features:
-- Fixed 13-character shift
-- Self-inverse operation
-- Commonly used for simple obfuscation
-- Compatible with ASCII art and special characters
-```
-
-#### **4. 🌟 Vigenère Cipher**
-```javascript
-// Core Implementation
-function vigenereCipher(text, key, decrypt = false) {
-    const keyRepeated = key.repeat(Math.ceil(text.length / key.length));
-    let result = '';
-    let keyIndex = 0;
-    
-    for (let i = 0; i < text.length; i++) {
-        const char = text[i];
-        if (/[A-Za-z]/.test(char)) {
-            const shift = keyRepeated.charCodeAt(keyIndex % key.length) - 65;
-            const actualShift = decrypt ? -shift : shift;
-            result += caesarCipher(char, actualShift);
-            keyIndex++;
-        } else {
-            result += char;
-        }
-    }
-    return result;
-}
-
-// Features:
-- Polyalphabetic substitution
-- Variable-length keys
-- Enhanced security vs. Caesar cipher
-- Key repetition for longer texts
-```
-
-#### **5. 🔀 Playfair Cipher**
-```javascript
-// Core Implementation (simplified)
-function playfairCipher(text, key) {
-    // Generate 5x5 key matrix
-    const matrix = generatePlayfairMatrix(key);
-    
-    // Process text in digraphs (pairs)
-    const digraphs = preprocessText(text);
-    
-    // Apply Playfair rules
-    return digraphs.map(pair => 
-        applyPlayfairRules(pair, matrix)
-    ).join('');
-}
-
-// Features:
-- Digraph (two-letter) substitution
-- 5x5 key matrix generation
-- Special rules for same-letter pairs
-- Enhanced security through position-based encryption
-```
-
-### **🔧 Algorithm Integration**
-
-#### **Algorithm Manager Class**
-```javascript
-class CipherManager {
-    constructor() {
-        this.algorithms = {
-            'caesar': new CaesarCipher(),
-            'atbash': new AtbashCipher(),
-            'rot13': new ROT13Cipher(),
-            'vigenere': new VigenereCipher(),
-            'playfair': new PlayfairCipher()
-        };
-    }
-    
-    encrypt(algorithm, text, params = {}) {
-        return this.algorithms[algorithm].encrypt(text, params);
-    }
-    
-    decrypt(algorithm, text, params = {}) {
-        return this.algorithms[algorithm].decrypt(text, params);
-    }
-    
-    getAlgorithmInfo(algorithm) {
-        return this.algorithms[algorithm].getInfo();
-    }
-}
-```
+**Implementation Files:**
+- **[js/cipher-algorithms.js](../js/cipher-algorithms.js)** - Core substitution logic and password generation
+- **[js/password-strength.js](../js/password-strength.js)** - Real-time strength analysis
+- **[js/phrase-suggestions.js](../js/phrase-suggestions.js)** - Suggestion system
 
 ---
 
-## 🏗️ **Project Structure**
+## 🏗️ **Actual Project Structure**
 
-### **📁 File Organization**
+### **📁 Current File Organization**
 ```
 cipher-alchemist/
 ├── 📄 index.html              # Main application entry point
-├── 🎨 styles/
-│   ├── main.css              # Core application styles
-│   ├── cipher-cards.css      # Algorithm card components
-│   ├── animations.css        # Animation and transitions
-│   └── responsive.css        # Mobile responsiveness
-├── 🧠 scripts/
-│   ├── app.js               # Main application logic
-│   ├── cipher-algorithms.js  # All cipher implementations
-│   ├── ui-controller.js     # User interface management
-│   ├── input-validator.js   # Input validation and sanitization
-│   └── utils.js             # Utility functions
-├── 🎯 assets/
-│   ├── icons/               # SVG icons and graphics
-│   ├── images/              # Background images and visuals
-│   └── fonts/               # Custom fonts (if any)
-├── 📋 docs/
-│   ├── README.md            # Project overview and features
-│   ├── DEVELOPMENT.md       # This comprehensive guide
-│   ├── CHANGELOG.md         # Version history and updates
-│   └── API.md               # Algorithm API documentation
-├── 🔧 .github/
-│   └── workflows/           # CI/CD pipeline configurations
-├── 📝 version.txt           # Current version information
-└── 🌐 manifest.json         # Web app manifest (PWA ready)
+├── 📄 manifest.json           # PWA configuration
+├── 📄 version.txt             # Version tracking
+├── 🎨 css/                    # Modular stylesheets
+│   ├── themes.css            # Theme system & CSS variables
+│   ├── main.css              # Core layout & base styles
+│   ├── password-strength.css # Strength meter styling
+│   ├── phrase-suggestions.css # Suggestion UI styles
+│   ├── keyboard-shortcuts.css # Help modal styling
+│   └── modal.css             # General modal components
+├── 🔧 js/                     # Modular JavaScript
+│   ├── cipher-algorithms.js   # Character substitution logic
+│   ├── password-strength.js   # Real-time strength analysis
+│   ├── phrase-suggestions.js  # 48 inspirational phrases
+│   ├── keyboard-shortcuts.js  # Help modal functionality
+│   └── main.js               # App initialization & UI logic
+├── 📚 docs/                   # Comprehensive documentation
+├── 🔧 config/                 # PWA service worker
+├── 📦 assets/                 # Icons and static resources
+└── 💾 backup/                 # Original monolithic files
 ```
 
-### **🧩 Component Architecture**
+### **🎯 Actual Application Structure**
 
-#### **HTML Structure**
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- Meta tags and SEO optimization -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔮 Cipher Alchemist - Cryptographic Toolkit</title>
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/cipher-cards.css">
-</head>
-<body>
-    <!-- Header Section -->
-    <header class="app-header">
-        <h1>🔮 Cipher Alchemist</h1>
-        <nav class="algorithm-selector">
-            <!-- Dynamic algorithm buttons -->
-        </nav>
-    </header>
-    
-    <!-- Main Application -->
-    <main class="cipher-workspace">
-        <!-- Input Section -->
-        <section class="input-section">
-            <textarea id="plaintext" placeholder="Enter your message..."></textarea>
-            <div class="cipher-controls">
-                <!-- Algorithm-specific controls -->
-            </div>
-        </section>
-        
-        <!-- Output Section -->
-        <section class="output-section">
-            <textarea id="ciphertext" readonly></textarea>
-            <div class="output-actions">
-                <button id="copy-result">📋 Copy Result</button>
-                <button id="clear-all">🗑️ Clear All</button>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Footer -->
-    <footer class="app-footer">
-        <p>Built with ❤️ for cryptography enthusiasts</p>
-    </footer>
-    
-    <!-- Scripts -->
-    <script src="scripts/cipher-algorithms.js"></script>
-    <script src="scripts/ui-controller.js"></script>
-    <script src="scripts/app.js"></script>
-</body>
-</html>
-```
+The current implementation features a single-page application with these key components:
 
-#### **CSS Architecture**
-```css
-/* main.css - Core Styles */
-:root {
-    /* CSS Custom Properties */
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --background-color: #ecf0f1;
-    --text-color: #2c3e50;
-    --border-radius: 8px;
-    --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    --transition: all 0.3s ease;
-}
+**Top Controls:**
+- **Theme Toggle** (🌙) - Switch between light/dark modes
+- **Keyboard Help** (⌨️) - Opens comprehensive shortcuts modal (Ctrl+?)
+- **PWA Install** (📱) - Smart install button (appears when installable)
 
-/* Modern CSS Grid Layout */
-.cipher-workspace {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
+**Main Application:**
+- **About Section** - Collapsible app description with example phrase
+- **Phrase Input** - Text input for memorable phrases
+- **Suggestion System** - 12 themed groups with 4 inspirational phrases each
+- **Password Output** - Generated password with transformation explanation
+- **Strength Analysis** - Real-time password strength meter and criteria
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .cipher-workspace {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        padding: 1rem;
-    }
-}
-```
+**Key Features:**
+- **Progressive Enhancement** - Works without JavaScript, enhanced with it
+- **Accessibility** - Screen reader support, keyboard navigation, skip links  
+- **PWA Ready** - Offline capability, installable, responsive design
+- **Theme Support** - Complete dark/light mode with CSS custom properties
 
-#### **JavaScript Architecture**
-```javascript
-// app.js - Main Application Controller
-class CipherAlchemist {
-    constructor() {
-        this.cipherManager = new CipherManager();
-        this.uiController = new UIController();
-        this.validator = new InputValidator();
-        this.init();
-    }
-    
-    init() {
-        this.setupEventListeners();
-        this.loadAlgorithms();
-        this.setDefaultAlgorithm();
-    }
-    
-    setupEventListeners() {
-        // Algorithm selection
-        document.addEventListener('algorithmChange', this.handleAlgorithmChange.bind(this));
-        
-        // Input changes
-        document.getElementById('plaintext').addEventListener('input', this.handleInputChange.bind(this));
-        
-        // Control changes
-        document.addEventListener('controlChange', this.handleControlChange.bind(this));
-    }
-    
-    async processText(text, algorithm, params, operation = 'encrypt') {
-        try {
-            // Validate input
-            const validatedText = this.validator.validateText(text);
-            const validatedParams = this.validator.validateParams(params, algorithm);
-            
-            // Process with selected algorithm
-            const result = operation === 'encrypt' 
-                ? this.cipherManager.encrypt(algorithm, validatedText, validatedParams)
-                : this.cipherManager.decrypt(algorithm, validatedText, validatedParams);
-            
-            // Update UI
-            this.uiController.updateOutput(result);
-            
-            return result;
-        } catch (error) {
-            this.uiController.showError(error.message);
-            return null;
-        }
-    }
-}
+### **📁 Actual File References**
 
-// Initialize application
-document.addEventListener('DOMContentLoaded', () => {
-    window.cipherApp = new CipherAlchemist();
-});
-```
+**Core Implementation:**
+- **[index.html](../index.html)** - Single-page application with modular imports
+- **[js/main.js](../js/main.js)** - App initialization, event handling, PWA install logic
+- **[js/cipher-algorithms.js](../js/cipher-algorithms.js)** - Character substitution and password generation
+- **[js/password-strength.js](../js/password-strength.js)** - Real-time strength analysis system
+- **[js/phrase-suggestions.js](../js/phrase-suggestions.js)** - 48 curated phrases across 12 themes
+- **[js/keyboard-shortcuts.js](../js/keyboard-shortcuts.js)** - Help modal and keyboard navigation
+
+**Styling:**
+- **[css/themes.css](../css/themes.css)** - CSS custom properties for theming
+- **[css/main.css](../css/main.css)** - Core layout and component styles
+- **[css/password-strength.css](../css/password-strength.css)** - Circular progress meter
+- **[css/phrase-suggestions.css](../css/phrase-suggestions.css)** - Suggestion chips and animations
+- **[css/keyboard-shortcuts.css](../css/keyboard-shortcuts.css)** - Help modal styling
 
 ---
 
@@ -512,152 +289,6 @@ function enhanceAccessibility() {
     // Focus management
 }
 ```
-
-### **🎯 Interactive Features**
-
-#### **Algorithm Switching**
-```javascript
-class AlgorithmSwitcher {
-    constructor() {
-        this.currentAlgorithm = 'caesar';
-        this.algorithms = ['caesar', 'atbash', 'rot13', 'vigenere', 'playfair'];
-    }
-    
-    switchTo(algorithm) {
-        // Smooth transition animation
-        this.animateSwitch(() => {
-            this.updateControls(algorithm);
-            this.updateInstructions(algorithm);
-            this.processCurrentText(algorithm);
-        });
-    }
-    
-    animateSwitch(callback) {
-        // CSS transition for smooth switching
-        document.querySelector('.cipher-controls').style.opacity = '0';
-        setTimeout(() => {
-            callback();
-            document.querySelector('.cipher-controls').style.opacity = '1';
-        }, 150);
-    }
-}
-```
-
-#### **Real-time Validation**
-```javascript
-class InputValidator {
-    validateText(text) {
-        // Length validation
-        if (text.length > 10000) {
-            throw new Error('Text too long (max 10,000 characters)');
-        }
-        
-        // Character validation
-        if (!/^[\x00-\x7F]*$/.test(text)) {
-            console.warn('Non-ASCII characters detected - some algorithms may not process them');
-        }
-        
-        return text;
-    }
-    
-    validateKey(key, algorithm) {
-        switch (algorithm) {
-            case 'vigenere':
-                if (!/^[A-Za-z]+$/.test(key)) {
-                    throw new Error('Vigenère key must contain only letters');
-                }
-                break;
-            case 'playfair':
-                if (key.length < 1) {
-                    throw new Error('Playfair cipher requires a key');
-                }
-                break;        }
-        return key;
-    }
-}
-```
-
-#### **💡 Phrase Suggestions System**
-```javascript
-class PhraseSuggestionEngine {
-    constructor() {        this.categories = {
-            powerMotivation: [
-                { emoji: '💪', text: 'BeStrong@2025' },
-                { emoji: '🚀', text: 'DreamBig!Launch' },
-                { emoji: '🔥', text: 'IgniteYourPath' },
-                { emoji: '⚡', text: 'LightningSuccess' }
-            ],
-            achievementVictory: [
-                { emoji: '🏆', text: 'ChampionMindset' },
-                { emoji: '👑', text: 'OwnYourCrown' },
-                { emoji: '🥇', text: 'FirstPlace!Always' },
-                { emoji: '🎖️', text: 'EarnYourMedal' }
-            ],
-            // ... 12 total groups with 4 phrases each
-        };
-        this.currentSet = [];
-    }
-      getRandomSuggestions(count = 4) {
-        // Randomly select one complete thematic group
-        const categories = Object.keys(this.categories);
-        const randomCategoryIndex = Math.floor(Math.random() * categories.length);
-        const selectedCategory = categories[randomCategoryIndex];
-        
-        // Return all 4 suggestions from the selected group
-        return this.categories[selectedCategory].map(suggestion => ({
-            ...suggestion, 
-            category: selectedCategory
-        }));
-    }
-    
-    insertSuggestion(phrase) {
-        const input = document.getElementById('phraseInput');
-        input.value = phrase;
-        
-        // Visual feedback animation
-        this.animateInsertion(input);
-        
-        // Trigger real-time strength analysis
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        
-        // Auto-focus and scroll
-        input.focus();
-        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-    
-    animateInsertion(element) {
-        element.style.transition = 'all 0.3s ease';
-        element.style.transform = 'scale(1.02)';
-        element.style.boxShadow = '0 4px 16px rgba(40, 167, 69, 0.3)';
-        
-        setTimeout(() => {
-            element.style.transform = 'scale(1)';
-            element.style.boxShadow = '';
-        }, 300);
-    }
-}
-
-// Usage Example
-const suggestionEngine = new PhraseSuggestionEngine();
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-    suggestionEngine.populateUI();
-    
-    // Refresh suggestions every interaction
-    document.getElementById('refreshBtn').addEventListener('click', () => {
-        suggestionEngine.refreshSuggestions();
-    });
-});
-```
-
-**Key Features:**
-- **📚 12 Balanced Groups**: Power & Motivation, Achievement & Victory, Learning & Growth, Tech & Innovation, Health & Vitality, Spiritual & Wisdom, Creative & Artistic, Focus & Excellence, Nature & Renewal, Problem Solving, Digital & Future, Celebration & Joy
-- **🎯 48 Curated Phrases**: 4 phrases per group for focused, manageable choices
-- **🔄 Smart Group Rotation**: Each refresh shows a complete thematic group
-- **⚡ One-Click Insertion**: Instant phrase testing with visual feedback
-- **🎨 Smooth UX**: Animations, transitions, and responsive design
-- **♿ Accessibility**: Keyboard navigation and screen reader support
 
 ---
 
@@ -768,191 +399,144 @@ npx live-server
 #### **Feature Development**
 ```bash
 # 1. Create feature branch
-git checkout -b feature/new-cipher-algorithm
+git checkout -b feature/new-enhancement
 
 # 2. Implement your changes
-# - Add algorithm to scripts/cipher-algorithms.js
-# - Update UI in scripts/ui-controller.js
-# - Add styles in styles/cipher-cards.css
+# - Modify existing js/cipher-algorithms.js for character substitution changes
+# - Update js/main.js for UI enhancements
+# - Add styles to appropriate css/ modules
 # - Test thoroughly in browser
 
 # 3. Test your implementation
-# - Test with various inputs
-# - Verify encrypt/decrypt functionality
+# - Test phrase transformation functionality
+# - Verify password strength analysis
 # - Check responsive design
 # - Validate accessibility
 
 # 4. Commit with descriptive message
 git add .
-git commit -m "feat: add new XYZ cipher algorithm
+git commit -m "feat: enhance password generation system
 
-- Implement XYZ cipher encryption/decryption
-- Add UI controls for algorithm parameters
-- Include comprehensive input validation
-- Add responsive design support"
+- Improve character substitution mappings
+- Add new phrase suggestion categories
+- Enhance password strength analysis
+- Add responsive design improvements"
 
 # 5. Push and create pull request
-git push origin feature/new-cipher-algorithm
-```
-
-#### **Code Organization Best Practices**
-```javascript
-// 🎯 Algorithm Implementation Template
-class NewCipherAlgorithm {
-    constructor() {
-        this.name = 'New Cipher';
-        this.description = 'Brief description of the algorithm';
-        this.category = 'substitution'; // or 'transposition'
-    }
-    
-    encrypt(plaintext, params = {}) {
-        // Validate inputs
-        this.validateInputs(plaintext, params);
-        
-        // Implementation logic
-        try {
-            const result = this.processText(plaintext, params, 'encrypt');
-            return {
-                success: true,
-                result: result,
-                algorithm: this.name,
-                params: params
-            };
-        } catch (error) {
-            return {
-                success: false,
-                error: error.message,
-                algorithm: this.name
-            };
-        }
-    }
-    
-    decrypt(ciphertext, params = {}) {
-        // Similar to encrypt but for decryption
-        return this.processText(ciphertext, params, 'decrypt');
-    }
-    
-    validateInputs(text, params) {
-        // Input validation logic
-        if (!text || typeof text !== 'string') {
-            throw new Error('Invalid input text');
-        }
-        // Additional parameter validation
-    }
-    
-    getInfo() {
-        return {
-            name: this.name,
-            description: this.description,
-            category: this.category,
-            parameters: this.getParameterDefinitions()
-        };
-    }
-}
+git push origin feature/new-enhancement
 ```
 
 ---
 
-## 📊 **Testing & Quality Assurance**
+## 🔧 **Local Development & Testing**
 
-### **🧪 Testing Strategy**
+### **🚀 Development Setup**
 
-#### **Manual Testing Checklist**
-```markdown
-## ✅ Algorithm Testing
-- [ ] **Encryption Accuracy** - Verify against known test vectors
-- [ ] **Decryption Accuracy** - Ensure perfect round-trip
-- [ ] **Edge Cases** - Empty strings, special characters, very long texts
-- [ ] **Parameter Validation** - Invalid keys, out-of-range values
-- [ ] **Error Handling** - Graceful failure with meaningful messages
+**Prerequisites:**
+- Modern web browser (Chrome 90+, Firefox 88+, Safari 14+)
+- Text editor (VS Code recommended)
+- Basic understanding of HTML, CSS, and JavaScript
 
-## ✅ UI Testing
-- [ ] **Responsive Design** - Test on mobile, tablet, desktop
-- [ ] **Browser Compatibility** - Chrome, Firefox, Safari, Edge
-- [ ] **Accessibility** - Screen reader support, keyboard navigation
-- [ ] **Performance** - Smooth animations, fast processing
-- [ ] **User Experience** - Intuitive flow, clear feedback
+**Quick Start:**
+```bash
+# Clone and navigate to project
+git clone https://github.com/dhruvinrsoni/cipher-alchemist.git
+cd cipher-alchemist
 
-## ✅ Integration Testing
-- [ ] **Algorithm Switching** - Smooth transitions between algorithms
-- [ ] **Real-time Processing** - Immediate feedback on input changes
-- [ ] **Copy/Paste Functionality** - Proper clipboard integration
-- [ ] **Error Recovery** - Graceful handling of unexpected inputs
+# Open with VS Code (or your preferred editor)
+code .
+
+# Start local server (multiple options):
+# Option 1: VS Code Live Server extension (recommended)
+# Option 2: Python server
+python -m http.server 8000
+# Option 3: Node.js live-server
+npx live-server
 ```
 
-#### **Automated Testing Framework**
-```javascript
-// test-framework.js - Simple testing utility
-class CipherTestFramework {
-    constructor() {
-        this.tests = [];
-        this.results = [];
-    }
-    
-    addTest(name, algorithm, plaintext, expectedCipher, params = {}) {
-        this.tests.push({
-            name,
-            algorithm,
-            plaintext,
-            expectedCipher,
-            params
-        });
-    }
-    
-    async runAllTests() {
-        console.log('🧪 Running Cipher Algorithm Tests...');
-        
-        for (const test of this.tests) {
-            const result = await this.runSingleTest(test);
-            this.results.push(result);
-            
-            const status = result.passed ? '✅' : '❌';
-            console.log(`${status} ${test.name}: ${result.message}`);
-        }
-        
-        this.generateReport();
-    }
-    
-    async runSingleTest(test) {
-        try {
-            const encrypted = cipherApp.cipherManager.encrypt(
-                test.algorithm, 
-                test.plaintext, 
-                test.params
-            );
-            
-            const passed = encrypted.result === test.expectedCipher;
-            
-            return {
-                testName: test.name,
-                passed: passed,
-                message: passed ? 'Test passed' : `Expected: ${test.expectedCipher}, Got: ${encrypted.result}`,
-                algorithm: test.algorithm
-            };
-        } catch (error) {
-            return {
-                testName: test.name,
-                passed: false,
-                message: `Test failed with error: ${error.message}`,
-                algorithm: test.algorithm
-            };
-        }
-    }
-}
+### **🧪 Testing Guidelines**
 
-// Test definitions
-const testSuite = new CipherTestFramework();
+**Manual Testing Areas:**
+- **Character Substitution** - Test phrase transformation accuracy
+- **Password Strength** - Verify real-time strength analysis
+- **Phrase Suggestions** - Check all 12 themed groups (48 phrases total)
+- **Responsive Design** - Test mobile, tablet, desktop layouts
+- **Accessibility** - Keyboard navigation, screen reader compatibility
+- **PWA Functionality** - Install button, offline capability, theme switching
+- **Keyboard Shortcuts** - Help modal triggers (Ctrl+?, Ctrl+/, Ctrl+., F1)
 
-// Caesar Cipher Tests
-testSuite.addTest('Caesar Basic', 'caesar', 'HELLO', 'KHOOR', { shift: 3 });
-testSuite.addTest('Caesar Wrap', 'caesar', 'XYZ', 'ABC', { shift: 3 });
+**Browser Testing:**
+- Chrome/Edge (Chromium-based)
+- Firefox
+- Safari (WebKit-based)
+- Mobile browsers (iOS Safari, Chrome Mobile)
 
-// Atbash Cipher Tests
-testSuite.addTest('Atbash Basic', 'atbash', 'HELLO', 'SVOOL');
+**Key Test Scenarios:**
+1. **Basic Functionality** - Enter phrase → Generate password → Check strength
+2. **Suggestion System** - Click suggestion → Auto-populate → Generate
+3. **PWA Install** - Click install button → Follow prompts → Verify installation
+4. **Keyboard Help** - Press Ctrl+? → Modal opens → Navigate with keyboard
+5. **Theme Switching** - Toggle theme → Verify all components update
+6. **Responsive Design** - Resize window → Check layout adaptation
 
-// ROT13 Tests
-testSuite.addTest('ROT13 Basic', 'rot13', 'HELLO', 'URYYB');
+### **📝 Development Guidelines**
 
-// Run tests (in browser console)
-// testSuite.runAllTests();
-```
+**Code Style:**
+- Use modern JavaScript (ES6+)
+- Follow consistent naming conventions
+- Add comments for complex logic
+- Maintain modular architecture
+
+**File Organization:**
+- Keep related functionality in focused modules
+- Use descriptive file and function names
+- Maintain clear separation of concerns
+- Update documentation with changes
+
+---
+
+## 📚 **Documentation & Resources**
+
+### **📖 Complete Documentation**
+
+- **[Main README](README.md)** - Project overview and quick start
+- **[Git Workflow Guide](GIT_WORKFLOW_GUIDE.md)** - CI/CD and `[skip ci]` usage
+- **[Keyboard Testing Guide](KEYBOARD_TESTING_GUIDE.md)** - Accessibility testing procedures
+- **[Documentation Index](INDEX.md)** - Central navigation hub
+- **[Changelog](CHANGELOG.md)** - Version history and updates
+
+### **🔗 External Resources**
+
+- **[GitHub Repository](https://github.com/dhruvinrsoni/cipher-alchemist)** - Source code and issues
+- **[Live Application](https://dhruvinrsoni.github.io/cipher-alchemist/)** - Deployed version
+- **[PWA Documentation](https://web.dev/progressive-web-apps/)** - Progressive Web App guides
+- **[Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - WCAG 2.1 reference
+
+---
+
+## 🎯 **Next Steps & Roadmap**
+
+### **Completed Features ✅**
+- Character substitution password generation
+- Real-time password strength analysis  
+- 48 inspirational phrase suggestions across 12 themes
+- Comprehensive keyboard accessibility with help modal
+- PWA installation with cross-browser support
+- Professional documentation structure
+- Automated CI/CD pipeline with monitoring
+
+### **Potential Enhancements 🔮**
+- Additional character substitution patterns
+- Password history and favorites
+- Custom phrase categories
+- Export/import functionality
+- Advanced strength analysis algorithms
+- Multi-language support
+- Offline phrase suggestion caching
+
+### **Contributing 🤝**
+Cipher Alchemist welcomes contributions! Please see our [Git Workflow Guide](GIT_WORKFLOW_GUIDE.md) for detailed contribution procedures, including proper use of `[skip ci]` for documentation updates.
+
+---
+
+**Built with ❤️ by [@dhruvinrsoni](https://github.com/dhruvinrsoni) - Transforming memorable phrases into unbreakable passwords**

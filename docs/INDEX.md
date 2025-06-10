@@ -35,11 +35,11 @@ Welcome to the comprehensive documentation for Cipher Alchemist! This guide will
 ### **Contributing**
 - **[Git Workflow](GIT_WORKFLOW_GUIDE.md)** - Version control and CI/CD processes
 - **[Contribution Guidelines](README.md#contributing)** - How to contribute to the project
-- **[Code Standards](DEVELOPMENT.md#code-organization-strategy)** - Coding conventions
+- **[Development Setup](DEVELOPMENT.md#local-development--testing)** - Getting started with development
 
 ### **Testing & Quality**
 - **[Keyboard Testing](KEYBOARD_TESTING_GUIDE.md)** - Accessibility testing procedures
-- **[Manual Testing](DEVELOPMENT.md#testing--quality)** - Quality assurance guidelines
+- **[Development Testing](DEVELOPMENT.md#local-development--testing)** - Local testing guidelines
 
 ---
 
@@ -61,18 +61,18 @@ Welcome to the comprehensive documentation for Cipher Alchemist! This guide will
 
 ### **Accessibility**
 - **[Keyboard Navigation](KEYBOARD_TESTING_GUIDE.md)** - Complete keyboard accessibility testing
-- **[WCAG Compliance](DEVELOPMENT.md#accessibility-features)** - Web accessibility standards
+- **[WCAG Compliance](KEYBOARD_TESTING_GUIDE.md)** - Web accessibility standards and testing
 - **[Screen Reader Support](KEYBOARD_TESTING_GUIDE.md#screen-reader-testing)** - Assistive technology compatibility
 
 ### **Security**
-- **[Cipher Algorithms](DEVELOPMENT.md#cipher-algorithms)** - Cryptographic implementations
-- **[Password Strength](DEVELOPMENT.md#password-strength-analysis)** - Security analysis features
+- **[Character Substitution](DEVELOPMENT.md#cipher-implementation)** - Password generation algorithm
+- **[Password Strength Analysis](DEVELOPMENT.md#modular-architecture)** - Real-time security analysis
 - **[Best Practices](README.md#use-cases)** - Security recommendations
 
 ### **Deployment**
 - **[GitHub Pages Setup](README.md#github-pages-recommended)** - Free hosting deployment
 - **[Custom Domain](README.md#custom-domain-setup)** - Using your own domain
-- **[PWA Deployment](DEVELOPMENT.md#pwa-features)** - Progressive Web App considerations
+- **[PWA Features](README.md#progressive-web-app)** - Progressive Web App capabilities
 
 ---
 
