@@ -337,6 +337,7 @@ footer {
   line-height: 1;
   text-align: center !important;
   /* Ensure the emoji is perfectly centered within the flex container */
+  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
