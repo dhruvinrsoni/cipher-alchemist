@@ -78,7 +78,8 @@ jobs:
             echo "⚠️ Skipping to prevent merge conflicts"
             exit 0
           fi
-            # Skip if only version.txt and/or CHANGELOG.md were changed
+          
+          # Skip if only version.txt and/or CHANGELOG.md were changed
           CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
           if [[ "$CHANGED_FILES" == "version.txt" ]] || [[ "$CHANGED_FILES" == "docs/CHANGELOG.md" ]] || [[ "$CHANGED_FILES" == "version.txt docs/CHANGELOG.md" ]] || [[ "$CHANGED_FILES" == "docs/CHANGELOG.md version.txt" ]]; then
             echo "skip=true" >> $GITHUB_OUTPUT
@@ -96,7 +97,7 @@ jobs:
           IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
           BRANCH_NAME=$(git branch --show-current)
           COMMIT_COUNT=$(git rev-list --count HEAD)
-            echo "🔄 v${COMMIT_HASH} · $IST_TIME · 🚧 Dev Build #${COMMIT_COUNT} · ${BRANCH_NAME}" > version.txt
+          echo "🔄 v${COMMIT_HASH} · $IST_TIME · 🚧 Dev Build #${COMMIT_COUNT} · ${BRANCH_NAME}" > version.txt
 
       - name: 📝 Generate CHANGELOG.md
         if: steps.check_skip.outputs.skip == 'false'
@@ -146,7 +147,8 @@ jobs:
                 echo "---" >> docs/CHANGELOG.md
                 echo "" >> docs/CHANGELOG.md
               fi
-            fi          done
+            fi
+          done
           
           echo "✅ CHANGELOG.md generated successfully"
 
@@ -162,7 +164,8 @@ jobs:
             echo "📝 No changes to commit"
             exit 0
           fi
-            git add version.txt docs/CHANGELOG.md
+          
+          git add version.txt docs/CHANGELOG.md
           git commit -m "🔄 Auto-update version and changelog [skip ci]
           
           Build: #$(git rev-list --count HEAD)
@@ -233,7 +236,8 @@ jobs:
               echo "🔧 For developers:"
               echo "   • Run 'git pull origin main' before your next commit"
               echo "   • This ensures your local branch is synchronized"
-              echo "   • Prevents merge conflicts on future pushes"            fi
+              echo "   • Prevents merge conflicts on future pushes"
+            fi
           else
             echo "✅ Version update completed successfully"
             echo "📋 Details:"
