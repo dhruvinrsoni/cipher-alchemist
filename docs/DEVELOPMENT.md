@@ -1,6 +1,9 @@
 # 🛠️ Cipher Alchemist - Complete Development Guide
 
+> **Latest Update**: Now featuring comprehensive keyboard accessibility with help modal system, enhanced CI/CD workflows, and professional documentation structure.
+
 ## 📋 **Table of Contents**
+- [🆕 Recent Improvements](#-recent-improvements)
 - [🎯 Application Development](#-application-development)
 - [📦 Modular Architecture](#-modular-architecture)
 - [🔮 Cipher Algorithms](#-cipher-algorithms)
@@ -9,6 +12,35 @@
 - [🔧 Local Development](#-local-development)
 - [📊 Testing & Quality](#-testing--quality)
 - [🎨 UI/UX Development](#-uiux-development)
+
+---
+
+## 🆕 **Recent Improvements**
+
+### **⌨️ Keyboard Accessibility System (Latest)**
+- **Comprehensive Keyboard Navigation** - Full app control via keyboard
+- **YouTube-style Help Modal** - `Ctrl+?` opens shortcuts guide (like YouTube)
+- **Multiple Trigger Methods** - `Ctrl+?`, `Ctrl+/`, `Ctrl+.`, `F1`, and button click
+- **Focus Management** - Proper focus trapping and restoration
+- **ARIA Support** - Screen reader compatibility and WCAG 2.1 AA compliance
+
+### **🔧 Enhanced CI/CD Pipeline**
+- **Fixed Tag Detection** - Added `fetch-depth: 0` to deployment status workflow
+- **Comprehensive Documentation** - Added `[skip ci]` usage guide for emergency scenarios
+- **Automated Health Monitoring** - Regular deployment status checks
+- **Smart Version Management** - IST timezone timestamps with proper loop prevention
+
+### **📚 Professional Documentation Structure**
+- **Refactored README** - Clean, badge-enhanced overview with clear sections
+- **Enhanced Git Workflow Guide** - Comprehensive `[skip ci]` documentation
+- **Complete Keyboard Testing Guide** - Full accessibility testing procedures
+- **Documentation Index** - Centralized navigation for all documentation
+
+### **🎨 UI/UX Enhancements**
+- **Top Controls Layout** - Reorganized header with keyboard help button
+- **Professional Modal Design** - Material Design-inspired help modal
+- **Responsive Design** - Mobile-optimized keyboard shortcuts interface
+- **Theme Integration** - Dark/light mode support for help modal
 
 ---
 

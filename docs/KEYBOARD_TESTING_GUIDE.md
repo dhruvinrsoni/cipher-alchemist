@@ -1,34 +1,264 @@
-# 🎮 Keyboard Shortcuts Testing Guide
+# ⌨️ Complete Keyboard Accessibility Guide
 
-## ✅ **How to Test the Keyboard Shortcuts Modal**
+> **Cipher Alchemist is fully keyboard accessible. This guide covers all keyboard shortcuts, testing procedures, and accessibility features.**
 
-### **🚀 Opening the Help Modal**
-Try any of these shortcuts to open the keyboard shortcuts help:
+---
 
-1. **`Ctrl + ?`** - Primary shortcut (like YouTube)
-2. **`Ctrl + /`** - Alternative shortcut 
-3. **`Ctrl + .`** - Another alternative
-4. **`F1`** - Standard help key
+## 🚀 **Quick Start - Keyboard Shortcuts**
 
-### **🧭 Navigation within Modal**
-Once the modal is open:
+### **Help Modal Access**
+Press any of these to see all shortcuts in the application:
+- **`Ctrl + ?`** - Primary shortcut (like YouTube)
+- **`Ctrl + /`** - Alternative shortcut 
+- **`Ctrl + .`** - Another alternative
+- **`F1`** - Standard help key
+- **Click ⌨️ button** - Top-right keyboard icon
 
-- **`Tab`** - Navigate between focusable elements
-- **`Shift + Tab`** - Navigate backwards
-- **`Escape`** - Close the modal
-- **Click outside** - Also closes the modal
-- **Close button (×)** - Click to close
+---
 
-### **🎯 Testing All Keyboard Shortcuts**
+## 🎯 **Complete Keyboard Shortcut Reference**
 
-#### **Quick Actions:**
-- **`Ctrl + Enter`** - Generate password
-- **`Ctrl + C`** - Copy password (when password output is focused)
+### **🔥 Quick Actions**
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| `Ctrl + Enter` | Generate password | Anywhere in app |
+| `Ctrl + C` | Copy password | When password field focused |
+| `Ctrl + D` | Download PDF cheat sheet | Anywhere in app |
+| `Space` | Activate focused button | Any button |
+| `Enter` | Activate focused button | Any button |
 
-#### **Section Navigation:**
-- **`Alt + 1`** - Toggle description section
-- **`Alt + 2`** - Toggle suggestions section
-- **`Escape`** - Close all sections (or modal if open)
+### **🧭 Navigation**
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| `Tab` | Next focusable element | Global navigation |
+| `Shift + Tab` | Previous focusable element | Global navigation |
+| `Alt + 1` | Toggle description section | Section navigation |
+| `Alt + 2` | Toggle suggestions section | Section navigation |
+| `Escape` | Close modal/sections | Context-sensitive |
+
+### **🎨 Interface Controls**
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| `Ctrl + T` | Toggle theme (dark/light) | Global |
+| `Ctrl + ?` | Open keyboard shortcuts help | Global |
+| `F1` | Open keyboard shortcuts help | Global |
+
+### **📋 Content Management**
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| `Ctrl + A` | Select all text | Text areas |
+| `Ctrl + Z` | Undo | Text areas |
+| `Ctrl + Y` | Redo | Text areas |
+| `Delete` | Clear focused input | Input fields |
+
+---
+
+## ✅ **Testing Procedures**
+
+### **🔍 Basic Functionality Testing**
+
+#### **1. Modal Operation**
+```
+✅ Press Ctrl+? → Modal opens
+✅ Press Escape → Modal closes
+✅ Click outside modal → Modal closes
+✅ Press Tab → Focus moves within modal
+✅ Press Shift+Tab → Focus moves backward
+✅ Click X button → Modal closes
+```
+
+#### **2. Core Functions**
+```
+✅ Type in phrase input → Text appears
+✅ Press Ctrl+Enter → Password generates
+✅ Tab to password field → Field gets focus
+✅ Press Ctrl+C → Password copies to clipboard
+✅ Press Ctrl+D → PDF downloads
+```
+
+#### **3. Navigation**
+```
+✅ Press Tab repeatedly → Focus moves through all elements
+✅ Press Shift+Tab → Focus moves backward
+✅ Press Alt+1 → Description section toggles
+✅ Press Alt+2 → Suggestions section toggles
+✅ Press Escape → Sections close
+```
+
+#### **4. Theme System**
+```
+✅ Press Ctrl+T → Theme toggles
+✅ System preference detection works
+✅ Theme persists after page reload
+✅ High contrast mode support
+```
+
+### **🎯 Advanced Testing**
+
+#### **Focus Management**
+- [ ] **Focus Trapping**: Tab navigation stays within modal when open
+- [ ] **Focus Restoration**: Focus returns to trigger element after modal closes
+- [ ] **Skip Links**: Hidden skip navigation links work
+- [ ] **Focus Indicators**: Clear visual focus indicators on all interactive elements
+
+#### **Screen Reader Testing**
+- [ ] **ARIA Labels**: All interactive elements have proper labels
+- [ ] **Live Regions**: Dynamic content updates announced
+- [ ] **Landmarks**: Page structure properly identified
+- [ ] **Headings**: Logical heading hierarchy maintained
+
+#### **Keyboard-Only Navigation**
+- [ ] **Complete Access**: All functionality available via keyboard
+- [ ] **Logical Order**: Tab order follows visual layout
+- [ ] **No Keyboard Traps**: User can always navigate away
+- [ ] **Shortcuts Work**: All documented shortcuts function correctly
+
+---
+
+## 🛠️ **Testing Tools & Techniques**
+
+### **Browser Testing**
+```bash
+# Test in multiple browsers
+Chrome/Edge: Standard keyboard handling
+Firefox: Alternative keyboard behavior
+Safari: Mac-specific shortcuts
+```
+
+### **Screen Reader Testing**
+```bash
+# Windows
+NVDA (Free): Most common screen reader
+JAWS: Professional screen reader
+
+# Mac
+VoiceOver: Built-in screen reader
+
+# Testing Commands
+Tab: Navigate elements
+Enter/Space: Activate buttons
+Arrow keys: Navigate within components
+```
+
+### **Automated Testing Tools**
+```bash
+# Accessibility scanners
+axe-core: Browser extension for automated checks
+WAVE: Web accessibility evaluation tool
+Lighthouse: Built-in Chrome accessibility audit
+
+# Keyboard testing
+Tab order visualization tools
+Focus management debugging
+```
+
+---
+
+## 🚨 **Common Issues & Solutions**
+
+### **Focus Problems**
+```javascript
+// Issue: Focus lost after modal opens
+// Solution: Implement focus trapping
+modal.addEventListener('keydown', trapFocus);
+
+// Issue: Focus not visible
+// Solution: Ensure focus indicators in CSS
+:focus { outline: 2px solid #007bff; }
+```
+
+### **Screen Reader Issues**
+```html
+<!-- Issue: Button purpose unclear -->
+<!-- Solution: Proper ARIA labels -->
+<button aria-label="Generate secure password">Generate</button>
+
+<!-- Issue: Dynamic content not announced -->
+<!-- Solution: Live regions -->
+<div aria-live="polite" id="status-updates"></div>
+```
+
+### **Keyboard Trap Issues**
+```javascript
+// Issue: User stuck in modal
+// Solution: Escape key handling
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOpen) {
+        closeModal();
+    }
+});
+```
+
+---
+
+## 📋 **Compliance Checklist**
+
+### **WCAG 2.1 AA Standards**
+- [ ] **2.1.1**: All functionality available from keyboard
+- [ ] **2.1.2**: No keyboard trap exists
+- [ ] **2.4.3**: Focus order is logical
+- [ ] **2.4.7**: Focus indicators are visible
+- [ ] **3.2.1**: Focus doesn't trigger unexpected changes
+- [ ] **4.1.2**: All UI components properly identified
+
+### **Additional Accessibility Features**
+- [ ] **High Contrast Support**: Works with high contrast mode
+- [ ] **Reduced Motion**: Respects user motion preferences
+- [ ] **Text Scaling**: Works up to 200% zoom
+- [ ] **Color Independence**: Doesn't rely solely on color for information
+
+---
+
+## 🎓 **Best Practices for Developers**
+
+### **Implementation Guidelines**
+1. **Always provide keyboard alternatives** for mouse interactions
+2. **Test with actual screen readers**, not just automated tools
+3. **Implement proper focus management** in dynamic content
+4. **Use semantic HTML** as the foundation
+5. **Test with keyboard only** regularly during development
+
+### **Code Examples**
+```javascript
+// Good: Keyboard event handling
+element.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleActivation();
+    }
+});
+
+// Good: Focus management
+function openModal() {
+    modal.style.display = 'block';
+    firstFocusableElement.focus();
+    document.addEventListener('keydown', trapFocus);
+}
+```
+
+---
+
+## 🌟 **Additional Resources**
+
+### **Documentation**
+- **[WebAIM Keyboard Testing](https://webaim.org/articles/keyboard/)** - Comprehensive keyboard testing guide
+- **[ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)** - Official ARIA patterns
+- **[WCAG Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - Web accessibility standards
+
+### **Tools**
+- **[axe DevTools](https://www.deque.com/axe/devtools/)** - Browser accessibility testing
+- **[NVDA Screen Reader](https://www.nvaccess.org/)** - Free screen reader for testing
+- **[Keyboard Navigation Bookmarklet](https://accessibility-bookmarklets.org/)** - Visual focus testing
+
+---
+
+<div align="center">
+
+**⌨️ Making the web accessible, one keyboard shortcut at a time**
+
+[Main README](README.md) • [Development Guide](DEVELOPMENT.md) • [Try Live Demo](https://dhruvinrsoni.github.io/cipher-alchemist/)
+
+</div>
 
 #### **Suggestion Chips Navigation:**
 1. Click on any suggestion chip to focus it
