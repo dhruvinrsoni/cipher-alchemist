@@ -1,0 +1,316 @@
+/* Keyboard Shortcuts Help Modal Styles */
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Modal Content Container */
+.modal-content {
+  background: var(--container-bg);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  max-width: 90vw;
+  max-height: 90vh;
+  width: 600px;
+  overflow: hidden;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s ease;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.modal-overlay.show .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+/* Modal Header */
+.modal-header {
+  background: var(--primary, #007BFF);
+  background: linear-gradient(135deg, var(--primary, #007BFF), #0056b3);
+  color: white;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.modal-close:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 2rem;
+  max-height: calc(90vh - 120px);
+  overflow-y: auto;
+  color: var(--text);
+}
+
+/* Shortcuts Grid */
+.shortcuts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.shortcut-section {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.shortcut-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary, #007BFF);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  background: var(--container-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.05));
+  transition: background-color 0.2s ease;
+}
+
+.shortcut-item:last-child {
+  margin-bottom: 0;
+}
+
+.shortcut-item:hover {
+  background: var(--hover-bg, rgba(0, 123, 255, 0.05));
+}
+
+.shortcut-keys {
+  background: var(--text);
+  color: var(--container-bg);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shortcut-desc {
+  color: var(--text);
+  font-size: 0.9rem;
+  margin-left: 1rem;
+  flex: 1;
+}
+
+/* Modal Footer */
+.modal-footer {
+  background: var(--bg);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.help-tip {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-secondary, #666);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.help-tip strong {
+  color: var(--primary, #007BFF);
+}
+
+/* Dark Theme Support */
+body.dark-theme .modal-content {
+  background: var(--container-bg);
+  border-color: var(--border-color);
+}
+
+body.dark-theme .shortcut-section {
+  background: var(--bg);
+  border-color: var(--border-color);
+}
+
+body.dark-theme .shortcut-item {
+  background: var(--container-bg);
+  border-color: var(--border-color);
+}
+
+body.dark-theme .shortcut-item:hover {
+  background: rgba(100, 181, 246, 0.1);
+}
+
+body.dark-theme .shortcut-keys {
+  background: var(--text);
+  color: var(--bg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .modal-footer {
+  background: var(--bg);
+  border-color: var(--border-color);
+}
+
+body.dark-theme .modal-close:focus {
+  outline-color: rgba(100, 181, 246, 0.8);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95vw;
+    max-height: 95vh;
+    margin: 1rem;
+  }
+  
+  .modal-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+    max-height: calc(95vh - 100px);
+  }
+  
+  .shortcuts-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .shortcut-section {
+    padding: 1rem;
+  }
+  
+  .shortcut-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .shortcut-desc {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 98vw;
+    border-radius: 12px;
+  }
+  
+  .modal-header {
+    padding: 0.75rem 1rem;
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .shortcut-section {
+    padding: 0.75rem;
+  }
+  
+  .shortcuts-grid {
+    gap: 1rem;
+  }
+}
+
+/* Accessibility - High Contrast Mode */
+@media (prefers-contrast: high) {
+  .modal-overlay {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  
+  .modal-content {
+    border: 2px solid var(--text);
+  }
+  
+  .shortcut-keys {
+    border: 2px solid var(--text);
+    font-weight: bold;
+  }
+  
+  .shortcut-section {
+    border: 2px solid var(--border-color);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay {
+    transition: none;
+  }
+  
+  .modal-content {
+    transition: none;
+  }
+  
+  .shortcut-item {
+    transition: none;
+  }
+  
+  .modal-close {
+    transition: none;
+  }
+}

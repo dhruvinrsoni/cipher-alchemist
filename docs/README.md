@@ -3,6 +3,7 @@
 - Symbolic substitutions for enhanced security
 - **💡 Phrase Suggestions** - Inspirational examples to get you started
 - **🛡️ Real-time Password Strength Analysis** - Advanced security scoring
+- **⌨️ Full Keyboard Accessibility** - Navigate and control everything via keyboard (press `Ctrl+?` for help)
 - **Dark/Light Theme Toggle**
 - **Copy to Clipboard Button**
 - **PDF Download Button** for cheat sheet

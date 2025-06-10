@@ -359,9 +359,15 @@ function initializeApp() {
             e.preventDefault();
             toggleSuggestions();
         }
-        
-        // Escape key to close any expanded sections
+          // Escape key to close any expanded sections or modal
         if (e.key === 'Escape') {
+            // First check if modal is open and close it
+            if (typeof isModalOpen !== 'undefined' && isModalOpen) {
+                hideKeyboardHelp();
+                return;
+            }
+            
+            // Then close any expanded sections
             const sections = [
                 { content: document.getElementById('descriptionContent'), toggle: toggleDescription },
                 { content: document.getElementById('suggestionsContent'), toggle: toggleSuggestions }
@@ -372,8 +378,13 @@ function initializeApp() {
                     section.toggle();
                 }
             });
-        }
-    });
+        }    });
+
+    // Initialize keyboard shortcuts help modal
+    if (typeof initializeKeyboardHelp === 'function') {
+        initializeKeyboardHelp();
+        addKeyboardHelpShortcut();
+    }
 
     console.log('Cipher Alchemist app initialized successfully!');
     

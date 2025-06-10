@@ -14,21 +14,24 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dhruvinrsoni.github.io/cipher-alchemist/" />    <meta property="og:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/assets/icons/favicon-512.png" />    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Cipher Alchemist - Transform Phrases into Unbreakable Passwords | @dhruvinrsoni" />    <meta name="twitter:description" content="🔮 Transform memorable phrases into cryptographically strong passwords with real-time strength analysis. Vedic wisdom meets modern security. Created by @dhruvinrsoni" />
-    <meta name="twitter:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/assets/icons/favicon-512.png" />
-    <!-- Modular CSS Files -->
+    <meta name="twitter:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/assets/icons/favicon-512.png" />    <!-- Modular CSS Files -->
     <link rel="stylesheet" href="css/themes.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/password-strength.css" />    <link rel="stylesheet" href="css/phrase-suggestions.css" />
+    <link rel="stylesheet" href="css/keyboard-shortcuts.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/icons/favicon.ico" />
     <link rel="apple-touch-icon" href="assets/icons/favicon-192.png" />
     <meta name="app-version" content="__APP_VERSION__">
 </head>
-<body>
-    <!-- Skip to main content for accessibility -->
+<body>    <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
     
-    <button id="themeToggleBtn" aria-label="Toggle theme">🌙</button>
+    <!-- Top-right controls -->
+    <div class="top-controls">
+        <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)">⌨️</button>
+        <button id="themeToggleBtn" aria-label="Toggle theme">🌙</button>
+    </div>
     
     <div class="container" id="main-content">
         <h1>Cipher Alchemist</h1>
@@ -82,12 +85,92 @@
             Built with ❤️ by Dhruvin Soni
             (<a href="https://github.com/dhruvinrsoni" target="_blank" rel="noopener">@dhruvinrsoni</a>)<br />
             <small>Copyright (c) 2025 Dhruvin Rupesh Soni</small><br />
-            <a href="https://github.com/dhruvinrsoni/cipher-alchemist" target="_blank" rel="noopener">GitHub Project</a><br />
-        </footer>
+            <a href="https://github.com/dhruvinrsoni/cipher-alchemist" target="_blank" rel="noopener">GitHub Project</a><br />        </footer>
+    </div>
+
+    <!-- Keyboard Shortcuts Help Modal -->
+    <div id="keyboardHelpModal" class="modal-overlay" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
+            <div class="modal-header">
+                <h2 id="modal-title">⌨️ Keyboard Shortcuts</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-description">
+                <div class="shortcuts-grid">
+                    <div class="shortcut-section">
+                        <h3>🚀 Quick Actions</h3>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Ctrl + Enter</span>
+                            <span class="shortcut-desc">Generate password</span>
+                        </div>                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Ctrl + C</span>
+                            <span class="shortcut-desc">Copy password (when focused)</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Ctrl + ? / F1</span>
+                            <span class="shortcut-desc">Show this help</span>
+                        </div>
+                    </div>
+
+                    <div class="shortcut-section">
+                        <h3>🧭 Navigation</h3>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Alt + 1</span>
+                            <span class="shortcut-desc">Toggle description section</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Alt + 2</span>
+                            <span class="shortcut-desc">Toggle suggestions section</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Escape</span>
+                            <span class="shortcut-desc">Close sections/modal</span>
+                        </div>
+                    </div>
+
+                    <div class="shortcut-section">
+                        <h3>💡 Suggestions</h3>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">← →</span>
+                            <span class="shortcut-desc">Navigate suggestion chips</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Home / End</span>
+                            <span class="shortcut-desc">First / Last suggestion</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Enter / Space</span>
+                            <span class="shortcut-desc">Select suggestion</span>
+                        </div>
+                    </div>
+
+                    <div class="shortcut-section">
+                        <h3>🎨 Accessibility</h3>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Tab</span>
+                            <span class="shortcut-desc">Navigate interactive elements</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Enter / Space</span>
+                            <span class="shortcut-desc">Activate buttons/links</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Shift + Tab</span>
+                            <span class="shortcut-desc">Navigate backwards</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <p class="help-tip">💡 <strong>Tip:</strong> All interactive elements support keyboard navigation for accessibility.</p>
+                </div>
+            </div>
+        </div>
     </div>    <!-- Modular JavaScript Files -->
     <script src="js/cipher-algorithms.js" defer></script>
     <script src="js/password-strength.js" defer></script>
     <script src="js/phrase-suggestions.js" defer></script>
+    <script src="js/keyboard-shortcuts.js" defer></script>
     <script src="js/main.js" defer></script>
 </body>
 </html>
