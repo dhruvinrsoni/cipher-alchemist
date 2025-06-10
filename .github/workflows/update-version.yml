@@ -8,6 +8,7 @@ on:
       - '**.md'
       - 'LICENSE'
       - 'version.txt'  # ✅ KEY: Don't trigger on version.txt changes
+      - 'docs/CHANGELOG.md'  # ✅ KEY: Don't trigger on CHANGELOG.md changes
   workflow_dispatch:
 
 jobs:
@@ -74,12 +75,11 @@ jobs:
             echo "⚠️ Skipping to prevent merge conflicts"
             exit 0
           fi
-          
-          # Skip if only version.txt was changed
+            # Skip if only version.txt and/or CHANGELOG.md were changed
           CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
-          if [[ "$CHANGED_FILES" == "version.txt" ]]; then
+          if [[ "$CHANGED_FILES" == "version.txt" ]] || [[ "$CHANGED_FILES" == "docs/CHANGELOG.md" ]] || [[ "$CHANGED_FILES" == "version.txt docs/CHANGELOG.md" ]] || [[ "$CHANGED_FILES" == "docs/CHANGELOG.md version.txt" ]]; then
             echo "skip=true" >> $GITHUB_OUTPUT
-            echo "reason=Only version.txt changed" >> $GITHUB_OUTPUT
+            echo "reason=Only version.txt and/or CHANGELOG.md changed" >> $GITHUB_OUTPUT
             exit 0
           fi
           
@@ -93,8 +93,59 @@ jobs:
           IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
           BRANCH_NAME=$(git branch --show-current)
           COMMIT_COUNT=$(git rev-list --count HEAD)
+            echo "🔄 v${COMMIT_HASH} · $IST_TIME · 🚧 Dev Build #${COMMIT_COUNT} · ${BRANCH_NAME}" > version.txt
+
+      - name: 📝 Generate CHANGELOG.md
+        if: steps.check_skip.outputs.skip == 'false'
+        run: |
+          echo "📋 Generating CHANGELOG.md..."
           
-          echo "🔄 v${COMMIT_HASH} · $IST_TIME · 🚧 Dev Build #${COMMIT_COUNT} · ${BRANCH_NAME}" > version.txt
+          # Create docs directory if it doesn't exist
+          mkdir -p docs
+          
+          # Generate changelog header
+          echo "# 📝 Changelog" > docs/CHANGELOG.md
+          echo "" >> docs/CHANGELOG.md
+          echo "_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._" >> docs/CHANGELOG.md
+          echo "" >> docs/CHANGELOG.md
+          echo "---" >> docs/CHANGELOG.md
+          echo "" >> docs/CHANGELOG.md
+          
+          # Get the repository info for links
+          REPO_URL="https://github.com/${{ github.repository }}"
+          
+          # Generate detailed changelog entries
+          git log --no-merges -n 50 --grep="\[skip ci\]" --invert-grep --pretty=format:"%H" 2>/dev/null | while read -r hash; do
+            if [ ! -z "$hash" ]; then
+              # Get individual commit details to preserve multi-line bodies
+              date=$(git show -s --format="%cd" --date=format:"%Y-%m-%d %H:%M:%S %z" "$hash" 2>/dev/null)
+              author=$(git show -s --format="%an" "$hash" 2>/dev/null)
+              subject=$(git show -s --format="%s" "$hash" 2>/dev/null)
+              body=$(git show -s --format="%b" "$hash" 2>/dev/null)
+              
+              # Skip empty lines and ensure all required fields are present
+              if [ ! -z "$hash" ] && [ ! -z "$date" ] && [ ! -z "$author" ] && [ ! -z "$subject" ]; then
+                short_hash=$(echo "$hash" | cut -c1-7)
+                
+                echo "**Date:** $date  " >> docs/CHANGELOG.md
+                echo "**Commit:** [$short_hash]($REPO_URL/commit/$hash)  " >> docs/CHANGELOG.md
+                echo "**Author:** $author" >> docs/CHANGELOG.md
+                echo "" >> docs/CHANGELOG.md
+                echo "#### $subject" >> docs/CHANGELOG.md
+                echo "" >> docs/CHANGELOG.md
+                
+                # Add full body if it exists and is not empty
+                if [ ! -z "$body" ] && [ "$body" != " " ] && [ "$body" != "" ]; then
+                  echo "$body" >> docs/CHANGELOG.md
+                  echo "" >> docs/CHANGELOG.md
+                fi
+                
+                echo "---" >> docs/CHANGELOG.md
+                echo "" >> docs/CHANGELOG.md
+              fi
+            fi          done
+          
+          echo "✅ CHANGELOG.md generated successfully"
 
       # ✅ NEW: Conflict-safe commit with retry logic
       - name: 💾 Smart Commit with Conflict Prevention
@@ -103,17 +154,17 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          if git diff --quiet version.txt; then
-            echo "📝 No version changes to commit"
+          # Check if there are any changes to commit
+          if git diff --quiet version.txt docs/CHANGELOG.md; then
+            echo "📝 No changes to commit"
             exit 0
           fi
-          
-          git add version.txt
-          git commit -m "🔄 Auto-update version to $(git rev-parse --short HEAD) [skip ci]
+            git add version.txt docs/CHANGELOG.md
+          git commit -m "🔄 Auto-update version and changelog [skip ci]
           
           Build: #$(git rev-list --count HEAD)
           Trigger: ${{ github.event_name }}
-          Auto-generated version update"
+          Updated: version.txt, docs/CHANGELOG.md"
           
           # ✅ SOLUTION: Retry push with auto-sync
           echo "📤 Attempting to push with conflict prevention..."
@@ -179,12 +230,12 @@ jobs:
               echo "🔧 For developers:"
               echo "   • Run 'git pull origin main' before your next commit"
               echo "   • This ensures your local branch is synchronized"
-              echo "   • Prevents merge conflicts on future pushes"
-            fi
+              echo "   • Prevents merge conflicts on future pushes"            fi
           else
             echo "✅ Version update completed successfully"
             echo "📋 Details:"
             echo "   • New Version: $(cat version.txt)"
+            echo "   • CHANGELOG: docs/CHANGELOG.md updated with latest 50 commits"
             echo "   • Deployed: ${{ steps.deployment.outputs.page_url || 'N/A' }}"
             echo "   • Time: $(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')"
             echo ""
