@@ -50,10 +50,6 @@ jobs:
           fi
           
           echo "✅ Version v${{ github.event.inputs.version }} is valid"
-            exit 1
-          fi
-          
-          echo "✅ Version v${{ github.event.inputs.version }} is valid"
 
       - name: 📝 Update Version Files
         run: |
