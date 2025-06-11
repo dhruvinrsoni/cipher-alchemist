@@ -27,23 +27,23 @@
 <body>    <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
       <!-- Top-right controls -->
-    <div class="top-controls">
+    <div class="top-controls" role="toolbar" aria-label="Application Controls">
         <button id="installBtn" aria-label="Install app as PWA" title="Install Cipher Alchemist" style="display: none;">📱</button>
-        <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)">⌨️</button>
-        <button id="themeToggleBtn" aria-label="Toggle theme">🌙</button>
+        <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)" aria-controls="keyboardHelpModal" aria-haspopup="dialog">⌨️</button>
+        <button id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
     </div>
     
-    <div class="container" id="main-content">
+    <div class="container" id="main-content" role="main">
         <h1>Cipher Alchemist</h1>
           <!-- App Description Section -->
-        <div class="app-description-container">
-            <div class="app-description-header" onclick="toggleDescription()" aria-expanded="true" role="button" tabindex="0">
-                <span class="section-title">About Cipher Alchemist</span>
-                <span class="expand-icon" id="descriptionIcon">▼</span>
+        <div class="app-description-container" role="region" aria-labelledby="description-title">
+            <div class="app-description-header" onclick="toggleDescription()" aria-expanded="true" role="button" tabindex="0" aria-controls="descriptionContent">
+                <span class="section-title" id="description-title">About Cipher Alchemist</span>
+                <span class="expand-icon" id="descriptionIcon" aria-hidden="true">▼</span>
             </div>
             <div class="app-description-content" id="descriptionContent">
                 <p class="tagline">Transform memorable phrases into unbreakable passwords</p>                <p class="description">
-                    Turn <strong class="example-phrase" onclick="tryExample()" title="Click to try this example!" tabindex="0" role="button">"AhamBrahmasmi@108"</strong> into <code>4#@/\/\8r@#/\/\@5/\/\!@ioB</code> 
+                    Turn <strong class="example-phrase" onclick="tryExample()" title="Click to try this example!" tabindex="0" role="button">"AhamBrahmasmi@108"</strong> into <code aria-live="polite">4#@/\/\8r@#/\/\@5/\/\!@ioB</code> 
                     — combining Vedic wisdom, sacred numerology, and modern security with real-time strength analysis.
                 </p>                <div class="features">
                     <span class="feature">🧠 Easy to remember</span>
@@ -55,14 +55,14 @@
         </div>
         
         <!-- Phrase Suggestions Section -->
-        <div class="phrase-suggestions-container">
-            <div class="phrase-suggestions-header" onclick="toggleSuggestions()" aria-expanded="true" role="button" tabindex="0">
-                <span class="section-title">💡 Phrase Suggestions</span>
-                <span class="expand-icon" id="suggestionsIcon">▼</span>
+        <div class="phrase-suggestions-container" role="region" aria-labelledby="suggestions-title">
+            <div class="phrase-suggestions-header" onclick="toggleSuggestions()" aria-expanded="true" role="button" tabindex="0" aria-controls="suggestionsContent">
+                <span class="section-title" id="suggestions-title">💡 Phrase Suggestions</span>
+                <span class="expand-icon" id="suggestionsIcon" aria-hidden="true">▼</span>
             </div>
             <div class="phrase-suggestions-content" id="suggestionsContent">
-                <p class="suggestions-description">Click any phrase to try it instantly:</p>
-                <div class="suggestions-grid" id="suggestionsGrid">
+                <p class="suggestions-description" id="suggestions-desc">Click any phrase to try it instantly:</p>
+                <div class="suggestions-grid" id="suggestionsGrid" aria-labelledby="suggestions-desc" role="listbox">
                     <!-- Suggestions will be populated by JavaScript -->
                 </div>
                 <button class="refresh-suggestions-btn" onclick="refreshSuggestions()" aria-label="Get new suggestions">
@@ -71,18 +71,19 @@
         </div>
           
         <div class="textarea-container">
-            <textarea id="phraseInput" placeholder="Enter your phrase here..."></textarea>
+            <textarea id="phraseInput" placeholder="Enter your phrase here..." aria-label="Phrase input" aria-describedby="phrase-input-desc"></textarea>
+            <p id="phrase-input-desc" class="sr-only">Enter the phrase you want to convert into a password.</p>
             <button id="clearBtn" class="clear-button" aria-label="Clear text" title="Clear text (Ctrl+Backspace)" style="display: none;">✕</button>
         </div>
         
         <!-- Password Strength Meter -->
-        <div id="strengthMeter"></div>
+        <div id="strengthMeter" aria-live="polite" role="status"></div>
         
-        <button id="generateBtn">Generate Password</button>
-        <button id="copyBtn">Copy to Clipboard</button>        <button id="downloadBtn">Download Cheat Sheet PDF</button>
-        <div id="passwordOutput"></div>
-        <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" />
-        <footer>
+        <button id="generateBtn" aria-label="Generate password from phrase">Generate Password</button>
+        <button id="copyBtn" aria-label="Copy generated password to clipboard">Copy to Clipboard</button>        <button id="downloadBtn" aria-label="Download password cheat sheet PDF">Download Cheat Sheet PDF</button>
+        <div id="passwordOutput" aria-live="polite" role="status" aria-atomic="true"></div>
+        <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" aria-hidden="true" />
+        <footer role="contentinfo">
             <span id="footer-version" aria-live="polite"></span><br />
             Built with ❤️ by Dhruvin Soni
             (<a href="https://github.com/dhruvinrsoni" target="_blank" rel="noopener">@dhruvinrsoni</a>)<br />
@@ -91,8 +92,8 @@
     </div>
 
     <!-- Keyboard Shortcuts Help Modal -->
-    <div id="keyboardHelpModal" class="modal-overlay" aria-hidden="true">
-        <div class="modal-content" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-description">
+    <div id="keyboardHelpModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal-content" role="document">
             <div class="modal-header">
                 <h2 id="modal-title">⌨️ Keyboard Shortcuts</h2>
                 <button class="modal-close" aria-label="Close modal">&times;</button>
