@@ -17,6 +17,7 @@ Welcome to the comprehensive documentation for Cipher Alchemist! This guide will
 - **[Quick Start Guide](README.md#quick-start)** - Three ways to use the app
 - **[How It Works](README.md#how-it-works)** - Understanding the transformation process
 - **[Use Cases](README.md#use-cases)** - Real-world applications
+- **[❓ FAQ](FAQ.md)** - Frequently asked questions about security, usage, and deployment
 
 ### **Features**
 - **[Keyboard Shortcuts](KEYBOARD_TESTING_GUIDE.md)** - Complete accessibility guide

@@ -87,36 +87,17 @@ Output: "1 10\/e (0phphee !|\| +#e /\/\0r|\|!|\|9"
 
 ## 📺 Tutorial Videos
 
-### 🚀 **Getting Started**
-- **📱 Quick Tour & Basic Usage** - [Watch on YouTube](https://www.youtube.com/watch?v=example1)
-  - *5-minute overview of core features and basic password generation*
-- **⚡ Installing as PWA** - [Watch on YouTube](https://www.youtube.com/watch?v=example2)
-  - *Step-by-step guide to install Cipher Alchemist on mobile and desktop*
+**Video tutorials are currently in production!** 
 
-### 🔐 **Password Generation Techniques**
-- **💡 Using Phrase Suggestions** - [Watch on YouTube](https://www.youtube.com/watch?v=example3)
-  - *How to leverage the 48+ inspirational phrases for strong passwords*
-- **🧠 Creating Memorable Phrases** - [Watch on YouTube](https://www.youtube.com/watch?v=example4)
-  - *Best practices for crafting personal phrases that transform into secure passwords*
-- **🔍 Understanding Strength Analysis** - [Watch on YouTube](https://www.youtube.com/watch?v=example5)
-  - *Deep dive into the real-time strength meter and security criteria*
+👉 **[View Complete Tutorial Guide](TUTORIALS.md)** - Comprehensive video series covering everything from basic usage to advanced development.
 
-### ♿ **Accessibility Features**
-- **⌨️ Complete Keyboard Navigation** - [Watch on YouTube](https://www.youtube.com/watch?v=example6)
-  - *Full demonstration of keyboard shortcuts and screen reader compatibility*
-- **🎯 Assistive Technology Demo** - [Watch on YouTube](https://www.youtube.com/watch?v=example7)
-  - *Using Cipher Alchemist with screen readers and other accessibility tools*
+**Coming Soon:**
+- 🚀 Getting Started tutorials
+- 🔐 Password generation techniques  
+- ♿ Accessibility demonstrations
+- 🛠️ Developer walkthroughs
 
-### 🛠️ **For Developers**
-- **🏗️ Project Architecture Walkthrough** - [Watch on YouTube](https://www.youtube.com/watch?v=example8)
-  - *Code structure, modular design, and development setup*
-- **🔧 Contributing & Customization** - [Watch on YouTube](https://www.youtube.com/watch?v=example9)
-  - *How to contribute, extend features, and customize the cipher algorithms*
-
-### 📚 **Video Playlist**
-**Complete Tutorial Series**: [📺 Watch All Videos](https://www.youtube.com/playlist?list=example-playlist)
-
-> **Note**: Video tutorials are currently in production. Star this repository to get notified when they're released!
+> ⭐ **Star this repository** to get notified when videos are released!
 
 ---
 
@@ -191,9 +172,10 @@ This project is licensed under the **MIT License** - see the [LICENSE](../LICENS
 
 ## 🌟 Support
 
+- **❓ Common Questions?** Check our [FAQ](FAQ.md) for answers about security, usage, and deployment
 - **🐛 Found a bug?** [Open an issue](https://github.com/dhruvinrsoni/cipher-alchemist/issues)
 - **💡 Have a suggestion?** [Start a discussion](https://github.com/dhruvinrsoni/cipher-alchemist/discussions)
-- **❓ Need help?** Check our [Development Guide](DEVELOPMENT.md)
+- **📚 Need help?** Check our [Development Guide](DEVELOPMENT.md)
 
 ---
 
