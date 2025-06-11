@@ -28,7 +28,7 @@ jobs:
       contents: write
     outputs:
       tag_name: ${{ steps.create_tag.outputs.tag_name }}
-      release_success: ${{ steps.set_success.outputs.success }}  # ✅ FIXED: Reference correct step
+      release_success: ${{ steps.set_success.outputs.success }}
     
     steps:
       - name: 🛒 Checkout Repository
@@ -59,7 +59,7 @@ jobs:
           
           # Update manifest.json if exists
           if [ -f manifest.json ]; then
-            # ✅ FIXED: Install jq if not available
+            # Install jq if not available
             if ! command -v jq &> /dev/null; then
               sudo apt-get update && sudo apt-get install -y jq
             fi
@@ -85,20 +85,26 @@ jobs:
             CHANGES="- **Initial release** - First version of Cipher Alchemist"
           fi
           
-          # Create temporary file with new release content
-          cat > temp_release.md << 'EOF'
+          # Create the new RELEASES.md content using a safer approach
+          cat > temp_release.md << EOF
           # 🚀 Release History
           
           ## 📋 Current Release: v${{ github.event.inputs.version }}
           
-          **Release Date:** IST_TIME_PLACEHOLDER  
+          **Release Date:** $IST_TIME  
           **Branch:** main  
           **Status:** ✅ Active Release
           
           ### 🎉 What's New in v${{ github.event.inputs.version }}
           
           #### 🚀 Key Features & Improvements
-          CHANGES_PLACEHOLDER
+          EOF
+          
+          # Safely append the changes (which may contain special characters)
+          echo "$CHANGES" >> temp_release.md
+          
+          # Continue with the rest of the content
+          cat >> temp_release.md << EOF
           
           ### 🔗 Links
           - 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
@@ -111,20 +117,16 @@ jobs:
           
           EOF
           
-          # Replace placeholders
-          sed -i "s/IST_TIME_PLACEHOLDER/$IST_TIME/g" temp_release.md
-          sed -i "s/CHANGES_PLACEHOLDER/$CHANGES/g" temp_release.md
-          
           # If RELEASES.md exists, extract previous releases and append
-          if [ -f RELEASES.md ]; then
+          if [ -f docs/RELEASES.md ]; then
             # Extract everything after "## 📚 Previous Releases" or after first "---"
-            awk '/^## 📚 Previous Releases|^---/{found=1; next} found' RELEASES.md >> temp_release.md
+            awk '/^## 📚 Previous Releases|^---/{found=1; next} found' docs/RELEASES.md >> temp_release.md
           fi
           
           # Replace the original file
-          mv temp_release.md RELEASES.md
+          mv temp_release.md docs/RELEASES.md
           
-          echo "✅ Updated RELEASES.md with v${{ github.event.inputs.version }} information"
+          echo "✅ Updated docs/RELEASES.md with v${{ github.event.inputs.version }} information"
 
       - name: 📊 Generate Changelog
         id: changelog
@@ -137,11 +139,12 @@ jobs:
             CHANGES=$(git log --pretty=format:"- %s (%h)" --no-merges -10)
           fi
           
-          # ✅ FIXED: Handle empty changelog case
+          # Handle empty changelog case
           if [ -z "$CHANGES" ]; then
             CHANGES="- Initial release"
           fi
-            # Create changelog for release notes
+          
+          # Create changelog for release notes
           {
             echo "CHANGELOG<<EOF"
             echo "## 🚀 What's New"
@@ -159,8 +162,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          git add version.txt RELEASES.md
-          # ✅ FIXED: Only add manifest.json if it exists
+          git add version.txt docs/RELEASES.md
+          # Only add manifest.json if it exists
           if [ -f manifest.json ]; then
             git add manifest.json
           fi
@@ -171,7 +174,7 @@ jobs:
             git commit -m "🔖 Release v${{ github.event.inputs.version }}
 
             - Updated version.txt with release information
-            - Updated RELEASES.md with new release notes
+            - Updated docs/RELEASES.md with new release notes
             - Updated manifest.json version (if applicable)"
             git push origin main
           fi
@@ -202,7 +205,6 @@ jobs:
   auto-deploy:
     runs-on: ubuntu-latest
     needs: create-release
-    # ✅ FIXED: Use correct condition check
     if: ${{ github.event.inputs.auto_deploy == 'true' && needs.create-release.outputs.release_success == 'true' }}
     
     steps:
@@ -219,8 +221,10 @@ jobs:
                 inputs: {
                   version_tag: '${{ needs.create-release.outputs.tag_name }}',
                   environment: 'production'
-                }              });
-              console.log('✅ Deployment workflow triggered successfully');            } catch (error) {
+                }
+              });
+              console.log('✅ Deployment workflow triggered successfully');
+            } catch (error) {
               console.error('❌ Failed to trigger deployment:', error);
               core.setFailed('Failed to trigger auto-deployment');
             }
