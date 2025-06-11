@@ -159,12 +159,18 @@ h1 {
 }
 
 /* Form Elements */
+.textarea-container {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
 textarea#phraseInput {
   width: 100%;
   min-height: 80px;
   border-radius: 8px;
   border: 1px solid var(--input-border);
-  padding: 0.8rem;
+  padding: 0.8rem 2.5rem 0.8rem 0.8rem; /* Add right padding for clear button */
   font-size: 1.1rem;
   resize: vertical;
   background: var(--input-bg);
@@ -174,6 +180,42 @@ textarea#phraseInput {
   box-sizing: border-box;
   max-width: 100%;
   display: block;
+}
+
+.clear-button {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.clear-button:hover {
+  background: var(--button-hover-bg);
+  color: var(--button-text);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.clear-button:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.clear-button:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
 }
 
 button {
@@ -367,6 +409,19 @@ footer {
     width: 40px;
     height: 40px;
     font-size: 1.3rem;
+  }
+  
+  /* Adjust clear button for mobile */
+  .clear-button {
+    width: 32px;
+    height: 32px;
+    font-size: 1.4rem;
+    right: 6px;
+  }
+  
+  /* Adjust textarea padding for larger mobile clear button */
+  textarea#phraseInput {
+    padding: 0.8rem 3rem 0.8rem 0.8rem;
   }
 }
 

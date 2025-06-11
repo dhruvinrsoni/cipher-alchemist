@@ -116,6 +116,39 @@ function toggleTransformation() {
 }
 
 /**
+ * Clear textarea and hide clear button
+ */
+function clearTextarea() {
+    const phraseInput = document.getElementById('phraseInput');
+    const passwordOutput = document.getElementById('passwordOutput');
+    
+    if (phraseInput) {
+        phraseInput.value = '';
+        phraseInput.focus();
+        
+        // Trigger input event to update strength meter and hide clear button
+        const inputEvent = new Event('input', { bubbles: true });
+        phraseInput.dispatchEvent(inputEvent);
+    }
+    
+    // Clear password output as well
+    if (passwordOutput) {
+        passwordOutput.innerHTML = '';
+    }
+}
+
+/**
+ * Toggle visibility of clear button
+ * @param {boolean} show - Whether to show the clear button
+ */
+function toggleClearButton(show) {
+    const clearBtn = document.getElementById('clearBtn');
+    if (clearBtn) {
+        clearBtn.style.display = show ? 'flex' : 'none';
+    }
+}
+
+/**
  * Theme management functionality
  */
 function initializeTheme() {
@@ -358,10 +391,12 @@ function initializeApp() {
     if (phraseInput) {
         let typingTimer;
         const typingDelay = 300; // milliseconds
-        
-        phraseInput.addEventListener('input', function() {
+          phraseInput.addEventListener('input', function() {
             clearTimeout(typingTimer);
             const phrase = this.value.trim();
+            
+            // Show/hide clear button based on content
+            toggleClearButton(this.value.length > 0);
             
             if (phrase.length === 0) {
                 checkStrength('');
@@ -385,6 +420,14 @@ function initializeApp() {
             if (this.value.trim().length === 0) {
                 checkStrength('', '');
             }
+        });
+    }
+
+    // Initialize clear button
+    const clearBtn = document.getElementById('clearBtn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', function() {
+            clearTextarea();
         });
     }
 
@@ -485,13 +528,19 @@ function initializeApp() {
             e.preventDefault();
             toggleDescription();
         }
-        
-        // Alt+2 to toggle suggestions section
+          // Alt+2 to toggle suggestions section
         if (e.altKey && e.key === '2') {
             e.preventDefault();
             toggleSuggestions();
         }
-          // Escape key to close any expanded sections or modal
+        
+        // Ctrl+Backspace to clear textarea
+        if (e.ctrlKey && e.key === 'Backspace') {
+            e.preventDefault();
+            clearTextarea();
+        }
+        
+        // Escape key to close any expanded sections or modal
         if (e.key === 'Escape') {
             // First check if modal is open and close it
             if (typeof isModalOpen !== 'undefined' && isModalOpen) {
@@ -510,12 +559,16 @@ function initializeApp() {
                     section.toggle();
                 }
             });
-        }    });
-
-    // Initialize keyboard shortcuts help modal
+        }    });    // Initialize keyboard shortcuts help modal
     if (typeof initializeKeyboardHelp === 'function') {
         initializeKeyboardHelp();
         addKeyboardHelpShortcut();
+    }
+
+    // Initialize clear button visibility on page load
+    const phraseInputElement = document.getElementById('phraseInput');
+    if (phraseInputElement) {
+        toggleClearButton(phraseInputElement.value.length > 0);
     }
 
     console.log('Cipher Alchemist app initialized successfully!');

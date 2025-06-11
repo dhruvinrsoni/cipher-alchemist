@@ -67,11 +67,13 @@
                 </div>
                 <button class="refresh-suggestions-btn" onclick="refreshSuggestions()" aria-label="Get new suggestions">
                     🔄 More Suggestions
-                </button>
-            </div>
+                </button>        </div>
         </div>
           
-        <textarea id="phraseInput" placeholder="Enter your phrase here..."></textarea>
+        <div class="textarea-container">
+            <textarea id="phraseInput" placeholder="Enter your phrase here..."></textarea>
+            <button id="clearBtn" class="clear-button" aria-label="Clear text" title="Clear text (Ctrl+Backspace)" style="display: none;">✕</button>
+        </div>
         
         <!-- Password Strength Meter -->
         <div id="strengthMeter"></div>
@@ -105,6 +107,10 @@
                         </div>                        <div class="shortcut-item">
                             <span class="shortcut-keys">Ctrl + C</span>
                             <span class="shortcut-desc">Copy password (when focused)</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Ctrl + Backspace</span>
+                            <span class="shortcut-desc">Clear input text</span>
                         </div>
                         <div class="shortcut-item">
                             <span class="shortcut-keys">📱 Button</span>
