@@ -25,9 +25,9 @@
     <meta name="app-version" content="__APP_VERSION__">
 </head>
 <body>    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-to-main">Skip to main content</a>
-      <!-- Top-right controls -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>    <!-- Top-right controls -->
     <div class="top-controls" role="toolbar" aria-label="Application Controls">
+        <button id="tutorialsBtn" aria-label="View video tutorials" title="Video tutorials" onclick="window.open('https://www.youtube.com/@dhruvinrsoni', '_blank')">📺</button>
         <button id="installBtn" aria-label="Install app as PWA" title="Install Cipher Alchemist" style="display: none;">📱</button>
         <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)" aria-controls="keyboardHelpModal" aria-haspopup="dialog">⌨️</button>
         <button id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
@@ -82,13 +82,13 @@
         <button id="generateBtn" aria-label="Generate password from phrase">Generate Password</button>
         <button id="copyBtn" aria-label="Copy generated password to clipboard">Copy to Clipboard</button>        <button id="downloadBtn" aria-label="Download password cheat sheet PDF">Download Cheat Sheet PDF</button>
         <div id="passwordOutput" aria-live="polite" role="status" aria-atomic="true"></div>
-        <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" aria-hidden="true" />
-        <footer role="contentinfo">
+        <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" aria-hidden="true" />        <footer role="contentinfo">
             <span id="footer-version" aria-live="polite"></span><br />
             Built with ❤️ by Dhruvin Soni
             (<a href="https://github.com/dhruvinrsoni" target="_blank" rel="noopener">@dhruvinrsoni</a>)<br />
             <small>Copyright (c) 2025 Dhruvin Rupesh Soni</small><br />
-            <a href="https://github.com/dhruvinrsoni/cipher-alchemist" target="_blank" rel="noopener">GitHub Project</a><br />        </footer>
+            <a href="https://github.com/dhruvinrsoni/cipher-alchemist" target="_blank" rel="noopener">GitHub Project</a> • 
+            <a href="https://www.youtube.com/@dhruvinrsoni" target="_blank" rel="noopener">📺 Video Tutorials</a><br /></footer>
     </div>
 
     <!-- Keyboard Shortcuts Help Modal -->

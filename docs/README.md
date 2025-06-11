@@ -85,6 +85,41 @@ Output: "1 10\/e (0phphee !|\| +#e /\/\0r|\|!|\|9"
 
 ---
 
+## 📺 Tutorial Videos
+
+### 🚀 **Getting Started**
+- **📱 Quick Tour & Basic Usage** - [Watch on YouTube](https://www.youtube.com/watch?v=example1)
+  - *5-minute overview of core features and basic password generation*
+- **⚡ Installing as PWA** - [Watch on YouTube](https://www.youtube.com/watch?v=example2)
+  - *Step-by-step guide to install Cipher Alchemist on mobile and desktop*
+
+### 🔐 **Password Generation Techniques**
+- **💡 Using Phrase Suggestions** - [Watch on YouTube](https://www.youtube.com/watch?v=example3)
+  - *How to leverage the 48+ inspirational phrases for strong passwords*
+- **🧠 Creating Memorable Phrases** - [Watch on YouTube](https://www.youtube.com/watch?v=example4)
+  - *Best practices for crafting personal phrases that transform into secure passwords*
+- **🔍 Understanding Strength Analysis** - [Watch on YouTube](https://www.youtube.com/watch?v=example5)
+  - *Deep dive into the real-time strength meter and security criteria*
+
+### ♿ **Accessibility Features**
+- **⌨️ Complete Keyboard Navigation** - [Watch on YouTube](https://www.youtube.com/watch?v=example6)
+  - *Full demonstration of keyboard shortcuts and screen reader compatibility*
+- **🎯 Assistive Technology Demo** - [Watch on YouTube](https://www.youtube.com/watch?v=example7)
+  - *Using Cipher Alchemist with screen readers and other accessibility tools*
+
+### 🛠️ **For Developers**
+- **🏗️ Project Architecture Walkthrough** - [Watch on YouTube](https://www.youtube.com/watch?v=example8)
+  - *Code structure, modular design, and development setup*
+- **🔧 Contributing & Customization** - [Watch on YouTube](https://www.youtube.com/watch?v=example9)
+  - *How to contribute, extend features, and customize the cipher algorithms*
+
+### 📚 **Video Playlist**
+**Complete Tutorial Series**: [📺 Watch All Videos](https://www.youtube.com/playlist?list=example-playlist)
+
+> **Note**: Video tutorials are currently in production. Star this repository to get notified when they're released!
+
+---
+
 ## 🛠️ For Developers
 
 ### **Technology Stack**
@@ -94,6 +129,7 @@ Output: "1 10\/e (0phphee !|\| +#e /\/\0r|\|!|\|9"
 - **CI/CD**: GitHub Actions with automated versioning
 
 ### **Key Documentation**
+- **[📺 Video Tutorials](TUTORIALS.md)** - Comprehensive video guides for all skill levels
 - **[Development Guide](DEVELOPMENT.md)** - Complete technical documentation
 - **[Git Workflow](GIT_WORKFLOW_GUIDE.md)** - Contribution guidelines and CI/CD workflows
 - **[Keyboard Testing](KEYBOARD_TESTING_GUIDE.md)** - Accessibility testing procedures
