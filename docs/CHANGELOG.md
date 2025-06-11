@@ -4,6 +4,159 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-11 12:55:08 +0530  
+**Commit:** [005dd53](https://github.com/dhruvinrsoni/cipher-alchemist/commit/005dd53c9cf114e557b7b2ec914088a0d9a5f468)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: improve PWA caching and manifest configuration
+
+Reason:
+• Fixed service worker cache management to prevent deletion of current cache
+• Enhanced PWA manifest for better installation and scoping
+
+Impact:
+• Improves PWA performance by preserving active cache during updates
+• Better debugging with enhanced logging in service worker activation
+• Clearer PWA scope definition for proper resource handling
+• Enhanced user experience during app updates and installations
+
+Testing and Validation:
+• Service worker cache retention should be verified during updates
+• PWA installation behavior should be tested across different browsers
+• Cache deletion logs should appear in browser console during activation
+
+Dependencies:
+• No new dependencies added
+
+Backward Compatibility:
+• Fully backward compatible
+• Existing cache behavior preserved for current version
+• Manifest changes enhance existing PWA functionality without breaking changes
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 09:20:23 +0530  
+**Commit:** [06cd3db](https://github.com/dhruvinrsoni/cipher-alchemist/commit/06cd3dbfe64e1877e8d2ebb025d7908d568a20c7)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: improve workflow file structure and error handling
+
+Fixed multiple issues in the GitHub Actions workflow:
+- Moved RELEASES.md to docs/ directory for better organization
+- Improved heredoc handling to prevent variable expansion issues
+- Enhanced error handling for manifest.json operations
+- Cleaned up inline comments and code formatting
+- Fixed file path references throughout the workflow
+- Improved changelog generation logic
+
+Impact:
+- Better file organization with docs/ structure
+- More reliable release process with improved error handling
+- Cleaner code without excessive inline comments
+- Safer variable handling in shell scripts
+
+Test:
+- Workflow syntax validation required
+- Release process testing recommended
+- File path operations need verification
+
+Dependencies:
+- No new dependencies added
+- Maintains existing jq dependency for JSON processing
+
+Compatibility:
+- Maintains backward compatibility for existing releases
+- File structure change may require documentation updates
+
+Docs:
+- RELEASES.md moved to docs/RELEASES.md
+- File path references updated in workflow
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 04:37:10 +0530  
+**Commit:** [ebb7d81](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ebb7d81ecf73da8ca70b502a69946eaa9050fc7a)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: remove duplicate validation logic in release workflow
+
+Fixed duplicate validation block that was causing workflow syntax errors.
+The validation logic was repeated, including an unreachable exit 1 statement
+that would prevent successful releases.
+
+• Removed duplicated version validation echo statement
+• Eliminated unreachable exit 1 command
+• Cleaned up workflow logic flow
+
+Impact:
+• CI/CD: Fixes release workflow execution failures
+• Runtime: Eliminates syntax errors in GitHub Actions
+• Code Quality: Removes unreachable/dead code
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 04:33:57 +0530  
+**Commit:** [00319bd](https://github.com/dhruvinrsoni/cipher-alchemist/commit/00319bd1c5b1c6ba5db6f2139007800a94e30bd2)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: correct syntax error in GitHub workflow validation
+
+Fixed malformed conditional statement in create-tag-release.yml that was causing workflow failures.
+
+• Removed duplicate "exit 1" and "fi" statements
+• Fixed broken if-statement structure in tag validation logic
+• Ensured proper bash syntax for version checking workflow
+
+Impact:
+• Resolves CI/CD pipeline failures during tag creation process
+• Ensures GitHub Actions workflow executes successfully
+• Prevents deployment blocking due to syntax errors
+
+Test:
+• Validated YAML syntax using GitHub Actions linter
+• Verified workflow logic flow for tag validation scenarios
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 04:26:32 +0530  
+**Commit:** [cc972c7](https://github.com/dhruvinrsoni/cipher-alchemist/commit/cc972c719df3658d3631e926ed422435b526132a)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: Update release history to v1.2.0 with comprehensive bug fixes
+
+Added detailed v1.2.0 release documentation covering critical PWA fixes,
+service worker improvements, and workflow corrections. This release marks
+significant stability improvements for offline functionality and deployment.
+
+Key changes documented:
+• PWA install button icon alignment fixes using flexbox
+• Service worker cache path corrections from relative to absolute
+• GitHub Actions workflow YAML syntax error resolutions
+• Documentation truth reconciliation removing false claims
+• Enhanced offline mode with improved resource caching strategies
+
+Impact:
+• Users now have properly functioning PWA installation experience
+• Offline mode works reliably with corrected cache paths
+• CI/CD pipeline stability improved with workflow fixes
+• Documentation accuracy restored for better developer experience
+
+The release notes provide comprehensive tracking of all technical
+improvements made in v1.2.0, ensuring proper version history
+maintenance for future reference.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-11 04:20:07 +0530  
 **Commit:** [9a2c8f5](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9a2c8f5a7323638159f7e577a303e4bae5019869)  
 **Author:** Dhruvin Rupesh Soni
@@ -1414,112 +1567,6 @@ Impact:
 - Cleaner, properly formatted changelog entries
 - Prevents broken or incomplete entries from appearing in the log
 - Ensures proper display of commit information for project transparency
-
----
-
-**Date:** 2025-06-03 03:46:33 +0530  
-**Commit:** [da179f2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/da179f278fad9d59a88b9cdc9f1f08db6972b6bc)  
-**Author:** Dhruvin Rupesh Soni
-
-#### chore: refactor version update workflow automation
-
-- Reversed workflow triggers to enable automatic versioning
-- Renamed old workflow to "Update Version Old" and made it manual-only
-- Restored automatic versioning on main branch pushes
-- Removed footer line from auto-generated changelog
-
-Impact: Improves CI/CD by automating version updates on merge to main
-while keeping the manual option available if needed. Simplifies the
-changelog format by removing the redundant auto-generation notice.
-
----
-
-**Date:** 2025-06-03 03:40:49 +0530  
-**Commit:** [c152833](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c15283303f2061946ac220bf29b043285f3d6c6e)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: add auto-generation notice to changelog file
-
-This change adds a disclaimer at the end of the CHANGELOG.md file
-indicating that it is auto-generated by GitHub Actions and should
-not be edited manually.
-
-Impact:
-- Improves clarity for contributors about file maintenance
-- Prevents manual edits that would be overwritten by automation
-
-Docs:
-- Enhances self-documentation of the changelog generation process
-
----
-
-**Date:** 2025-06-03 03:34:11 +0530  
-**Commit:** [d912561](https://github.com/dhruvinrsoni/cipher-alchemist/commit/d912561a0ade5f75674ab84c33713bd88c2dade6)  
-**Author:** Dhruvin Rupesh Soni
-
-#### chore: make version update workflow manually triggered
-
-Reason:
-- Changed the update-version workflow to be manually triggered
-- Removed automatic triggers on push to main branch
-
-Impact:
-- Version updates will now require manual intervention
-- Provides more control over when version updates occur
-- Prevents unwanted automatic version updates
-
-CI/CD:
-- Modified GitHub Actions workflow configuration
-- Workflow now uses workflow_dispatch instead of push event
-
----
-
-**Date:** 2025-06-03 03:20:29 +0530  
-**Commit:** [fcc1a08](https://github.com/dhruvinrsoni/cipher-alchemist/commit/fcc1a0897f63fd60bb0a5988d4a7550d49dba721)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat(docs): enhance changelog with dual format generation
-
-Reason:
-- Previous CHANGELOG format was malformed with parsing issues
-- Commit entries were not properly separated and had broken links
-- Need for both detailed and simplified changelog formats
-
-Changes:
-- Add new CHANGELOG_CLEAN.md with properly formatted entries
-- Update workflow to generate both detailed and clean versions
-- Fix hyperlinks in changelog to properly point to GitHub commits
-- Modify manifest.json to use PNG icons instead of favicon.ico
-- Document workflow functionality in README.md
-
-Impact:
-- Improves project documentation readability and maintenance
-- Provides better navigation and reference capabilities
-- Ensures proper markdown rendering for GitHub Pages
-
-Test:
-- Verified both changelog formats generate correctly
-- Confirmed hyperlinks resolve to proper commit URLs
-- Validated workflow execution with test commits
-
----
-
-**Date:** 2025-06-03 02:33:34 +0530  
-**Commit:** [f3c0f60](https://github.com/dhruvinrsoni/cipher-alchemist/commit/f3c0f609f289dfda21c0f0f1b9fc904d06ef506d)  
-**Author:** Dhruvin Rupesh Soni
-
-#### style: enhance CHANGELOG.md formatting for better readability
-
-Reason:
-- Previous CHANGELOG format was basic and lacked visual hierarchy
-- Improved format provides better navigation and reference capabilities
-
-Changes:
-- Added newline after the title for proper markdown rendering
-- Restructured commit entries with clear section separators
-- Added hyperlinks to commit hashes for direct GitHub navigation
-- Improved formatting of date, author, and commit information
-- Enhanced overall readability with better markdown structure
 
 ---
 
