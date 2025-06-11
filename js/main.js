@@ -121,7 +121,9 @@ function toggleTransformation() {
 function clearTextarea() {
     const phraseInput = document.getElementById('phraseInput');
     const passwordOutput = document.getElementById('passwordOutput');
-    
+    const strengthMeter = document.getElementById('strengthMeter');
+    const transformationSteps = document.getElementById('transformationExplanation');
+
     if (phraseInput) {
         phraseInput.value = '';
         phraseInput.focus();
@@ -131,9 +133,19 @@ function clearTextarea() {
         phraseInput.dispatchEvent(inputEvent);
     }
     
-    // Clear password output as well
+    // Clear password output
     if (passwordOutput) {
         passwordOutput.innerHTML = '';
+    }
+
+    // Clear strength meter
+    if (strengthMeter) {
+        strengthMeter.innerHTML = '';
+    }
+
+    // Clear transformation steps if they exist
+    if (transformationSteps) {
+        transformationSteps.innerHTML = '';
     }
 }
 
