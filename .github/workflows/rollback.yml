@@ -26,7 +26,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    #environment: production  # ✅ FIXED: Added missing environment
     
     steps:
       - name: 🛒 Checkout Repository
