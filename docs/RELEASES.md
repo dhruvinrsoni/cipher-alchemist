@@ -2,42 +2,23 @@
 
 ## 📋 Current Release: v1.2.0
 
-**Release Date:** 2025-06-11 TBD IST  
+**Release Date:** 2025-06-11 13:16:39 IST  
 **Branch:** main  
 **Status:** ✅ Active Release
 
 ### 🎉 What's New in v1.2.0
 
-#### 🔧 Critical Bug Fixes
-- **📱 PWA Install Button**: Fixed phone icon (📱) alignment within circular button using explicit flexbox display
-- **🔧 Service Worker Cache**: Resolved "Failed to execute 'addAll' on 'Cache'" errors with proper absolute paths
-- **🌐 Offline Functionality**: Enhanced offline mode with improved resource caching and fallback strategies
-- **⚡ Cache Performance**: Updated cache version to v3 for immediate error resolution
+#### 🚀 Key Features & Improvements
+- **🔄 Auto-update version and changelog [skip ci]** - Build: #115
+Trigger: push
+Updated: version.txt, docs/CHANGELOG.md
 
-#### 🎨 UI/UX Improvements
-- **🎯 Perfect Icon Centering**: Phone emoji now perfectly centered in PWA install button
-- **📱 Enhanced PWA Experience**: Improved install button visual consistency across all browsers
-- **🔄 Better Error Handling**: Graceful service worker error handling with individual resource caching
-- **💫 Consistent Emoji Rendering**: Optimized font stack for cross-browser emoji compatibility
+- **feat: improve PWA caching and manifest configuration** - Reason:
+• Fixed service worker cache management to prevent deletion of current cache
+• Enhanced PWA manifest for better installation and scoping
 
-#### 🛠️ Technical Enhancements
-- **🔧 Service Worker Fix**: Fixed cache paths from relative `../` to absolute `/` paths
-- **📦 Cache Strategy**: Improved caching with Promise.allSettled for better resource handling
-- **🌐 Network Fallbacks**: Enhanced offline support with proper fetch error handling
-- **⚙️ GitHub Actions**: Fixed workflow syntax errors in Enhanced Summary section
-
-#### 🚀 DevOps & Infrastructure
-- **✅ Workflow Fixes**: Resolved YAML syntax errors and missing shell script closures
-- **🔄 Documentation Cleanup**: Completed truth reconciliation for all false documentation claims
-- **📊 Deployment Stability**: Enhanced GitHub Pages deployment with proper environment configuration
-
-### 📋 Release Changes
-Key commits in this release:
-- **🔧 Fix PWA install button phone icon alignment** - Perfect flexbox centering
-- **🌐 Fix service worker cache request failures** - Proper absolute path resolution  
-- **⚙️ Fix GitHub Actions workflow syntax errors** - Complete YAML structure repair
-- **📚 Complete documentation truth reconciliation** - Remove all false feature claims
-- **✅ Enhanced deployment pipeline stability** - Better error handling and recovery
+Impact:
+• Improves PWA performance by preserving active cache during updates
 
 ### 🔗 Links
 - 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
@@ -47,6 +28,8 @@ Key commits in this release:
 ---
 
 ## 📚 Previous Releases
+
+
 
 ## 📋 Release: v1.1.0
 
@@ -93,9 +76,7 @@ Key commits in this release:
 - 📱 **Repository:** [github.com/dhruvinrsoni/cipher-alchemist](https://github.com/dhruvinrsoni/cipher-alchemist)
 - 📥 **Download:** [Download v1.1.0](https://github.com/dhruvinrsoni/cipher-alchemist/archive/refs/tags/v1.1.0.zip)
 
----
 
-## 📚 Previous Releases
 
 ## 📋 Release: v1.0.0
 
@@ -136,7 +117,6 @@ Key commits in this release:
 - 📱 **Repository:** [github.com/dhruvinrsoni/cipher-alchemist](https://github.com/dhruvinrsoni/cipher-alchemist)
 - 📥 **Download:** [Download v1.0.0](https://github.com/dhruvinrsoni/cipher-alchemist/archive/refs/tags/v1.0.0.zip)
 
----
 
 ## 🔄 Rollback History
 
@@ -145,7 +125,6 @@ Key commits in this release:
 **Type:** Soft rollback  
 **Reason:** Manual rollback initiated to restore stable version v1.0.0
 
----
 
 *🔮 Transform your thoughts into security. Ancient wisdom meets modern technology.*
 
