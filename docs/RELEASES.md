@@ -2,23 +2,23 @@
 
 ## 📋 Current Release: v1.2.0
 
-**Release Date:** 2025-06-11 13:16:39 IST  
+**Release Date:** 2025-06-11 19:32:36 IST  
 **Branch:** main  
 **Status:** ✅ Active Release
 
 ### 🎉 What's New in v1.2.0
 
 #### 🚀 Key Features & Improvements
-- **🔄 Auto-update version and changelog [skip ci]** - Build: #115
-Trigger: push
-Updated: version.txt, docs/CHANGELOG.md
+- **refactor: clean up workflow dispatch script formatting** - Fixed indentation and removed unused environment parameter from the
+deployment workflow trigger to improve code readability and simplify
+the workflow configuration.
 
-- **feat: improve PWA caching and manifest configuration** - Reason:
-• Fixed service worker cache management to prevent deletion of current cache
-• Enhanced PWA manifest for better installation and scoping
+• Corrected indentation in the GitHub Actions script block
+• Removed unused 'environment: production' parameter from workflow inputs
+• Maintained functionality while improving code style consistency
 
 Impact:
-• Improves PWA performance by preserving active cache during updates
+• No functional changes to the deployment process
 
 ### 🔗 Links
 - 🌐 **Live Demo:** [dhruvinrsoni.github.io/cipher-alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
@@ -28,6 +28,8 @@ Impact:
 ---
 
 ## 📚 Previous Releases
+
+
 
 
 
