@@ -58,10 +58,15 @@ self.addEventListener('activate', (event) => {
         caches.keys().then((cacheNames) => {
             return Promise.all(
                 cacheNames.map((cacheName) => {
-                    return caches.delete(cacheName);
+                    // Only delete old cache versions, keep current one
+                    if (cacheName !== 'cipher-alchemist-v3') {
+                        console.log('Deleting old cache:', cacheName);
+                        return caches.delete(cacheName);
+                    }
                 })
             );
         }).then(() => {
+            console.log('Service Worker: Activated and claiming clients');
             return self.clients.claim();
         })
     );
