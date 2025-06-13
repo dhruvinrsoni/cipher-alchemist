@@ -85,6 +85,32 @@ Example: "MyDog Luna2023!" → Strong cipher password
 - **Memory Limit**: Consider what you can reliably remember
 - **Copy Buffer**: Very long passwords may have clipboard limitations
 
+### **Q: Can I share specific examples with others using direct links?**
+**A:** Yes! Cipher Alchemist supports URL parameters for instant phrase testing:
+
+**Direct Link Format:**
+```
+https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=YourPhrase
+```
+
+**Live Examples to Try:**
+- [**Business Password**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales) - Sales team example
+- [**Student Example**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyUni2025Spring) - Academic year pattern
+- [**Personal Security**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=SecureMoney2025) - Banking-style phrase
+- [**Accessibility Demo**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=AccessibleTech2025) - Inclusive design example
+
+**How It Works:**
+- Click any link above for instant password generation
+- The phrase auto-loads and generates immediately
+- Perfect for sharing examples or teaching password security
+- URL encoding handles special characters automatically
+
+**Use Cases:**
+- **Training Sessions**: Share examples during security training
+- **Documentation**: Link to specific examples in guides
+- **Demonstrations**: Show password strength concepts instantly
+- **Team Sharing**: Share password patterns with colleagues
+
 ---
 
 ## 📱 Installation & Compatibility

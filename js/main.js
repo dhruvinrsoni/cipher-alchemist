@@ -621,8 +621,10 @@ function initializeApp() {
                 if (section.content && !section.content.classList.contains('collapsed')) {
                     section.toggle();
                 }
-            });
-        }    });    // Initialize keyboard shortcuts help modal
+            });        }
+    });
+    
+    // Initialize keyboard shortcuts help modal
     if (typeof initializeKeyboardHelp === 'function') {
         initializeKeyboardHelp();
         addKeyboardHelpShortcut();

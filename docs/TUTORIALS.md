@@ -101,6 +101,34 @@ A comprehensive collection of video guides to help you master Cipher Alchemist a
 
 ---
 
+### 🔗 Sharing Examples with URL Parameters
+**Duration**: ~5 minutes | **Difficulty**: Beginner  
+**Watch**: [YouTube Link](https://www.youtube.com/watch?v=example-url)
+
+**What you'll learn:**
+- Creating direct-link examples for instant testing
+- Sharing password patterns with others
+- Educational use of URL parameters
+- Best practices for demonstration links
+
+**Live Examples to Practice:**
+- [Business Example](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales) - `?phrase=Q4Target2025Sales`
+- [Student Pattern](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyUni2025Spring) - `?phrase=MyUni2025Spring`
+- [Security Demo](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=SecureMoney2025) - `?phrase=SecureMoney2025`
+
+**Use Cases Covered:**
+- 👨‍🏫 Training and education
+- 📚 Documentation examples
+- 🤝 Team collaboration
+- 🎯 Live demonstrations
+
+**URL Encoding:**
+- Handling special characters
+- Space replacement (+/%20)
+- Safe character practices
+
+---
+
 ## ♿ Accessibility & Inclusion (All Levels)
 
 ### ⌨️ Complete Keyboard Navigation

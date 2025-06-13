@@ -64,6 +64,41 @@ Cipher Alchemist is a **client-side password generation tool** built with vanill
 - **🛡️ Security Focused** - Implements password generation best practices
 - **🎨 Modern UI/UX** - Clean, intuitive interface design
 
+### **🔗 URL Parameter Integration**
+The application supports direct phrase input via URL parameters for instant password generation and sharing examples:
+
+**Implementation Details:**
+```javascript
+// Location: js/main.js - handleURLParameters()
+function handleURLParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const phraseParam = urlParams.get('phrase');
+    
+    if (phraseParam) {
+        const decodedPhrase = decodeURIComponent(phraseParam);
+        // Auto-load, generate, and display with visual feedback
+    }
+}
+```
+
+**Supported Parameters:**
+- **`?phrase=YourPhrase`** - Pre-fills input and auto-generates password
+- **URL Encoding** - Handles special characters automatically
+- **Visual Feedback** - Subtle animation shows parameter was loaded
+
+**Use Cases:**
+- **Documentation Links** - Direct examples in README and case studies
+- **Training Materials** - Instant demos for security education
+- **Team Sharing** - Share specific password patterns
+- **Live Demonstrations** - No manual typing needed for presentations
+
+**Example URLs:**
+```
+https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales
+https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyUni2025Spring
+https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=SecureMoney2025
+```
+
 ### **🔧 Technology Stack**
 
 | Component | Technology | Purpose |
