@@ -4,6 +4,360 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-06-13 09:56:42 +0530  
+**Commit:** [6b1e9c1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/6b1e9c1adf204bb09ecb9983802819fa1b1140e8)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: add URL parameter support for direct phrase input
+
+Added support for URL parameters to enable direct phrase input and automatic password generation through URL sharing.
+
+Reason:
+• Enable users to share specific phrases via URL links
+• Improve user experience with instant password generation
+• Support marketing and documentation use cases with pre-filled examples
+
+Impact:
+• Users can now access the app with pre-filled phrases using ?phrase=YourPhrase format
+• Automatic password generation occurs after URL parameter loading
+• Enhanced visual feedback shows when phrases are loaded from URL
+• Clear button visibility automatically adjusts for URL-provided content
+
+Changes:
+• Added handleURLParameters() function to parse and process URL query parameters
+• Integrated URL parameter handling into app initialization flow
+• Added visual feedback animations for URL-loaded phrases
+• Updated README.md with direct link examples demonstrating the feature
+• Automatic focus and input event triggering for seamless user experience
+
+Test:
+• Manual testing with various URL parameter formats
+• Validation of special character encoding/decoding
+• Error handling for malformed URLs tested
+
+Compatibility:
+• Backward compatible - existing functionality unchanged
+• Graceful degradation if URL parameter parsing fails
+• No breaking changes to existing API or user workflows
+
+Docs:
+• Added direct link examples section in README.md
+• Provided format documentation for URL parameter usage
+• Included real-world use case examples for different user scenarios
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-13 09:19:04 +0530  
+**Commit:** [3579fbf](https://github.com/dhruvinrsoni/cipher-alchemist/commit/3579fbfaafe66aa24bb00b8c59b4a36afcb02830)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: Add comprehensive case studies documentation
+
+• Add detailed case studies showcasing educational applications of password generation concepts
+• Include 5 user personas demonstrating different learning scenarios (student, IT manager, accessibility advocate, developer, healthcare professional)
+• Provide interactive examples with direct links to the application
+• Document educational methodology and learning objectives for password security concepts
+• Add implementation roadmap for educational deployment
+• Include success metrics dashboard for tracking learning outcomes
+• Create comparative analysis showing before/after educational benefits
+• Document accessibility features and inclusive design principles
+
+Impact:
+• Improves user understanding of password security education through real-world examples
+• Provides structured learning path for different user types and scenarios
+• Enhances documentation completeness for educational use cases
+• Supports accessibility advocacy with detailed feature documentation
+• Creates framework for measuring educational effectiveness
+
+Docs:
+• New comprehensive case studies documentation (431 lines)
+• Educational methodology section explaining learning objectives
+• Interactive examples with application links for hands-on learning
+• Implementation guidance for educational environments
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-12 01:59:21 +0530  
+**Commit:** [4ed8f56](https://github.com/dhruvinrsoni/cipher-alchemist/commit/4ed8f5674458130a333a06d38934115d0fe636fc)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: add comprehensive FAQ with security, accessibility, and deployment guides
+
+Added detailed FAQ.md covering user questions about security, usage, installation,
+and accessibility. Updated navigation links and documentation index.
+
+Reason:
+• Address common user questions about data privacy and security
+• Provide clear guidance on installation across different platforms
+• Enhance accessibility documentation for inclusive usage
+• Reduce support requests through comprehensive self-service documentation
+
+Impact:
+• Improved user onboarding with instant answers to security concerns
+• Better accessibility compliance documentation for diverse users
+• Reduced barrier to deployment with step-by-step hosting guides
+• Enhanced developer contribution guidelines and technical explanations
+
+Docs:
+• Added 424-line FAQ.md with 12 categorized sections
+• Updated INDEX.md to include FAQ navigation link
+• Enhanced README.md with FAQ reference and streamlined tutorial section
+• Added FAQ link to footer navigation in index.html
+
+Compatibility:
+• No breaking changes to existing functionality
+• Pure documentation enhancement with no code impact
+• Maintains existing URL structure and navigation patterns
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-12 01:41:08 +0530  
+**Commit:** [a1a3d51](https://github.com/dhruvinrsoni/cipher-alchemist/commit/a1a3d51702c98f779d34e27a407b4e07e1ca1f10)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: add comprehensive video tutorial documentation
+
+This commit establishes the foundation for video-based learning resources
+to improve user onboarding and accessibility education.
+
+• Added TUTORIALS.md with detailed video guide structure covering:
+     - Beginner tutorials (Quick Tour, PWA installation)
+     - Intermediate content (phrase creation, strength analysis)
+     - Accessibility features (keyboard navigation, screen readers)
+     - Advanced developer content (architecture, contributing)
+
+• Created VIDEO_PRODUCTION_GUIDE.md with professional standards:
+     - Recording setup and equipment recommendations
+     - Content planning templates and video structure
+     - Post-production guidelines and YouTube optimization
+     - Community engagement and analytics tracking
+
+• Enhanced README.md with tutorial video section:
+     - Integrated video links into existing documentation flow
+     - Added tutorial reference to developer documentation
+     - Maintained consistent formatting and accessibility
+
+• Added tutorial button to main interface (index.html):
+     - New 📺 button in top controls for easy access
+     - Links to YouTube channel placeholder
+     - Enhanced footer with tutorial link
+
+• Included setup-recording.bat script for Windows users:
+     - Automated pre-recording environment setup
+     - Application cleanup and focus assist configuration
+     - Recording settings and OBS Studio guidance
+
+Impact:
+• Improves user onboarding through visual learning
+• Enhances accessibility education and awareness
+• Provides clear contribution pathway for developers
+• Establishes professional video production standards
+• Creates scalable tutorial content framework
+
+Documentation:
+• Comprehensive video tutorial roadmap
+• Production guidelines for consistent quality
+• Integration with existing documentation structure
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-12 01:20:00 +0530  
+**Commit:** [ffb47b8](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ffb47b892589aa5a6b9ee0661ec9ee06e1ef3adb)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: enhance clear functionality to reset all UI elements
+
+Clear function now resets strength meter and transformation steps alongside
+existing phrase input and password output clearing for complete UI state reset.
+
+• Added clearing of strength meter element to remove previous assessments
+• Added clearing of transformation steps to reset explanation display
+• Improved user experience by ensuring clean slate on clear action
+• Maintains existing focus behavior on phrase input field
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-12 00:59:35 +0530  
+**Commit:** [eec15f3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/eec15f37cac1264542788a2cab059494bfcd53c9)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: enhance accessibility with ARIA attributes and semantic HTML
+
+Improved web accessibility compliance by adding comprehensive ARIA labels, semantic HTML elements, and screen reader support to make the application more inclusive.
+
+• Added ARIA attributes (role, aria-label, aria-describedby, aria-controls, aria-haspopup, aria-expanded, aria-hidden, aria-live, aria-atomic, aria-modal) throughout the interface
+• Enhanced semantic structure with proper landmark roles (main, toolbar, contentinfo, dialog, region, status)
+• Improved keyboard navigation support with proper tabindex and ARIA controls
+• Added screen reader descriptions for form inputs and interactive elements
+• Enhanced modal accessibility with proper dialog roles and focus management
+• Implemented live regions for dynamic content updates (password output, strength meter)
+• Added semantic list structure for phrase suggestions with listbox role
+• Improved button accessibility with descriptive labels and title attributes
+
+Impact:
+• Better screen reader compatibility and navigation
+• Improved keyboard-only user experience
+• Enhanced compliance with WCAG accessibility guidelines
+• More inclusive user interface for users with disabilities
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 23:09:52 +0530  
+**Commit:** [8a0bb05](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8a0bb05a8af36ec61499c8960c1496c06b3dc274)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: add clear button and keyboard shortcut for textarea
+
+Enhanced user experience by adding a clear button to the phrase input textarea
+and implementing a keyboard shortcut for quick text clearing.
+
+Changes made:
+• Added clear button (✕) positioned absolutely within textarea container
+• Implemented Ctrl+Backspace keyboard shortcut to clear input
+• Added responsive styling for mobile devices with larger touch target
+• Enhanced textarea padding to accommodate clear button
+• Added keyboard shortcut documentation in help modal
+• Implemented auto-show/hide functionality based on input content
+• Added proper ARIA labels and focus management for accessibility
+
+Reason:
+• Improve user experience by providing quick way to clear input text
+• Address usability gap where users had to manually select and delete text
+• Enhance mobile accessibility with touch-friendly clear button
+
+Impact:
+• Users can now quickly clear input using visual button or keyboard shortcut
+• Improved mobile experience with appropriately sized touch targets
+• Better accessibility with proper ARIA labels and keyboard navigation
+• Enhanced visual feedback with hover and active states
+
+Test:
+• Verified clear button appears/disappears based on input content
+• Tested Ctrl+Backspace shortcut functionality across browsers
+• Validated mobile responsiveness and touch target sizing
+• Confirmed accessibility features work with screen readers
+
+Compatibility:
+• Fully backward compatible - existing functionality unchanged
+• Progressive enhancement approach ensures graceful degradation
+• No breaking changes to existing keyboard shortcuts or UI
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 22:44:40 +0530  
+**Commit:** [700efb2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/700efb23f69a3a432cee67afc1210179db344e1c)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: update RELEASES.md with comprehensive v1.2.0 changelog
+
+Updated release documentation to accurately reflect all bug fixes,
+improvements, and technical enhancements delivered in v1.2.0.
+
+• Added detailed changelog with proper categorization of fixes
+• Documented PWA install button alignment fix with flexbox centering
+• Included service worker cache resolution with absolute path fixes
+• Added GitHub Actions workflow syntax error corrections
+• Documented UI/UX improvements and technical enhancements
+• Added previous release entry for v1.1.0 for historical tracking
+• Organized content with clear sections and emoji indicators
+• Removed inaccurate feature claims and completed truth reconciliation
+
+Impact:
+• Improved release transparency and developer communication
+• Better tracking of bug fixes and technical debt resolution
+• Enhanced documentation accuracy for future reference
+• Clearer understanding of PWA and service worker improvements
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 22:43:15 +0530  
+**Commit:** [6d8030d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/6d8030dedefdffc3c328773f3ccdd96628cb681c)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: Clean up workflow formatting and remove stale comments
+
+Fixed formatting issues in GitHub Actions workflows to improve readability and removed outdated comments that were no longer relevant.
+
+• Fixed indentation in create-tag-release.yml workflow script
+• Removed stale comment about missing environment in rollback.yml
+• Improved code consistency across workflow files
+
+Impact:
+• Enhanced workflow readability and maintainability
+• Reduced confusion from outdated comments
+• No functional changes to CI/CD behavior
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 14:02:36 +0000  
+**Commit:** [0847654](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0847654095b078ada1310f2dd4593b526ca5e546)  
+**Author:** github-actions[bot]
+
+#### 🔖 Release v1.2.0
+
+  - Updated version.txt with release information
+  - Updated docs/RELEASES.md with new release notes
+  - Updated manifest.json version (if applicable)
+
+---
+
+**Date:** 2025-06-11 17:25:39 +0530  
+**Commit:** [916d08a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/916d08a8d65cf402e5d49138a5fa2c2f0fc10bbf)  
+**Author:** Dhruvin Rupesh Soni
+
+#### refactor: clean up workflow dispatch script formatting
+
+Fixed indentation and removed unused environment parameter from the
+deployment workflow trigger to improve code readability and simplify
+the workflow configuration.
+
+• Corrected indentation in the GitHub Actions script block
+• Removed unused 'environment: production' parameter from workflow inputs
+• Maintained functionality while improving code style consistency
+
+Impact:
+• No functional changes to the deployment process
+• Improved code readability and maintainability
+• Simplified workflow input parameters
+
+Test:
+• Workflow syntax remains valid
+• Deployment trigger functionality preserved
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-06-11 07:46:39 +0000  
+**Commit:** [399aa05](https://github.com/dhruvinrsoni/cipher-alchemist/commit/399aa05c2a987c95fc8dd6cd9ce25dd4ca17a4e3)  
+**Author:** github-actions[bot]
+
+#### 🔖 Release v1.2.0
+
+  - Updated version.txt with release information
+  - Updated docs/RELEASES.md with new release notes
+  - Updated manifest.json version (if applicable)
+
+---
+
 **Date:** 2025-06-11 12:55:08 +0530  
 **Commit:** [005dd53](https://github.com/dhruvinrsoni/cipher-alchemist/commit/005dd53c9cf114e557b7b2ec914088a0d9a5f468)  
 **Author:** Dhruvin Rupesh Soni
@@ -1236,337 +1590,6 @@ Impact: Improves reliability of the rollback process by maintaining
 CI/CD infrastructure integrity regardless of rollback type.
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-04 02:52:18 +0530  
-**Commit:** [702fac2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/702fac23c6136fcac2cdbe43f30823e4dfe7e045)  
-**Author:** Dhruvin Rupesh Soni
-
-#### 🔧 Fix deployment-status.yml formatting and add timestamp-based artifact naming
-
-- Fix YAML syntax error where two steps were merged on one line
-- Add timestamp generation for unique artifact naming
-- Update artifact upload to use actions/upload-artifact@v4
-- Implement IST timezone timestamp format: YYYYMMDD-HHMMSS
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-04 02:38:08 +0530  
-**Commit:** [ccce3e3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ccce3e31c326d8641126cb0a546d2366865f42e4)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: upgrade upload-artifact from v3 to v4 in deployment-status workflow
-
-- Fixed GitHub Actions error: Missing download info for actions/upload-artifact@v3
-- Updated to actions/upload-artifact@v4 for compatibility
-- Simplified artifact naming to avoid shell command issues
-- Ensures deployment status workflow runs successfully
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-04 02:06:26 +0530  
-**Commit:** [1a91e0a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/1a91e0a0a4157f3e6e64b537fc752e0bfb6ed3f8)  
-**Author:** Dhruvin Rupesh Soni
-
-#### Add .github/workflows/rollback.yml
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-04 02:05:10 +0530  
-**Commit:** [2617eb6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2617eb60c4bc9936f91f220a27378be8ce581903)  
-**Author:** Dhruvin Rupesh Soni
-
-#### 🏗️ Complete modular release architecture implementation
-
-✅ **Modular Architecture Complete**:
-- Created 4 independent workflows: create-tag-release, deploy-by-version, rollback, deployment-status
-- Removed redundant rollback-fixed.yml backup file
-- Added comprehensive modular architecture documentation
-
-🧹 **Project Simplification for v1.0.0**:
-- Removed password strength analysis features for basic toolkit focus
-- Updated all documentation to reflect actual v1.0.0 features
-- Cleaned up temporary files (CHANGELOG_CLEAN.md, CHANGELOG_TEMP.md, test_commit_body.bat)
-
-📚 **Comprehensive Documentation**:
-- MODULAR-RELEASE-ARCHITECTURE.md - Complete architecture explanation
-- RELEASE-v1.0.0.md - Detailed v1.0.0 release documentation
-- SIMPLIFICATION-SUMMARY.md - Project simplification summary
-- Updated README.md and CHANGELOG.md with actual features
-
-🔧 **Enhanced Validation System**:
-- validate-release.bat - Generic, version-independent validation
-- release-v1.0.0.bat - Specific v1.0.0 validation reporting
-- quick-release.bat - Release status and GitHub Actions guidance
-
-🕐 **IST Timezone Support**:
-- Updated version.txt with IST timezone format
-- All workflows support Asia/Kolkata timezone
-
-🎯 **Ready for First Modular Release Test**:
-- Architecture: ✅ Complete (306+204+176+97 lines of workflows)
-- Documentation: ✅ Comprehensive
-- Validation: ✅ Full validation scripts
-- Cleanup: ✅ All temporary files removed
-
-Next: Test end-to-end modular workflow with v1.0.0 release
-
-[release-architecture]
-
----
-
-**Date:** 2025-06-03 23:54:08 +0530  
-**Commit:** [dc16003](https://github.com/dhruvinrsoni/cipher-alchemist/commit/dc160035efcede2c515a707822310a74fbcb7722)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: Rewrite README with modern structure
-
-Reason:
-- Improve project documentation for better user onboarding and networking.
-- Highlight key features, deployment steps, and technical architecture.
-
-Changes:
-- Recreated README.md with professional sections and enhanced branding.
-- Added live demo links, contributing guidelines, and project status.
-- Detailed technical architecture and design philosophy.
-
-Impact:
-- Enhanced user experience with clear and engaging documentation.
-- Improved project visibility and networking opportunities.
-
-Test:
-- Verified README.md formatting and content accuracy.
-- Checked links and deployment instructions for correctness.
-
-Docs:
-- README.md updated with comprehensive sections and modern structure.
-
-Compatibility:
-- No breaking changes; backward compatibility maintained.
-
-Dependencies:
-- No new dependencies introduced.
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-03 23:50:57 +0530  
-**Commit:** [899f74c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/899f74c7c34cd7a4aa80352a5654b9706e9b5e1f)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: Standardize icons and enhance branding
-
-Reason:
-- Improve consistency in icon naming for PWA compliance.
-- Enhance project branding and documentation for better networking.
-
-Changes:
-- Standardized icon file names from `icon-*.png` to `favicon-*.png`.
-- Updated page title and meta descriptions with engaging branding and `@dhruvinrsoni` handle.
-- Enhanced PWA manifest with full descriptive name and added description field.
-- Recreated README.md with modern documentation structure.
-- Removed duplicate and obsolete icon files.
-
-Impact:
-- Improved branding consistency across the project.
-- Enhanced user experience with better documentation and metadata.
-- Simplified file structure by removing unnecessary files.
-
-Test:
-- Verified icon references in HTML, manifest.json, and service-worker.js.
-- Validated syntax for all modified files.
-- Checked for remaining `icon-` references; none found.
-
-Docs:
-- README.md completely rewritten with professional sections.
-- Updated deployment and usage instructions.
-
-Compatibility:
-- No breaking changes; backward compatibility maintained.
-
-Dependencies:
-- No new dependencies introduced.
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-03 23:32:28 +0530  
-**Commit:** [aae44e2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/aae44e22524349c11852433c0e1a859f78592c51)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: enhance website metadata and SEO optimization
-
-Reason:
-- Improve website discoverability and presentation in search results
-- Align branding consistently with "@dhruvinrsoni" handle
-
-Changes:
-- Enhanced meta tags with more descriptive content and emojis
-- Improved title and description for better SEO performance
-- Refined social media sharing metadata for Twitter and Open Graph
-- Reformatted HTML structure for better readability
-- Cleared redundant content from git-commit-template.txt
-
-Impact:
-- Better search engine visibility and ranking potential
-- Improved appearance when shared on social media platforms
-- Clearer communication of the app's purpose and features
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-03 23:19:08 +0530  
-**Commit:** [5c16d75](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5c16d75dd769ae217b3eedda245ee86eeeb00fba)  
-**Author:** Dhruvin Rupesh Soni
-
-#### refactor: standardize icon file naming to favicon prefix
-
-Reason:
-- Inconsistent icon naming convention between favicon.ico and icon-*.png files
-- Need unified naming scheme for better file organization and clarity
-- Align with standard favicon naming conventions
-
-Changes:
-- Updated icon-192.png references to favicon-192.png in all files
-- Updated icon-512.png references to favicon-512.png in all files
-- Modified index.html meta tags for OpenGraph and Twitter cards
-- Updated manifest.json PWA icon sources
-- Updated service-worker.js cache array with new icon paths
-
-Impact:
-- Improves file naming consistency across the project
-- Maintains PWA functionality with proper icon references
-- Ensures social media sharing uses correct icon paths
-- No breaking changes to functionality or user experience
-
-Files Modified:
-- index.html: 3 icon reference updates
-- manifest.json: 2 PWA icon source updates
-- service-worker.js: 2 cache path updates
-
-Compatibility:
-- Requires renaming physical icon files to match new references
-- No impact on existing functionality once files are renamed
-- PWA installation and social sharing will work seamlessly
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-03 22:49:43 +0530  
-**Commit:** [20a404a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/20a404a9a813eb7ada80aa1c1d7c37585f18e3ec)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: implement collapsible UI sections for better user experience
-
-Reason:
-- Improve information organization and reduce visual clutter
-- Enhance user experience by allowing content to be expanded/collapsed as needed
-
-Changes:
-- Added collapsible sections for app description and transformation steps
-- Implemented keyboard navigation support for accessibility
-- Enhanced styling with smooth animations and responsive design
-- Updated the example transformation to show more complex output
-- Added ARIA attributes for better screen reader support
-
-Impact:
-- Reduces initial cognitive load by hiding non-essential information
-- Improves mobile experience by allowing users to focus on relevant content
-- Enhances accessibility through keyboard navigation and ARIA support
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-03 12:27:44 +0530  
-**Commit:** [9201d1b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9201d1be2c3ac338bdc3ece53fa9f231dde860be)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: enhance UI with app description and interactive example
-
-Reason:
-- Application lacked clear description and interactive elements
-- Users needed better understanding of the app's purpose and functionality
-- PWA support was incomplete without proper favicons
-
-Changes:
-- Added app description section with tagline and feature highlights
-- Implemented interactive example phrase with animation effects
-- Added favicon files (192px and 512px) for PWA support
-- Enhanced styles with responsive design for description section
-- Improved dark theme support for new UI elements
-
-Impact:
-- Improves first-time user experience and understanding
-- Provides clear value proposition through feature highlights
-- Enables better PWA integration on mobile devices
-- Maintains accessibility and theme consistency
-
----
-
-**Date:** 2025-06-03 04:05:21 +0530  
-**Commit:** [e7d82c0](https://github.com/dhruvinrsoni/cipher-alchemist/commit/e7d82c0d0774d70e563f0c403104548214a83ad3)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: improve changelog generation to properly handle multiline commit bodies
-
-Reason:
-- Previous implementation had issues parsing commit bodies with multiple lines
-- Complex commit messages were truncated or incorrectly formatted
-- The changelog was missing important details from detailed commit bodies
-
-Changes:
-- Refactored git log processing to handle each commit individually
-- Changed from single-line parsing to a more robust approach using git show
-- Added proper handling of multiline commit bodies with formatting preserved
-- Created test_commit_body.bat script to validate the new approach
-- Fixed formatting issue in update-version.yml workflow file
-
-Impact:
-- Changelog now displays complete commit messages with proper formatting
-- Improved readability and completeness of project documentation
-- Better preservation of commit history and context for future reference
-
-CI/CD:
-- Enhanced GitHub Actions workflow reliability
-- No changes to build process or deployment needed
-
----
-
-**Date:** 2025-06-03 03:56:06 +0530  
-**Commit:** [8cbd8f6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8cbd8f63e05525e7eb4b51a8cbf6912c5cb372d7)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: improve changelog generation with robust parsing
-
-Reason:
-- Previous changelog format had parsing issues due to pipe delimiter conflicts
-- Several malformed entries appeared in the CHANGELOG.md output
-- Error handling was insufficient, causing potential parsing failures
-
-Changes:
-- Changed git log delimiter from pipe (|) to tilde (~) to avoid conflicts
-- Added validation to ensure all required fields are present before processing
-- Improved error handling by redirecting stderr to /dev/null
-- Enhanced empty value checks with more specific conditions
-- Fixed line break issue in CHANGELOG.md format
-
-Impact:
-- More reliable and consistent changelog generation
-- Cleaner, properly formatted changelog entries
-- Prevents broken or incomplete entries from appearing in the log
-- Ensures proper display of commit information for project transparency
 
 ---
 
