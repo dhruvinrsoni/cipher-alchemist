@@ -74,6 +74,15 @@ Input:  "I love coffee in the morning"
 Output: "1 10\/e (0phphee !|\| +#e /\/\0r|\|!|\|9"
 ```
 
+### 🔗 **Direct Link Examples**
+Try these examples instantly with URL parameters:
+- [**Q4Target2025Sales**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales) - Sales team password example
+- [**AccessibleTech2025**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=AccessibleTech2025) - Accessibility-focused phrase  
+- [**SecureMoney2025**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=SecureMoney2025) - Banking security example
+- [**MyUni2025Spring**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyUni2025Spring) - Student-friendly pattern
+
+*Format: `https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=YourPhrase`*
+
 ---
 
 ## 🎯 Use Cases

@@ -382,6 +382,57 @@ function registerServiceWorker() {
 }
 
 /**
+ * Handle URL parameters for direct phrase input and generation
+ * Supports: ?phrase=YourPhraseHere for instant password generation
+ */
+function handleURLParameters() {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const phraseParam = urlParams.get('phrase');
+        
+        if (phraseParam) {
+            const phraseInput = document.getElementById('phraseInput');
+            if (phraseInput) {
+                // Decode URL encoding and set the phrase
+                const decodedPhrase = decodeURIComponent(phraseParam);
+                phraseInput.value = decodedPhrase;
+                
+                // Focus on the input
+                phraseInput.focus();
+                
+                // Show the clear button since there's content
+                toggleClearButton(true);
+                
+                // Add subtle animation to show the phrase was loaded
+                phraseInput.style.transition = 'all 0.3s ease';
+                phraseInput.style.backgroundColor = 'rgba(0, 120, 215, 0.1)';
+                phraseInput.style.borderColor = 'rgba(0, 120, 215, 0.5)';
+                
+                // Trigger input event for real-time strength checking
+                const inputEvent = new Event('input', { bubbles: true });
+                phraseInput.dispatchEvent(inputEvent);
+                
+                // Generate password automatically after a short delay
+                setTimeout(() => {
+                    generatePassword();
+                    
+                    // Reset the visual feedback
+                    setTimeout(() => {
+                        phraseInput.style.backgroundColor = '';
+                        phraseInput.style.borderColor = '';
+                    }, 1000);
+                }, 500);
+                
+                console.log('URL phrase parameter loaded:', decodedPhrase);
+            }
+        }
+    } catch (error) {
+        console.warn('Error handling URL parameters:', error);
+        // Don't break the app if URL parameter handling fails
+    }
+}
+
+/**
  * Initialize all event listeners and functionality
  */
 function initializeApp() {
@@ -577,11 +628,13 @@ function initializeApp() {
         addKeyboardHelpShortcut();
     }
 
-    // Initialize clear button visibility on page load
-    const phraseInputElement = document.getElementById('phraseInput');
+    // Initialize clear button visibility on page load    const phraseInputElement = document.getElementById('phraseInput');
     if (phraseInputElement) {
         toggleClearButton(phraseInputElement.value.length > 0);
     }
+
+    // Handle URL parameters for direct phrase input
+    handleURLParameters();
 
     console.log('Cipher Alchemist app initialized successfully!');
     
