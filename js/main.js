@@ -628,7 +628,8 @@ function initializeApp() {
         addKeyboardHelpShortcut();
     }
 
-    // Initialize clear button visibility on page load    const phraseInputElement = document.getElementById('phraseInput');
+    // Initialize clear button visibility on page load
+    const phraseInputElement = document.getElementById('phraseInput');
     if (phraseInputElement) {
         toggleClearButton(phraseInputElement.value.length > 0);
     }
