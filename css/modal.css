@@ -28,9 +28,10 @@
   background: var(--container-bg);
   border-radius: 16px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  max-width: 90vw;
+  width: 95vw;
+  max-width: 750px;
+  min-width: 320px;
   max-height: 90vh;
-  width: 600px;
   overflow: hidden;
   transform: scale(0.9) translateY(20px);
   transition: transform 0.3s ease;
@@ -90,6 +91,13 @@
   max-height: calc(90vh - 120px);
   overflow-y: auto;
   color: var(--text);
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.modal-body > * {
+  box-sizing: border-box;
+  max-width: 100%;
 }
 
 /* Shortcuts Grid */
@@ -177,6 +185,339 @@
   color: var(--primary, #007BFF);
 }
 
+/* Share Modal Styles */
+.share-preview {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.share-content-preview {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.share-content-preview p {
+  margin: 0.25rem 0;
+}
+
+.share-options h3 {
+  margin: 0 0 1rem 0;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.share-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.share-btn {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  background: var(--card-bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  min-height: 36px;
+}
+
+.share-btn:hover {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border-color: var(--button-bg);
+  transform: translateY(-1px);
+}
+
+.share-btn:focus {
+  outline: 2px solid var(--button-bg);
+  outline-offset: 2px;
+}
+
+.share-btn.twitter:hover {
+  background: #1da1f2;
+  border-color: #1da1f2;
+  color: white;
+}
+
+.share-btn.linkedin:hover {
+  background: #0077b5;
+  border-color: #0077b5;
+  color: white;
+}
+
+.share-btn.reddit:hover {
+  background: #ff4500;
+  border-color: #ff4500;
+  color: white;
+}
+
+.share-btn.copy:hover {
+  background: #28a745;
+  border-color: #28a745;
+  color: white;
+}
+
+.share-btn.native {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.share-btn.native::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
+}
+
+.share-btn.native:hover::before {
+  left: 100%;
+}
+
+.share-btn.native:hover {
+  background: linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%);
+  border-color: transparent;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.share-btn.native:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.share-url-container {
+  background: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  margin-top: 1.5rem;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  overflow: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  /* Modern glass morphism effect */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.share-url-container:hover {
+  border-color: var(--button-bg);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.share-url-container label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+
+.share-url-container label::before {
+  content: "🔗";
+  font-size: 1.1rem;
+}
+
+/* Enhanced wrapper styling */
+.share-url-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  box-sizing: border-box;
+  /* Additional enhancements */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 2px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add a subtle glow effect to the entire input wrapper */
+.share-url-input-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(0, 123, 255, 0.1) 50%, transparent 100%);
+  border-radius: 14px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.share-url-input-wrapper:hover::before {
+  opacity: 1;
+}
+
+/* Ensure input takes maximum available space */
+.share-url-input {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  max-width: calc(100% - 120px); /* Account for copy button width */
+  
+  /* Additional modern enhancements */
+  backdrop-filter: blur(10px);
+  background: linear-gradient(135deg, var(--input-bg, #ffffff) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Add a subtle gradient border effect */
+.share-url-input::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, var(--button-bg, #007bff), rgba(0, 123, 255, 0.3));
+  border-radius: 12px;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.share-url-input:hover::before {
+  opacity: 0.6;
+}
+
+.share-url-input:focus::before {
+  opacity: 1;
+}
+
+/* Enhanced focus and hover states */
+.share-url-input:hover {
+  transform: translateY(-1px);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.06), 
+    0 4px 12px rgba(0, 123, 255, 0.15),
+    0 0 0 0.15rem rgba(0, 123, 255, 0.1);
+}
+
+.share-url-input:focus {
+  transform: translateY(-1px);
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.06), 
+    0 6px 20px rgba(0, 123, 255, 0.25),
+    0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+  background: var(--container-bg, #ffffff);
+  border-color: var(--button-bg, #007bff);
+}
+
+/* Typography enhancements */
+.share-url-input {
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark theme specific enhancements */
+body.dark-theme .share-url-input {
+  background: linear-gradient(135deg, var(--input-bg, #2d3748) 0%, rgba(45, 55, 72, 0.95) 100%);
+  border-color: var(--input-border, #4a5568);
+  color: var(--text, #e2e8f0);
+}
+
+body.dark-theme .share-url-input:hover {
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.2), 
+    0 4px 12px rgba(66, 153, 225, 0.25),
+    0 0 0 0.15rem rgba(66, 153, 225, 0.2);
+}
+
+body.dark-theme .share-url-input:focus {
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.2), 
+    0 6px 20px rgba(66, 153, 225, 0.35),
+    0 0 0 0.25rem rgba(66, 153, 225, 0.4);
+}
+
+.url-copy-btn {  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--input-border, #dee2e6);
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  background: var(--card-bg, #f8f9fa);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-width: 90px;
+  max-width: 120px;
+  min-height: 44px;
+  height: auto;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  box-sizing: border-box;
+}
+
+.url-copy-btn:hover {
+  background: var(--button-bg, #007bff);
+  color: white;
+  border-color: var(--button-bg, #007bff);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.25);
+}
+
+.url-copy-btn:focus {
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.url-copy-btn:active {
+  background: var(--button-bg, #0056b3);
+  border-color: var(--button-bg, #0056b3);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+
 /* Dark Theme Support */
 body.dark-theme .modal-content {
   background: var(--container-bg);
@@ -232,10 +573,44 @@ body.dark-theme .modal-close:focus {
     padding: 1.5rem;
     max-height: calc(95vh - 100px);
   }
-  
-  .shortcuts-grid {
+    .shortcuts-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+    .share-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .share-btn {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .share-url-container {
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+  }
+    .share-url-input-wrapper {
+    flex-direction: row;
+    gap: 0;
+    min-height: 44px;
+  }
+  .share-url-container input,
+  .share-url-input {
+    font-size: 0.95rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: 10px 0 0 10px;
+    border-right: none;
+    min-height: 44px;
+  }
+  }
+    .url-copy-btn {
+    padding: 0.875rem 1.25rem;
+    border-radius: 0 10px 10px 0;
+    border-left: none;
+    min-width: 100px;
+    font-size: 0.85rem;
+    min-height: 44px;
   }
   
   .shortcut-section {
@@ -251,7 +626,7 @@ body.dark-theme .modal-close:focus {
   .shortcut-desc {
     margin-left: 0;
   }
-}
+
 
 @media (max-width: 480px) {
   .modal-content {
@@ -265,14 +640,176 @@ body.dark-theme .modal-close:focus {
   
   .modal-body {
     padding: 1rem;
+    overflow-x: hidden;
   }
   
   .shortcut-section {
     padding: 0.75rem;
   }
-  
-  .shortcuts-grid {
+    .shortcuts-grid {
     gap: 1rem;
+  }
+  
+  .share-buttons-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+    .share-btn {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+    .share-url-container {
+    padding: 0.875rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .share-url-container label {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .share-url-input-wrapper {
+    border-radius: 8px;
+    min-height: 48px;
+  }
+  
+  #shareUrlInput.share-url-input {
+    font-size: 0.85rem !important;
+    padding: 0.75rem !important;
+    min-height: 48px !important;
+  }
+  
+  .url-copy-btn {
+    padding: 0.75rem 0.875rem;
+    min-width: 80px;
+    max-width: 100px;
+    font-size: 0.75rem;
+    min-height: 48px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Enhanced Responsive Design for Modal */
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+  .modal-content {
+    width: 85vw;
+    max-width: 750px;
+    border-radius: 16px;
+  }
+  
+  .modal-body {
+    padding: 2rem;
+  }
+  
+  .share-url-container {
+    padding: 1.5rem 2rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  .modal-content {
+    width: 70vw;
+    max-width: 800px;
+  }
+  
+  .modal-body {
+    padding: 2.5rem;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1200px) {
+  .modal-content {
+    width: 60vw;
+    max-width: 900px;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 767px) {
+  .modal-content {
+    width: 95vw;
+    min-width: 280px;
+    border-radius: 12px;
+    margin: 1rem;
+  }
+  
+  .modal-header {
+    padding: 1rem 1.5rem;
+  }
+  
+  .modal-header h2 {
+    font-size: 1.25rem;
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+    overflow-x: hidden;
+  }
+  
+  .share-url-container {
+    padding: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .share-url-input-wrapper {
+    border-radius: 10px;
+    min-height: 48px; /* Slightly larger for touch */
+  }
+  
+  #shareUrlInput.share-url-input {
+    font-size: 0.9rem !important;
+    padding: 0.875rem 1rem !important;
+    min-height: 48px !important;
+  }
+  
+  .url-copy-btn {
+    padding: 0.875rem 1rem;
+    min-width: 90px;
+    font-size: 0.8rem;
+    min-height: 48px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .modal-content {
+    width: 98vw;
+    margin: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .modal-header {
+    padding: 0.875rem 1rem;
+  }
+  
+  .modal-body {
+    padding: 1rem;
+    overflow-x: hidden;
+  }
+  
+  .share-url-container {
+    padding: 0.875rem;
+  }
+  
+  .url-copy-btn {
+    min-width: 80px;
+    font-size: 0.75rem;
+    padding: 0.875rem 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -312,5 +849,154 @@ body.dark-theme .modal-close:focus {
   
   .modal-close {
     transition: none;
+  }
+}
+
+/* HIGH SPECIFICITY CSS FIX for share-url-input - This will override everything */
+#shareUrlInput.share-url-input {
+  /* Force these styles with high specificity */
+  padding: 0.75rem 1rem !important;
+  font-size: 0.95rem !important;
+  border: 2px solid var(--input-border, #dee2e6) !important;
+  border-right: none !important;
+  border-radius: 12px 0 0 12px !important;
+  background: linear-gradient(135deg, var(--input-bg, #ffffff) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+  color: var(--text) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em !important;
+  min-height: 44px !important;
+  box-sizing: border-box !important;
+    /* Text handling - Allow horizontal scrolling for full URL visibility */
+  text-overflow: clip !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+    /* Flexbox */
+  flex: 1 1 0% !important;
+  width: 0 !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  
+  /* Visual effects */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.15s ease-in-out !important;
+  cursor: pointer !important;
+}
+
+/* High specificity hover state */
+#shareUrlInput.share-url-input:hover {
+  border-color: var(--button-bg, #80bdff) !important;
+  background: var(--container-bg, #fafbfc) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.06), 
+    0 4px 12px rgba(0, 123, 255, 0.15),
+    0 0 0 0.15rem rgba(0, 123, 255, 0.1) !important;
+}
+
+/* High specificity focus state */
+#shareUrlInput.share-url-input:focus {
+  outline: none !important;
+  border-color: var(--button-bg, #80bdff) !important;
+  background: var(--container-bg, #ffffff) !important;
+  transform: translateY(-1px) !important;
+  text-overflow: clip !important;
+  cursor: text !important;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.06), 
+    0 6px 20px rgba(0, 123, 255, 0.25),
+    0 0 0 0.25rem rgba(0, 123, 255, 0.25) !important;
+}
+
+/* High specificity selection state */
+#shareUrlInput.share-url-input::selection {
+  background: var(--button-bg, #007bff) !important;
+  color: white !important;
+}
+
+/* Container wrapper enhancements with high specificity */
+.share-url-container .share-url-input-wrapper {
+  display: flex !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 44px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-radius: 14px !important;
+  padding: 2px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Mobile specific improvements for native share button */
+@media (max-width: 768px) {
+  .share-btn.native {
+    display: inline-block !important;
+    visibility: visible !important;
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Ensure native share button is always visible on mobile when available */
+  #nativeShareBtn {
+    display: inline-block !important;
+    visibility: visible !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-btn.native {
+    font-size: 0.9rem;
+    padding: 0.875rem;
+    margin: 0.25rem 0;
+  }
+  
+  /* Force native share button visibility on small mobile screens */
+  #nativeShareBtn {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Mobile URL input scroll indicators */
+@media (max-width: 768px) {
+  .share-url-input-wrapper::after {
+    content: '↔️';
+    position: absolute;
+    right: 125px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .share-url-input-wrapper:hover::after {
+    opacity: 0.8;
+  }
+  
+  /* Enhanced mobile input styling */
+  #shareUrlInput.share-url-input {
+    /* Better mobile scrolling */
+    scrollbar-width: thin !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  
+  /* WebKit scrollbar styling for URL input */
+  #shareUrlInput.share-url-input::-webkit-scrollbar {
+    height: 4px !important;
+  }
+  
+  #shareUrlInput.share-url-input::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1) !important;
+    border-radius: 2px !important;
+  }
+  
+  #shareUrlInput.share-url-input::-webkit-scrollbar-thumb {
+    background: var(--button-bg, #007bff) !important;
+    border-radius: 2px !important;
   }
 }

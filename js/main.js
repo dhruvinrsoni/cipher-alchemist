@@ -347,7 +347,7 @@ function showInstallMessage() {
 
 function showInstallSuccessMessage() {
     // Optional: Show a toast or notification
-    console.log('PWA: Installation successful!');
+    console.log('PWA: Installation successful');
     
     // You could implement a toast notification here
     // For now, we'll just log it
@@ -399,9 +399,11 @@ function handleURLParameters() {
                 
                 // Focus on the input
                 phraseInput.focus();
-                
-                // Show the clear button since there's content
+                  // Show the clear button since there's content
                 toggleClearButton(true);
+                
+                // Show the share button since there's content
+                toggleShareButton(true);
                 
                 // Add subtle animation to show the phrase was loaded
                 phraseInput.style.transition = 'all 0.3s ease';
@@ -433,6 +435,511 @@ function handleURLParameters() {
 }
 
 /**
+ * Social sharing functionality for educational examples
+ * Creates shareable URLs with phrases (but never actual passwords)
+ */
+function shareExample() {
+    try {
+        console.log('Share example button clicked');
+        const phraseInput = document.getElementById('phraseInput');
+        const phrase = phraseInput?.value?.trim();
+        
+        console.log('Current phrase:', phrase);
+        
+        if (!phrase) {
+            alert('⚠️ Please enter a phrase first to create a shareable example!');
+            return;
+        }
+        
+        // Create the shareable URL with phrase parameter
+        // Handle both server URLs and local file:// URLs
+        let baseUrl;
+        if (window.location.protocol === 'file:') {
+            // For local file:// URLs, use the full file path
+            baseUrl = window.location.href.split('?')[0];
+        } else {
+            // For http/https URLs, use origin + pathname
+            baseUrl = window.location.origin + window.location.pathname;
+        }
+        const shareUrl = `${baseUrl}?phrase=${encodeURIComponent(phrase)}`;
+        
+        // Prepare social media content
+        const socialContent = {
+            title: '🔮 Try This Password Security Example!',
+            text: `Check out this password generation example using Cipher Alchemist! 🔐\n\n` +
+                  `Phrase: "${phrase}"\n` +
+                  `See how it transforms into a secure password: `,
+            url: shareUrl,
+            hashtags: ['PasswordSecurity', 'CyberSecurity', 'TechEducation', 'OpenSource']
+        };
+        
+        // Show sharing options modal
+        showSharingModal(socialContent);
+        
+    } catch (error) {
+        console.error('Error in shareExample:', error);
+        alert('Sorry, sharing feature encountered an error. Please try again.');
+    }
+}
+
+/**
+ * Display sharing options modal with various platforms
+ */
+function showSharingModal(content) {
+    // Create modal HTML
+    const modalHtml = `
+        <div id="shareModal" class="modal-overlay" role="dialog" aria-labelledby="share-title" aria-modal="true">
+            <div class="modal-content" role="document">                <div class="modal-header">
+                    <h2 id="share-title">🔗 Share This Example</h2>
+                    <button class="modal-close" aria-label="Close modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="share-preview">
+                        <p><strong>📝 What gets shared:</strong></p>
+                        <div class="share-content-preview">
+                            <p>• Your phrase (for educational purposes)</p>
+                            <p>• Direct link to try the example</p>
+                            <p>• <strong>❌ NO actual password is shared</strong></p>
+                        </div>
+                    </div>
+                      <div class="share-options">
+                        <h3>Choose Platform:</h3>                        <div class="share-buttons-grid">
+                            <button class="share-btn twitter" data-action="twitter">
+                                🐦 Twitter
+                            </button>
+                            <button class="share-btn linkedin" data-action="linkedin">
+                                💼 LinkedIn
+                            </button>
+                            <button class="share-btn reddit" data-action="reddit">
+                                🤖 Reddit
+                            </button>
+                            <button class="share-btn native" id="nativeShareBtn" data-action="native" style="display: none;">
+                                📤 Share
+                            </button>
+                        </div>
+                    </div>
+                      <div class="share-url-container">
+                        <label for="shareUrlInput">Direct Link</label>                        
+                        <div class="share-url-input-wrapper">
+                            <input type="text" id="shareUrlInput" class="share-url-input" value="${content.url}" readonly title="Click to select URL, scroll to see full link">
+                            <button class="url-copy-btn" data-action="copy" title="Copy to clipboard" aria-label="Copy URL to clipboard">
+                                📋 Copy Link
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Remove existing modal if any
+    const existingModal = document.getElementById('shareModal');
+    if (existingModal) {
+        existingModal.remove();
+    }    // Add modal to document
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Get the modal element
+    const modal = document.getElementById('shareModal');
+      // Add event listeners for share buttons
+    const shareButtons = modal.querySelectorAll('[data-action]');
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            
+            switch(action) {
+                case 'twitter':
+                    shareToTwitter(content.url, content.text, content.hashtags.join(','));
+                    break;
+                case 'linkedin':
+                    shareToLinkedIn(content.url, content.title, content.text);
+                    break;
+                case 'reddit':
+                    shareToReddit(content.url, content.title);
+                    break;
+                case 'native':
+                    useNativeShare(content.url, content.title, content.text);
+                    break;
+                case 'copy':
+                    copyShareUrl(content.url);
+                    break;
+            }
+        });
+    });
+    
+    // Add event listener for close button
+    const closeButton = modal.querySelector('.modal-close');
+    if (closeButton) {
+        closeButton.addEventListener('click', closeSharingModal);
+    }    // Check if native sharing is available and show/hide the button
+    const nativeShareBtn = document.getElementById('nativeShareBtn');
+      // Comprehensive native share debugging
+    console.log('=== NATIVE SHARE DEBUGGING ===');
+    console.log('User Agent:', navigator.userAgent);
+    console.log('Protocol:', window.location.protocol);
+    console.log('Host:', window.location.host);
+    console.log('Full URL:', window.location.href);
+    console.log('Is HTTPS:', window.location.protocol === 'https:');
+    console.log('Is localhost:', window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    console.log('Is secure context:', window.isSecureContext);
+    console.log('Navigator.share exists:', 'share' in navigator);
+    console.log('Navigator.share type:', typeof navigator.share);
+    
+    // Additional browser-specific checks
+    console.log('Browser info:');
+    console.log('  - Chrome:', /Chrome/.test(navigator.userAgent));
+    console.log('  - Safari:', /Safari/.test(navigator.userAgent) && !/Chrome/.test(navigator.userAgent));
+    console.log('  - Edge:', /Edg/.test(navigator.userAgent));
+    console.log('  - Mobile:', /Mobi|Android/i.test(navigator.userAgent));
+    
+    // Check if this is a PWA or installed app
+    console.log('Display mode:', window.matchMedia('(display-mode: standalone)').matches ? 'standalone' : 'browser');
+    
+    // Try to detect why navigator.share might not be available
+    if (!('share' in navigator)) {
+        console.log('🔍 DIAGNOSING WHY NAVIGATOR.SHARE IS NOT AVAILABLE:');
+        
+        // Check secure context
+        if (!window.isSecureContext) {
+            console.log('❌ REASON: Not a secure context (requires HTTPS or localhost)');
+            console.log('💡 SOLUTION: Access via HTTPS or localhost instead of HTTP');
+        }
+        
+        // Check if it's an older browser version
+        const userAgent = navigator.userAgent;
+        if (/Chrome\/(\d+)/.test(userAgent)) {
+            const chromeVersion = parseInt(userAgent.match(/Chrome\/(\d+)/)[1]);
+            console.log('Chrome version:', chromeVersion);
+            if (chromeVersion < 89) {
+                console.log('❌ REASON: Chrome version too old (need 89+)');
+            }
+        }
+        
+        if (/Edg\/(\d+)/.test(userAgent)) {
+            const edgeVersion = parseInt(userAgent.match(/Edg\/(\d+)/)[1]);
+            console.log('Edge version:', edgeVersion);
+            if (edgeVersion < 93) {
+                console.log('❌ REASON: Edge version too old (need 93+)');
+            }
+        }
+        
+        // Check if it's in an iframe or embedded context
+        if (window !== window.top) {
+            console.log('❌ REASON: Running in iframe/embedded context');
+        }
+        
+        // Check if it's a webview
+        if (/(wv|WebView)/.test(userAgent)) {
+            console.log('❌ REASON: Running in WebView (not regular browser)');
+        }
+    }
+    
+    // Check for mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     window.innerWidth <= 768;
+    console.log('Mobile detected:', isMobile);
+    
+    // Test if we can actually call navigator.share (some browsers lie about support)
+    let canActuallyShare = false;
+    if (navigator.share) {
+        try {
+            // Test with minimal data to see if it throws immediately
+            navigator.share({ title: 'test' }).catch(() => {
+                // Expected to fail, we're just testing if the method exists and can be called
+            });
+            canActuallyShare = true;
+            console.log('Navigator.share appears to be callable');
+        } catch (e) {
+            console.log('Navigator.share exists but cannot be called:', e.message);
+        }
+    }
+      if (nativeShareBtn) {
+        // Show native share button if:
+        // 1. Native share is actually available and callable, OR
+        // 2. We're on mobile (even if detection is uncertain) - we'll provide manual instructions
+        if (canActuallyShare) {
+            nativeShareBtn.style.display = 'inline-block';
+            nativeShareBtn.style.visibility = 'visible';
+            nativeShareBtn.textContent = '📤 Share';
+            console.log('✅ Native Share button shown - API available');
+        } else if (isMobile) {
+            // Show button anyway on mobile with different text to provide manual instructions
+            nativeShareBtn.style.display = 'inline-block';
+            nativeShareBtn.style.visibility = 'visible';
+            nativeShareBtn.textContent = '📤 Share (Manual)';
+            nativeShareBtn.setAttribute('title', 'Get sharing instructions for your device');
+            console.log('✅ Native Share button shown - Manual mode for mobile');
+        } else {
+            console.log('❌ Native Share button hidden - not mobile and no API');
+            console.log('Reasons:');
+            console.log('  - navigator.share available:', !!navigator.share);
+            console.log('  - Can actually call share:', canActuallyShare);
+            console.log('  - Is mobile device:', isMobile);
+            console.log('  - Is secure context:', window.isSecureContext);
+        }
+    } else {
+        console.log('❌ Native share button element not found in DOM');
+    }
+    console.log('=== END DEBUGGING ===');
+      // Focus management
+    modal.classList.add('show');
+    
+    // Enhance URL input behavior
+    const urlInput = document.getElementById('shareUrlInput');
+    if (urlInput) {
+        // Add click handler for better URL interaction
+        urlInput.addEventListener('click', function() {
+            // Select all text when clicked
+            this.select();
+            
+            // On mobile, also scroll to show the end of the URL after a brief moment
+            setTimeout(() => {
+                if (window.innerWidth <= 768) {
+                    this.scrollLeft = this.scrollWidth;
+                }
+            }, 100);
+        });
+        
+        // Add focus handler to scroll to end on mobile
+        urlInput.addEventListener('focus', function() {
+            setTimeout(() => {
+                if (window.innerWidth <= 768) {
+                    this.scrollLeft = this.scrollWidth;
+                }
+            }, 50);
+        });
+        
+        // Add double-click to scroll to beginning
+        urlInput.addEventListener('dblclick', function() {
+            this.scrollLeft = 0;
+        });
+        
+        // For better mobile experience, set initial scroll to show the domain
+        if (window.innerWidth <= 768) {
+            setTimeout(() => {
+                // Try to scroll to show domain part (after protocol)
+                const url = urlInput.value;
+                const protocolEnd = url.indexOf('://') + 3;
+                if (protocolEnd > 2) {
+                    // Estimate character width and scroll to show domain
+                    const charWidth = 8; // Approximate pixel width per character
+                    urlInput.scrollLeft = Math.max(0, protocolEnd * charWidth - 50);
+                }
+            }, 200);
+        }
+    }
+    
+    // Focus the close button after a short delay to allow animation
+    setTimeout(() => {
+        modal.querySelector('.modal-close').focus();
+    }, 100);
+    
+    // Add escape key handler
+    function handleEscape(e) {
+        if (e.key === 'Escape') {
+            closeSharingModal();
+            document.removeEventListener('keydown', handleEscape);
+        }
+    }
+    document.addEventListener('keydown', handleEscape);
+}
+
+/**
+ * Close the sharing modal
+ */
+function closeSharingModal() {
+    const modal = document.getElementById('shareModal');
+    if (modal) {
+        modal.classList.remove('show');
+        // Remove the modal after the animation completes
+        setTimeout(() => {
+            if (modal.parentNode) {
+                modal.remove();
+            }
+        }, 300);
+    }
+}
+
+/**
+ * Share to Twitter with educational content
+ */
+function shareToTwitter(url, text, hashtags) {
+    const twitterText = `${text}\n\n${hashtags.split(',').map(tag => `#${tag}`).join(' ')}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(url)}`;
+    window.open(twitterUrl, '_blank', 'width=600,height=400');
+    closeSharingModal();
+}
+
+/**
+ * Share to LinkedIn
+ */
+function shareToLinkedIn(url, title, summary) {
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+    window.open(linkedInUrl, '_blank', 'width=600,height=400');
+    closeSharingModal();
+}
+
+/**
+ * Share to Reddit
+ */
+function shareToReddit(url, title) {
+    const redditUrl = `https://reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`;
+    window.open(redditUrl, '_blank', 'width=600,height=400');
+    closeSharingModal();
+}
+
+/**
+ * Copy share URL to clipboard
+ */
+function copyShareUrl(url) {
+    navigator.clipboard.writeText(url).then(() => {
+        alert('📋 Link copied to clipboard!');
+        closeSharingModal();
+    }).catch(() => {
+        // Fallback for older browsers
+        const input = document.getElementById('shareUrlInput');
+        input.select();
+        document.execCommand('copy');
+        alert('📋 Link copied to clipboard!');
+        closeSharingModal();
+    });
+}
+
+/**
+ * Use native share API (available on mobile and some desktop browsers)
+ */
+function useNativeShare(url, title, text) {
+    console.log('=== NATIVE SHARE ATTEMPT ===');
+    console.log('Called with:', { url, title, text });
+    console.log('navigator.share available:', !!navigator.share);
+    console.log('Current protocol:', window.location.protocol);
+    console.log('Secure context:', window.isSecureContext);
+    
+    if (!navigator.share) {
+        // Manual sharing instructions for mobile devices
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        if (isMobile) {
+            let instructions = '';
+            const userAgent = navigator.userAgent;
+            
+            if (/Android/i.test(userAgent)) {
+                if (/Chrome/i.test(userAgent)) {
+                    instructions = `📱 To Share on Android Chrome:\n\n` +
+                                 `1. Tap the three dots menu (⋮) in browser\n` +
+                                 `2. Tap "Share..."\n` +
+                                 `3. Choose your app to share with\n\n` +
+                                 `🔗 URL copied to clipboard for easy sharing!`;
+                } else {
+                    instructions = `📱 To Share on Android:\n\n` +
+                                 `1. Copy the URL (done automatically)\n` +
+                                 `2. Open your favorite app\n` +
+                                 `3. Paste and share!\n\n` +
+                                 `🔗 URL copied to clipboard!`;
+                }
+            } else if (/iPhone|iPad/i.test(userAgent)) {
+                instructions = `📱 To Share on iOS:\n\n` +
+                             `1. Tap the Share button (⬆️) in Safari\n` +
+                             `2. Choose your app to share with\n` +
+                             `3. Or copy the URL below and paste in your app\n\n` +
+                             `🔗 URL copied to clipboard!`;
+            } else {
+                instructions = `📱 To Share:\n\n` +
+                             `1. Copy the URL (done automatically)\n` +
+                             `2. Open your favorite app\n` +
+                             `3. Paste and share!\n\n` +
+                             `🔗 URL copied to clipboard!`;
+            }
+            
+            // Copy URL and show instructions
+            copyShareUrl(url);
+            alert(instructions);
+            
+            console.log('✅ Manual sharing instructions provided');
+            return;
+        }
+        
+        // Desktop fallback
+        const reason = `Web Share API not available.\n\n` +
+                      `This could be because:\n` +
+                      `• Not using HTTPS (current: ${window.location.protocol})\n` +
+                      `• Browser doesn't support it\n` +
+                      `• Feature is disabled\n\n` +
+                      `Try accessing via HTTPS or copy the URL below.`;
+        
+        console.log('❌ FAILED:', reason);
+        alert(`❌ Native sharing not supported\n\n${reason}`);
+        copyShareUrl(url);
+        return;
+    }
+    
+    if (!window.isSecureContext) {
+        const reason = 'Web Share API requires HTTPS or localhost';
+        console.log('❌ FAILED:', reason);
+        alert(`❌ Sharing requires secure connection\n\n` +
+              `Current: ${window.location.protocol}//${window.location.host}\n\n` +
+              `Solutions:\n` +
+              `• Access via HTTPS\n` +
+              `• Use localhost for testing\n\n` +
+              `Copying URL instead.`);
+        copyShareUrl(url);
+        return;
+    }
+    
+    console.log('✅ All requirements met, attempting native share...');
+    
+    navigator.share({
+        title: title,
+        text: text,
+        url: url
+    }).then(() => {
+        console.log('✅ Native sharing successful!');
+        closeSharingModal();
+    }).catch((error) => {
+        console.log('❌ Native sharing failed:', error);
+        
+        let userFriendlyMessage = 'Sharing was cancelled or failed';
+        let suggestion = 'Try copying the URL instead.';
+        
+        if (error.name === 'AbortError') {
+            userFriendlyMessage = 'Sharing was cancelled';
+            suggestion = 'No worries! You can copy the URL below if needed.';
+        } else if (error.name === 'NotAllowedError') {
+            userFriendlyMessage = 'Sharing not allowed by browser';
+            suggestion = 'Your browser blocked sharing. Copy the URL instead.';
+        }
+        
+        alert(`${userFriendlyMessage}\n\n${suggestion}`);
+        copyShareUrl(url);
+    });
+    
+    console.log('=== END SHARE ATTEMPT ===');
+}
+
+/**
+ * Toggle visibility of share button based on content
+ */
+/**
+ * Toggle visibility of share button based on content
+ */
+function toggleShareButton(show) {
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        if (show) {
+            shareBtn.classList.remove('share-button-hidden');
+            shareBtn.classList.add('share-button-visible');
+            console.log('Share button shown');
+        } else {
+            shareBtn.classList.remove('share-button-visible');
+            shareBtn.classList.add('share-button-hidden');
+            console.log('Share button hidden');
+        }
+    } else {
+        console.error('Share button element not found');
+    }
+}
+
+/**
  * Initialize all event listeners and functionality
  */
 function initializeApp() {
@@ -454,12 +961,16 @@ function initializeApp() {
     if (phraseInput) {
         let typingTimer;
         const typingDelay = 300; // milliseconds
-          phraseInput.addEventListener('input', function() {
+        
+        phraseInput.addEventListener('input', function() {
             clearTimeout(typingTimer);
             const phrase = this.value.trim();
-            
-            // Show/hide clear button based on content
+              // Show/hide clear button based on content
             toggleClearButton(this.value.length > 0);
+            
+            // Show/hide share button based on content with debugging
+            console.log('DEBUG: Input event - text length:', this.value.length, 'should show share button:', this.value.length > 0);
+            toggleShareButton(this.value.length > 0);
             
             if (phrase.length === 0) {
                 checkStrength('');
@@ -503,9 +1014,7 @@ function initializeApp() {
         });
     } else {
         console.error('No button with id="copyBtn" found');
-    }
-
-    // Initialize download button
+    }    // Initialize download button
     const downloadBtn = document.getElementById('downloadBtn');
     if (downloadBtn) {
         downloadBtn.addEventListener('click', function() {
@@ -514,7 +1023,20 @@ function initializeApp() {
         });
     } else {
         console.error('No button with id="downloadBtn" found');
-    }    // Initialize theme functionality
+    }
+
+    // Initialize share button
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        shareBtn.addEventListener('click', function() {
+            console.log('Share Example button clicked');
+            shareExample();
+        });
+    } else {
+        console.error('No button with id="shareBtn" found');
+    }
+
+    // Initialize theme functionality
     initializeTheme();
     
     // Initialize PWA install functionality
@@ -628,12 +1150,12 @@ function initializeApp() {
     if (typeof initializeKeyboardHelp === 'function') {
         initializeKeyboardHelp();
         addKeyboardHelpShortcut();
-    }
-
-    // Initialize clear button visibility on page load
+    }    // Initialize clear button visibility on page load
     const phraseInputElement = document.getElementById('phraseInput');
     if (phraseInputElement) {
         toggleClearButton(phraseInputElement.value.length > 0);
+        // Also initialize share button visibility
+        toggleShareButton(phraseInputElement.value.length > 0);
     }
 
     // Handle URL parameters for direct phrase input

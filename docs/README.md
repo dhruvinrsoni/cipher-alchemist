@@ -27,6 +27,7 @@
 - **🌙 Dark/Light Theme Toggle** - Automatic system preference detection
 - **💡 Smart Phrase Suggestions** - 48+ inspirational phrases across 12 themed categories
 - **📋 One-Click Copy** - Instant clipboard integration
+- **🔗 Social Sharing** - Share educational examples securely with enhanced UI and native share support (phrases only, never passwords)
 - **📄 PDF Cheat Sheet** - Downloadable reference guide
 
 ### 🚀 **Progressive Web App**

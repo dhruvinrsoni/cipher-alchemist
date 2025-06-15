@@ -24,6 +24,7 @@ Welcome to the comprehensive documentation for Cipher Alchemist! This guide will
 - **[PWA Installation](README.md#option-2-install-as-pwa)** - Progressive Web App setup with smart install button
 - **[Theme System](README.md#user-experience)** - Dark/Light mode and customization
 - **[URL Parameters](FAQ.md#q-can-i-share-specific-examples-with-others-using-direct-links)** - Direct linking for instant examples
+- **[Social Sharing](FAQ.md#q-how-does-the-social-sharing-feature-work)** - Educational content sharing
 
 ---
 

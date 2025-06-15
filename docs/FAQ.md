@@ -111,6 +111,47 @@ https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=YourPhrase
 - **Demonstrations**: Show password strength concepts instantly
 - **Team Sharing**: Share password patterns with colleagues
 
+### **Q: How does the social sharing feature work?**
+**A:** Cipher Alchemist includes secure social sharing for educational purposes:
+
+**🔗 Share Example Button:**
+- Appears automatically when you enter a phrase
+- Creates safe, shareable links with your phrase (never the password)
+- Opens a modal with multiple sharing options
+
+**Supported Platforms:**
+- **🐦 Twitter** - Educational posts with hashtags
+- **💼 LinkedIn** - Professional cybersecurity content
+- **🤖 Reddit** - Tech community discussions
+- **📤 Native Share** - Mobile/tablet native sharing (when supported)
+- **📋 Copy Link** - Enhanced direct URL input with one-click copy
+
+**Enhanced Sharing Features:**
+- **Beautiful Modal Interface** - Modern Material Design with smooth animations
+- **Native Share Integration** - Automatically appears on supported mobile devices
+- **Enhanced URL Input** - Interactive input box with integrated copy button
+- **Mobile-Optimized** - Responsive design for all screen sizes
+- **Quick Copy Actions** - Multiple ways to copy share URLs instantly
+
+**Privacy & Security:**
+- ✅ **Only phrases are shared** - Never actual passwords
+- ✅ **Educational focus** - Promotes password security awareness
+- ✅ **URL encoding** - Handles special characters safely
+- ❌ **No tracking** - No analytics or user data collection
+
+**Example Social Media Post:**
+```
+🔮 Try This Password Security Example!
+
+Check out this password generation example using Cipher Alchemist! 🔐
+
+Phrase: "MyBusiness2025Goals"
+See how it transforms into a secure password: 
+https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyBusiness2025Goals
+
+#PasswordSecurity #CyberSecurity #TechEducation #OpenSource
+```
+
 ---
 
 ## 📱 Installation & Compatibility

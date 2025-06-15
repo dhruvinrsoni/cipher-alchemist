@@ -99,6 +99,82 @@ https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyUni2025Spring
 https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=SecureMoney2025
 ```
 
+### **🔗 Social Sharing Integration**
+Educational social media sharing system that creates safe, shareable content:
+
+**Implementation Details:**
+```javascript
+// Location: js/main.js - shareExample()
+function shareExample() {
+    const shareUrl = `${baseUrl}?phrase=${encodeURIComponent(phrase)}`;
+    const socialContent = {
+        title: '🔮 Try This Password Security Example!',
+        text: `Check out this password generation example...`,
+        url: shareUrl,
+        hashtags: ['PasswordSecurity', 'CyberSecurity', 'TechEducation']
+    };
+    showSharingModal(socialContent);
+}
+```
+
+**Security Features:**
+- **Privacy-First Design** - Only phrases shared, never actual passwords
+- **Educational Focus** - Promotes cybersecurity awareness
+- **URL Encoding** - Safe handling of special characters
+- **Modal Interface** - Clear sharing options and privacy disclosure
+
+**Supported Platforms:**
+- **Twitter** - Educational posts with relevant hashtags
+- **LinkedIn** - Professional cybersecurity content
+- **Reddit** - Community discussions and demos
+- **Native Share** - Mobile/tablet device integration (auto-detected)
+- **Direct Link** - Enhanced copy URL with beautiful input interface
+
+**Modal Components:**
+- **Privacy Preview** - Shows what data is shared vs. protected
+- **Platform Buttons** - One-click sharing to popular platforms
+- **Native Share Button** - Appears automatically on supported devices
+- **Enhanced URL Display** - Interactive input with integrated copy button
+- **Keyboard Navigation** - Full accessibility support
+- **Mobile Optimized** - Responsive design for all screen sizes
+
+**Enhanced Technical Features:**
+```javascript
+// Native Share API Detection
+if (navigator.share && nativeShareBtn) {
+    nativeShareBtn.style.display = 'block';
+}
+
+// Enhanced URL Input with Copy Button
+<div class="share-url-input-wrapper">
+    <input onclick="this.select()" title="Click to select URL">
+    <button class="url-copy-btn" onclick="copyShareUrl()">📋</button>
+</div>
+
+// Native Share Implementation
+function useNativeShare(url, title, text) {
+    navigator.share({ title, text, url })
+        .then(() => closeSharingModal())
+        .catch(() => copyShareUrl(url)); // Fallback
+}
+```
+
+**CSS Enhancements:**
+```css
+.share-url-container {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+.share-btn.native {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    animation: shimmer 0.5s ease-in-out;
+}
+```
+
 ### **🔧 Technology Stack**
 
 | Component | Technology | Purpose |

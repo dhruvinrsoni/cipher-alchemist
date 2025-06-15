@@ -17,6 +17,7 @@
     <meta name="twitter:image" content="https://dhruvinrsoni.github.io/cipher-alchemist/assets/icons/favicon-512.png" />    <!-- Modular CSS Files -->
     <link rel="stylesheet" href="css/themes.css" />
     <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/modal.css" />
     <link rel="stylesheet" href="css/password-strength.css" />    <link rel="stylesheet" href="css/phrase-suggestions.css" />
     <link rel="stylesheet" href="css/keyboard-shortcuts.css" />
     <link rel="manifest" href="manifest.json" />
@@ -78,9 +79,10 @@
         
         <!-- Password Strength Meter -->
         <div id="strengthMeter" aria-live="polite" role="status"></div>
-        
-        <button id="generateBtn" aria-label="Generate password from phrase">Generate Password</button>
-        <button id="copyBtn" aria-label="Copy generated password to clipboard">Copy to Clipboard</button>        <button id="downloadBtn" aria-label="Download password cheat sheet PDF">Download Cheat Sheet PDF</button>
+          <button id="generateBtn" aria-label="Generate password from phrase">Generate Password</button>
+        <button id="copyBtn" aria-label="Copy generated password to clipboard">Copy to Clipboard</button>
+        <button id="shareBtn" aria-label="Share this example securely" title="Share example link (no passwords shared)" class="share-button-hidden">🔗 Share Example</button>
+        <button id="downloadBtn" aria-label="Download password cheat sheet PDF">Download Cheat Sheet PDF</button>
         <div id="passwordOutput" aria-live="polite" role="status" aria-atomic="true"></div>
         <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" aria-hidden="true" />        <footer role="contentinfo">
             <span id="footer-version" aria-live="polite"></span><br />

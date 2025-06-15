@@ -129,6 +129,55 @@ A comprehensive collection of video guides to help you master Cipher Alchemist a
 
 ---
 
+### 🔗 Social Media Sharing for Education
+**Duration**: ~7 minutes | **Difficulty**: Beginner  
+**Watch**: [YouTube Link](https://www.youtube.com/watch?v=example-share)
+
+**What you'll learn:**
+- Using the built-in share feature safely
+- Creating educational social media posts
+- Privacy considerations when sharing
+- Platform-specific best practices
+
+**Enhanced Sharing Workflow:**
+1. Enter your educational phrase
+2. Click the "🔗 Share Example" button
+3. Review privacy disclosure (only phrases shared)
+4. Choose from enhanced platform options:
+   - **🐦 Twitter** - Educational posts with hashtags
+   - **💼 LinkedIn** - Professional cybersecurity content
+   - **🤖 Reddit** - Tech community discussions
+   - **📤 Share** - Native device sharing (mobile/tablet only)
+   - **📋 Copy Link** - Enhanced URL input with integrated copy button
+5. Use the improved Direct Link interface for easy copying
+
+**New Enhanced Features:**
+- **Beautiful Modal Design** - Modern Material Design interface
+- **Native Share Button** - Automatically appears on supported devices
+- **Interactive URL Input** - Click-to-select with integrated copy button
+- **Mobile-Optimized Layout** - Perfect responsive design
+- **Quick Copy Actions** - Multiple ways to copy URLs instantly
+
+**Privacy & Security:**
+- ✅ **Phrases only** - Passwords never shared
+- ✅ **Educational focus** - Promotes cybersecurity awareness
+- ✅ **Direct links** - Recipients can try examples instantly
+- ❌ **No tracking** - No analytics or data collection
+
+**Platform Examples:**
+- **Twitter**: Educational posts with #PasswordSecurity hashtags
+- **LinkedIn**: Professional cybersecurity discussions
+- **Reddit**: r/cybersecurity community sharing
+- **Direct Link**: Team collaboration and training
+
+**Best Practices:**
+- Use phrases that demonstrate security concepts
+- Include context about password education
+- Encourage recipients to create their own examples
+- Focus on learning rather than specific passwords
+
+---
+
 ## ♿ Accessibility & Inclusion (All Levels)
 
 ### ⌨️ Complete Keyboard Navigation
