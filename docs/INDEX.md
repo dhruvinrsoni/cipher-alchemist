@@ -11,6 +11,20 @@ Welcome to the comprehensive documentation for Cipher Alchemist! This guide will
 
 ---
 
+## 📖 **Primary Documentation**
+
+### **📋 Complete Architecture & Development Guide**
+- **[COMPLETE_GUIDE.md](COMPLETE_GUIDE.md)** - ⭐ **MAIN REFERENCE** - Comprehensive merged documentation covering:
+  - Complete modular architecture overview
+  - Feature implementation details
+  - Configuration system guide
+  - Post-launch fixes and solutions
+  - Development best practices
+  - Testing and validation procedures
+  - Future roadmap
+
+---
+
 ## 📖 **User Documentation**
 
 ### **Getting Started**
@@ -31,8 +45,8 @@ Welcome to the comprehensive documentation for Cipher Alchemist! This guide will
 ## 🛠️ **Developer Documentation**
 
 ### **Development Setup**
-- **[Development Guide](DEVELOPMENT.md)** - Complete technical documentation
-- **[Project Architecture](DEVELOPMENT.md#modular-architecture)** - Code organization and structure
+- **[COMPLETE_GUIDE.md](COMPLETE_GUIDE.md)** - Complete architecture and development guide
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Technical setup and CI/CD processes
 - **[Technology Stack](README.md#technology-stack)** - Technologies used
 
 ### **Contributing**
@@ -137,6 +151,30 @@ git commit -m "docs: update README [skip ci]"
 | KEYBOARD_TESTING_GUIDE.md | ✅ Complete | Current | High |
 | CHANGELOG.md | 🔄 Auto-Updated | Continuous | High |
 | RELEASES.md | ✅ Complete | Current | Medium |
+
+---
+
+## 📋 **Documentation Consolidation Status**
+
+> **As of June 2025**: Architecture documentation has been simplified into a single comprehensive guide.
+
+### **✅ Cleaned Up - Deprecated Files Removed**
+- ~~`MODULAR_ARCHITECTURE.md`~~ - ❌ Deleted (merged into COMPLETE_GUIDE.md)
+- ~~`MODULARIZATION_COMPLETE.md`~~ - ❌ Deleted (merged into COMPLETE_GUIDE.md)  
+- ~~`ARCHITECTURE_REVIEW.md`~~ - ❌ Deleted (merged into COMPLETE_GUIDE.md)
+
+### **📁 Current Documentation Files**
+- **[COMPLETE_GUIDE.md](COMPLETE_GUIDE.md)** - ⭐ **PRIMARY REFERENCE** - All architecture, development, and implementation details
+- **[README.md](README.md)** - Project overview and user guide
+- **[FAQ.md](FAQ.md)** - User questions and answers
+- **[DEVELOPMENT.md](DEVELOPMENT.md)** - Technical development and CI/CD details
+- **[KEYBOARD_TESTING_GUIDE.md](KEYBOARD_TESTING_GUIDE.md)** - Accessibility testing procedures
+- **[GIT_WORKFLOW_GUIDE.md](GIT_WORKFLOW_GUIDE.md)** - Version control and workflow
+- **[CHANGELOG.md](CHANGELOG.md)** - Complete version history
+- **[RELEASES.md](RELEASES.md)** - Release notes and downloads
+- **[CASE_STUDIES.md](CASE_STUDIES.md)** - Real-world usage examples
+- **[TUTORIALS.md](TUTORIALS.md)** - Step-by-step guides
+- **[VIDEO_PRODUCTION_GUIDE.md](VIDEO_PRODUCTION_GUIDE.md)** - Video creation guide
 
 ---
 

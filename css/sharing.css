@@ -1,0 +1,492 @@
+/**
+ * Sharing Feature CSS
+ * All styles related to sharing functionality
+ * This file can be easily enabled/disabled by including/excluding it
+ */
+
+/* ============================================
+   SHARE BUTTON STYLES
+   ============================================ */
+
+.share-button-hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.share-button-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+}
+
+/* Share button specific styling */
+#shareBtn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+#shareBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #5a6fd8 0%, #6b4190 100%);
+}
+
+#shareBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+#shareBtn:focus {
+    outline: 2px solid rgba(102, 126, 234, 0.5);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   SHARING MODAL STYLES
+   ============================================ */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--container-bg, white);
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    padding: 1.5rem 2rem 1rem;
+    border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text, #333);
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    color: var(--text-secondary, #666);
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text, #333);
+}
+
+.modal-close:focus {
+    outline: 2px solid var(--primary, #007BFF);
+    outline-offset: 2px;
+}
+
+.modal-body {
+    padding: 1.5rem 2rem 2rem;
+}
+
+/* ============================================
+   SHARE PREVIEW SECTION
+   ============================================ */
+
+.share-preview {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: var(--bg-secondary, #f8f9fa);
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.share-preview p {
+    margin: 0 0 0.5rem 0;
+    font-weight: 500;
+    color: var(--text, #333);
+}
+
+.share-content-preview {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #666);
+    line-height: 1.4;
+}
+
+.share-content-preview p {
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.share-content-preview strong {
+    color: var(--primary, #007BFF);
+}
+
+/* ============================================
+   SHARE OPTIONS SECTION
+   ============================================ */
+
+.share-options {
+    margin-bottom: 2rem;
+}
+
+.share-options h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text, #333);
+}
+
+.share-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem;
+}
+
+.share-btn {
+    background: white;
+    border: 2px solid #e1e5e9;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #495057;
+    text-decoration: none;
+}
+
+.share-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.share-btn:active {
+    transform: translateY(0);
+}
+
+.share-btn:focus {
+    outline: 2px solid var(--primary, #007BFF);
+    outline-offset: 2px;
+}
+
+/* Platform-specific button colors */
+.share-btn.twitter:hover {
+    background: #1da1f2;
+    color: white;
+    border-color: #1da1f2;
+}
+
+.share-btn.linkedin:hover {
+    background: #0077b5;
+    color: white;
+    border-color: #0077b5;
+}
+
+.share-btn.reddit:hover {
+    background: #ff4500;
+    color: white;
+    border-color: #ff4500;
+}
+
+.share-btn.native:hover {
+    background: var(--primary, #007BFF);
+    color: white;
+    border-color: var(--primary, #007BFF);
+}
+
+/* ============================================
+   SHARE URL SECTION
+   ============================================ */
+
+.share-url-container {
+    border-top: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+    padding-top: 1.5rem;
+}
+
+.share-url-container label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text, #333);
+    font-size: 0.9rem;
+}
+
+.share-url-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: stretch;
+}
+
+.share-url-input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--border-color, #e1e5e9);
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    background: var(--bg-secondary, #f8f9fa);
+    color: var(--text, #333);
+    font-family: monospace;
+    word-break: break-all;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.share-url-input:focus {
+    outline: none;
+    border-color: var(--primary, #007BFF);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.url-copy-btn {
+    background: var(--primary, #007BFF);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.url-copy-btn:hover {
+    background: var(--primary-dark, #0056b3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.url-copy-btn:active {
+    transform: translateY(0);
+}
+
+.url-copy-btn:focus {
+    outline: 2px solid rgba(0, 123, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95vw;
+        max-height: 95vh;
+        margin: 1rem;
+        border-radius: 0.75rem;
+    }
+    
+    .modal-header {
+        padding: 1rem 1.5rem 0.75rem;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .modal-body {
+        padding: 1rem 1.5rem 1.5rem;
+    }
+    
+    .share-buttons-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+    
+    .share-btn {
+        padding: 0.6rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .share-url-input-wrapper {
+        flex-direction: column;
+    }
+    
+    .share-url-input {
+        font-size: 0.8rem;
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .url-copy-btn {
+        font-size: 0.85rem;
+        padding: 0.6rem 1rem;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .share-buttons-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #shareBtn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   DARK THEME SUPPORT
+   ============================================ */
+
+body.dark-theme .modal-content {
+    background: var(--container-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .share-preview {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .share-btn {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text);
+}
+
+body.dark-theme .share-btn:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-theme .share-url-input {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text);
+}
+
+body.dark-theme .share-url-input:focus {
+    background: var(--container-bg);
+    box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.2);
+}
+
+/* ============================================
+   ANIMATIONS AND TRANSITIONS
+   ============================================ */
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes modalSlideOut {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+}
+
+.modal-overlay.show .modal-content {
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .modal-overlay,
+    .modal-content,
+    .share-btn,
+    #shareBtn {
+        transition: none;
+        animation: none;
+    }
+    
+    .share-btn:hover,
+    #shareBtn:hover {
+        transform: none;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .share-btn {
+        border-width: 3px;
+    }
+    
+    .share-url-input {
+        border-width: 3px;
+    }
+    
+    .modal-content {
+        border-width: 2px;
+    }
+}

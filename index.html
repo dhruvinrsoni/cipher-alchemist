@@ -18,8 +18,10 @@
     <link rel="stylesheet" href="css/themes.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/modal.css" />
-    <link rel="stylesheet" href="css/password-strength.css" />    <link rel="stylesheet" href="css/phrase-suggestions.css" />
+    <link rel="stylesheet" href="css/password-strength.css" />
+    <link rel="stylesheet" href="css/phrase-suggestions.css" />
     <link rel="stylesheet" href="css/keyboard-shortcuts.css" />
+    <link rel="stylesheet" href="css/sharing.css" />
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" href="assets/icons/favicon.ico" />
     <link rel="apple-touch-icon" href="assets/icons/favicon-192.png" />
@@ -180,10 +182,25 @@
             </div>
         </div>
     </div>    <!-- Modular JavaScript Files -->
+    <script src="js/config.js" defer></script>
     <script src="js/cipher-algorithms.js" defer></script>
     <script src="js/password-strength.js" defer></script>
     <script src="js/phrase-suggestions.js" defer></script>
     <script src="js/keyboard-shortcuts.js" defer></script>
+    
+    <!-- Feature Modules -->
+    <script src="js/features/sharing.js" defer></script>
+    <script src="js/features/theme.js" defer></script>
+    <script src="js/features/pwa.js" defer></script>
+    <script src="js/features/version.js" defer></script>
+    <script src="js/features/urlHandler.js" defer></script>
+    <script src="js/features/sections.js" defer></script>
+    <script src="js/features/uiUtilities.js" defer></script>
+    
+    <!-- Main App Coordinator -->
+    <script src="js/app.js" defer></script>
+    
+    <!-- Legacy Main (redirects to features) -->
     <script src="js/main.js" defer></script>
 </body>
 </html>
