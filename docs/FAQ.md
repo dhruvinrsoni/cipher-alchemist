@@ -374,7 +374,7 @@ js/
 ### **Q: How does the PWA functionality work?**
 **A:** Progressive Web App features:
 
-**Service Worker (`config/sw.js`):**
+**Service Worker (`sw.js`):**
 - **Caching Strategy**: Caches all static resources for offline use
 - **Update Management**: Automatically updates cached content
 - **Fallback Handling**: Serves cached content when offline

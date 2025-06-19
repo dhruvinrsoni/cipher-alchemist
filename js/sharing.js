@@ -13,16 +13,19 @@ let sharingModal = null;
  */
 function shareExample() {
     try {
-        console.log('Share example button clicked');
+        console.log('🔗 Share example button clicked');
         const phraseInput = document.getElementById('phraseInput');
         const phrase = phraseInput?.value?.trim();
         
         console.log('Current phrase:', phrase);
         
         if (!phrase) {
+            console.warn('⚠️ No phrase found for sharing');
             alert('⚠️ Please enter a phrase first to create a shareable example!');
             return;
         }
+        
+        console.log('📝 Creating shareable URL...');
         
         // Create the shareable URL with phrase parameter
         let baseUrl;
@@ -32,6 +35,8 @@ function shareExample() {
             baseUrl = window.location.origin + window.location.pathname;
         }
         const shareUrl = `${baseUrl}?phrase=${encodeURIComponent(phrase)}`;
+        
+        console.log('🌐 Share URL:', shareUrl);
         
         // Prepare social media content
         const socialContent = {
@@ -43,11 +48,14 @@ function shareExample() {
             hashtags: ['PasswordSecurity', 'CyberSecurity', 'TechEducation', 'OpenSource']
         };
         
+        console.log('📤 Prepared social content:', socialContent);
+        
         // Show sharing options modal
+        console.log('🎭 Calling showSharingModal...');
         showSharingModal(socialContent);
         
     } catch (error) {
-        console.error('Error in shareExample:', error);
+        console.error('❌ Error in shareExample:', error);
         alert('Sorry, sharing feature encountered an error. Please try again.');
     }
 }
@@ -56,21 +64,34 @@ function shareExample() {
  * Display sharing options modal with various platforms
  */
 function showSharingModal(content) {
+    console.log('🎭 showSharingModal called with content:', content);
+    
     // Create modal HTML using template
+    console.log('📝 Creating modal HTML...');
     const modalHtml = getSharingModalTemplate(content);
     
     // Remove existing modal if any
     const existingModal = document.getElementById('shareModal');
     if (existingModal) {
+        console.log('🗑️ Removing existing modal...');
         existingModal.remove();
     }
     
     // Add modal to document
+    console.log('➕ Adding modal to document...');
     document.body.insertAdjacentHTML('beforeend', modalHtml);
     
     // Get the modal element
     const modal = document.getElementById('shareModal');
     sharingModal = modal;
+    
+    if (!modal) {
+        console.error('❌ Failed to create modal element!');
+        alert('❌ Sorry, sharing modal failed to load. Please try again.');
+        return;
+    }
+    
+    console.log('✅ Modal element created successfully:', modal);
     
     // Add event listeners for share buttons
     const shareButtons = modal.querySelectorAll('[data-action]');
@@ -383,16 +404,22 @@ function getSharingModalTemplate(content) {
  * Initialize sharing feature
  */
 function initializeSharing() {
-    console.log('Sharing feature initialized');
+    console.log('🔗 Initializing sharing feature...');
     
     // Initialize share button event listener
     const shareBtn = document.getElementById('shareBtn');
     if (shareBtn) {
+        console.log('✅ Share button found, adding event listener...');
         shareBtn.addEventListener('click', function() {
-            console.log('Share Example button clicked');
+            console.log('🖱️ Share Example button clicked via event listener');
             shareExample();
         });
+        console.log('✅ Share button event listener added successfully');
+    } else {
+        console.warn('⚠️ Share button element not found during initialization');
     }
+    
+    console.log('✅ Sharing feature initialization complete');
     
     return {
         shareExample,
@@ -418,4 +445,9 @@ if (typeof window !== 'undefined') {
         getSharingModalTemplate,
         initializeSharing
     };
+      // Also export key functions globally
+    window.shareExample = shareExample;
+    window.showSharingModal = showSharingModal;
+    window.closeSharingModal = closeSharingModal;
+    window.initializeSharing = initializeSharing;
 }

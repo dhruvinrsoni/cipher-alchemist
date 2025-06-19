@@ -4,31 +4,35 @@
  * This file allows easy enabling/disabling of application features.
  * Set any feature to false to disable it completely.
  * 
- * Note: When disabling a feature, you should also comment out
- * its corresponding script and CSS includes in index.html
+ * Features are automatically disabled when set to false - no need to 
+ * remove scripts from HTML. The feature will simply not initialize.
  */
 
 window.CipherAlchemistConfig = {
     features: {
-        // Core features
-        sharing: true,          // Social media sharing, URL sharing, Web Share API
-        theme: true,            // Light/dark theme toggle
-        pwa: true,              // Progressive Web App install prompts and service worker
-        version: true,          // Version display and management
-        urlHandler: true,       // URL parameter handling for deep linking
-        sections: true,         // Collapsible UI sections (description, transformation)
-        uiUtilities: true,      // UI helpers (copy, clear, example buttons)
+        // Core features (always loaded)
+        passwordEngine: true,       // Core password transformation + basic UI
+        appUtilities: true,         // Theme, version, URL handling, sections
         
-        // Advanced features  
+        // Optional features
+        sharing: true,              // Social media sharing, URL sharing, Web Share API
+        pwa: true,                  // Progressive Web App install prompts and service worker
         keyboardShortcuts: true,    // Keyboard navigation and shortcuts
         passwordStrength: true,     // Real-time password strength analysis
         phraseSuggestions: true,    // Inspirational phrase suggestions
         
+        // Legacy feature names (for backward compatibility)
+        theme: true,                // Handled by appUtilities
+        version: true,              // Handled by appUtilities
+        urlHandler: true,           // Handled by appUtilities
+        sections: true,             // Handled by appUtilities
+        uiUtilities: true,          // Handled by passwordEngine
+        
         // Experimental/optional features
-        analytics: false,       // Usage analytics (not implemented yet)
-        darkModeAuto: false,    // Automatic dark mode based on system preference
-        offlineMode: true,      // Offline functionality via service worker
-        shareHistory: false,    // Remember shared phrases (not implemented yet)
+        analytics: false,           // Usage analytics (not implemented yet)
+        darkModeAuto: false,        // Automatic dark mode based on system preference
+        offlineMode: true,          // Offline functionality via service worker
+        shareHistory: false,        // Remember shared phrases (not implemented yet)
     },
     
     // Feature-specific settings

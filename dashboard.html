@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Cipher Alchemist - Developer Dashboard</title>
+    <style>
+        :root {
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --primary: #007bff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .dashboard-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .quick-action-btn {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .quick-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .quick-action-btn.primary { background: var(--primary); color: white; }
+        .quick-action-btn.success { background: var(--success); color: white; }
+        .quick-action-btn.warning { background: var(--warning); color: black; }
+        .quick-action-btn.danger { background: var(--danger); color: white; }
+        .quick-action-btn.info { background: var(--info); color: white; }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .test-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .test-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .test-card-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .test-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .test-status.success { background: var(--success); color: white; }
+        .test-status.warning { background: var(--warning); color: black; }
+        .test-status.danger { background: var(--danger); color: white; }
+        .test-status.info { background: var(--info); color: white; }
+        .test-status.pending { background: #6c757d; color: white; }
+
+        .test-description {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .test-results {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: var(--light);
+            min-height: 60px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .test-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .test-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .test-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .test-btn.primary { background: var(--primary); color: white; }
+        .test-btn.success { background: var(--success); color: white; }
+        .test-btn.info { background: var(--info); color: white; }
+
+        .status-overview {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .status-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+            background: var(--light);
+        }
+
+        .status-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .status-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px 0;
+            padding: 5px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .result-item.success { background: rgba(40, 167, 69, 0.1); color: var(--success); }
+        .result-item.warning { background: rgba(255, 193, 7, 0.1); color: #e67e22; }
+        .result-item.danger { background: rgba(220, 53, 69, 0.1); color: var(--danger); }
+        .result-item.info { background: rgba(23, 162, 184, 0.1); color: var(--info); }
+
+        .performance-metrics {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .back-to-app {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .back-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container { padding: 10px; }
+            .dashboard-header h1 { font-size: 2rem; }
+            .test-grid { grid-template-columns: 1fr; }
+            .quick-actions { grid-template-columns: 1fr; }
+            .status-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-to-app">
+        <a href="index.html" class="back-btn">🏠 Back to App</a>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>🧪 Cipher Alchemist Developer Dashboard</h1>
+            <p>Comprehensive testing and monitoring for all application features</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <button class="quick-action-btn primary" onclick="runAllTests()">
+                🚀 Run All Tests
+            </button>
+            <button class="quick-action-btn success" onclick="runCoreTests()">
+                ⚡ Core Features
+            </button>
+            <button class="quick-action-btn info" onclick="runUITests()">
+                🎨 UI Components
+            </button>
+            <button class="quick-action-btn warning" onclick="runPerformanceTests()">
+                📊 Performance
+            </button>
+            <button class="quick-action-btn danger" onclick="clearAllResults()">
+                🗑️ Clear Results
+            </button>
+        </div>
+
+        <!-- Status Overview -->
+        <div class="status-overview">
+            <h2>📊 Test Status Overview</h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-number" id="totalTests">-</div>
+                    <div class="status-label">Total Tests</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-number" id="passedTests" style="color: var(--success);">-</div>
+                    <div class="status-label">Passed</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-number" id="failedTests" style="color: var(--danger);">-</div>
+                    <div class="status-label">Failed</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-number" id="warningTests" style="color: var(--warning);">-</div>
+                    <div class="status-label">Warnings</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Cards Grid -->
+        <div class="test-grid">
+            <!-- Password Generation Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        🔐 Password Generation
+                    </div>
+                    <div class="test-status pending" id="status-password">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests cipher transformation, character substitution, and password output functionality.
+                </div>
+                <div class="test-results" id="results-password">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testPasswordGeneration()">Run Test</button>
+                    <button class="test-btn info" onclick="openTestUrl('?phrase=Hello123')">Live Test</button>
+                </div>
+            </div>
+
+            <!-- URL Parameters Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        🌐 URL Parameters
+                    </div>
+                    <div class="test-status pending" id="status-url">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests URL parameter handling, auto-population, and deep linking functionality.
+                </div>
+                <div class="test-results" id="results-url">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testURLParameters()">Run Test</button>
+                    <button class="test-btn info" onclick="openTestUrl('?phrase=TestURL123')">Live Test</button>
+                </div>
+            </div>
+
+            <!-- Sharing Feature Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        🔗 Sharing System
+                    </div>
+                    <div class="test-status pending" id="status-sharing">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests social sharing, modal display, URL generation, and clipboard functionality.
+                </div>
+                <div class="test-results" id="results-sharing">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testSharingFeature()">Run Test</button>
+                    <button class="test-btn success" onclick="testShareModal()">Test Modal</button>
+                </div>
+            </div>
+
+            <!-- Password Strength Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        💪 Password Strength
+                    </div>
+                    <div class="test-status pending" id="status-strength">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests password strength analysis, visual indicators, and real-time feedback.
+                </div>
+                <div class="test-results" id="results-strength">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testPasswordStrength()">Run Test</button>
+                    <button class="test-btn info" onclick="openTestUrl('?phrase=StrongPass123!')">Live Test</button>
+                </div>
+            </div>
+
+            <!-- UI Components Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        🎨 UI Components
+                    </div>
+                    <div class="test-status pending" id="status-ui">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests buttons, modals, themes, collapsible sections, and user interactions.
+                </div>
+                <div class="test-results" id="results-ui">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testUIComponents()">Run Test</button>
+                    <button class="test-btn success" onclick="testThemeToggle()">Test Theme</button>
+                </div>
+            </div>
+
+            <!-- PWA Features Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        📱 PWA Features
+                    </div>
+                    <div class="test-status pending" id="status-pwa">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests Progressive Web App features, installation prompts, and offline capabilities.
+                </div>
+                <div class="test-results" id="results-pwa">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testPWAFeatures()">Run Test</button>
+                    <button class="test-btn info" onclick="testInstallPrompt()">Test Install</button>
+                </div>
+            </div>
+
+            <!-- Keyboard Shortcuts Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        ⌨️ Keyboard Shortcuts
+                    </div>
+                    <div class="test-status pending" id="status-keyboard">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests keyboard navigation, shortcuts modal, and accessibility features.
+                </div>
+                <div class="test-results" id="results-keyboard">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testKeyboardShortcuts()">Run Test</button>
+                    <button class="test-btn success" onclick="showKeyboardHelp()">Show Modal</button>
+                </div>
+            </div>
+
+            <!-- Phrase Suggestions Test -->
+            <div class="test-card">
+                <div class="test-card-header">
+                    <div class="test-card-title">
+                        💡 Phrase Suggestions
+                    </div>
+                    <div class="test-status pending" id="status-suggestions">Pending</div>
+                </div>
+                <div class="test-description">
+                    Tests suggestion generation, chip interactions, and refresh functionality.
+                </div>
+                <div class="test-results" id="results-suggestions">Ready to test...</div>
+                <div class="test-actions">
+                    <button class="test-btn primary" onclick="testPhraseSuggestions()">Run Test</button>
+                    <button class="test-btn success" onclick="refreshSuggestions()">Refresh</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="performance-metrics">
+            <h2>⚡ Performance Metrics</h2>
+            <div class="metric-row">
+                <span>Average Test Execution Time</span>
+                <span id="avgExecutionTime">-</span>
+            </div>
+            <div class="metric-row">
+                <span>Total Tests Run</span>
+                <span id="totalTestsRun">0</span>
+            </div>
+            <div class="metric-row">
+                <span>Success Rate</span>
+                <span id="successRate">-</span>
+            </div>
+            <div class="metric-row">
+                <span>Last Test Run</span>
+                <span id="lastTestRun">Never</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include all Cipher Alchemist scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/cipher-algorithms.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/password-strength.js"></script>
+    <script src="js/phrase-suggestions.js"></script>
+    <script src="js/keyboard-shortcuts.js"></script>
+    <script src="js/sharing.js"></script>
+    <script src="js/pwa.js"></script>
+
+    <script>
+        // Dashboard state management
+        let testResults = {
+            total: 0,
+            passed: 0,
+            failed: 0,
+            warnings: 0
+        };
+
+        let testExecutionTimes = [];
+        let totalTestsExecuted = 0;
+
+        // Auto-run tests on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                updateOverview();
+                runInitialHealthCheck();
+            }, 1000);
+        });
+
+        // Update status overview
+        function updateOverview() {
+            document.getElementById('totalTests').textContent = testResults.total;
+            document.getElementById('passedTests').textContent = testResults.passed;
+            document.getElementById('failedTests').textContent = testResults.failed;
+            document.getElementById('warningTests').textContent = testResults.warnings;
+            
+            // Update performance metrics
+            document.getElementById('totalTestsRun').textContent = totalTestsExecuted;
+            document.getElementById('lastTestRun').textContent = new Date().toLocaleTimeString();
+            
+            if (testExecutionTimes.length > 0) {
+                const avg = testExecutionTimes.reduce((a, b) => a + b, 0) / testExecutionTimes.length;
+                document.getElementById('avgExecutionTime').textContent = `${avg.toFixed(2)}ms`;
+            }
+            
+            if (testResults.total > 0) {
+                const successRate = ((testResults.passed / testResults.total) * 100).toFixed(1);
+                document.getElementById('successRate').textContent = `${successRate}%`;
+            }
+        }
+
+        // Test execution helper
+        function executeTest(testName, testFunction) {
+            const startTime = performance.now();
+            const statusEl = document.getElementById(`status-${testName}`);
+            const resultsEl = document.getElementById(`results-${testName}`);
+            
+            statusEl.textContent = 'Running...';
+            statusEl.className = 'test-status info';
+            resultsEl.textContent = 'Executing test...';
+            
+            try {
+                const result = testFunction();
+                const endTime = performance.now();
+                const executionTime = endTime - startTime;
+                
+                testExecutionTimes.push(executionTime);
+                totalTestsExecuted++;
+                
+                // Update results based on test outcome
+                if (result.status === 'success') {
+                    statusEl.textContent = 'Passed';
+                    statusEl.className = 'test-status success';
+                    testResults.passed++;
+                } else if (result.status === 'warning') {
+                    statusEl.textContent = 'Warning';
+                    statusEl.className = 'test-status warning';
+                    testResults.warnings++;
+                } else {
+                    statusEl.textContent = 'Failed';
+                    statusEl.className = 'test-status danger';
+                    testResults.failed++;
+                }
+                
+                testResults.total++;
+                resultsEl.innerHTML = result.output;
+                
+            } catch (error) {
+                statusEl.textContent = 'Error';
+                statusEl.className = 'test-status danger';
+                resultsEl.innerHTML = `<div class="result-item danger">❌ Error: ${error.message}</div>`;
+                testResults.failed++;
+                testResults.total++;
+            }
+            
+            updateOverview();
+        }
+
+        // Individual test functions
+        function testPasswordGeneration() {
+            executeTest('password', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test 1: Check if core functions exist
+                const functions = ['applyCipherTransform', 'generatePassword', 'substitutions'];
+                functions.forEach(func => {
+                    totalChecks++;
+                    if (typeof window[func] !== 'undefined') {
+                        output += `<div class="result-item success">✅ ${func} available</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item danger">❌ ${func} missing</div>`;
+                    }
+                });
+                
+                // Test 2: Test actual transformation
+                if (typeof applyCipherTransform === 'function') {
+                    totalChecks++;
+                    try {
+                        const testPhrase = 'Hello123';
+                        const result = applyCipherTransform(testPhrase);
+                        if (result.password && result.explanation) {
+                            output += `<div class="result-item success">✅ Transformation working</div>`;
+                            output += `<div class="result-item info">ℹ️ "${testPhrase}" → "${result.password}"</div>`;
+                            successCount++;
+                        } else {
+                            output += `<div class="result-item danger">❌ Transformation incomplete</div>`;
+                        }
+                    } catch (e) {
+                        output += `<div class="result-item danger">❌ Transformation error: ${e.message}</div>`;
+                    }
+                }
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        function testURLParameters() {
+            executeTest('url', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test URL parameter detection
+                totalChecks++;
+                const urlParams = new URLSearchParams(window.location.search);
+                const phrase = urlParams.get('phrase');
+                
+                if (phrase) {
+                    output += `<div class="result-item success">✅ URL parameter detected: "${phrase}"</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item warning">⚠️ No phrase parameter in current URL</div>`;
+                    output += `<div class="result-item info">ℹ️ Click "Live Test" to test with parameters</div>`;
+                    successCount += 0.5; // Partial credit
+                }
+                
+                // Test handleURLParameters function
+                totalChecks++;
+                if (typeof handleURLParameters === 'function') {
+                    output += `<div class="result-item success">✅ handleURLParameters function available</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item warning">⚠️ handleURLParameters not exposed (may be internal)</div>`;
+                    successCount += 0.5;
+                }
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        function testSharingFeature() {
+            executeTest('sharing', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test sharing functions
+                const sharingFunctions = ['shareExample', 'showSharingModal', 'closeSharingModal'];
+                sharingFunctions.forEach(func => {
+                    totalChecks++;
+                    if (typeof window[func] === 'function') {
+                        output += `<div class="result-item success">✅ ${func} available</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item danger">❌ ${func} missing</div>`;
+                    }
+                });
+                
+                // Test share button visibility
+                totalChecks++;
+                const shareBtn = document.getElementById('shareBtn');
+                if (shareBtn) {
+                    output += `<div class="result-item success">✅ Share button element exists</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item danger">❌ Share button element missing</div>`;
+                }
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        function testPasswordStrength() {
+            executeTest('strength', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test strength functions
+                const strengthFunctions = ['checkStrength', 'calculatePasswordScore'];
+                strengthFunctions.forEach(func => {
+                    totalChecks++;
+                    if (typeof window[func] === 'function') {
+                        output += `<div class="result-item success">✅ ${func} available</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item danger">❌ ${func} missing</div>`;
+                    }
+                });
+                
+                // Test strength meter element
+                totalChecks++;
+                const strengthMeter = document.getElementById('strengthMeter');
+                if (strengthMeter) {
+                    output += `<div class="result-item success">✅ Strength meter element exists</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item danger">❌ Strength meter element missing</div>`;
+                }
+                
+                // Test actual strength calculation
+                if (typeof calculatePasswordScore === 'function') {
+                    totalChecks++;
+                    try {
+                        const testPassword = 'TestPass123!';
+                        const result = calculatePasswordScore(testPassword);
+                        if (result.score !== undefined && result.criteria) {
+                            output += `<div class="result-item success">✅ Strength calculation working</div>`;
+                            output += `<div class="result-item info">ℹ️ Test score: ${result.score}/100</div>`;
+                            successCount++;
+                        } else {
+                            output += `<div class="result-item danger">❌ Strength calculation incomplete</div>`;
+                        }
+                    } catch (e) {
+                        output += `<div class="result-item danger">❌ Strength calculation error: ${e.message}</div>`;
+                    }
+                }
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        function testUIComponents() {
+            executeTest('ui', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test essential UI elements
+                const uiElements = [
+                    { id: 'phraseInput', name: 'Phrase Input' },
+                    { id: 'passwordOutput', name: 'Password Output' },
+                    { id: 'copyBtn', name: 'Copy Button' },
+                    { id: 'clearBtn', name: 'Clear Button' },
+                    { id: 'themeToggleBtn', name: 'Theme Toggle' }
+                ];
+                
+                uiElements.forEach(element => {
+                    totalChecks++;
+                    if (document.getElementById(element.id)) {
+                        output += `<div class="result-item success">✅ ${element.name} exists</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item danger">❌ ${element.name} missing</div>`;
+                    }
+                });
+                
+                // Test theme functions
+                const themeFunctions = ['toggleTheme', 'initializeTheme'];
+                themeFunctions.forEach(func => {
+                    totalChecks++;
+                    if (typeof window[func] === 'function') {
+                        output += `<div class="result-item success">✅ ${func} available</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item warning">⚠️ ${func} not globally available</div>`;
+                        successCount += 0.5;
+                    }
+                });
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        function testPWAFeatures() {
+            executeTest('pwa', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test PWA functions
+                const pwaFunctions = ['initializePWAInstall', 'handleInstallClick'];
+                pwaFunctions.forEach(func => {
+                    totalChecks++;
+                    if (typeof window[func] === 'function') {
+                        output += `<div class="result-item success">✅ ${func} available</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item danger">❌ ${func} missing</div>`;
+                    }
+                });
+                
+                // Test install button
+                totalChecks++;
+                const installBtn = document.getElementById('installBtn');
+                if (installBtn) {
+                    output += `<div class="result-item success">✅ Install button exists</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item danger">❌ Install button missing</div>`;
+                }
+                
+                // Test manifest
+                totalChecks++;
+                const manifest = document.querySelector('link[rel="manifest"]');
+                if (manifest) {
+                    output += `<div class="result-item success">✅ PWA manifest linked</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item danger">❌ PWA manifest missing</div>`;
+                }
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        function testKeyboardShortcuts() {
+            executeTest('keyboard', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test keyboard functions
+                const keyboardFunctions = ['showKeyboardHelp', 'hideKeyboardHelp', 'initializeKeyboardHelp'];
+                keyboardFunctions.forEach(func => {
+                    totalChecks++;
+                    if (typeof window[func] === 'function') {
+                        output += `<div class="result-item success">✅ ${func} available</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item danger">❌ ${func} missing</div>`;
+                    }
+                });
+                
+                // Test keyboard help elements
+                totalChecks++;
+                const keyboardModal = document.getElementById('keyboardHelpModal');
+                if (keyboardModal) {
+                    output += `<div class="result-item success">✅ Keyboard help modal exists</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item danger">❌ Keyboard help modal missing</div>`;
+                }
+                
+                totalChecks++;
+                const keyboardBtn = document.getElementById('keyboardHelpBtn');
+                if (keyboardBtn) {
+                    output += `<div class="result-item success">✅ Keyboard help button exists</div>`;
+                    successCount++;
+                } else {
+                    output += `<div class="result-item danger">❌ Keyboard help button missing</div>`;
+                }
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        function testPhraseSuggestions() {
+            executeTest('suggestions', () => {
+                let output = '';
+                let successCount = 0;
+                let totalChecks = 0;
+                
+                // Test suggestion functions
+                const suggestionFunctions = ['refreshSuggestions', 'insertSuggestion', 'initializePhraseSuggestions'];
+                suggestionFunctions.forEach(func => {
+                    totalChecks++;
+                    if (typeof window[func] === 'function') {
+                        output += `<div class="result-item success">✅ ${func} available</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item danger">❌ ${func} missing</div>`;
+                    }
+                });
+                
+                // Test suggestions grid
+                totalChecks++;
+                const suggestionsGrid = document.getElementById('suggestionsGrid');
+                if (suggestionsGrid) {
+                    output += `<div class="result-item success">✅ Suggestions grid exists</div>`;
+                    const chips = suggestionsGrid.querySelectorAll('.suggestion-chip');
+                    if (chips.length > 0) {
+                        output += `<div class="result-item success">✅ Suggestion chips loaded (${chips.length})</div>`;
+                        successCount++;
+                    } else {
+                        output += `<div class="result-item warning">⚠️ No suggestion chips found</div>`;
+                        successCount += 0.5;
+                    }
+                } else {
+                    output += `<div class="result-item danger">❌ Suggestions grid missing</div>`;
+                }
+                
+                const status = successCount === totalChecks ? 'success' : 
+                              successCount > totalChecks / 2 ? 'warning' : 'failed';
+                
+                return { status, output };
+            });
+        }
+
+        // Quick action functions
+        function runAllTests() {
+            clearAllResults();
+            setTimeout(() => {
+                testPasswordGeneration();
+                setTimeout(() => testURLParameters(), 500);
+                setTimeout(() => testSharingFeature(), 1000);
+                setTimeout(() => testPasswordStrength(), 1500);
+                setTimeout(() => testUIComponents(), 2000);
+                setTimeout(() => testPWAFeatures(), 2500);
+                setTimeout(() => testKeyboardShortcuts(), 3000);
+                setTimeout(() => testPhraseSuggestions(), 3500);
+            }, 100);
+        }
+
+        function runCoreTests() {
+            clearAllResults();
+            setTimeout(() => {
+                testPasswordGeneration();
+                setTimeout(() => testURLParameters(), 500);
+                setTimeout(() => testPasswordStrength(), 1000);
+            }, 100);
+        }
+
+        function runUITests() {
+            clearAllResults();
+            setTimeout(() => {
+                testUIComponents();
+                setTimeout(() => testKeyboardShortcuts(), 500);
+                setTimeout(() => testPhraseSuggestions(), 1000);
+            }, 100);
+        }
+
+        function runPerformanceTests() {
+            // Performance testing
+            const startTime = performance.now();
+            runAllTests();
+            const endTime = performance.now();
+            
+            setTimeout(() => {
+                alert(`Performance Test Complete!\nTotal time: ${(endTime - startTime).toFixed(2)}ms`);
+            }, 4000);
+        }
+
+        function clearAllResults() {
+            testResults = { total: 0, passed: 0, failed: 0, warnings: 0 };
+            
+            // Reset all test cards
+            const statusElements = document.querySelectorAll('[id^="status-"]');
+            const resultElements = document.querySelectorAll('[id^="results-"]');
+            
+            statusElements.forEach(el => {
+                el.textContent = 'Pending';
+                el.className = 'test-status pending';
+            });
+            
+            resultElements.forEach(el => {
+                el.textContent = 'Ready to test...';
+            });
+            
+            updateOverview();
+        }
+
+        function runInitialHealthCheck() {
+            // Auto-run critical tests on load
+            setTimeout(() => {
+                testPasswordGeneration();
+                setTimeout(() => testSharingFeature(), 1000);
+            }, 500);
+        }
+
+        // Helper functions
+        function openTestUrl(params) {
+            window.open(`index.html${params}`, '_blank');
+        }
+
+        function testShareModal() {
+            if (typeof shareExample === 'function') {
+                // Set a test phrase first
+                const phraseInput = document.getElementById('phraseInput');
+                if (phraseInput) {
+                    phraseInput.value = 'TestShareModal123';
+                }
+                shareExample();
+            } else {
+                alert('❌ shareExample function not available');
+            }
+        }
+
+        function testThemeToggle() {
+            if (typeof toggleTheme === 'function') {
+                toggleTheme();
+                setTimeout(() => {
+                    alert('✅ Theme toggle test complete! Check if theme changed.');
+                }, 100);
+            } else {
+                alert('❌ toggleTheme function not available');
+            }
+        }
+
+        function testInstallPrompt() {
+            if (typeof handleInstallClick === 'function') {
+                handleInstallClick();
+            } else {
+                alert('❌ handleInstallClick function not available');
+            }
+        }
+    </script>
+</body>
+</html>

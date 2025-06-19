@@ -14,10 +14,13 @@
   --card-bg: #f3f3f3;
   --card-border: #e0e0e0;
   --footer: #888;
-  --transformation-bg: #f9f9f9;
-  --transformation-border: #ccc;
+  --transformation-bg: #f9f9f9;  --transformation-border: #ccc;
   --toggle-bg: #fff;
   --toggle-color: #222;
+  
+  /* Link colors */
+  --link-color: #007bff;
+  --link-hover-color: #0056b3;
   
   /* Chip colors */
   --chip-bg: #f8f9fa;
@@ -57,10 +60,13 @@ body.dark-theme {
   --card-bg: #333;
   --card-border: #444;
   --footer: #aaa;
-  --transformation-bg: #2e2e2e;
-  --transformation-border: #555;
+  --transformation-bg: #2e2e2e;  --transformation-border: #555;
   --toggle-bg: #333;
   --toggle-color: #e0e0e0;
+  
+  /* Dark link colors - more visible in dark mode */
+  --link-color: #66b3ff;
+  --link-hover-color: #4da6ff;
   
   /* Dark chip colors */
   --chip-bg: #3a3a3a;

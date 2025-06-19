@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧪 Comprehensive Test Suite</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 2rem; 
+            background: #f5f5f5; 
+            line-height: 1.6;
+        }
+        .test-item { 
+            background: white; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-item h3 { 
+            margin: 0 0 0.5rem 0; 
+            color: #333; 
+        }
+        .test-link { 
+            display: inline-block; 
+            background: #007bff; 
+            color: white; 
+            text-decoration: none; 
+            padding: 0.5rem 1rem; 
+            border-radius: 4px; 
+            margin: 0.5rem 0.5rem 0.5rem 0;
+        }
+        .test-link:hover { 
+            background: #0056b3; 
+        }
+        .status { 
+            font-weight: bold; 
+        }
+        .success { color: #28a745; }
+        .warning { color: #ffc107; }
+        .danger { color: #dc3545; }
+        .auto-test { 
+            background: #e3f2fd; 
+            border-left: 4px solid #2196f3; 
+            padding: 1rem; 
+            margin: 1rem 0; 
+        }
+        .test-result {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Comprehensive Test Suite</h1>
+    <p>Automated and manual tests for all Cipher Alchemist features:</p>
+    
+    <div class="auto-test">
+        <h2>🤖 Automated Element Checks</h2>
+        <button onclick="runElementTests()" style="background: #28a745; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">Run Element Tests</button>
+        <div id="elementTestResults"></div>
+    </div>
+    
+    <div class="test-item">
+        <h3>1. � Share Button & Modal</h3>
+        <p>Test: Share button should exist and open modal with platform options</p>
+        <a href="index.html?phrase=TestShare123" class="test-link">🔗 Test Sharing</a>
+        <p class="status">Expected: Click "Share Example" → Modal opens with Twitter, LinkedIn, Reddit, Copy Link</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>2. 💪 Password Strength Meter</h3>
+        <p>Test: Strength meter should be visible and function with URL parameters</p>
+        <a href="index.html?phrase=TestStrength123!" class="test-link">🔗 Test Strength</a>
+        <a href="index.html?phrase=SuperSecure@2025#Strong" class="test-link">🔗 Test Strong Password</a>
+        <p class="status">Expected: Strength meter appears automatically and shows score</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>3. � PWA Install Button</h3>
+        <p>Test: Install button should be present and functional (check top-right corner)</p>
+        <a href="index.html" class="test-link">🔗 Test Install Button</a>
+        <p class="status">Expected: 📱 button in top-right, shows install instructions when clicked</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>4. 🌐 PWA Manifest</h3>
+        <p>Test: PWA manifest should be properly linked and accessible</p>
+        <a href="manifest.json" class="test-link" target="_blank">🔗 Check Manifest</a>
+        <p class="status">Expected: Manifest loads with app name, icons, theme colors</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>5. ⌨️ Keyboard Help Modal</h3>
+        <p>Test: Keyboard help button and modal functionality</p>
+        <a href="index.html" class="test-link">🔗 Test Keyboard Help</a>
+        <p class="status">Expected: ⌨️ button in top-right opens modal with shortcuts, or press Ctrl+?</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>6. 🎨 Dark Mode Footer Links</h3>
+        <p>Test: Footer links should be properly visible in dark mode</p>
+        <a href="index.html" class="test-link">🔗 Test Dark Mode Links</a>
+        <p class="status">Expected: Toggle to dark theme → Footer links are light blue and readable</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>7. 🕵️ Secret Developer Access</h3>
+        <p>Test: Secret access via Ctrl+Shift+d+e+v or 5 rapid title clicks</p>
+        <a href="index.html" class="test-link">🔗 Test Secret Access</a>
+        <p class="status">Expected: Hold Ctrl+Shift, type "dev" OR click title 5 times quickly → Dev dashboard opens</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>8. 🔮 Phrase Suggestions Auto-Load</h3>
+        <p>Test: Suggestions should always be visible on page load</p>
+        <a href="index.html" class="test-link">🔗 Test Clean Load</a>
+        <a href="index.html?phrase=TestWithSuggestions" class="test-link">🔗 Test With URL Param</a>
+        <p class="status">Expected: 4 suggestion chips always visible, no collapsed state</p>
+    </div>
+    
+    <div class="test-item">
+        <h3>🧪 Developer Dashboard</h3>
+        <p>Full feature testing suite with automated checks</p>
+        <a href="dev.html" class="test-link">🔗 Open Dev Dashboard</a>
+        <p class="status">Expected: Comprehensive testing interface with status indicators</p>
+    </div>
+    
+    <hr style="margin: 2rem 0;">
+    
+    <h2>📋 Manual Test Checklist</h2>
+    <div style="background: white; padding: 1rem; border-radius: 8px;">
+        <h4>✅ Core Features:</h4>
+        <ul>
+            <li>□ Password generation works in real-time</li>
+            <li>□ Copy button appears and functions</li>
+            <li>□ Clear button resets everything</li>
+            <li>□ URL parameters load phrase and generate password</li>
+        </ul>
+        
+        <h4>✅ UI/UX:</h4>
+        <ul>
+            <li>□ Transformation steps are properly aligned</li>
+            <li>□ Dark mode works and all text is readable</li>
+            <li>□ Footer links are visible in dark mode</li>
+            <li>□ Responsive design works on mobile</li>
+        </ul>
+        
+        <h4>✅ Advanced Features:</h4>
+        <ul>
+            <li>□ Share modal opens with all platform options</li>
+            <li>□ PWA install button appears and works</li>
+            <li>□ Keyboard shortcuts modal opens (Ctrl+? or ⌨️ button)</li>
+            <li>□ Secret developer access works</li>
+            <li>□ Service worker registers successfully</li>
+        </ul>
+    </div>
+    
+    <p><strong>🎯 Complete Feature Test:</strong> <a href="index.html?phrase=CompleteTest123!" class="test-link">All Features Test</a></p>
+
+    <script>
+        function runElementTests() {
+            const results = document.getElementById('elementTestResults');
+            results.innerHTML = '<h3>Running tests...</h3>';
+            
+            // Test by opening main app in iframe and checking elements
+            const iframe = document.createElement('iframe');
+            iframe.src = 'index.html';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+            
+            iframe.onload = function() {
+                const doc = iframe.contentDocument || iframe.contentWindow.document;
+                const tests = [];
+                
+                // Test for share button
+                const shareBtn = doc.getElementById('shareBtn');
+                tests.push({
+                    name: 'Share button element',
+                    pass: shareBtn !== null,
+                    details: shareBtn ? 'Found with id="shareBtn"' : 'Missing element with id="shareBtn"'
+                });
+                
+                // Test for strength meter
+                const strengthMeter = doc.getElementById('strengthMeter');
+                tests.push({
+                    name: 'Strength meter element',
+                    pass: strengthMeter !== null,
+                    details: strengthMeter ? 'Found with id="strengthMeter"' : 'Missing element with id="strengthMeter"'
+                });
+                
+                // Test for install button
+                const installBtn = doc.getElementById('installBtn');
+                tests.push({
+                    name: 'Install button element',
+                    pass: installBtn !== null,
+                    details: installBtn ? 'Found with id="installBtn"' : 'Missing element with id="installBtn"'
+                });
+                
+                // Test for keyboard help button
+                const keyboardBtn = doc.getElementById('keyboardHelpBtn');
+                tests.push({
+                    name: 'Keyboard help button',
+                    pass: keyboardBtn !== null,
+                    details: keyboardBtn ? 'Found with id="keyboardHelpBtn"' : 'Missing element with id="keyboardHelpBtn"'
+                });
+                
+                // Test for keyboard help modal
+                const keyboardModal = doc.getElementById('keyboardHelpModal');
+                tests.push({
+                    name: 'Keyboard help modal',
+                    pass: keyboardModal !== null,
+                    details: keyboardModal ? 'Found with id="keyboardHelpModal"' : 'Missing element with id="keyboardHelpModal"'
+                });
+                
+                // Test for manifest link
+                const manifestLink = doc.querySelector('link[rel="manifest"]');
+                tests.push({
+                    name: 'PWA manifest link',
+                    pass: manifestLink !== null,
+                    details: manifestLink ? `Found: ${manifestLink.href}` : 'Missing manifest link'
+                });
+                
+                // Display results
+                let resultsHtml = '<h3>Test Results:</h3>';
+                tests.forEach(test => {
+                    const className = test.pass ? 'pass' : 'fail';
+                    const icon = test.pass ? '✅' : '❌';
+                    resultsHtml += `<div class="test-result ${className}">${icon} ${test.name}: ${test.details}</div>`;
+                });
+                
+                results.innerHTML = resultsHtml;
+                
+                // Clean up
+                document.body.removeChild(iframe);
+            };
+        }
+    </script>
+</body>
+</html>

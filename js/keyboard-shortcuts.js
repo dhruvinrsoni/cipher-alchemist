@@ -143,6 +143,28 @@ function addKeyboardHelpShortcut() {
             showKeyboardHelp();
         }
     });
+      console.log('Global keyboard help shortcuts registered (Ctrl+?, Ctrl+/, Ctrl+., F1)');
+}
+
+// Export functions for use in other modules
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { 
+        showKeyboardHelp, 
+        hideKeyboardHelp, 
+        initializeKeyboardHelp, 
+        addKeyboardHelpShortcut 
+    };
+} else {
+    // Browser environment - attach to window
+    window.KeyboardShortcuts = { 
+        showKeyboardHelp, 
+        hideKeyboardHelp, 
+        initializeKeyboardHelp, 
+        addKeyboardHelpShortcut 
+    };
     
-    console.log('Global keyboard help shortcuts registered (Ctrl+?, Ctrl+/, Ctrl+., F1)');
+    // Also export key functions globally
+    window.showKeyboardHelp = showKeyboardHelp;
+    window.hideKeyboardHelp = hideKeyboardHelp;
+    window.initializeKeyboardHelp = initializeKeyboardHelp;
 }

@@ -216,4 +216,8 @@ if (typeof module !== 'undefined' && module.exports) {
 } else {
     // Browser environment - attach to window
     window.PasswordStrength = { calculatePasswordScore, checkStrength };
+    
+    // Also export key functions globally
+    window.calculatePasswordScore = calculatePasswordScore;
+    window.checkStrength = checkStrength;
 }

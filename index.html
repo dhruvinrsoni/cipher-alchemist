@@ -34,9 +34,7 @@
         <button id="installBtn" aria-label="Install app as PWA" title="Install Cipher Alchemist" style="display: none;">📱</button>
         <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)" aria-controls="keyboardHelpModal" aria-haspopup="dialog">⌨️</button>
         <button id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
-    </div>
-    
-    <div class="container" id="main-content" role="main">
+    </div>    <div class="container" id="main-content" role="main">
         <h1>Cipher Alchemist</h1>
           <!-- App Description Section -->
         <div class="app-description-container" role="region" aria-labelledby="description-title">
@@ -71,21 +69,27 @@
                 <button class="refresh-suggestions-btn" onclick="refreshSuggestions()" aria-label="Get new suggestions">
                     🔄 More Suggestions
                 </button>        </div>
-        </div>
-          
-        <div class="textarea-container">
-            <textarea id="phraseInput" placeholder="Enter your phrase here..." aria-label="Phrase input" aria-describedby="phrase-input-desc"></textarea>
-            <p id="phrase-input-desc" class="sr-only">Enter the phrase you want to convert into a password.</p>
+        </div>        <div class="textarea-container">
+            <textarea id="phraseInput" placeholder="Enter the phrase you want to convert into a password..." aria-label="Phrase input"></textarea>
             <button id="clearBtn" class="clear-button" aria-label="Clear text" title="Clear text (Ctrl+Backspace)" style="display: none;">✕</button>
         </div>
-        
-        <!-- Password Strength Meter -->
+          <!-- Password Strength Meter -->
         <div id="strengthMeter" aria-live="polite" role="status"></div>
-          <button id="generateBtn" aria-label="Generate password from phrase">Generate Password</button>
-        <button id="copyBtn" aria-label="Copy generated password to clipboard">Copy to Clipboard</button>
-        <button id="shareBtn" aria-label="Share this example securely" title="Share example link (no passwords shared)" class="share-button-hidden">🔗 Share Example</button>
-        <button id="downloadBtn" aria-label="Download password cheat sheet PDF">Download Cheat Sheet PDF</button>
-        <div id="passwordOutput" aria-live="polite" role="status" aria-atomic="true"></div>
+        
+        <!-- Generated Password -->
+        <div class="textarea-container">
+            <label for="passwordOutput" class="password-output-label">🔐 Generated Password</label>
+            <textarea id="passwordOutput" readonly placeholder="Your transformed password will appear here..." aria-label="Generated password"></textarea>
+        </div>
+        
+        <!-- Transformation Steps -->
+        <div id="transformationSteps" aria-live="polite"></div>
+          <!-- Action Buttons -->
+        <div class="button-group">
+            <button id="copyBtn" aria-label="Copy generated password to clipboard" style="display: none;">📋 Copy Password</button>
+            <button id="shareBtn" onclick="shareExample()" aria-label="Share this example securely" title="Share example link (no passwords shared)" class="share-button-hidden">🔗 Share Example</button>
+            <button id="downloadBtn" aria-label="Download password cheat sheet PDF">📄 Download Cheat Sheet</button>
+        </div>
         <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" aria-hidden="true" />        <footer role="contentinfo">
             <span id="footer-version" aria-live="polite"></span><br />
             Built with ❤️ by Dhruvin Soni
@@ -181,26 +185,18 @@
                 </div>
             </div>
         </div>
-    </div>    <!-- Modular JavaScript Files -->
+    </div>    <!-- Core Configuration and Cipher Algorithms -->
     <script src="js/config.js" defer></script>
     <script src="js/cipher-algorithms.js" defer></script>
+    
+    <!-- Main App (Contains all core functionality) -->
+    <script src="js/main.js" defer></script>
+    
+    <!-- Feature Modules -->
     <script src="js/password-strength.js" defer></script>
     <script src="js/phrase-suggestions.js" defer></script>
     <script src="js/keyboard-shortcuts.js" defer></script>
-    
-    <!-- Feature Modules -->
-    <script src="js/features/sharing.js" defer></script>
-    <script src="js/features/theme.js" defer></script>
-    <script src="js/features/pwa.js" defer></script>
-    <script src="js/features/version.js" defer></script>
-    <script src="js/features/urlHandler.js" defer></script>
-    <script src="js/features/sections.js" defer></script>
-    <script src="js/features/uiUtilities.js" defer></script>
-    
-    <!-- Main App Coordinator -->
-    <script src="js/app.js" defer></script>
-    
-    <!-- Legacy Main (redirects to features) -->
-    <script src="js/main.js" defer></script>
+    <script src="js/sharing.js" defer></script>
+    <script src="js/pwa.js" defer></script>
 </body>
 </html>

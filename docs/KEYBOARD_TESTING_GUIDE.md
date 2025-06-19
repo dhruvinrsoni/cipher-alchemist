@@ -52,6 +52,14 @@ Press any of these to see all shortcuts in the application:
 | `Ctrl + Y` | Redo | Text areas |
 | `Delete` | Clear focused input | Input fields |
 
+### **🕵️ Developer Access (Advanced)**
+| Shortcut | Action | Context |
+|----------|--------|---------|
+| `Ctrl + Shift + d,e,v` | Access developer dashboard | Secure developer access |
+| **5x Title Clicks** | Alternative developer access | Click app title rapidly |
+
+> **Note**: Developer access opens comprehensive test suite (`dev.html`) for advanced testing and debugging. This is a secure access method designed for developers and not discoverable by regular users.
+
 ---
 
 ## ✅ **Testing Procedures**

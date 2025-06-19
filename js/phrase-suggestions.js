@@ -132,13 +132,29 @@ function getTotalSuggestionsCount() {
  * Populate suggestions in the UI grid
  */
 function populateSuggestions() {
+    console.log('🎯 Populating phrase suggestions...');
+    
     const suggestionsGrid = document.getElementById('suggestionsGrid');
     if (!suggestionsGrid) {
-        console.error('No element with id="suggestionsGrid" found');
+        console.error('❌ No element with id="suggestionsGrid" found');
         return;
     }
     
+    // Ensure the suggestions section is visible
+    const suggestionsContent = document.getElementById('suggestionsContent');
+    if (suggestionsContent && suggestionsContent.classList.contains('collapsed')) {
+        console.log('📖 Expanding collapsed suggestions section...');
+        suggestionsContent.classList.remove('collapsed');
+        
+        // Update icon and aria-expanded
+        const suggestionsIcon = document.getElementById('suggestionsIcon');
+        const suggestionsHeader = document.querySelector('.phrase-suggestions-header');
+        if (suggestionsIcon) suggestionsIcon.textContent = '▼';
+        if (suggestionsHeader) suggestionsHeader.setAttribute('aria-expanded', 'true');
+    }
+    
     currentSuggestionSet = getRandomSuggestions(4);
+    console.log('📝 Generated suggestion set:', currentSuggestionSet);
     
     suggestionsGrid.innerHTML = currentSuggestionSet
         .map(suggestion => `
@@ -153,7 +169,8 @@ function populateSuggestions() {
             </div>
         `).join('');
     
-    // Add keyboard navigation for suggestion chips
+    console.log('✅ Suggestions populated in grid:', suggestionsGrid.children.length, 'chips');
+        // Add keyboard navigation for suggestion chips
     const chips = suggestionsGrid.querySelectorAll('.suggestion-chip');
     chips.forEach((chip, index) => {
         chip.addEventListener('keydown', function(e) {
@@ -288,6 +305,28 @@ function toggleSuggestions() {
     }
 }
 
+/**
+ * Initialize phrase suggestions
+ */
+function initializePhraseSuggestions() {
+    console.log('🔮 Initializing phrase suggestions...');
+    
+    // Ensure suggestions section is expanded
+    const suggestionsContent = document.getElementById('suggestionsContent');
+    if (suggestionsContent && suggestionsContent.classList.contains('collapsed')) {
+        console.log('📖 Expanding collapsed suggestions section...');
+        const suggestionsHeader = document.querySelector('.phrase-suggestions-header');
+        if (suggestionsHeader && typeof toggleSuggestions === 'function') {
+            toggleSuggestions();
+        }
+    }
+    
+    // Populate initial suggestions
+    populateSuggestions();
+    
+    console.log('✅ Phrase suggestions initialized with initial set');
+}
+
 // Export functions for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { 
@@ -297,7 +336,8 @@ if (typeof module !== 'undefined' && module.exports) {
         populateSuggestions, 
         insertSuggestion, 
         refreshSuggestions, 
-        toggleSuggestions 
+        toggleSuggestions,
+        initializePhraseSuggestions
     };
 } else {
     // Browser environment - attach to window
@@ -308,6 +348,13 @@ if (typeof module !== 'undefined' && module.exports) {
         populateSuggestions, 
         insertSuggestion, 
         refreshSuggestions, 
-        toggleSuggestions 
+        toggleSuggestions,
+        initializePhraseSuggestions
     };
+    
+    // Also export key functions globally for HTML access
+    window.refreshSuggestions = refreshSuggestions;
+    window.toggleSuggestions = toggleSuggestions;
+    window.insertSuggestion = insertSuggestion;
+    window.initializePhraseSuggestions = initializePhraseSuggestions;
 }

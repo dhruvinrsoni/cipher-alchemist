@@ -317,4 +317,8 @@ if (typeof window !== 'undefined') {
         getPWAStatus,
         forceShowInstallPrompt
     };
+    
+    // Also export key functions globally
+    window.initializePWAInstall = initializePWAInstall;
+    window.handleInstallClick = handleInstallClick;
 }

@@ -575,6 +575,51 @@ npx live-server
 - **Accessibility** - Keyboard navigation, screen reader compatibility
 - **PWA Functionality** - Install button, offline capability, theme switching
 - **Keyboard Shortcuts** - Help modal triggers (Ctrl+?, Ctrl+/, Ctrl+., F1)
+- **Secret Developer Access** - Test developer dashboard access methods
+
+**🕵️ Secret Developer Access Testing:**
+
+The application includes a secure secret access system for developers to access the comprehensive test dashboard (`dev.html`). This system is designed to prevent accidental activation while providing secure access for development and testing purposes.
+
+**Access Methods:**
+1. **Keyboard Sequence** (Primary Method):
+   - Hold `Ctrl + Shift` simultaneously
+   - Type `d`, `e`, `v` in sequence
+   - Release all keys
+   - Developer dashboard will open in a new tab/window
+
+2. **Title Click Method** (Alternative):
+   - Click the app title "Cipher Alchemist" 5 times rapidly
+   - All clicks must occur within 2 seconds
+   - Developer dashboard will open after the 5th click
+
+**Security Features:**
+- **Non-Accidental Activation**: Much more secure than simple "dev" typing
+- **Time-based Validation**: Click sequence has a 2-second window
+- **Key Combination Required**: Ctrl+Shift modifier prevents accidental activation
+- **Production Safe**: Works in both local and production environments
+- **Clean Timeout**: Sequences reset automatically after timeout
+
+**Testing the Secret Access:**
+```javascript
+// Test keyboard sequence
+// 1. Hold Ctrl+Shift
+// 2. Press 'd' (while holding modifiers)
+// 3. Press 'e' (while holding modifiers) 
+// 4. Press 'v' (while holding modifiers)
+// 5. Release all keys → Developer dashboard opens
+
+// Test title clicks
+// 1. Click app title 5 times rapidly (within 2 seconds)
+// 2. After 5th click → Developer dashboard opens
+```
+
+**Implementation Details:**
+- Located in `js/main.js` - Secret access system
+- Accessible dashboard: `dev.html` - Comprehensive test suite
+- Fallback test file: `test-suite-comprehensive.html` - Alternative testing interface
+- Zero performance impact when not activated
+- No console output to prevent discovery in production
 
 **Browser Testing:**
 - Chrome/Edge (Chromium-based)
