@@ -491,15 +491,47 @@ open . # macOS Finder
 explorer . # Windows Explorer
 
 # 3. Start local development server
-# Option A: VS Code Live Server extension
-# Right-click index.html → "Open with Live Server"
 
-# Option B: Python simple server
+**🌐 Local Network Access (WiFi Serving)**
+
+# Option A: Python HTTP Server (bind to all interfaces)
+python -m http.server 8000 --bind 0.0.0.0
+# Access: http://YOUR_LOCAL_IP:8000 from any device on your WiFi
+
+# Option B: Node.js servers with network info
+npx live-server --port=8000 --host=0.0.0.0 --open=false
+# Shows all available network URLs automatically
+
+npx http-server -p 8000 -a 0.0.0.0
+# Simple serving with network access
+
+npx serve -l 8000 -n
+# Alternative with network binding
+
+**🔍 Find Your Network IP:**
+# Windows
+ipconfig | findstr "IPv4"
+
+# macOS/Linux  
+ifconfig | grep "inet " | grep -v 127.0.0.1
+hostname -I  # Linux alternative
+
+# PowerShell (Windows)
+Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.IPAddress -like "192.168.*"}
+
+**📱 Mobile Testing:**
+1. Start server: `npx live-server --port=8000 --host=0.0.0.0`
+2. Note the network URL (e.g., `http://192.168.1.100:8000`)
+3. Open on your phone/tablet browser
+4. Add to home screen for PWA testing!
+
+**🏠 Local Only (Default)**
+# Option C: Local-only servers (localhost access only)
 python -m http.server 8000
 # Navigate to http://localhost:8000
 
-# Option C: Node.js live-server
-npx live-server
+# Option D: VS Code Live Server extension
+# Right-click index.html → "Open with Live Server"
 
 # 4. Open browser and navigate to the local server
 # The application should load and be fully functional

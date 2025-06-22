@@ -34,7 +34,7 @@ function isRunningStandalone() {
 function showInstallMessage() {
     // Check if already installed
     if (isRunningStandalone()) {
-        alert('✅ Cipher Alchemist is already installed as an app!');
+        modernAlert('✅ Cipher Alchemist is already installed as an app!');
         return;
     }
     
@@ -47,14 +47,13 @@ function showInstallMessage() {
     } else if (userAgent.includes('firefox')) {
         instructions = '📱 To install:\n1. Click the address bar\n2. Look for the install icon\n3. Click "Install" or add to home screen';
     } else if (userAgent.includes('safari')) {
-        instructions = '📱 To install on iOS:\n1. Tap the Share button (⬆️)\n2. Scroll and tap "Add to Home Screen"\n3. Tap "Add"';
-    } else if (userAgent.includes('edg')) {
+        instructions = '📱 To install on iOS:\n1. Tap the Share button (⬆️)\n2. Scroll and tap "Add to Home Screen"\n3. Tap "Add"';    } else if (userAgent.includes('edg')) {
         instructions = '📱 To install:\n1. Click the three dots menu (⋯)\n2. Select "Apps" > "Install this site as an app"\n3. Click "Install"';
     } else {
         instructions = '📱 Look for an "Install" or "Add to Home Screen" option in your browser menu to install Cipher Alchemist as an app.';
     }
     
-    alert(instructions);
+    modernAlert(instructions);
 }
 
 /**

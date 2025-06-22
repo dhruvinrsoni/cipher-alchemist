@@ -35,7 +35,7 @@ The Cipher Alchemist codebase has been completely refactored into a clean, modul
 |-----------|---------|----------|
 | **Configuration System** | Central feature management | `js/config.js` |
 | **Application Coordinator** | Feature initialization & lifecycle | `js/app.js` |
-| **Feature Modules** | Self-contained functionality | `js/features/` |
+| **Feature Modules** | Self-contained functionality | `js/` |
 | **Legacy Support** | Backward compatibility | `js/main.js` |
 | **Styling** | Feature-specific CSS | `css/` |
 
@@ -55,14 +55,13 @@ cipher-alchemist/
 │   ├── keyboard-shortcuts.js - Keyboard navigation system
 │   ├── password-strength.js - Password strength analysis
 │   ├── phrase-suggestions.js - Inspirational phrase system
-│   └── features/ (NEW DIRECTORY)
-│       ├── sharing.js - Social sharing, Web Share API, modal templates
-│       ├── theme.js - Light/dark theme management
-│       ├── pwa.js - PWA install prompts, service worker
-│       ├── version.js - Version display and management
-│       ├── urlHandler.js - URL parameter handling
-│       ├── sections.js - Collapsible UI sections
-│       └── uiUtilities.js - UI helpers (copy, clear, examples)
+│   ├── sharing.js - Social sharing, Web Share API, modal templates
+│   ├── theme.js - Light/dark theme management
+│   ├── pwa.js - PWA install prompts, service worker
+│   ├── version.js - Version display and management
+│   ├── urlHandler.js - URL parameter handling
+│   ├── sections.js - Collapsible UI sections
+│   └── uiUtilities.js - UI helpers (copy, clear, examples)
 ├── css/
 │   ├── main.css - Core application styles
 │   ├── themes.css - Light/dark theme styles
@@ -79,7 +78,7 @@ cipher-alchemist/
 
 ## 🔧 **Modular Features**
 
-### **1. Sharing Feature** (`js/features/sharing.js` + `css/sharing.css`)
+### **1. Sharing Feature** (`js/sharing.js` + `css/sharing.css`)
 - **Purpose**: Complete sharing functionality including social media, native Web Share API, and URL generation
 - **Key Functions**: 
   - `shareExample()` - Main sharing entry point
@@ -93,7 +92,7 @@ cipher-alchemist/
   - Mobile-optimized interface
   - URL parameter deep linking
 
-### **2. Theme Management** (`js/features/theme.js`)
+### **2. Theme Management** (`js/theme.js`)
 - **Purpose**: Light/dark theme switching with persistence
 - **Key Functions**:
   - `initializeTheme()` - Setup theme system
@@ -105,7 +104,7 @@ cipher-alchemist/
   - Smooth transitions
   - CSS custom property integration
 
-### **3. PWA Features** (`js/features/pwa.js`)
+### **3. PWA Features** (`js/pwa.js`)
 - **Purpose**: Progressive Web App functionality
 - **Key Functions**:
   - `initializePWAInstall()` - Setup install prompts
@@ -117,7 +116,7 @@ cipher-alchemist/
   - Offline functionality via service worker
   - Install detection and hiding
 
-### **4. Version Management** (`js/features/version.js`)
+### **4. Version Management** (`js/version.js`)
 - **Purpose**: Application version display and management
 - **Key Functions**:
   - `initializeVersion()` - Setup version display
@@ -128,7 +127,7 @@ cipher-alchemist/
   - Version display in UI
   - Development vs production handling
 
-### **5. URL Handler** (`js/features/urlHandler.js`)
+### **5. URL Handler** (`js/urlHandler.js`)
 - **Purpose**: Deep linking and URL parameter processing
 - **Key Functions**:
   - `handleURLParameters()` - Process URL parameters
@@ -139,7 +138,7 @@ cipher-alchemist/
   - Parameter validation
   - Browser history management
 
-### **6. UI Utilities** (`js/features/uiUtilities.js`)
+### **6. UI Utilities** (`js/uiUtilities.js`)
 - **Purpose**: Common UI utility functions
 - **Key Functions**:
   - `copyPassword()` - Clipboard operations
@@ -152,7 +151,7 @@ cipher-alchemist/
   - Fallback for older browsers
   - User feedback and notifications
 
-### **7. Sections Management** (`js/features/sections.js`)
+### **7. Sections Management** (`js/sections.js`)
 - **Purpose**: Collapsible UI sections management
 - **Key Functions**:
   - `toggleDescription()` - Description panel
@@ -254,7 +253,7 @@ if (window.isFeatureEnabled('sharing')) {
 - **Error**: Native share dialog automatically triggering when the "Share Example" button is clicked
 - **Cause**: Code was testing for `navigator.share` capability by actually calling `navigator.share()` during modal creation
 - **Solution**: ✅ **FIXED** - Changed the detection method to simply check for the existence of the function without calling it
-- **Files Updated**: `js/features/sharing.js` (removed test call to navigator.share)
+- **Files Updated**: `js/sharing.js` (removed test call to navigator.share)
 
 ---
 
@@ -297,7 +296,7 @@ if (window.isFeatureEnabled('sharing')) {
 
 1. **Create Feature Module**
    ```javascript
-   // js/features/my-feature.js
+   // js/my-feature.js
    window.MyFeature = {
        initializeMyFeature: function() {
            // Setup code
@@ -326,7 +325,7 @@ if (window.isFeatureEnabled('sharing')) {
 4. **Add to HTML**
    ```html
    <!-- index.html -->
-   <script src="js/features/my-feature.js"></script>
+   <script src="js/my-feature.js"></script>
    ```
 
 ### **Code Style Guidelines**

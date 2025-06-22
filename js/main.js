@@ -115,9 +115,8 @@ function generatePassword() {
  */
 function copyPassword() {
     const passwordOutput = document.getElementById('passwordOutput');
-    
-    if (!passwordOutput || !passwordOutput.value.trim()) {
-        alert('⚠️ No password to copy! Please enter a phrase first.');
+      if (!passwordOutput || !passwordOutput.value.trim()) {
+        modernAlert('⚠️ No password to copy! Please enter a phrase first.');
         return;
     }
     

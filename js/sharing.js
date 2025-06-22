@@ -18,10 +18,9 @@ function shareExample() {
         const phrase = phraseInput?.value?.trim();
         
         console.log('Current phrase:', phrase);
-        
-        if (!phrase) {
+          if (!phrase) {
             console.warn('⚠️ No phrase found for sharing');
-            alert('⚠️ Please enter a phrase first to create a shareable example!');
+            modernAlert('⚠️ Please enter a phrase first to create a shareable example!');
             return;
         }
         
@@ -56,7 +55,7 @@ function shareExample() {
         
     } catch (error) {
         console.error('❌ Error in shareExample:', error);
-        alert('Sorry, sharing feature encountered an error. Please try again.');
+        modernAlert('Sorry, sharing feature encountered an error. Please try again.');
     }
 }
 
@@ -87,7 +86,7 @@ function showSharingModal(content) {
     
     if (!modal) {
         console.error('❌ Failed to create modal element!');
-        alert('❌ Sorry, sharing modal failed to load. Please try again.');
+        modernAlert('❌ Sorry, sharing modal failed to load. Please try again.');
         return;
     }
     
@@ -250,14 +249,14 @@ function shareToReddit(url, title) {
  */
 function copyShareUrl(url) {
     navigator.clipboard.writeText(url).then(() => {
-        alert('📋 Link copied to clipboard!');
+        notify.success('📋 Link copied to clipboard!');
         closeSharingModal();
     }).catch(() => {
         // Fallback for older browsers
         const input = document.getElementById('shareUrlInput');
         input.select();
         document.execCommand('copy');
-        alert('📋 Link copied to clipboard!');
+        notify.success('📋 Link copied to clipboard!');
         closeSharingModal();
     });
 }
@@ -286,20 +285,17 @@ function useNativeShare(url, title, text) {
             } else {
                 instructions = `📱 To Share:\n\n1. Copy the URL (done automatically)\n2. Open your favorite app\n3. Paste and share!\n\n🔗 URL copied to clipboard!`;
             }
-            
-            copyShareUrl(url);
-            alert(instructions);
+              copyShareUrl(url);
+            modernAlert(instructions);
             return;
         }
-        
-        // Desktop fallback
-        alert(`❌ Native sharing not supported\n\nThis could be because:\n• Not using HTTPS (current: ${window.location.protocol})\n• Browser doesn't support it\n• Feature is disabled\n\nTry accessing via HTTPS or copy the URL below.`);
+          // Desktop fallback
+        modernAlert(`❌ Native sharing not supported\n\nThis could be because:\n• Not using HTTPS (current: ${window.location.protocol})\n• Browser doesn't support it\n• Feature is disabled\n\nTry accessing via HTTPS or copy the URL below.`);
         copyShareUrl(url);
         return;
     }
-    
-    if (!window.isSecureContext) {
-        alert(`❌ Sharing requires secure connection\n\nCurrent: ${window.location.protocol}//${window.location.host}\n\nSolutions:\n• Access via HTTPS\n• Use localhost for testing\n\nCopying URL instead.`);
+      if (!window.isSecureContext) {
+        modernAlert(`❌ Sharing requires secure connection\n\nCurrent: ${window.location.protocol}//${window.location.host}\n\nSolutions:\n• Access via HTTPS\n• Use localhost for testing\n\nCopying URL instead.`);
         copyShareUrl(url);
         return;
     }
@@ -324,8 +320,7 @@ function useNativeShare(url, title, text) {
             userFriendlyMessage = 'Sharing not allowed by browser';
             suggestion = 'Your browser blocked sharing. Copy the URL instead.';
         }
-        
-        alert(`${userFriendlyMessage}\n\n${suggestion}`);
+          modernAlert(`${userFriendlyMessage}\n\n${suggestion}`);
         copyShareUrl(url);
     });
 }

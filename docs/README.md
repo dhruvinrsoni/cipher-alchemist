@@ -54,11 +54,90 @@ Visit **[https://dhruvinrsoni.github.io/cipher-alchemist/](https://dhruvinrsoni.
 - Use browser menu: "Install Cipher Alchemist" or "Add to Home Screen"
 
 ### **Option 3: Local Development**
+
+#### **Quick Start**
 ```bash
 git clone https://github.com/dhruvinrsoni/cipher-alchemist.git
 cd cipher-alchemist
 # Open index.html in your browser
 ```
+
+#### **🌐 Serve on Local Network (WiFi Access)**
+
+**Option A: Python HTTP Server** *(Recommended - Built into most systems)*
+```bash
+# Python 3 (most common)
+python -m http.server 8000 --bind 0.0.0.0
+
+# Python 2 (if needed)
+python -m SimpleHTTPServer 8000
+
+# Then access from any device on your network:
+# http://YOUR_LOCAL_IP:8000
+# Example: http://192.168.1.100:8000
+```
+
+**Option B: Node.js/npm Servers** *(Shows network info automatically)*
+```bash
+# Using npx (no installation needed)
+npx http-server -p 8000 -a 0.0.0.0
+
+# Using live-server (auto-reload + network info)
+npx live-server --port=8000 --host=0.0.0.0
+
+# Using serve (simple and fast)
+npx serve -l 8000 -n
+```
+
+**🔍 Find Your Local IP Address:**
+```bash
+# Windows
+ipconfig | findstr "IPv4"
+
+# macOS/Linux
+ifconfig | grep "inet " | grep -v 127.0.0.1
+
+# Or use Node.js to auto-detect and display
+npx live-server --port=8000 --host=0.0.0.0 --open=false
+```
+
+**📱 Access from Mobile/Tablet:**
+1. Make sure both devices are on the same WiFi network
+2. Start the server using any command above
+3. Note the IP address shown (e.g., `192.168.1.100:8000`)
+4. Open that URL on your mobile device's browser
+5. **Bonus**: Add to home screen for PWA experience!
+
+**🚀 Pro Tips:**
+- Use `live-server` for **auto-reload** during development
+- Use `http-server` for **simple serving** without reload
+- Use Python server if you don't have Node.js installed
+- **Port 8000** is recommended (easy to remember)
+
+---
+
+## 👨‍💻 Developer TL;DR
+
+**Want to test on your phone/tablet? Quick network setup:**
+
+```bash
+# Clone and serve on WiFi network
+git clone https://github.com/dhruvinrsoni/cipher-alchemist.git
+cd cipher-alchemist
+
+# One-liner for network access:
+python -m http.server 8000 --bind 0.0.0.0
+# or
+npx live-server --port=8000 --host=0.0.0.0
+
+# Find your IP: 
+ipconfig | findstr "IPv4"  # Windows
+ifconfig | grep "inet "    # macOS/Linux
+
+# Access from phone: http://YOUR_IP:8000
+```
+
+**Tech Stack:** Vanilla HTML/CSS/JS • PWA • No dependencies • Mobile-first
 
 ---
 

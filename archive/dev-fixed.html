@@ -198,7 +198,9 @@
             color: #666;
             margin-bottom: 15px;
             line-height: 1.5;
-        }        .test-results {
+        }
+
+        .test-results {
             margin: 15px 0;
             padding: 15px;
             border-radius: 8px;
@@ -210,59 +212,6 @@
             overflow-x: auto;
             max-height: 200px;
             overflow-y: auto;
-            border: 1px solid #dee2e6;
-        }
-
-        /* Enhanced scrollbar styling for test results */
-        .test-results::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .test-results::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 4px;
-        }
-
-        .test-results::-webkit-scrollbar-thumb {
-            background: #c1c1c1;
-            border-radius: 4px;
-        }        .test-results::-webkit-scrollbar-thumb:hover {
-            background: #a8a8a8;
-        }
-
-        /* Test result item styling - COPIED FROM WORKING DASHBOARD */
-        .test-result-item {
-            padding: 8px 12px;
-            margin: 4px 0;
-            border-radius: 6px;
-            border-left: 4px solid #17a2b8;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        .test-result-item.pass {
-            background: #d4edda;
-            color: #155724;
-            border-left-color: #28a745;
-        }
-
-        .test-result-item.fail {
-            background: #f8d7da;
-            color: #721c24;
-            border-left-color: #dc3545;
-        }
-
-        .test-result-item.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border-left-color: #17a2b8;
-        }
-
-        .test-result-item.warning {
-            background: #fff3cd;
-            color: #856404;
-            border-left-color: #ffc107;
         }
 
         .test-actions {
@@ -316,11 +265,9 @@
             }
             .quick-actions {
                 grid-template-columns: repeat(2, 1fr);
-            }        }
+            }
+        }
     </style>
-    
-    <!-- Include notification styles and system -->
-    <link rel="stylesheet" href="css/notifications.css">
 </head>
 <body>
     <div class="back-to-app">
@@ -331,15 +278,16 @@
         <div class="dashboard-header">
             <h1>🔧 Developer Dashboard</h1>
             <p>Advanced Testing & Debug Console for Cipher Alchemist</p>
-        </div>        <!-- Quick Actions -->
+        </div>
+
+        <!-- Quick Actions -->
         <div class="quick-actions">
             <button class="quick-action-btn primary" onclick="runAllTests()">🚀 Run All Tests</button>
             <button class="quick-action-btn success" onclick="runCoreTests()">⚡ Core Tests</button>
             <button class="quick-action-btn warning" onclick="runPerformanceTests()">📊 Performance</button>
             <button class="quick-action-btn danger" onclick="clearAllResults()">🗑️ Clear Results</button>
             <button class="quick-action-btn info" onclick="openTestUrl('?phrase=DevTest123')">🔗 Test URL</button>
-            <button class="quick-action-btn" onclick="window.open('testlab.html', '_blank')">🧪 Test Lab</button>
-            <button class="quick-action-btn" onclick="runManualAppendTest()" style="background: #ff6b6b;">🧪 Debug Test</button>
+            <button class="quick-action-btn" onclick="window.open('test-suite-comprehensive.html', '_blank')">🧪 Full Test Suite</button>
         </div>
 
         <!-- Status Overview -->
@@ -474,9 +422,9 @@
         </div>
     </div>
 
-    <!-- Include all Cipher Alchemist scripts for testing -->    <script src="js/config.js"></script>
+    <!-- Include all Cipher Alchemist scripts for testing -->
+    <script src="js/config.js"></script>
     <script src="js/cipher-algorithms.js"></script>
-    <script src="js/notifications.js"></script>
     <script src="js/main.js"></script>
     <script src="js/password-strength.js"></script>
     <script src="js/phrase-suggestions.js"></script>
@@ -484,7 +432,8 @@
     <script src="js/sharing.js"></script>
     <script src="js/pwa.js"></script>
 
-    <script>        // Dashboard state management
+    <script>
+        // Dashboard state management
         let testResults = {
             total: 0,
             passed: 0,
@@ -494,183 +443,12 @@
 
         let testExecutionTimes = [];
         let totalTestsExecuted = 0;
-        let openTestWindows = []; // Track opened windows for cleanup
-        let popupBlockerDetected = false;
-        
-        // Track individual test results for each card
-        let cardResults = {
-            password: [],
-            ui: [],
-            sharing: [],
-            pwa: [],
-            keyboard: [],
-            url: []
-        };
 
-        // Auto-run initial health check and tests after load
+        // Auto-run initial health check
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                runInitialHealthCheck();
-                measurePerformanceMetrics();
-                
-                // Auto-run all tests after a small delay
-                console.log('🚀 Auto-starting all tests in 2 seconds...');
-                setTimeout(() => {
-                    runAllTests();
-                }, 2000);
-            }, 1000);
+            setTimeout(runInitialHealthCheck, 1000);
+            measurePerformanceMetrics();
         });
-
-        // Popup blocker detection and handling
-        function detectAndHandlePopupBlocker() {
-            try {
-                const testWindow = window.open('about:blank', '_blank', 'width=1,height=1');
-                if (!testWindow || testWindow.closed || typeof testWindow.closed === 'undefined') {
-                    popupBlockerDetected = true;
-                    showPopupBlockerWarning();
-                    return false;
-                } else {
-                    testWindow.close();
-                    return true;
-                }
-            } catch (e) {
-                popupBlockerDetected = true;
-                showPopupBlockerWarning();
-                return false;
-            }
-        }
-
-        // Show popup blocker warning with nice UI
-        function showPopupBlockerWarning() {
-            if (document.getElementById('popup-warning')) return; // Already shown
-
-            const warningDiv = document.createElement('div');
-            warningDiv.id = 'popup-warning';
-            warningDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-                color: white;
-                padding: 20px;
-                border-radius: 12px;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-                z-index: 1000;
-                max-width: 400px;
-                font-family: inherit;
-                animation: slideIn 0.3s ease-out;
-            `;
-
-            warningDiv.innerHTML = `
-                <div style="display: flex; align-items: flex-start; gap: 12px;">
-                    <div style="font-size: 24px;">🚫</div>
-                    <div>
-                        <h4 style="margin: 0 0 8px 0; font-size: 16px;">Popup Blocker Detected</h4>
-                        <p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.4;">
-                            Some tests require opening new windows. Please allow popups for this site to enable full testing.
-                        </p>
-                        <div style="display: flex; gap: 8px;">
-                            <button onclick="enablePopupsAndRetry()" style="
-                                background: rgba(255,255,255,0.2);
-                                border: 1px solid rgba(255,255,255,0.3);
-                                color: white;
-                                padding: 8px 16px;
-                                border-radius: 6px;
-                                cursor: pointer;
-                                font-size: 12px;
-                            ">Enable & Retry</button>
-                            <button onclick="dismissPopupWarning()" style="
-                                background: transparent;
-                                border: 1px solid rgba(255,255,255,0.3);
-                                color: white;
-                                padding: 8px 16px;
-                                border-radius: 6px;
-                                cursor: pointer;
-                                font-size: 12px;
-                            ">Dismiss</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Add slide-in animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideIn {
-                    from { transform: translateX(100%); opacity: 0; }
-                    to { transform: translateX(0); opacity: 1; }
-                }
-            `;
-            document.head.appendChild(style);
-
-            document.body.appendChild(warningDiv);        }
-
-        // Enable popups and retry tests
-        function enablePopupsAndRetry() {
-            dismissPopupWarning();
-            modernAlert('Please allow popups in your browser settings, then click "Run All Tests" again.');
-        }
-
-        // Dismiss popup warning
-        function dismissPopupWarning() {
-            const warning = document.getElementById('popup-warning');
-            if (warning) {
-                warning.style.animation = 'slideOut 0.3s ease-in';
-                setTimeout(() => warning.remove(), 300);
-            }
-        }
-
-        // Clean up opened test windows
-        function cleanupTestWindows() {
-            openTestWindows.forEach(window => {
-                try {
-                    if (window && !window.closed) {
-                        window.close();
-                    }
-                } catch (e) {
-                    console.warn('Could not close window:', e);
-                }
-            });
-            openTestWindows = [];
-        }
-
-        // Enhanced window opening with management
-        function openManagedTestWindow(url, testName) {
-            try {
-                const testWindow = window.open(url, `test_${testName}_${Date.now()}`, 'width=800,height=600');
-                
-                if (!testWindow || testWindow.closed || typeof testWindow.closed === 'undefined') {
-                    if (!popupBlockerDetected) {
-                        popupBlockerDetected = true;
-                        showPopupBlockerWarning();
-                    }
-                    return null;
-                }
-
-                // Track window for cleanup
-                openTestWindows.push(testWindow);
-
-                // Auto-close after 3 seconds
-                setTimeout(() => {
-                    try {
-                        if (testWindow && !testWindow.closed) {
-                            testWindow.close();
-                        }
-                    } catch (e) {
-                        console.warn('Auto-close failed:', e);
-                    }
-                }, 3000);
-
-                return testWindow;
-            } catch (e) {
-                console.warn('Failed to open test window:', e);
-                if (!popupBlockerDetected) {
-                    popupBlockerDetected = true;
-                    showPopupBlockerWarning();
-                }
-                return null;
-            }
-        }
 
         // Measure performance metrics
         function measurePerformanceMetrics() {
@@ -695,7 +473,9 @@
                 const avgTime = testResults.times.reduce((a, b) => a + b, 0) / testResults.times.length;
                 document.getElementById('avg-time').textContent = `${Math.round(avgTime)}ms`;
             }
-        }        // Test execution helper - FIXED: Array-based result tracking
+        }
+
+        // Test execution helper
         function executeTest(testName, testFunction) {
             const startTime = performance.now();
             const statusElement = document.getElementById(`${testName}-status`);
@@ -716,25 +496,7 @@
                 
                 statusElement.textContent = 'PASSED';
                 statusElement.className = 'test-status success';
-                
-                // Add result to the card's result array
-                const timestamp = new Date().toLocaleTimeString();
-                const resultEntry = {
-                    timestamp: timestamp,
-                    status: 'PASSED',
-                    message: result,
-                    executionTime: Math.round(executionTime)
-                };
-                
-                // Initialize array if it doesn't exist
-                if (!cardResults[testName]) {
-                    cardResults[testName] = [];
-                }
-                
-                cardResults[testName].push(resultEntry);
-                
-                // Update the display with all results for this card
-                updateCardResultsDisplay(testName);
+                resultsElement.textContent = `✅ ${result}\nExecution time: ${Math.round(executionTime)}ms`;
                 
             } catch (error) {
                 const endTime = performance.now();
@@ -747,107 +509,49 @@
                 
                 statusElement.textContent = 'FAILED';
                 statusElement.className = 'test-status danger';
-                
-                // Add error result to the card's result array
-                const timestamp = new Date().toLocaleTimeString();
-                const resultEntry = {
-                    timestamp: timestamp,
-                    status: 'FAILED',
-                    message: error.message,
-                    executionTime: Math.round(executionTime)
-                };
-                
-                // Initialize array if it doesn't exist
-                if (!cardResults[testName]) {
-                    cardResults[testName] = [];
-                }
-                
-                cardResults[testName].push(resultEntry);
-                
-                // Update the display with all results for this card
-                updateCardResultsDisplay(testName);
+                resultsElement.textContent = `❌ Error: ${error.message}\nExecution time: ${Math.round(executionTime)}ms`;
             }
             
             updateOverview();
-        }        // Function to update the display for a specific card's results - FIXED: Using DOM approach
-        function updateCardResultsDisplay(testName) {
-            const resultsElement = document.getElementById(`${testName}-results`);
-            console.log(`🔍 Updating display for ${testName}:`, {
-                elementFound: !!resultsElement,
-                elementId: `${testName}-results`,
-                resultCount: cardResults[testName] ? cardResults[testName].length : 0
-            });
-            
-            if (!resultsElement || !cardResults[testName]) {
-                console.warn(`❌ Missing element or results for ${testName}`);
-                return;
-            }
-            
-            // FIXED: Clear and rebuild using DOM elements (like the working dashboard)
-            resultsElement.innerHTML = ''; // Clear existing content
-            
-            // Add each result as a separate DOM element
-            cardResults[testName].forEach((entry, index) => {
-                const resultDiv = document.createElement('div');
-                
-                // Map our status to the dashboard's status format
-                const dashboardStatus = entry.status === 'PASSED' ? 'pass' : 'fail';
-                resultDiv.className = `test-result-item ${dashboardStatus}`;
-                
-                // Format the content like the working dashboard
-                const icon = entry.status === 'PASSED' ? '✅' : '❌';
-                const prefix = entry.status === 'PASSED' ? '' : 'Error: ';
-                resultDiv.innerHTML = `[${entry.timestamp}] ${icon} ${prefix}${entry.message}<br><small>Execution time: ${entry.executionTime}ms</small>`;
-                
-                // Append the element (this is the key difference!)
-                resultsElement.appendChild(resultDiv);
-                
-                console.log(`� Added result ${index + 1} as DOM element:`, entry);
-            });
-            
-            // Auto-scroll to bottom to show latest result
-            resultsElement.scrollTop = resultsElement.scrollHeight;
-            
-            console.log(`📝 Updated ${testName} results display with ${cardResults[testName].length} DOM elements`);
-        }// Individual test functions with proper URL parameter understanding and window management
+        }
+
+        // Individual test functions with proper URL parameter understanding
         function testPasswordGeneration() {
             return executeTest('password', () => {
                 // Test in context - open window with phrase parameter
                 const testPhrase = 'TestGeneration123';
-                const testWindow = openManagedTestWindow(`index.html?phrase=${encodeURIComponent(testPhrase)}`, 'password');
+                const testWindow = window.open(`index.html?phrase=${encodeURIComponent(testPhrase)}`, '_blank');
                 
-                // Test cipher algorithms that actually exist in the app
-                if (typeof applyCipherTransform !== 'function') {
-                    throw new Error('applyCipherTransform function not available');
+                // Test cipher algorithms directly
+                if (typeof caesarCipher !== 'function') {
+                    throw new Error('Caesar cipher function not available');
                 }
                 
-                if (typeof substitutions !== 'object') {
-                    throw new Error('Substitutions mapping not available');
+                if (typeof reverseString !== 'function') {
+                    throw new Error('Reverse string function not available');
                 }
                 
-                // Test basic transformations using the real cipher function
-                const testStr = 'Test123';
-                const cipherResult = applyCipherTransform(testStr);
+                // Test basic transformations
+                const testStr = 'test';
+                const caesarResult = caesarCipher(testStr, 3);
+                const reverseResult = reverseString(testStr);
                 
-                if (!cipherResult || !cipherResult.password) {
-                    throw new Error('Cipher transformation returned empty results');
+                if (!caesarResult || !reverseResult) {
+                    throw new Error('Password transformation functions returned empty results');
                 }
                 
-                // Test individual character substitutions
-                const testA = substitutions['a'] || 'a';
-                const testE = substitutions['e'] || 'e';
-                const test1 = substitutions['1'] || '1';
-                
-                const windowStatus = testWindow ? 'opened (auto-closing in 3s)' : 'blocked by popup blocker';
-                return `Cipher transformation working. "${testStr}" → "${cipherResult.password}". Sample substitutions: a→${testA}, e→${testE}, 1→${test1}. Live test ${windowStatus}.`;
+                return `Password generation functions working. Caesar: "${testStr}" → "${caesarResult}", Reverse: "${testStr}" → "${reverseResult}". Live test opened in new window.`;
             });
         }
 
         function testURLParameters() {
             return executeTest('url', () => {
                 // Test URL parameter processing by checking if the app handles URL params
-                const testPhrase = 'URLTest123';
-                const testWindow = openManagedTestWindow(`index.html?phrase=${encodeURIComponent(testPhrase)}`, 'url');
+                const currentURL = new URL(window.location);
+                currentURL.searchParams.set('phrase', 'URLTest123');
+                
+                // Open test window with URL parameters
+                const testWindow = window.open(currentURL.toString().replace('dev-fixed.html', 'index.html'), '_blank');
                 
                 // Test URL parsing functionality
                 const testParams = new URLSearchParams('?phrase=TestPhrase123&other=value');
@@ -857,8 +561,7 @@
                     throw new Error('URL parameter parsing failed');
                 }
                 
-                const windowStatus = testWindow ? 'opened (auto-closing in 3s)' : 'blocked by popup blocker';
-                return `URL parameter processing verified. Test phrase: "${phrase}". Live test ${windowStatus}.`;
+                return `URL parameter processing verified. Test phrase: "${phrase}". Live test opened with URL params.`;
             });
         }
 
@@ -877,10 +580,9 @@
                 }
                 
                 // Open test window with sharing context
-                const testWindow = openManagedTestWindow(`index.html?phrase=${encodeURIComponent(testPhrase)}`, 'sharing');
+                const testWindow = window.open(`index.html?phrase=${encodeURIComponent(testPhrase)}`, '_blank');
                 
-                const windowStatus = testWindow ? 'opened (auto-closing in 3s)' : 'blocked by popup blocker';
-                return `Sharing features available. Native Share: ${hasNativeShare}, Clipboard: ${hasClipboard}. Share URL: "${shareURL}". Live test ${windowStatus}.`;
+                return `Sharing features available. Native Share: ${hasNativeShare}, Clipboard: ${hasClipboard}. Share URL: "${shareURL}". Live test opened.`;
             });
         }
 
@@ -888,7 +590,7 @@
             return executeTest('ui', () => {
                 // Note: UI components require phrase input to be visible
                 const testPhrase = 'UITest123';
-                const testWindow = openManagedTestWindow(`index.html?phrase=${encodeURIComponent(testPhrase)}`, 'ui');
+                const testWindow = window.open(`index.html?phrase=${encodeURIComponent(testPhrase)}`, '_blank');
                 
                 // Test basic DOM functionality
                 const testDiv = document.createElement('div');
@@ -906,8 +608,7 @@
                     throw new Error('CSS variables not working');
                 }
                 
-                const windowStatus = testWindow ? 'opened (auto-closing in 3s)' : 'blocked by popup blocker';
-                return `UI rendering functional. DOM manipulation works, CSS variables loaded. Live test with phrase ${windowStatus} - UI components should be visible.`;
+                return `UI rendering functional. DOM manipulation works, CSS variables loaded. Live test with phrase opened - UI components should be visible.`;
             });
         }
 
@@ -947,73 +648,34 @@
                 }
                 
                 // Open test window
-                const testWindow = openManagedTestWindow('index.html?phrase=KeyboardTest', 'keyboard');
+                const testWindow = window.open('index.html?phrase=KeyboardTest', '_blank');
                 
-                const windowStatus = testWindow ? 'opened (auto-closing in 3s)' : 'blocked by popup blocker';
-                return `Keyboard event handling functional. Test event created successfully. Live test ${windowStatus} for manual keyboard testing.`;
+                return `Keyboard event handling functional. Test event created successfully. Live test opened for manual keyboard testing.`;
             });
-        }        // Quick action functions with enhanced popup management
+        }
+
+        // Quick action functions
         function runAllTests() {
             console.log('🚀 Running all dashboard tests...');
-            
-            // Check for popup blocker first
-            if (!detectAndHandlePopupBlocker()) {
-                console.warn('Popup blocker detected, tests may not work properly');
-                return;
-            }
-
-            // Clean up any existing windows first
-            cleanupTestWindows();
-            
             const tests = [
-                { name: 'password', func: testPasswordGeneration },
-                { name: 'url', func: testURLParameters },
-                { name: 'ui', func: testUIComponents },
-                { name: 'sharing', func: testSharingFeature },
-                { name: 'pwa', func: testPWAFeatures },
-                { name: 'keyboard', func: testKeyboardShortcuts }
+                testPasswordGeneration,
+                testURLParameters,
+                testUIComponents,
+                testSharingFeature,
+                testPWAFeatures,
+                testKeyboardShortcuts
             ];
             
-            // Run tests with proper spacing and cleanup
             tests.forEach((test, index) => {
-                setTimeout(() => {
-                    console.log(`Running test ${index + 1}/${tests.length}: ${test.name}...`);
-                    test.func();
-                }, index * 800); // Increased delay to prevent too many popups
+                setTimeout(() => test(), index * 500);
             });
-
-            // Auto cleanup after all tests complete
-            setTimeout(() => {
-                console.log('🧹 Auto-cleaning up test windows...');
-                cleanupTestWindows();
-                
-                // Log final results count for debugging
-                Object.keys(cardResults).forEach(cardName => {
-                    console.log(`📊 ${cardName}: ${cardResults[cardName].length} results`);
-                });
-            }, tests.length * 800 + 5000); // Cleanup 5 seconds after last test
         }
 
         function runCoreTests() {
             console.log('⚡ Running core tests...');
-            
-            // Check for popup blocker first
-            if (!detectAndHandlePopupBlocker()) {
-                console.warn('Popup blocker detected, core tests may not work properly');
-                return;
-            }
-
-            cleanupTestWindows();
-            
             setTimeout(testPasswordGeneration, 100);
-            setTimeout(testURLParameters, 900);
-            setTimeout(testUIComponents, 1700);
-
-            // Auto cleanup after core tests
-            setTimeout(() => {
-                console.log('🧹 Auto-cleaning up core test windows...');
-                cleanupTestWindows();
-            }, 7000);
+            setTimeout(testURLParameters, 600);
+            setTimeout(testUIComponents, 1100);
         }
 
         function runPerformanceTests() {
@@ -1032,11 +694,10 @@
             document.getElementById('js-time').textContent = `${Math.round(perfTime)}ms (last test)`;
             
             measurePerformanceMetrics();
-        }        function clearAllResults() {
+        }
+
+        function clearAllResults() {
             console.log('🗑️ Clearing all test results...');
-            
-            // Clean up any open test windows
-            cleanupTestWindows();
             
             // Reset all test statuses
             const statusElements = document.querySelectorAll('.test-status');
@@ -1045,29 +706,11 @@
                 element.className = 'test-status pending';
             });
             
-            // Clear all result arrays
-            cardResults = {
-                password: [],
-                ui: [],
-                sharing: [],
-                pwa: [],
-                keyboard: [],
-                url: []
-            };            // Clear all result areas with proper initial messages
+            // Clear all result areas
             const resultElements = document.querySelectorAll('.test-results');
             resultElements.forEach(element => {
                 const testType = element.id.replace('-results', '');
-                const messages = {
-                    'password': 'Ready to test password generation...',
-                    'ui': 'Ready to test UI components...',
-                    'sharing': 'Ready to test sharing features...',
-                    'pwa': 'Ready to test PWA features...',
-                    'keyboard': 'Ready to test keyboard shortcuts...',
-                    'url': 'Ready to test URL parameters...'
-                };
-                // Clear DOM elements and set initial text
-                element.innerHTML = '';
-                element.textContent = messages[testType] || `Ready to test ${testType}...`;
+                element.textContent = `Ready to test ${testType}...`;
             });
             
             // Reset test statistics
@@ -1079,95 +722,35 @@
             };
             totalTestsExecuted = 0;
             
-            // Reset popup blocker detection
-            popupBlockerDetected = false;
-            dismissPopupWarning();
-            
             updateOverview();
-            
-            console.log('🧹 All results cleared and dashboard reset');
-        }function runInitialHealthCheck() {
+        }
+
+        function runInitialHealthCheck() {
             console.log('🏥 Running initial health check...');
             
-            // Show loading indicator
-            document.getElementById('load-time').textContent = 'Checking scripts...';
-            
-            // Check if all required scripts are loaded (using actual functions that exist)
+            // Check if all required scripts are loaded
             const scriptsLoaded = [
                 typeof CIPHER_CONFIG !== 'undefined',
-                typeof applyCipherTransform === 'function',
-                typeof substitutions === 'object'
+                typeof caesarCipher === 'function',
+                typeof reverseString === 'function'
             ];
             
-            const scriptNames = ['CIPHER_CONFIG', 'applyCipherTransform', 'substitutions'];
             const allScriptsLoaded = scriptsLoaded.every(Boolean);
-            
-            console.log('📋 Script check results:');
-            scriptsLoaded.forEach((loaded, index) => {
-                console.log(`  ${loaded ? '✅' : '❌'} ${scriptNames[index]}: ${loaded ? 'loaded' : 'missing'}`);
-            });
             
             if (allScriptsLoaded) {
                 console.log('✅ All core scripts loaded successfully');
                 document.getElementById('load-time').textContent = 'Scripts loaded ✅';
-                
-                // Show auto-test countdown
-                let countdown = 2;
-                const countdownInterval = setInterval(() => {
-                    document.getElementById('js-time').textContent = `Auto-tests in ${countdown}s...`;
-                    countdown--;
-                    if (countdown < 0) {
-                        clearInterval(countdownInterval);
-                        document.getElementById('js-time').textContent = 'Tests starting...';
-                    }
-                }, 1000);
             } else {
                 console.warn('⚠️ Some scripts may not be loaded');
                 document.getElementById('load-time').textContent = 'Script issues ⚠️';
-                document.getElementById('js-time').textContent = 'Manual testing only';
-                
-                // Still try auto-tests but with warning
-                setTimeout(() => {
-                    document.getElementById('js-time').textContent = 'Testing with warnings...';
-                }, 2000);
             }
-        }// Helper functions
+        }
+
+        // Helper functions
         function openTestUrl(params) {
             const url = `index.html${params}`;
             console.log(`🔗 Opening test URL: ${url}`);
-            return openManagedTestWindow(url, 'manual');
-        }        // Manual test function for debugging result appending
-        function runManualAppendTest() {
-            console.log('🧪 Running manual append test...');
-            console.log('📋 This will run the password test 3 times with 1 second intervals');
-            console.log('👀 Watch the password generation card - it should show 3 results');
-            
-            // Clear the password results first
-            if (cardResults.password) {
-                cardResults.password = [];
-                updateCardResultsDisplay('password');
-            }
-            
-            // Run the same test multiple times to verify appending
-            setTimeout(() => {
-                console.log('🔄 Running test 1/3...');
-                testPasswordGeneration();
-            }, 100);
-            
-            setTimeout(() => {
-                console.log('🔄 Running test 2/3...');
-                testPasswordGeneration();
-            }, 1100);
-            
-            setTimeout(() => {
-                console.log('🔄 Running test 3/3...');
-                testPasswordGeneration();
-            }, 2100);
-            
-            setTimeout(() => {
-                console.log('� Final check - password results count:', cardResults.password ? cardResults.password.length : 0);
-                console.log('📋 Full password results:', cardResults.password);
-            }, 3000);
+            window.open(url, '_blank');
         }
 
         // Global error handler
@@ -1177,26 +760,6 @@
             testResults.failed++;
             updateOverview();
         });
-
-        // Window cleanup on page unload
-        window.addEventListener('beforeunload', () => {
-            cleanupTestWindows();
-        });
-
-        // Add CSS for slideOut animation
-        const additionalStyle = document.createElement('style');
-        additionalStyle.textContent = `
-            @keyframes slideOut {
-                from { transform: translateX(0); opacity: 1; }
-                to { transform: translateX(100%); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(additionalStyle);
-
-        // Global functions for popup warning (need to be accessible from HTML)
-        window.enablePopupsAndRetry = enablePopupsAndRetry;
-        window.dismissPopupWarning = dismissPopupWarning;
-        window.runManualAppendTest = runManualAppendTest;
 
         console.log('🔧 Developer Dashboard loaded and ready');
     </script>
