@@ -1,7 +1,7 @@
 self.addEventListener('install', (event) => {
     self.skipWaiting(); // Activate worker immediately
     event.waitUntil(
-        caches.open('cipher-alchemist-v3').then((cache) => {
+        caches.open('cipher-alchemist-v4').then((cache) => {
             return cache.addAll([
                 '/',
                 '/index.html',
@@ -14,14 +14,20 @@ self.addEventListener('install', (event) => {
                 '/css/sharing.css',
                 '/js/config.js',
                 '/js/cipher-algorithms.js',
+                '/js/notifications.js',
                 '/js/main.js',
                 '/js/password-strength.js',
                 '/js/phrase-suggestions.js',
                 '/js/keyboard-shortcuts.js',
                 '/js/sharing.js',
                 '/js/pwa.js',
+                '/js/plugin-manager.js',
+                '/js/advanced-search.js',
+                '/js/file-operations.js',
+                '/js/plugins/dark-mode-plugin.js',
                 '/manifest.json',
                 '/assets/docs/cheat_sheet.pdf',
+                '/assets/docs/Password_Substitution_Cheat_Sheet_V2.xlsx',
                 '/assets/icons/favicon-192.png',
                 '/assets/icons/favicon-512.png',
                 '/assets/icons/favicon.ico'
@@ -67,7 +73,7 @@ self.addEventListener('activate', (event) => {
             return Promise.all(
                 cacheNames.map((cacheName) => {
                     // Only delete old cache versions, keep current one
-                    if (cacheName !== 'cipher-alchemist-v3') {
+                    if (cacheName !== 'cipher-alchemist-v4') {
                         console.log('Deleting old cache:', cacheName);
                         return caches.delete(cacheName);
                     }
@@ -98,7 +104,7 @@ self.addEventListener('fetch', (event) => {
                 // Clone the response for caching
                 const responseToCache = response.clone();
                 
-                caches.open('cipher-alchemist-v3').then((cache) => {
+                caches.open('cipher-alchemist-v4').then((cache) => {
                     cache.put(event.request, responseToCache);
                 });
                 

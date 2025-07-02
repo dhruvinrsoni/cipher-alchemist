@@ -468,10 +468,24 @@ function initializeApp() {
     if (copyBtn) {
         copyBtn.addEventListener('click', copyPassword);
     }
-    
-    const clearBtn = document.getElementById('clearBtn');
+      const clearBtn = document.getElementById('clearBtn');
     if (clearBtn) {
         clearBtn.addEventListener('click', clearTextarea);
+    }
+    
+    // Setup download buttons
+    const downloadBtn = document.getElementById('downloadBtn');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', () => {
+            window.open('assets/docs/cheat_sheet.pdf', '_blank');
+        });
+    }
+    
+    const downloadExcelBtn = document.getElementById('downloadExcelBtn');
+    if (downloadExcelBtn) {
+        downloadExcelBtn.addEventListener('click', () => {
+            window.open('assets/docs/Password_Substitution_Cheat_Sheet_V2.xlsx', '_blank');
+        });
     }
       // Setup share button if sharing is available (will be handled by sharing.js)
     // Event listener will be attached by sharing.js when it loads
@@ -498,8 +512,7 @@ function initializeApp() {
                 toggleDescription();
             }
         });
-    }
-      // Initialize other features if available
+    }      // Initialize other features if available
     if (typeof initializePWAInstall === 'function') {
         initializePWAInstall();
     }
@@ -509,8 +522,50 @@ function initializeApp() {
     }
     
     if (typeof initializePhraseSuggestions === 'function') {
-        initializePhraseSuggestions();
-    }    console.log('🔗 Checking sharing feature integration...');
+        initializePhraseSuggestions();    }
+    
+    // Setup advanced feature buttons
+    const advancedSearchBtn = document.getElementById('advancedSearchBtn');
+    if (advancedSearchBtn) {
+        advancedSearchBtn.addEventListener('click', () => {
+            if (typeof openAdvancedSearch === 'function') {
+                openAdvancedSearch();
+            }
+        });
+    }
+    
+    const pluginManagerBtn = document.getElementById('pluginManagerBtn');
+    if (pluginManagerBtn) {
+        pluginManagerBtn.addEventListener('click', () => {
+            if (typeof openPluginManager === 'function') {
+                openPluginManager();
+            }
+        });
+    }
+    
+    const fileOperationsBtn = document.getElementById('fileOperationsBtn');
+    if (fileOperationsBtn) {
+        fileOperationsBtn.addEventListener('click', () => {
+            if (typeof openFileOperations === 'function') {
+                openFileOperations();
+            }
+        });
+    }
+      // Initialize advanced features
+    if (typeof initializePluginManager === 'function') {
+        console.log('🧩 Initializing plugin manager...');
+        initializePluginManager();
+    }
+    
+    if (typeof initializeAdvancedSearch === 'function') {
+        console.log('🔍 Initializing advanced search...');
+        initializeAdvancedSearch();
+    }
+    
+    if (typeof initializeFileOperations === 'function') {
+        console.log('📁 Initializing file operations...');
+        initializeFileOperations();
+    }console.log('🔗 Checking sharing feature integration...');
     if (typeof initializeSharing === 'function') {
         const sharingResult = initializeSharing();
         console.log('✅ Sharing feature initialized:', sharingResult);
@@ -539,6 +594,35 @@ function initializeApp() {
         console.log('🌐 URL parameters processed after module initialization');
     }, 200);      console.log('✅ Cipher Alchemist initialized successfully!');
     console.log('💡 Tip: Hold Ctrl+Shift and type "dev" to access developer mode');
+    
+    // Verify advanced features integration
+    verifyAdvancedFeaturesIntegration();
+}
+
+/**
+ * Verify that advanced features are properly integrated
+ */
+function verifyAdvancedFeaturesIntegration() {
+    console.log('🔍 Verifying advanced features integration...');
+    
+    const features = [
+        { name: 'Plugin Manager', check: () => typeof PluginManager !== 'undefined' && typeof openPluginManager === 'function' },
+        { name: 'Advanced Search', check: () => typeof AdvancedSearch !== 'undefined' && typeof openAdvancedSearch === 'function' },
+        { name: 'File Operations', check: () => typeof FileOperations !== 'undefined' && typeof openFileOperations === 'function' },
+        { name: 'Dark Mode Plugin', check: () => typeof DarkModePlugin !== 'undefined' }
+    ];
+    
+    features.forEach(feature => {
+        try {
+            if (feature.check()) {
+                console.log(`✅ ${feature.name}: Ready`);
+            } else {
+                console.log(`⚠️ ${feature.name}: Not ready (will load async)`);
+            }
+        } catch (error) {
+            console.log(`❌ ${feature.name}: Error - ${error.message}`);
+        }
+    });
 }
 
 // ==============================================

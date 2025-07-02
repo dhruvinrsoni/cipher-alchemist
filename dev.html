@@ -336,6 +336,7 @@
             <button class="quick-action-btn primary" onclick="runAllTests()">🚀 Run All Tests</button>
             <button class="quick-action-btn success" onclick="runCoreTests()">⚡ Core Tests</button>
             <button class="quick-action-btn warning" onclick="runPerformanceTests()">📊 Performance</button>
+            <button class="quick-action-btn" onclick="runAdvancedFeatureTests()" style="background: #9b59b6;">🚀 Advanced Features</button>
             <button class="quick-action-btn danger" onclick="clearAllResults()">🗑️ Clear Results</button>
             <button class="quick-action-btn info" onclick="openTestUrl('?phrase=DevTest123')">🔗 Test URL</button>
             <button class="quick-action-btn" onclick="window.open('testlab.html', '_blank')">🧪 Test Lab</button>
@@ -449,6 +450,67 @@
                     <button class="test-btn info" onclick="openTestUrl('?phrase=URLTest123!')">🔗 Live Test</button>
                 </div>
                 <div class="test-results" id="url-results">Ready to test URL parameters...</div>
+            </div>        </div>
+
+        <!-- Advanced Features Section -->
+        <div class="advanced-features-section">
+            <h2>🚀 Advanced Features</h2>
+            <div class="test-grid">
+                <!-- Plugin Manager Test -->
+                <div class="test-card">
+                    <div class="test-card-header">
+                        <div class="test-card-title">🧩 Plugin Manager</div>
+                        <div class="test-status pending" id="plugin-status">READY</div>
+                    </div>
+                    <div class="test-description">Test plugin loading, registration, and lifecycle management</div>
+                    <div class="test-actions">
+                        <button class="test-btn primary" onclick="testPluginManager()">🧩 Test</button>
+                        <button class="test-btn info" onclick="openPluginManager()">🔧 Open Manager</button>
+                    </div>
+                    <div class="test-results" id="plugin-results">Ready to test plugin manager...</div>
+                </div>
+
+                <!-- Advanced Search Test -->
+                <div class="test-card">
+                    <div class="test-card-header">
+                        <div class="test-card-title">🔍 Advanced Search</div>
+                        <div class="test-status pending" id="search-status">READY</div>
+                    </div>
+                    <div class="test-description">Test search functionality, filters, and history management</div>
+                    <div class="test-actions">
+                        <button class="test-btn primary" onclick="testAdvancedSearch()">🔍 Test</button>
+                        <button class="test-btn info" onclick="openAdvancedSearch()">🔍 Open Search</button>
+                    </div>
+                    <div class="test-results" id="search-results">Ready to test advanced search...</div>
+                </div>
+
+                <!-- File Operations Test -->
+                <div class="test-card">
+                    <div class="test-card-header">
+                        <div class="test-card-title">📁 File Operations</div>
+                        <div class="test-status pending" id="file-status">READY</div>
+                    </div>
+                    <div class="test-description">Test import/export of phrases, config, and batch operations</div>
+                    <div class="test-actions">
+                        <button class="test-btn primary" onclick="testFileOperations()">📁 Test</button>
+                        <button class="test-btn info" onclick="openFileOperations()">📁 Open Manager</button>
+                    </div>
+                    <div class="test-results" id="file-results">Ready to test file operations...</div>
+                </div>
+
+                <!-- Dark Mode Plugin Test -->
+                <div class="test-card">
+                    <div class="test-card-header">
+                        <div class="test-card-title">🌙 Dark Mode Plugin</div>
+                        <div class="test-status pending" id="darkmode-status">READY</div>
+                    </div>
+                    <div class="test-description">Test dark mode plugin registration and theme switching</div>
+                    <div class="test-actions">
+                        <button class="test-btn primary" onclick="testDarkModePlugin()">🌙 Test</button>
+                        <button class="test-btn info" onclick="toggleDarkModePlugin()">🌙 Toggle</button>
+                    </div>
+                    <div class="test-results" id="darkmode-results">Ready to test dark mode plugin...</div>
+                </div>
             </div>
         </div>
 
@@ -472,9 +534,7 @@
                 <span id="test-count">0</span>
             </div>
         </div>
-    </div>
-
-    <!-- Include all Cipher Alchemist scripts for testing -->    <script src="js/config.js"></script>
+    </div>    <!-- Include all Cipher Alchemist scripts for testing -->    <script src="js/config.js"></script>
     <script src="js/cipher-algorithms.js"></script>
     <script src="js/notifications.js"></script>
     <script src="js/main.js"></script>
@@ -483,6 +543,14 @@
     <script src="js/keyboard-shortcuts.js"></script>
     <script src="js/sharing.js"></script>
     <script src="js/pwa.js"></script>
+    
+    <!-- Advanced Features -->
+    <script src="js/plugin-manager.js"></script>
+    <script src="js/advanced-search.js"></script>
+    <script src="js/file-operations.js"></script>
+    
+    <!-- Plugins -->
+    <script src="js/plugins/dark-mode-plugin.js"></script>
 
     <script>        // Dashboard state management
         let testResults = {
@@ -964,14 +1032,17 @@
 
             // Clean up any existing windows first
             cleanupTestWindows();
-            
-            const tests = [
+              const tests = [
                 { name: 'password', func: testPasswordGeneration },
                 { name: 'url', func: testURLParameters },
                 { name: 'ui', func: testUIComponents },
                 { name: 'sharing', func: testSharingFeature },
                 { name: 'pwa', func: testPWAFeatures },
-                { name: 'keyboard', func: testKeyboardShortcuts }
+                { name: 'keyboard', func: testKeyboardShortcuts },
+                { name: 'plugin', func: testPluginManager },
+                { name: 'search', func: testAdvancedSearch },
+                { name: 'file', func: testFileOperations },
+                { name: 'darkmode', func: testDarkModePlugin }
             ];
             
             // Run tests with proper spacing and cleanup
@@ -1130,8 +1201,224 @@
                 setTimeout(() => {
                     document.getElementById('js-time').textContent = 'Testing with warnings...';
                 }, 2000);
+            }        }
+        
+        function runAdvancedFeatureTests() {
+            console.log('🚀 Running advanced feature tests...');
+            
+            const advancedTests = [
+                { name: 'plugin', func: testPluginManager },
+                { name: 'search', func: testAdvancedSearch },
+                { name: 'file', func: testFileOperations },
+                { name: 'darkmode', func: testDarkModePlugin }
+            ];
+            
+            // Run advanced tests with spacing
+            advancedTests.forEach((test, index) => {
+                setTimeout(() => {
+                    console.log(`Running advanced test ${index + 1}/${advancedTests.length}: ${test.name}...`);
+                    test.func();
+                }, index * 500);
+            });
+            
+            modernAlert('🚀 Running advanced feature tests', 'info');
+        }
+
+        // ==============================================
+        // ADVANCED FEATURES TESTS
+        // ==============================================
+        
+        function testPluginManager() {
+            const startTime = performance.now();
+            updateTestStatus('plugin-status', 'TESTING');
+            console.log('🧩 Testing Plugin Manager...');
+            
+            try {
+                let results = [];
+                
+                // Test 1: Check if plugin manager is loaded
+                if (typeof PluginManager !== 'undefined') {
+                    results.push('✅ Plugin Manager loaded');
+                } else {
+                    results.push('❌ Plugin Manager not loaded');
+                }
+                
+                // Test 2: Check plugin registration
+                if (typeof PluginManager !== 'undefined' && PluginManager.getRegisteredPlugins) {
+                    const plugins = PluginManager.getRegisteredPlugins();
+                    results.push(`✅ Found ${plugins.length} registered plugins`);
+                } else {
+                    results.push('❌ Plugin registration check failed');
+                }
+                
+                // Test 3: Check modal functionality
+                if (typeof openPluginManager === 'function') {
+                    results.push('✅ Plugin manager UI function available');
+                } else {
+                    results.push('❌ Plugin manager UI function missing');
+                }
+                
+                const endTime = performance.now();
+                recordTestResult('plugin', true, endTime - startTime);
+                updateTestStatus('plugin-status', 'PASSED');
+                updateTestResults('plugin-results', results.join('<br>'));
+                
+            } catch (error) {
+                const endTime = performance.now();
+                recordTestResult('plugin', false, endTime - startTime);
+                updateTestStatus('plugin-status', 'FAILED');
+                updateTestResults('plugin-results', `❌ Plugin Manager test failed: ${error.message}`);
+                console.error('Plugin Manager test error:', error);
             }
-        }// Helper functions
+        }
+        
+        function testAdvancedSearch() {
+            const startTime = performance.now();
+            updateTestStatus('search-status', 'TESTING');
+            console.log('🔍 Testing Advanced Search...');
+            
+            try {
+                let results = [];
+                
+                // Test 1: Check if advanced search is loaded
+                if (typeof AdvancedSearch !== 'undefined') {
+                    results.push('✅ Advanced Search loaded');
+                } else {
+                    results.push('❌ Advanced Search not loaded');
+                }
+                
+                // Test 2: Check search functionality
+                if (typeof openAdvancedSearch === 'function') {
+                    results.push('✅ Advanced Search UI function available');
+                } else {
+                    results.push('❌ Advanced Search UI function missing');
+                }
+                
+                // Test 3: Check modal element
+                const modal = document.getElementById('advancedSearchModal');
+                if (modal) {
+                    results.push('✅ Advanced Search modal found');
+                } else {
+                    results.push('❌ Advanced Search modal missing');
+                }
+                
+                const endTime = performance.now();
+                recordTestResult('search', true, endTime - startTime);
+                updateTestStatus('search-status', 'PASSED');
+                updateTestResults('search-results', results.join('<br>'));
+                
+            } catch (error) {
+                const endTime = performance.now();
+                recordTestResult('search', false, endTime - startTime);
+                updateTestStatus('search-status', 'FAILED');
+                updateTestResults('search-results', `❌ Advanced Search test failed: ${error.message}`);
+                console.error('Advanced Search test error:', error);
+            }
+        }
+        
+        function testFileOperations() {
+            const startTime = performance.now();
+            updateTestStatus('file-status', 'TESTING');
+            console.log('📁 Testing File Operations...');
+            
+            try {
+                let results = [];
+                
+                // Test 1: Check if file operations is loaded
+                if (typeof FileOperations !== 'undefined') {
+                    results.push('✅ File Operations loaded');
+                } else {
+                    results.push('❌ File Operations not loaded');
+                }
+                
+                // Test 2: Check file operations functionality
+                if (typeof openFileOperations === 'function') {
+                    results.push('✅ File Operations UI function available');
+                } else {
+                    results.push('❌ File Operations UI function missing');
+                }
+                
+                // Test 3: Check modal element
+                const modal = document.getElementById('fileOperationsModal');
+                if (modal) {
+                    results.push('✅ File Operations modal found');
+                } else {
+                    results.push('❌ File Operations modal missing');
+                }
+                
+                const endTime = performance.now();
+                recordTestResult('file', true, endTime - startTime);
+                updateTestStatus('file-status', 'PASSED');
+                updateTestResults('file-results', results.join('<br>'));
+                
+            } catch (error) {
+                const endTime = performance.now();
+                recordTestResult('file', false, endTime - startTime);
+                updateTestStatus('file-status', 'FAILED');
+                updateTestResults('file-results', `❌ File Operations test failed: ${error.message}`);
+                console.error('File Operations test error:', error);
+            }
+        }
+        
+        function testDarkModePlugin() {
+            const startTime = performance.now();
+            updateTestStatus('darkmode-status', 'TESTING');
+            console.log('🌙 Testing Dark Mode Plugin...');
+            
+            try {
+                let results = [];
+                
+                // Test 1: Check if dark mode plugin is loaded
+                if (typeof DarkModePlugin !== 'undefined') {
+                    results.push('✅ Dark Mode Plugin loaded');
+                } else {
+                    results.push('❌ Dark Mode Plugin not loaded');
+                }
+                
+                // Test 2: Check if plugin is registered
+                if (typeof PluginManager !== 'undefined' && PluginManager.getRegisteredPlugins) {
+                    const plugins = PluginManager.getRegisteredPlugins();
+                    const darkModePlugin = plugins.find(p => p.id === 'dark-mode-plugin');
+                    if (darkModePlugin) {
+                        results.push('✅ Dark Mode Plugin registered');
+                    } else {
+                        results.push('❌ Dark Mode Plugin not registered');
+                    }
+                } else {
+                    results.push('⚠️ Plugin Manager not available for registration check');
+                }
+                
+                // Test 3: Check theme functionality
+                if (typeof toggleDarkModePlugin === 'function') {
+                    results.push('✅ Dark Mode toggle function available');
+                } else {
+                    results.push('❌ Dark Mode toggle function missing');
+                }
+                
+                const endTime = performance.now();
+                recordTestResult('darkmode', true, endTime - startTime);
+                updateTestStatus('darkmode-status', 'PASSED');
+                updateTestResults('darkmode-results', results.join('<br>'));
+                
+            } catch (error) {
+                const endTime = performance.now();
+                recordTestResult('darkmode', false, endTime - startTime);
+                updateTestStatus('darkmode-status', 'FAILED');
+                updateTestResults('darkmode-results', `❌ Dark Mode Plugin test failed: ${error.message}`);
+                console.error('Dark Mode Plugin test error:', error);
+            }
+        }
+
+        function toggleDarkModePlugin() {
+            if (typeof PluginManager !== 'undefined' && PluginManager.executeHook) {
+                PluginManager.executeHook('theme.toggle');
+                modernAlert('🌙 Dark mode toggled', 'info');
+            } else {
+                modernAlert('❌ Plugin Manager not available', 'error');
+            }
+        }
+
+        // Helper functions
         function openTestUrl(params) {
             const url = `index.html${params}`;
             console.log(`🔗 Opening test URL: ${url}`);

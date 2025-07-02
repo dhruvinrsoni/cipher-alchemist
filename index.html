@@ -31,11 +31,14 @@
 <body>    <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-to-main">Skip to main content</a>    <!-- Top-right controls -->
     <div class="top-controls" role="toolbar" aria-label="Application Controls">
+        <button id="advancedSearchBtn" aria-label="Advanced search" title="Advanced search (Ctrl+F)" aria-controls="advancedSearchModal" aria-haspopup="dialog">🔍</button>
+        <button id="pluginManagerBtn" aria-label="Plugin manager" title="Plugin manager" aria-controls="pluginManagerModal" aria-haspopup="dialog">🧩</button>
+        <button id="fileOperationsBtn" aria-label="File operations" title="Import/Export" aria-controls="fileOperationsModal" aria-haspopup="dialog">📁</button>
         <button id="tutorialsBtn" aria-label="View video tutorials" title="Video tutorials" onclick="window.open('https://www.youtube.com/@dhruvinrsoni', '_blank')">📺</button>
         <button id="installBtn" aria-label="Install app as PWA" title="Install Cipher Alchemist" style="display: none;">📱</button>
         <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)" aria-controls="keyboardHelpModal" aria-haspopup="dialog">⌨️</button>
         <button id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
-    </div>    <div class="container" id="main-content" role="main">
+    </div><div class="container" id="main-content" role="main">
         <h1>Cipher Alchemist</h1>
           <!-- App Description Section -->
         <div class="app-description-container" role="region" aria-labelledby="description-title">
@@ -84,12 +87,12 @@
         </div>
         
         <!-- Transformation Steps -->
-        <div id="transformationSteps" aria-live="polite"></div>
-          <!-- Action Buttons -->
+        <div id="transformationSteps" aria-live="polite"></div>        <!-- Action Buttons -->
         <div class="button-group">
             <button id="copyBtn" aria-label="Copy generated password to clipboard" style="display: none;">📋 Copy Password</button>
             <button id="shareBtn" onclick="shareExample()" aria-label="Share this example securely" title="Share example link (no passwords shared)" class="share-button-hidden">🔗 Share Example</button>
-            <button id="downloadBtn" aria-label="Download password cheat sheet PDF">📄 Download Cheat Sheet</button>
+            <button id="downloadBtn" aria-label="Download password cheat sheet PDF">📄 Download PDF Cheat Sheet</button>
+            <button id="downloadExcelBtn" aria-label="Download password cheat sheet Excel file">📊 Download Excel Cheat Sheet</button>
         </div>
         <hr style="margin:2rem 0 1rem 0; border:0; border-top:1px solid #e0e0e0;" aria-hidden="true" />        <footer role="contentinfo">
             <span id="footer-version" aria-live="polite"></span><br />
@@ -97,7 +100,51 @@
             (<a href="https://github.com/dhruvinrsoni" target="_blank" rel="noopener">@dhruvinrsoni</a>)<br />
             <small>Copyright (c) 2025 Dhruvin Rupesh Soni</small><br />            <a href="https://github.com/dhruvinrsoni/cipher-alchemist" target="_blank" rel="noopener">GitHub Project</a> • 
             <a href="https://www.youtube.com/@dhruvinrsoni" target="_blank" rel="noopener">📺 Video Tutorials</a> • 
-            <a href="https://github.com/dhruvinrsoni/cipher-alchemist/blob/main/docs/FAQ.md" target="_blank" rel="noopener">❓ FAQ</a><br /></footer>
+            <a href="https://github.com/dhruvinrsoni/cipher-alchemist/blob/main/docs/FAQ.md" target="_blank" rel="noopener">❓ FAQ</a><br /></footer>    </div>
+
+    <!-- Advanced Search Modal -->
+    <div id="advancedSearchModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="search-modal-title" aria-modal="true">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h2 id="search-modal-title">🔍 Advanced Search</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="advanced-search-container">
+                    <!-- Advanced search UI will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plugin Manager Modal -->
+    <div id="pluginManagerModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="plugin-modal-title" aria-modal="true">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h2 id="plugin-modal-title">🧩 Plugin Manager</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="plugin-manager-container">
+                    <!-- Plugin manager UI will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Operations Modal -->
+    <div id="fileOperationsModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="file-modal-title" aria-modal="true">
+        <div class="modal-content" role="document">
+            <div class="modal-header">
+                <h2 id="file-modal-title">📁 File Operations</h2>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="file-operations-container">
+                    <!-- File operations UI will be inserted here -->
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Keyboard Shortcuts Help Modal -->
@@ -125,10 +172,21 @@
                         <div class="shortcut-item">
                             <span class="shortcut-keys">📱 Button</span>
                             <span class="shortcut-desc">Install as PWA app</span>
-                        </div>
-                        <div class="shortcut-item">
+                        </div>                        <div class="shortcut-item">
                             <span class="shortcut-keys">Ctrl + ? / F1</span>
                             <span class="shortcut-desc">Show this help</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Ctrl + F</span>
+                            <span class="shortcut-desc">Advanced search</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Ctrl + Shift + P</span>
+                            <span class="shortcut-desc">Plugin manager</span>
+                        </div>
+                        <div class="shortcut-item">
+                            <span class="shortcut-keys">Ctrl + Shift + O</span>
+                            <span class="shortcut-desc">File operations</span>
                         </div>
                     </div>
 
@@ -200,5 +258,13 @@
     <script src="js/keyboard-shortcuts.js" defer></script>
     <script src="js/sharing.js" defer></script>
     <script src="js/pwa.js" defer></script>
+    
+    <!-- Advanced Features -->
+    <script src="js/plugin-manager.js" defer></script>
+    <script src="js/advanced-search.js" defer></script>
+    <script src="js/file-operations.js" defer></script>
+    
+    <!-- Plugins -->
+    <script src="js/plugins/dark-mode-plugin.js" defer></script>
 </body>
 </html>

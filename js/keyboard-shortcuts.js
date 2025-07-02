@@ -142,6 +142,30 @@ function addKeyboardHelpShortcut() {
             e.preventDefault();
             showKeyboardHelp();
         }
+        
+        // Advanced Search shortcut (Ctrl+F)
+        if (e.ctrlKey && e.key === 'f') {
+            e.preventDefault();
+            if (typeof openAdvancedSearch === 'function') {
+                openAdvancedSearch();
+            }
+        }
+        
+        // Plugin Manager shortcut (Ctrl+Shift+P)
+        if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+            e.preventDefault();
+            if (typeof openPluginManager === 'function') {
+                openPluginManager();
+            }
+        }
+        
+        // File Operations shortcut (Ctrl+Shift+O)
+        if (e.ctrlKey && e.shiftKey && e.key === 'O') {
+            e.preventDefault();
+            if (typeof openFileOperations === 'function') {
+                openFileOperations();
+            }
+        }
     });
       console.log('Global keyboard help shortcuts registered (Ctrl+?, Ctrl+/, Ctrl+., F1)');
 }
