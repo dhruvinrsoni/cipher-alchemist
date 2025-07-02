@@ -4,6 +4,50 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-02 18:39:17 +0530  
+**Commit:** [adb138d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/adb138dbb6cd838d2d79bac994499098cd0e2a67)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: Integrate advanced features and modular architecture
+
+- Added advanced features: Plugin Manager, Advanced Search, File Operations, and Dark Mode Plugin
+- Modularized codebase: new JS modules for plugin management, search, file import/export, and theme plugins
+- Updated UI: new top controls for advanced features, modals for each feature, and Excel cheat sheet download
+- Enhanced keyboard shortcuts: Ctrl+F (search), Ctrl+Shift+P (plugin manager), Ctrl+Shift+O (file ops)
+- Improved service worker: caches new assets and modules, bumps cache version to v4
+- Updated documentation: README and help modals now reflect new features and shortcuts
+- Removed legacy/backup scripts and CSS, cleaned up obsolete demo files
+- Added dev/test dashboard for advanced features with automated test hooks
+- No breaking changes; legacy features remain functional
+
+Reason:
+- Introduce extensibility, power-user tools, and better maintainability
+- Address user requests for import/export, plugin support, and advanced search
+
+Impact:
+- Users gain access to extensible plugins, batch file operations, and smarter search
+- Improved code quality, modularity, and future maintainability
+- No impact on CI/CD, runtime, database, or cloud integration
+- No new runtime dependencies; all features are client-side
+
+Testing and Validation:
+- Manual and automated tests for all advanced features in dev.html
+- Verified UI/UX, keyboard shortcuts, and offline support
+- Service worker tested for new cache version and asset coverage
+
+Dependencies:
+
+Backward Compatibility:
+- Fully backward compatible; no breaking changes
+- Old URLs, features, and data remain supported
+
+Docs:
+- Updated README, in-app help, and shortcut guides for new features
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-06-23 02:03:07 +0530  
 **Commit:** [79edfa7](https://github.com/dhruvinrsoni/cipher-alchemist/commit/79edfa7b7e1ae37bc37a14c55b61e1670124a378)  
 **Author:** Dhruvin Rupesh Soni
@@ -1631,14 +1675,6 @@ Compatibility:
 - All enhancements are additive and backward compatible
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-07 20:57:10 +0000  
-**Commit:** [e8c4b85](https://github.com/dhruvinrsoni/cipher-alchemist/commit/e8c4b855b7b184607c9cac814d685c3962a2d43e)  
-**Author:** github-actions[bot]
-
-#### 🔖 Release v1.1.0
 
 ---
 
