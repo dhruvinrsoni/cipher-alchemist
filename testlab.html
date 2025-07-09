@@ -905,7 +905,7 @@
         function testPasswordTransformation(phrase) {
             // Simple transformation simulation
             return phrase.replace(/[aeiouAEIOU]/g, (match) => {
-                const replacements = { 'a': '@', 'e': '3', 'i': '!', 'o': '0', 'u': '#', 
+                const replacements = { 'a': '@', 'e': '3', 'i': '!', 'o': '0', 'u': '#' , 
                                      'A': '@', 'E': '3', 'I': '!', 'O': '0', 'U': '#' };
                 return replacements[match] || match;
             });

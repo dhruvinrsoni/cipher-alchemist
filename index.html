@@ -39,7 +39,7 @@
         <h1>Cipher Alchemist</h1>
           <!-- App Description Section -->
         <div class="app-description-container" role="region" aria-labelledby="description-title">
-            <div class="app-description-header" onclick="toggleDescription()" aria-expanded="true" role="button" tabindex="0" aria-controls="descriptionContent">
+            <div class="app-description-header" aria-expanded="true" role="button" tabindex="0" aria-controls="descriptionContent">
                 <span class="section-title" id="description-title">About Cipher Alchemist</span>
                 <span class="expand-icon" id="descriptionIcon" aria-hidden="true">▼</span>
             </div>
@@ -98,6 +98,37 @@
             <small>Copyright (c) 2025 Dhruvin Rupesh Soni</small><br />            <a href="https://github.com/dhruvinrsoni/cipher-alchemist" target="_blank" rel="noopener">GitHub Project</a> • 
             <a href="https://www.youtube.com/@dhruvinrsoni" target="_blank" rel="noopener">📺 Video Tutorials</a> • 
             <a href="https://github.com/dhruvinrsoni/cipher-alchemist/blob/main/docs/FAQ.md" target="_blank" rel="noopener">❓ FAQ</a><br /></footer>    </div>
+
+    <!-- About Cipher Alchemist (expand/collapse) -->
+    <div class="about-section" style="max-width: 900px; margin: 0 auto 24px auto; background: rgba(255,255,255,0.97); border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.08); padding: 0 0 0 0;">
+        <button id="about-toggle" aria-expanded="false" aria-controls="about-content" style="width: 100%; background: none; border: none; text-align: left; font-size: 1.15rem; font-weight: 600; padding: 18px 24px; cursor: pointer; color: #4a148c; display: flex; align-items: center; gap: 10px;">
+            <span id="about-arrow" style="display:inline-block; transition: transform 0.2s;">▶</span>
+            About Cipher Alchemist
+        </button>
+        <div id="about-content" style="display: none; padding: 0 24px 18px 54px; font-size: 1rem; color: #333; line-height: 1.6;">
+            <p><strong>Cipher Alchemist</strong> is a modular, privacy-first tool for transforming phrases into secure passwords, with a focus on accessibility, offline use, and extensibility.</p>
+            <ul style="margin-left: 1.2em;">
+                <li>🧩 Modular JS architecture for maintainability</li>
+                <li>🔒 Security and privacy by design</li>
+                <li>🧪 Smart test suite with weighted results</li>
+                <li>🌙 Theme, PWA, and sharing support</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+    // About section expand/collapse logic
+    (function() {
+        var btn = document.getElementById('about-toggle');
+        var content = document.getElementById('about-content');
+        var arrow = document.getElementById('about-arrow');
+        btn.addEventListener('click', function() {
+            var expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', !expanded);
+            content.style.display = expanded ? 'none' : 'block';
+            arrow.style.transform = expanded ? 'rotate(0deg)' : 'rotate(90deg)';
+        });
+    })();
+    </script>
 
     <!-- Keyboard Shortcuts Help Modal -->
     <div id="keyboardHelpModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
@@ -222,5 +253,38 @@
         }
     }
     </script>
+    <script>
+// Expand/collapse logic for About Cipher Alchemist section
+function toggleDescription() {
+    var header = document.querySelector('.app-description-header');
+    var content = document.getElementById('descriptionContent');
+    var icon = document.getElementById('descriptionIcon');
+    var expanded = header.getAttribute('aria-expanded') === 'true';
+    header.setAttribute('aria-expanded', !expanded);
+    content.style.display = expanded ? 'none' : 'block';
+    icon.textContent = expanded ? '▼' : '▲';
+}
+// Keyboard accessibility for header
+var descHeader = document.querySelector('.app-description-header');
+if (descHeader) {
+    descHeader.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleDescription();
+        }
+    });
+}
+// Initialize state on load
+window.addEventListener('DOMContentLoaded', function() {
+    var content = document.getElementById('descriptionContent');
+    var header = document.querySelector('.app-description-header');
+    var icon = document.getElementById('descriptionIcon');
+    if (content && header && icon) {
+        var expanded = header.getAttribute('aria-expanded') === 'true';
+        content.style.display = expanded ? 'block' : 'none';
+        icon.textContent = expanded ? '▼' : '▲';
+    }
+});
+</script>
 </body>
 </html>

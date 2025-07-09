@@ -339,6 +339,18 @@ function toggleTransformation() {
     }
 }
 
+// Ensure About section is initialized correctly on DOMContentLoaded
+window.addEventListener('DOMContentLoaded', function() {
+    const content = document.getElementById('descriptionContent');
+    const header = document.querySelector('.app-description-header');
+    const icon = document.getElementById('descriptionIcon');
+    if (content && header && icon) {
+        const expanded = header.getAttribute('aria-expanded') === 'true';
+        content.style.display = expanded ? 'block' : 'none';
+        icon.textContent = expanded ? '▼' : '▶';
+    }
+});
+
 // ==============================================
 // URL PARAMETER HANDLING
 // ==============================================
