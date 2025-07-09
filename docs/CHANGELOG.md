@@ -4,6 +4,26 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-09 10:54:59 +0530  
+**Commit:** [1cd8c5a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/1cd8c5ab600d4099294ec21dece457ae4829ea91)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: remove advanced modals and related shortcuts
+
+Refactor UI to simplify controls and reduce unused features:
+- Removed Advanced Search, Plugin Manager, and File Operations modals from index.html
+- Deleted corresponding toolbar buttons and keyboard shortcuts
+- Eliminated related script imports for advanced-search, plugin-manager, and file-operations
+- Updated keyboard shortcuts help modal to reflect removals
+- Improved accessibility by reducing modal clutter
+- Added explicit onclick handlers for keyboard help modal open/close
+
+No changes to CI/CD, runtime, database, security, cloud integration, VCS, code style, logging, review, code quality, coverage, or ownership are expected.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-02 18:39:17 +0530  
 **Commit:** [adb138d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/adb138dbb6cd838d2d79bac994499098cd0e2a67)  
 **Author:** Dhruvin Rupesh Soni
@@ -1628,51 +1648,6 @@ Impact:
 - Better error handling for git command failures
 - Improved code organization and maintainability
 - Enhanced readability of generated reports
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 02:58:00 +0530  
-**Commit:** [b72a81a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b72a81a7eb69c28269f0e3c7eb03b678efe804fe)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat(ci/cd): implement auto-triggered deployment health verification
-
-Reason:
-- Manual health checks required after deployments causing potential delays in issue detection
-- Lack of automated workflow communication between deployment and status verification
-- Missing next steps information in workflow summaries
-- Inconsistent IST timestamps across different workflows
-
-Changes:
-- Enhanced deployment-status.yml to auto-trigger after other workflow completions
-- Added workflow_run triggers for Deploy, Create Tag & Release, and Rollback workflows
-- Implemented smart conditional execution to skip checks if triggering workflow failed
-- Added detailed "Next Steps" sections to all deployment-related workflows
-- Improved status reporting with IST timestamps and workflow trigger information
-- Updated documentation to reflect the enhanced workflow connections
-- Restructured workflow diagrams to show automatic triggering relationships
-
-Impact:
-- Reduces manual intervention by automatically verifying deployment health
-- Improves incident response time by detecting issues immediately after deployment
-- Enhances workflow visibility with clear next steps and status tracking
-- Maintains consistent IST timezone usage across all workflow outputs
-
-Test:
-- Verified auto-triggering works properly across all specified workflows
-- Validated conditional execution when triggering workflows fail or succeed
-- Confirmed status reports include proper attribution to source workflows
-
-Docs:
-- Updated DEVELOPMENT.md with enhanced workflow diagrams and descriptions
-- Corrected workflow connections in documentation to reflect auto-triggering
-- Added explanatory comments in workflows for maintainability
-
-Compatibility:
-- No breaking changes to existing workflow functionality
-- All enhancements are additive and backward compatible
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
