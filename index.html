@@ -31,12 +31,9 @@
 <body>    <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-to-main">Skip to main content</a>    <!-- Top-right controls -->
     <div class="top-controls" role="toolbar" aria-label="Application Controls">
-        <button id="advancedSearchBtn" aria-label="Advanced search" title="Advanced search (Ctrl+F)" aria-controls="advancedSearchModal" aria-haspopup="dialog">🔍</button>
-        <button id="pluginManagerBtn" aria-label="Plugin manager" title="Plugin manager" aria-controls="pluginManagerModal" aria-haspopup="dialog">🧩</button>
-        <button id="fileOperationsBtn" aria-label="File operations" title="Import/Export" aria-controls="fileOperationsModal" aria-haspopup="dialog">📁</button>
         <button id="tutorialsBtn" aria-label="View video tutorials" title="Video tutorials" onclick="window.open('https://www.youtube.com/@dhruvinrsoni', '_blank')">📺</button>
         <button id="installBtn" aria-label="Install app as PWA" title="Install Cipher Alchemist" style="display: none;">📱</button>
-        <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)" aria-controls="keyboardHelpModal" aria-haspopup="dialog">⌨️</button>
+        <button id="keyboardHelpBtn" aria-label="Show keyboard shortcuts (Ctrl+?)" title="Keyboard shortcuts (Ctrl+?)" aria-controls="keyboardHelpModal" aria-haspopup="dialog" onclick="showKeyboardHelp()">⌨️</button>
         <button id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme">🌙</button>
     </div><div class="container" id="main-content" role="main">
         <h1>Cipher Alchemist</h1>
@@ -102,57 +99,12 @@
             <a href="https://www.youtube.com/@dhruvinrsoni" target="_blank" rel="noopener">📺 Video Tutorials</a> • 
             <a href="https://github.com/dhruvinrsoni/cipher-alchemist/blob/main/docs/FAQ.md" target="_blank" rel="noopener">❓ FAQ</a><br /></footer>    </div>
 
-    <!-- Advanced Search Modal -->
-    <div id="advancedSearchModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="search-modal-title" aria-modal="true">
-        <div class="modal-content" role="document">
-            <div class="modal-header">
-                <h2 id="search-modal-title">🔍 Advanced Search</h2>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="advanced-search-container">
-                    <!-- Advanced search UI will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Plugin Manager Modal -->
-    <div id="pluginManagerModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="plugin-modal-title" aria-modal="true">
-        <div class="modal-content" role="document">
-            <div class="modal-header">
-                <h2 id="plugin-modal-title">🧩 Plugin Manager</h2>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="plugin-manager-container">
-                    <!-- Plugin manager UI will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- File Operations Modal -->
-    <div id="fileOperationsModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="file-modal-title" aria-modal="true">
-        <div class="modal-content" role="document">
-            <div class="modal-header">
-                <h2 id="file-modal-title">📁 File Operations</h2>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="file-operations-container">
-                    <!-- File operations UI will be inserted here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Keyboard Shortcuts Help Modal -->
     <div id="keyboardHelpModal" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
         <div class="modal-content" role="document">
             <div class="modal-header">
                 <h2 id="modal-title">⌨️ Keyboard Shortcuts</h2>
-                <button class="modal-close" aria-label="Close modal">&times;</button>
+                <button class="modal-close" aria-label="Close modal" onclick="hideKeyboardHelp()">&times;</button>
             </div>
             <div class="modal-body" id="modal-description">
                 <div class="shortcuts-grid">
@@ -175,18 +127,6 @@
                         </div>                        <div class="shortcut-item">
                             <span class="shortcut-keys">Ctrl + ? / F1</span>
                             <span class="shortcut-desc">Show this help</span>
-                        </div>
-                        <div class="shortcut-item">
-                            <span class="shortcut-keys">Ctrl + F</span>
-                            <span class="shortcut-desc">Advanced search</span>
-                        </div>
-                        <div class="shortcut-item">
-                            <span class="shortcut-keys">Ctrl + Shift + P</span>
-                            <span class="shortcut-desc">Plugin manager</span>
-                        </div>
-                        <div class="shortcut-item">
-                            <span class="shortcut-keys">Ctrl + Shift + O</span>
-                            <span class="shortcut-desc">File operations</span>
                         </div>
                     </div>
 
@@ -259,12 +199,28 @@
     <script src="js/sharing.js" defer></script>
     <script src="js/pwa.js" defer></script>
     
-    <!-- Advanced Features -->
-    <script src="js/plugin-manager.js" defer></script>
-    <script src="js/advanced-search.js" defer></script>
-    <script src="js/file-operations.js" defer></script>
-    
     <!-- Plugins -->
     <script src="js/plugins/dark-mode-plugin.js" defer></script>
+    <script>
+    // Ensure keyboard help works locally
+    function showKeyboardHelp() {
+        var modal = document.getElementById('keyboardHelpModal');
+        if (modal) {
+            modal.classList.add('show');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            var closeButton = modal.querySelector('.modal-close');
+            if (closeButton) closeButton.focus();
+        }
+    }
+    function hideKeyboardHelp() {
+        var modal = document.getElementById('keyboardHelpModal');
+        if (modal) {
+            modal.classList.remove('show');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+    }
+    </script>
 </body>
 </html>
