@@ -4,6 +4,20 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-09 19:50:33 +0530  
+**Commit:** [0abd2c5](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0abd2c5d159690a81f2b5a5b0ce38f1507c1196e)  
+**Author:** Dhruvin Rupesh Soni
+
+#### Remove redundant service worker file from config/
+
+- Deleted config/sw.js to ensure only a single service worker (sw.js) exists at the project root.
+- This simplifies PWA architecture and ensures correct service worker scope for the entire app.
+- No changes to app logic or user-facing features.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-09 13:29:49 +0530  
 **Commit:** [abe8ccc](https://github.com/dhruvinrsoni/cipher-alchemist/commit/abe8ccc5f7ffaefc300375b47ad5d725ee94f26d)  
 **Author:** Dhruvin Rupesh Soni
@@ -1631,35 +1645,6 @@ Impact:
 
 This change doesn't affect the functionality of the workflow,
 only corrects the formatting issues to maintain code cleanliness.
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 03:18:01 +0530  
-**Commit:** [48bb6da](https://github.com/dhruvinrsoni/cipher-alchemist/commit/48bb6daf4a8a424713b31f1c1ec86e3f6c9bff9a)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: Correct workflow file formatting and syntax errors
-
-Reason:
-- YAML workflow file had several syntax issues causing potential execution errors
-- Improper line breaks in shell commands were breaking command execution
-
-Impact:
-- Ensures deployment status workflow executes correctly without syntax errors
-- Improves code readability with proper spacing and indentation
-- Prevents CI/CD pipeline failures due to malformed shell commands
-
-Changes:
-- Fixed missing line break between echo command and elif statement
-- Corrected indentation in STATUS_REPORT.md generation section
-- Added proper spacing around command blocks for better readability
-- Fixed formatting issues in status report markdown generation
-- Ensured proper line breaks in EOF sections to prevent syntax errors
-
-CI/CD Impact: Prevents workflow failures due to syntax errors
-Code Style: Improves readability and maintainability of workflow file
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
