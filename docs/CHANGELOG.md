@@ -4,6 +4,50 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-14 14:49:35 +0530  
+**Commit:** [0e8d8aa](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0e8d8aa8d27a5902b97fd78c9e0c479203ab997f)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: Add PWA install prompt and update docs
+
+Reason:
+- Enhance user experience by enabling PWA installation.
+- Improve documentation for developer access and advanced features.
+
+Changes:
+- Added PWA installation prompt logic to main.js.
+- Updated README with instructions for secret developer dashboard access.
+- Removed redundant advanced feature verification code.
+- Cleaned up about section in index.html for clarity.
+
+Impact:
+- Users can now install Cipher Alchemist as a PWA for offline access.
+- Developers have clearer instructions for accessing advanced diagnostics.
+- Codebase is simplified, improving maintainability.
+
+Testing and Validation:
+- Manual testing of PWA install flow in supported browsers.
+- Verified developer dashboard access via documented shortcuts.
+
+Dependencies:
+- No new external dependencies introduced.
+
+Backward Compatibility:
+- No breaking changes; existing functionality remains unaffected.
+
+Docs:
+- README updated to reflect new developer access and PWA features.
+
+CI/CD, Runtime, Security, VCS, Code Style, Logging, Review, Coverage, Ownership:
+- No impact on CI/CD pipelines, runtime performance, database, or cloud integration.
+- No changes to security model or logging.
+- Code style and quality improved by removing unused code.
+- No changes to code coverage or ownership.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-09 19:50:33 +0530  
 **Commit:** [0abd2c5](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0abd2c5d159690a81f2b5a5b0ce38f1507c1196e)  
 **Author:** Dhruvin Rupesh Soni
@@ -1624,27 +1668,6 @@ Impact:
 - More reliable status reports across different repository configurations
 - Prevents workflow failures in repositories with non-standard tagging
 - Provides better debugging information through verbose logging
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 03:25:31 +0530  
-**Commit:** [2629a1e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2629a1e817a4a80d444ae180e5e2bacb2a803a3a)  
-**Author:** Dhruvin Rupesh Soni
-
-#### style: fix formatting in deployment status workflow
-
-Reason:
-- Corrected missing line breaks in deployment-status.yml file
-- Fixed improper formatting in the status report generation
-
-Impact:
-- Improves readability of the workflow file
-- Ensures proper rendering of the status report markdown
-
-This change doesn't affect the functionality of the workflow,
-only corrects the formatting issues to maintain code cleanliness.
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
