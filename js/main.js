@@ -428,14 +428,46 @@ function initializeApp() {
     // Setup example phrase listeners
     const exampleElements = document.querySelectorAll('.example-phrase');
     exampleElements.forEach(element => {
-        element.addEventListener('click', tryExample);
+        element.addEventListener('click', () => applyPhraseWithEffect(element.textContent));
         element.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                tryExample();
+                applyPhraseWithEffect(element.textContent);
             }
         });
     });
+
+    // Setup phrase suggestion listeners (auto-applied on click)
+    setTimeout(() => {
+        const suggestionChips = document.querySelectorAll('.suggestion-chip');
+        suggestionChips.forEach(chip => {
+            chip.addEventListener('click', () => applyPhraseWithEffect(chip.textContent));
+            chip.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    applyPhraseWithEffect(chip.textContent);
+                }
+            });
+        });
+    }, 400);
+/**
+ * Apply a phrase to the input with scroll/focus/animation effect
+ */
+function applyPhraseWithEffect(phrase) {
+    const phraseInput = document.getElementById('phraseInput');
+    if (!phraseInput) return;
+    phraseInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    phraseInput.focus();
+    phraseInput.value = '';
+    setTimeout(() => {
+        phraseInput.value = phrase;
+        phraseInput.classList.add('auto-applied');
+        setTimeout(() => {
+            phraseInput.classList.remove('auto-applied');
+            generatePassword();
+        }, 350);
+    }, 200);
+}
     
     // Setup section toggles
     const descHeader = document.querySelector('.app-description-header');
@@ -457,7 +489,11 @@ function initializeApp() {
     }
     
     if (typeof initializePhraseSuggestions === 'function') {
-        initializePhraseSuggestions();    }
+        initializePhraseSuggestions();
+        if (typeof refreshSuggestions === 'function') {
+            refreshSuggestions();
+        }
+    }
     
     // Setup advanced feature buttons
     const advancedSearchBtn = document.getElementById('advancedSearchBtn');
@@ -539,8 +575,17 @@ function initializeApp() {
 function tryExample() {
     const phraseInput = document.getElementById('phraseInput');
     if (!phraseInput) return;
-    phraseInput.value = 'AhamBrahmasmi@108';
-    generatePassword();
+    phraseInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    phraseInput.focus();
+    phraseInput.value = '';
+    setTimeout(() => {
+        phraseInput.value = 'AhamBrahmasmi@108';
+        phraseInput.classList.add('auto-applied');
+        setTimeout(() => {
+            phraseInput.classList.remove('auto-applied');
+            generatePassword();
+        }, 350);
+    }, 200);
 }
 /**
  * Toggle between light and dark themes
