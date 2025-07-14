@@ -4,6 +4,43 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-14 15:06:20 +0530  
+**Commit:** [4238ecc](https://github.com/dhruvinrsoni/cipher-alchemist/commit/4238ecc3e6dde4027e2be796f69db8cf3953909b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: Add UI button visibility control functions
+
+Reason:
+- Improve user experience by dynamically showing/hiding action buttons.
+
+Changes:
+- Added updateShareButtonVisibility to toggle share button visibility.
+- Added updateCopyButtonVisibility to toggle copy button visibility.
+- Added updateClearButtonVisibility to toggle clear button visibility based on input.
+- Enhanced code modularity and maintainability by separating UI logic.
+
+Impact:
+- Users see relevant buttons only when needed, reducing UI clutter.
+- No impact on CI/CD, runtime, database, security, cloud integration, VCS, code style, logging, review, code quality, coverage, or ownership.
+
+Testing and Validation:
+- Manual UI testing to verify button visibility toggles as expected.
+
+Dependencies:
+- No new dependencies introduced.
+
+Backward Compatibility:
+- Fully backward compatible; no breaking changes.
+
+Docs:
+- Documentation should be updated to describe new UI control functions.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-14 14:49:35 +0530  
 **Commit:** [0e8d8aa](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0e8d8aa8d27a5902b97fd78c9e0c479203ab997f)  
 **Author:** Dhruvin Rupesh Soni
@@ -1642,32 +1679,6 @@ Dependencies:
 Compatibility:
 - Fully backward compatible with existing release workflow
 - Enhances but doesn't break existing release process
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 03:35:42 +0530  
-**Commit:** [33bbf36](https://github.com/dhruvinrsoni/cipher-alchemist/commit/33bbf363c86eef1dafad79f66e0a39fbd3c653df)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: enhance deployment status workflow with robust error handling
-
-Reason:
-- Previous implementation of status report generation would fail under certain conditions
-- Missing or non-standard git repositories could cause workflow failures
-
-Changes:
-- Improved total releases calculation with better fallback logic
-- Enhanced version tag detection with multiple fallback mechanisms
-- Added comprehensive error handling for git commands
-- Implemented detailed logging throughout the process
-- Created proper fallbacks when repository data is missing or incomplete
-
-Impact:
-- More reliable status reports across different repository configurations
-- Prevents workflow failures in repositories with non-standard tagging
-- Provides better debugging information through verbose logging
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
