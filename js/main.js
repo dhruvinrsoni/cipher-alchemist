@@ -198,84 +198,7 @@ function clearTextarea() {
         checkStrength('', '');
     }
     
-    // Focus back to input
-    if (phraseInput) phraseInput.focus();
-}
-
-/**
- * Insert example phrase
- */
-function tryExample() {
-    const phraseInput = document.getElementById('phraseInput');
-    if (!phraseInput) return;
-    
-    // Use the specific example from the HTML
-    phraseInput.value = 'AhamBrahmasmi@108';
-    generatePassword();
-}
-
-/**
- * Update share button visibility
- */
-function updateShareButtonVisibility(show) {
-    const shareBtn = document.getElementById('shareBtn');
-    if (shareBtn) {
-        if (show) {
-            shareBtn.classList.remove('share-button-hidden');
-            shareBtn.classList.add('share-button-visible');
-        } else {
-            shareBtn.classList.add('share-button-hidden');
-            shareBtn.classList.remove('share-button-visible');
-        }
-    }
-}
-
-/**
- * Update copy button visibility
- */
-function updateCopyButtonVisibility(show) {
-    const copyBtn = document.getElementById('copyBtn');
-    if (copyBtn) {
-        copyBtn.style.display = show ? 'inline-block' : 'none';
-    }
-}
-
-/**
- * Update clear button visibility
- */
-function updateClearButtonVisibility() {
-    const phraseInput = document.getElementById('phraseInput');
-    const clearBtn = document.getElementById('clearBtn');
-    
-    if (clearBtn && phraseInput) {
-        clearBtn.style.display = phraseInput.value.trim() ? 'inline-block' : 'none';
-    }
-}
-
-// ==============================================
-// THEME MANAGEMENT
-// ==============================================
-
-/**
- * Toggle between light and dark themes
- */
-function toggleTheme() {
-    const isDark = document.body.classList.contains('dark-theme');
-    const newTheme = isDark ? 'light-theme' : 'dark-theme';
-    
-    document.body.classList.remove('dark-theme', 'light-theme');
-    document.body.classList.add(newTheme);
-    
-    const themeBtn = document.getElementById('themeToggleBtn');
-    if (themeBtn) {
-        themeBtn.textContent = newTheme === 'dark-theme' ? '☀️' : '🌙';
-        themeBtn.setAttribute('title', 
-            newTheme === 'dark-theme' ? 'Switch to light theme' : 'Switch to dark theme'
-        );
-    }
-    
-    localStorage.setItem('theme', newTheme);
-    console.log(`Theme changed to: ${newTheme}`);
+    // ...existing code...
 }
 
 /**
@@ -607,35 +530,35 @@ function initializeApp() {
     }, 200);      console.log('✅ Cipher Alchemist initialized successfully!');
     console.log('💡 Tip: Hold Ctrl+Shift and type "dev" to access developer mode');
     
-    // Verify advanced features integration
-    verifyAdvancedFeaturesIntegration();
+    // No advanced features to verify
 }
 
 /**
- * Verify that advanced features are properly integrated
+ * Insert example phrase and generate password
  */
-function verifyAdvancedFeaturesIntegration() {
-    console.log('🔍 Verifying advanced features integration...');
-    
-    const features = [
-        { name: 'Plugin Manager', check: () => typeof PluginManager !== 'undefined' && typeof openPluginManager === 'function' },
-        { name: 'Advanced Search', check: () => typeof AdvancedSearch !== 'undefined' && typeof openAdvancedSearch === 'function' },
-        { name: 'File Operations', check: () => typeof FileOperations !== 'undefined' && typeof openFileOperations === 'function' },
-        { name: 'Dark Mode Plugin', check: () => typeof DarkModePlugin !== 'undefined' }
-    ];
-    
-    features.forEach(feature => {
-        try {
-            if (feature.check()) {
-                console.log(`✅ ${feature.name}: Ready`);
-            } else {
-                console.log(`⚠️ ${feature.name}: Not ready (will load async)`);
-            }
-        } catch (error) {
-            console.log(`❌ ${feature.name}: Error - ${error.message}`);
-        }
-    });
+function tryExample() {
+    const phraseInput = document.getElementById('phraseInput');
+    if (!phraseInput) return;
+    phraseInput.value = 'AhamBrahmasmi@108';
+    generatePassword();
 }
+/**
+ * Toggle between light and dark themes
+ */
+function toggleTheme() {
+    const isDark = document.body.classList.contains('dark-theme');
+    const newTheme = isDark ? 'light-theme' : 'dark-theme';
+    document.body.classList.remove('dark-theme', 'light-theme');
+    document.body.classList.add(newTheme);
+    const themeBtn = document.getElementById('themeToggleBtn');
+    if (themeBtn) {
+        themeBtn.textContent = newTheme === 'dark-theme' ? '☀️' : '🌙';
+        themeBtn.setAttribute('title', newTheme === 'dark-theme' ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+    localStorage.setItem('theme', newTheme);
+    console.log(`Theme changed to: ${newTheme}`);
+}
+// ...existing code...
 
 // ==============================================
 // SECRET DEVELOPER ACCESS
@@ -792,3 +715,45 @@ if (document.readyState === 'loading') {
 } else {
     initializeApp();
 }
+
+// ==============================================
+// PWA INSTALLATION
+// ==============================================
+
+/**
+ * Initialize PWA installation prompt and button
+ */
+function initializePWAInstall() {
+    const installBtn = document.getElementById('installBtn');
+    if (installBtn) {
+        // Remove any previous click handlers
+    installBtn.replaceWith(installBtn.cloneNode(true));
+    const freshInstallBtn = document.getElementById('installBtn');
+    freshInstallBtn.style.display = 'none'; // Hide by default
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        window.deferredPrompt = e;
+        freshInstallBtn.style.display = 'inline-block';
+    });
+    freshInstallBtn.addEventListener('click', function() {
+        if (window.deferredPrompt) {
+            window.deferredPrompt.prompt();
+            window.deferredPrompt.userChoice.then(function(result) {
+                if (result.outcome === 'accepted') {
+                    window.notify.success('Cipher Alchemist installed successfully!');
+                    freshInstallBtn.style.display = 'none';
+                } else {
+                    window.notify.info('Install dismissed. You can try again anytime.');
+                    freshInstallBtn.style.display = 'inline-block';
+                }
+                window.deferredPrompt = null;
+            });
+        } else {
+            window.notify.info('App is already installed or not installable on this device.');
+        }
+    });
+    }
+}
+
+// Initialize PWA installation handling
+initializePWAInstall();

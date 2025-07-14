@@ -282,3 +282,19 @@ This project is licensed under the **MIT License** - see the [LICENSE](../LICENS
 [Live Demo](https://dhruvinrsoni.github.io/cipher-alchemist/) • [Documentation](DEVELOPMENT.md) • [Contributing](DEVELOPMENT.md#contributing)
 
 </div>
+
+---
+
+## 🧪 Secret Developer Access
+
+Cipher Alchemist includes a hidden developer dashboard for advanced testing and diagnostics.
+
+**How to access:**
+- **Keyboard Sequence:** Hold `Ctrl+Shift` and type `d`, `e`, `v` in order (Ctrl+Shift+D+E+V)
+- **Rapid Clicks:** Click the app title (`Cipher Alchemist`) 5 times rapidly (within 2 seconds)
+
+**What you get:**
+- Access to developer dashboard (local/dev mode only)
+- Test password generation, URL parameters, sharing, theme, PWA features, and keyboard shortcuts
+
+_This feature is only available in local/development mode or via a special overlay in production._
