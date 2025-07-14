@@ -558,6 +558,42 @@ function toggleTheme() {
     localStorage.setItem('theme', newTheme);
     console.log(`Theme changed to: ${newTheme}`);
 }
+/**
+ * Show or hide the share button
+ */
+function updateShareButtonVisibility(show) {
+    const shareBtn = document.getElementById('shareBtn');
+    if (shareBtn) {
+        if (show) {
+            shareBtn.classList.remove('share-button-hidden');
+            shareBtn.classList.add('share-button-visible');
+        } else {
+            shareBtn.classList.add('share-button-hidden');
+            shareBtn.classList.remove('share-button-visible');
+        }
+    }
+}
+
+/**
+ * Show or hide the copy button
+ */
+function updateCopyButtonVisibility(show) {
+    const copyBtn = document.getElementById('copyBtn');
+    if (copyBtn) {
+        copyBtn.style.display = show ? 'inline-block' : 'none';
+    }
+}
+
+/**
+ * Show or hide the clear button
+ */
+function updateClearButtonVisibility() {
+    const phraseInput = document.getElementById('phraseInput');
+    const clearBtn = document.getElementById('clearBtn');
+    if (clearBtn && phraseInput) {
+        clearBtn.style.display = phraseInput.value.trim() ? 'inline-block' : 'none';
+    }
+}
 // ...existing code...
 
 // ==============================================
