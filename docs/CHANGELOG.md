@@ -4,6 +4,45 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-14 18:35:52 +0530  
+**Commit:** [9da0347](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9da0347452d3e61d2a6ef3459b33b34c5dc46d32)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: Enhance phrase input UX with animation
+
+Motivation:
+- Improve user experience when applying example and suggestion phrases.
+
+Changes:
+- Added applyPhraseWithEffect to animate phrase input on selection.
+- Updated example and suggestion listeners to use new animation effect.
+- Refactored tryExample to match animated input behavior.
+- Ensured phrase suggestions refresh if available.
+
+Impact:
+- Users receive visual feedback and smoother transitions when applying phrases.
+- Codebase benefits from improved modularity and maintainability.
+
+Testing and Validation:
+- Manual testing: Verified phrase application via click and keyboard.
+- Confirmed animation triggers and password generation after effect.
+
+Dependencies:
+- No new dependencies introduced.
+
+Backward Compatibility:
+- Fully backward compatible; no breaking changes.
+
+Docs:
+- No documentation updates required.
+
+CI/CD, runtime, database, security, cloud integration, VCS, code style, logging, review, code quality, coverage, and ownership:
+- No expected changes or impacts in these areas.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-14 15:06:20 +0530  
 **Commit:** [4238ecc](https://github.com/dhruvinrsoni/cipher-alchemist/commit/4238ecc3e6dde4027e2be796f69db8cf3953909b)  
 **Author:** Dhruvin Rupesh Soni
@@ -1646,39 +1685,6 @@ Docs:
 - Updated README.md with feature highlights and descriptions
 - Added technical implementation details in DEVELOPMENT.md
 - Updated app description in manifest.json to mention the new feature
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 04:10:35 +0530  
-**Commit:** [2dfe77e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2dfe77e2935639fd618e246722743c5c973b9697)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: automate RELEASES.md updates in release workflow
-
-Reason:
-- Previously, RELEASES.md had to be manually updated after each release
-- This led to inconsistent release documentation and missing versions
-
-Changes:
-- Added automated RELEASES.md update step to create-tag-release workflow
-- Enhanced workflow extracts git commit messages for changelog generation
-- Fixed syntax issue in workflow file (missing newline after exit 1)
-- Added comprehensive release process documentation to GIT_WORKFLOW_GUIDE.md
-- Updated release commit message to include details about file updates
-
-Impact:
-- Every release will now automatically update RELEASES.md with structured notes
-- Eliminates manual steps that caused v1.1.0 to be missing from documentation
-- Provides consistent release documentation format across all versions
-
-Dependencies:
-- No new external dependencies, uses existing git commands and bash scripting
-
-Compatibility:
-- Fully backward compatible with existing release workflow
-- Enhances but doesn't break existing release process
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
