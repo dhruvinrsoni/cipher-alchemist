@@ -647,8 +647,16 @@ if (document.readyState === 'loading') {
     window.advancedSearch = new AdvancedSearch();
 }
 
+// Initialize function for backward compatibility
+function initializeAdvancedSearch() {
+    console.log('🔍 Advanced Search initialized');
+    return { enabled: true };
+}
+
 // Make static methods globally available
 window.AdvancedSearch = AdvancedSearch;
+window.initializeAdvancedSearch = initializeAdvancedSearch;
+window.openAdvancedSearch = AdvancedSearch.open;
 
 // Export for module use
 if (typeof module !== 'undefined' && module.exports) {

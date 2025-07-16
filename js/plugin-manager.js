@@ -260,6 +260,31 @@ class CipherPluginManager {
 // Create global plugin manager instance
 window.CipherPluginManager = window.CipherPluginManager || new CipherPluginManager();
 
+// Initialize function for backward compatibility
+function initializePluginManager() {
+    console.log('🔌 Plugin Manager ready');
+    
+    // Try to initialize dark mode plugin if available
+    if (typeof DarkModePlugin !== 'undefined') {
+        const darkModePlugin = new DarkModePlugin();
+        window.CipherPluginManager.registerPlugin('darkMode', darkModePlugin);
+        window.darkModePlugin = darkModePlugin;
+    }
+    
+    return { enabled: true, plugins: window.CipherPluginManager.plugins.size };
+}
+
+// Auto-initialize when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePluginManager);
+} else {
+    initializePluginManager();
+}
+
+// Export global functions
+window.initializePluginManager = initializePluginManager;
+window.openPluginManager = () => window.CipherPluginManager.openManager();
+
 // Export for module use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = CipherPluginManager;

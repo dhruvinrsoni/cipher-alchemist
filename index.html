@@ -189,8 +189,11 @@
     <script src="js/cipher-algorithms.js" defer></script>
     <script src="js/notifications.js" defer></script>
     
-    <!-- Main App (Contains all core functionality) -->
-    <script src="js/main.js" defer></script>
+    <!-- UI and Theme Management -->
+    <script src="js/ui-controls.js" defer></script>
+    <script src="js/theme-manager.js" defer></script>
+    <script src="js/version-manager.js" defer></script>
+    <script src="js/url-handler.js" defer></script>
     
     <!-- Feature Modules -->
     <script src="js/password-strength.js" defer></script>
@@ -199,8 +202,16 @@
     <script src="js/sharing.js" defer></script>
     <script src="js/pwa.js" defer></script>
     
+    <!-- Advanced Features -->
+    <script src="js/advanced-search.js" defer></script>
+    <script src="js/file-operations.js" defer></script>
+    <script src="js/plugin-manager.js" defer></script>
+    
     <!-- Plugins -->
     <script src="js/plugins/dark-mode-plugin.js" defer></script>
+    
+    <!-- Main App (Coordination and initialization) -->
+    <script src="js/main.js" defer></script>
     <script>
     // Ensure keyboard help works locally
     function showKeyboardHelp() {
@@ -222,38 +233,5 @@
         }
     }
     </script>
-    <script>
-// Expand/collapse logic for About Cipher Alchemist section
-function toggleDescription() {
-    var header = document.querySelector('.app-description-header');
-    var content = document.getElementById('descriptionContent');
-    var icon = document.getElementById('descriptionIcon');
-    var expanded = header.getAttribute('aria-expanded') === 'true';
-    header.setAttribute('aria-expanded', !expanded);
-    content.style.display = expanded ? 'none' : 'block';
-    icon.textContent = expanded ? '▼' : '▲';
-}
-// Keyboard accessibility for header
-var descHeader = document.querySelector('.app-description-header');
-if (descHeader) {
-    descHeader.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleDescription();
-        }
-    });
-}
-// Initialize state on load
-window.addEventListener('DOMContentLoaded', function() {
-    var content = document.getElementById('descriptionContent');
-    var header = document.querySelector('.app-description-header');
-    var icon = document.getElementById('descriptionIcon');
-    if (content && header && icon) {
-        var expanded = header.getAttribute('aria-expanded') === 'true';
-        content.style.display = expanded ? 'block' : 'none';
-        icon.textContent = expanded ? '▼' : '▲';
-    }
-});
-</script>
 </body>
 </html>

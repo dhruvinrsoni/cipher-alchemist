@@ -32,39 +32,14 @@ function applyCipherTransform(phrase) {
     return { password, explanation };
 }
 
-// Function to toggle the transformation section
-function toggleTransformation() {
-    const content = document.getElementById('transformationContent');
-    const icon = document.getElementById('transformationIcon');
-    const header = document.querySelector('.transformation-header');
-    
-    if (content && icon && header) {
-        if (content.classList.contains('collapsed')) {
-            // Expand
-            content.classList.remove('collapsed');
-            icon.classList.remove('collapsed');
-            icon.textContent = '▼';
-            header.setAttribute('aria-expanded', 'true');
-        } else {
-            // Collapse
-            content.classList.add('collapsed');
-            icon.classList.add('collapsed');
-            icon.textContent = '▶';
-            header.setAttribute('aria-expanded', 'false');
-        }
-    }
-}
-
 // Export functions for modular use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { 
         substitutions,
-        applyCipherTransform,
-        toggleTransformation 
+        applyCipherTransform
     };
 } else {
     // Make functions globally available
     window.substitutions = substitutions;
     window.applyCipherTransform = applyCipherTransform;
-    window.toggleTransformation = toggleTransformation;
 }

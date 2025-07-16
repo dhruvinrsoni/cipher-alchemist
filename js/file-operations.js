@@ -591,6 +591,16 @@ if (document.readyState === 'loading') {
     window.fileOps = new FileOperations();
 }
 
+// Initialize function for backward compatibility
+function initializeFileOperations() {
+    console.log('📁 File Operations initialized');
+    return { enabled: true };
+}
+
+// Export global functions
+window.initializeFileOperations = initializeFileOperations;
+window.openFileOperations = () => window.fileOps?.showFileMenu();
+
 // Export for module use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = FileOperations;

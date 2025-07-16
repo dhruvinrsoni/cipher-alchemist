@@ -72,6 +72,7 @@ class DarkModePlugin {
             // Apply current theme
             if (this.isEnabled) {
                 this.applyTheme(this.currentTheme);
+                this.notifyThemeManager(true);
             }
             
             console.log('Dark Mode Plugin initialized');
@@ -215,8 +216,10 @@ class DarkModePlugin {
         this.isEnabled = enabled;
         if (enabled) {
             this.applyTheme(this.currentTheme);
+            this.notifyThemeManager(true);
         } else {
             this.removeTheme();
+            this.notifyThemeManager(false);
         }
         this.saveSettings();
         
@@ -425,6 +428,7 @@ class DarkModePlugin {
     destroy() {
         this.teardownAutoMode();
         this.removeTheme();
+        this.notifyThemeManager(false);
         
         const button = document.getElementById('darkModeAdvancedBtn');
         if (button) {
@@ -435,6 +439,24 @@ class DarkModePlugin {
         if (window.darkModePlugin === this) {
             delete window.darkModePlugin;
         }
+    }
+
+    /**
+     * Notify theme manager about plugin status
+     */
+    notifyThemeManager(isActive) {
+        if (window.themeManager) {
+            if (isActive) {
+                window.themeManager.disableBasicToggle();
+            } else {
+                window.themeManager.enableBasicToggle();
+            }
+        }
+        
+        // Dispatch event for other modules
+        window.dispatchEvent(new CustomEvent('darkModePluginStatusChanged', {
+            detail: { isActive, plugin: this }
+        }));
     }
 }
 

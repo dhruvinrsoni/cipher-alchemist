@@ -106,6 +106,83 @@ function tryExample() {
 }
 
 // ==============================================
+// URL PARAMETER HANDLING
+// ==============================================
+
+/**
+ * Handle URL parameters for direct phrase sharing
+ */
+function handleURLParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const phrase = urlParams.get('phrase');
+    
+    if (phrase) {
+        const phraseInput = document.getElementById('phraseInput');
+        if (phraseInput) {
+            try {
+                // Decode the phrase
+                const decodedPhrase = decodeURIComponent(phrase);
+                phraseInput.value = decodedPhrase;
+                
+                // Generate password automatically
+                generatePassword();
+                
+                // Show notification
+                if (window.notify) {
+                    window.notify.success('🔗 Phrase loaded from URL!');
+                }
+                
+                // Scroll to phrase input
+                phraseInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Focus on input
+                setTimeout(() => {
+                    phraseInput.focus();
+                }, 500);
+                
+                console.log('URL parameter processed:', decodedPhrase);
+            } catch (error) {
+                console.error('Failed to process URL parameter:', error);
+                if (window.notify) {
+                    window.notify.error('Failed to load phrase from URL');
+                }
+            }
+        }
+    }
+}
+
+// ==============================================
+// VERSION DISPLAY
+// ==============================================
+
+/**
+ * Display application version
+ */
+function displayVersion() {
+    const versionElement = document.getElementById('footer-version');
+    if (!versionElement) return;
+    
+    // Check if running locally (file:// protocol)
+    if (window.location.protocol === 'file:') {
+        versionElement.textContent = 'DEV';
+        versionElement.style.color = '#28a745'; // Green color for dev
+        return;
+    }
+    
+    // For web deployment, try to fetch version file
+    fetch('version.txt')
+        .then(response => response.text())
+        .then(version => {
+            // Remove any extra whitespace and don't add extra "v" since version.txt already has it
+            versionElement.textContent = version.trim();
+        })
+        .catch(error => {
+            console.log('Version file not found, using fallback');
+            versionElement.textContent = 'v1.0.0';
+        });
+}
+
+// ==============================================
 // SECRET DEVELOPER ACCESS
 // ==============================================
 
@@ -276,6 +353,9 @@ function showDevModeOverlay() {
 function initializeApp() {
     console.log('🔮 Cipher Alchemist - Initializing...');
     
+    // Display version
+    displayVersion();
+    
     // Setup basic event listeners
     const phraseInput = document.getElementById('phraseInput');
     if (phraseInput) {
@@ -435,9 +515,7 @@ function initializeApp() {
     // Handle URL parameters AFTER all modules are initialized
     setTimeout(() => {
         console.log('🌐 Processing URL parameters...');
-        if (window.urlHandler) {
-            window.urlHandler.handleURLParameters();
-        }
+        handleURLParameters();
     }, 300);
     
     console.log('✅ Cipher Alchemist initialized successfully!');
@@ -454,3 +532,5 @@ if (document.readyState === 'loading') {
 // Backward compatibility - Export key functions to global scope
 window.generatePassword = generatePassword;
 window.tryExample = tryExample;
+window.handleURLParameters = handleURLParameters;
+window.displayVersion = displayVersion;

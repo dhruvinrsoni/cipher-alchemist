@@ -209,42 +209,52 @@ function populateSuggestions() {
  * @param {string} phrase - The phrase to insert
  */
 function insertSuggestion(phrase) {
-    const phraseInput = document.getElementById('phraseInput');
-    if (!phraseInput) {
-        console.error('No input with id="phraseInput" found');
-        return;
-    }
-    
-    // Find the clicked chip and add insertion animation
-    const chips = document.querySelectorAll('.suggestion-chip');
-    chips.forEach(chip => {
-        if (chip.getAttribute('data-phrase') === phrase) {
-            chip.classList.add('inserting');
-            setTimeout(() => chip.classList.remove('inserting'), 400);
+    if (window.uiControls && window.uiControls.applyPhraseWithEffect) {
+        window.uiControls.applyPhraseWithEffect(phrase);
+    } else {
+        // Fallback if UI controls not available
+        const phraseInput = document.getElementById('phraseInput');
+        if (!phraseInput) {
+            console.error('No input with id="phraseInput" found');
+            return;
         }
-    });
-    
-    // Insert the phrase
-    phraseInput.value = phrase;
-    phraseInput.focus();
-    
-    // Add visual feedback animation
-    phraseInput.style.transition = 'all 0.3s ease';
-    phraseInput.style.transform = 'scale(1.02)';
-    phraseInput.style.boxShadow = '0 4px 16px rgba(40, 167, 69, 0.3)';
-    
-    // Trigger input event for real-time strength checking
-    const inputEvent = new Event('input', { bubbles: true });
-    phraseInput.dispatchEvent(inputEvent);
-    
-    // Reset animation
-    setTimeout(() => {
-        phraseInput.style.transform = 'scale(1)';
-        phraseInput.style.boxShadow = '';
-    }, 300);
-    
-    // Scroll to the input field for better UX
-    phraseInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Find the clicked chip and add insertion animation
+        const chips = document.querySelectorAll('.suggestion-chip');
+        chips.forEach(chip => {
+            if (chip.getAttribute('data-phrase') === phrase) {
+                chip.classList.add('inserting');
+                setTimeout(() => chip.classList.remove('inserting'), 400);
+            }
+        });
+        
+        // Insert the phrase
+        phraseInput.value = phrase;
+        phraseInput.focus();
+        
+        // Add visual feedback animation
+        phraseInput.style.transition = 'all 0.3s ease';
+        phraseInput.style.transform = 'scale(1.02)';
+        phraseInput.style.boxShadow = '0 4px 16px rgba(40, 167, 69, 0.3)';
+        
+        // Trigger input event for real-time strength checking
+        const inputEvent = new Event('input', { bubbles: true });
+        phraseInput.dispatchEvent(inputEvent);
+        
+        // Reset animation
+        setTimeout(() => {
+            phraseInput.style.transform = 'scale(1)';
+            phraseInput.style.boxShadow = '';
+        }, 300);
+        
+        // Scroll to the input field for better UX
+        phraseInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // Generate password
+        if (typeof generatePassword === 'function') {
+            generatePassword();
+        }
+    }
 }
 
 /**
