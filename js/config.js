@@ -1,12 +1,4 @@
-/**
- * Feature Configuration for Cipher Alchemist
- * 
- * This file allows easy enabling/disabling of application features.
- * Set any feature to false to disable it completely.
- * 
- * Features are automatically disabled when set to false - no need to 
- * remove scripts from HTML. The feature will simply not initialize.
- */
+// ...existing code...
 
 window.CipherAlchemistConfig = {
     features: {

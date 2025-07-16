@@ -1,9 +1,4 @@
-/**
- * Cipher Alchemist - Main Application Coordinator
- * 
- * This file coordinates the initialization and interaction between different modules.
- * Individual functionality is handled by specialized modules.
- */
+// ...existing code...
 
 // ==============================================
 // CORE PASSWORD FUNCTIONALITY

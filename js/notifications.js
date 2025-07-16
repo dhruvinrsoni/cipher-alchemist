@@ -1,7 +1,4 @@
-/**
- * Modern Notification System - Replaces ugly alert() popups
- * Features: Auto-timeout, hover to pause, close button, selectable content, animations
- */
+// ...existing code...
 
 // Notification container (will be created dynamically)
 let notificationContainer = null;

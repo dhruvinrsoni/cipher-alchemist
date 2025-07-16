@@ -1,7 +1,4 @@
-/**
- * Version Management Module
- * Handles application version display and management
- */
+// ...existing code...
 
 class VersionManager {
     constructor() {

@@ -1,8 +1,4 @@
-/**
- * Sharing Feature Module
- * Handles all sharing functionality including social media sharing, native sharing, and modal management
- * This module can be easily enabled/disabled by including/excluding this file
- */
+// ...existing code...
 
 // Sharing Feature State
 let sharingModal = null;

@@ -1,4 +1,4 @@
-// Phrase Suggestions Module - 12 Balanced Groups of 4 Suggestions Each
+// ...existing code...
 
 const phraseSuggestions = {
     // Group 1: Power & Motivation

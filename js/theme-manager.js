@@ -1,7 +1,4 @@
-/**
- * Theme Management Module
- * Unified theme handling with support for basic and advanced themes
- */
+// ...existing code...
 
 class ThemeManager {
     constructor() {

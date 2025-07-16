@@ -1,7 +1,4 @@
-/**
- * UI Controls Module
- * Centralized management of all UI interactions and toggles
- */
+// ...existing code...
 
 class UIControls {
     constructor() {

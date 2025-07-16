@@ -1,8 +1,4 @@
-/**
- * Keyboard Shortcuts Help Modal
- * Provides a comprehensive modal showing all available keyboard shortcuts
- * Similar to YouTube's Ctrl+? functionality
- */
+// ...existing code...
 
 let isModalOpen = false;
 
