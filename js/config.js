@@ -20,14 +20,13 @@ window.CipherAlchemistConfig = {
         keyboardShortcuts: true,    // Keyboard navigation and shortcuts
         passwordStrength: true,     // Real-time password strength analysis
         phraseSuggestions: true,    // Inspirational phrase suggestions
-        
+        // (Removed: advanced-search, file-operations, main-backup, main-refactored, plugin-manager, plugins/dark-mode-plugin)
         // Legacy feature names (for backward compatibility)
         theme: true,                // Handled by appUtilities
         version: true,              // Handled by appUtilities
         urlHandler: true,           // Handled by appUtilities
         sections: true,             // Handled by appUtilities
         uiUtilities: true,          // Handled by passwordEngine
-        
         // Experimental/optional features
         analytics: false,           // Usage analytics (not implemented yet)
         darkModeAuto: false,        // Automatic dark mode based on system preference

@@ -30,13 +30,6 @@
 - **🔗 Social Sharing** - Share educational examples securely with enhanced UI and native share support (phrases only, never passwords)
 - **📄 PDF Cheat Sheet** - Downloadable reference guide
 
-### 🚀 **Advanced Features**
-- **🧩 Plugin Manager** - Extensible plugin system with theme management (`Ctrl+Shift+P`)
-- **🔍 Advanced Search** - Search phrase history with filters and smart suggestions (`Ctrl+F`)
-- **📁 File Operations** - Import/export phrases, config, and batch operations (`Ctrl+Shift+O`)
-- **🔔 Modern Notifications** - Toast-style notifications with accessibility support
-- **🌙 Theme Plugins** - Dark mode with scheduling and custom preferences
-
 ### 🚀 **Progressive Web App**
 - **📱 Mobile-First Design** - Responsive across all devices
 - **⚡ Offline Support** - Works without internet connection

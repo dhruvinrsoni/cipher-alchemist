@@ -48,8 +48,14 @@ function generatePassword() {
         
         passwordOutput.value = result.password;
         
-        // Display transformation steps
-        if (transformationSteps && result.steps) {
+        // Display transformation steps (fix: use explanation if steps missing)
+        if (transformationSteps) {
+            let stepsHtml = '';
+            if (result.steps && Array.isArray(result.steps)) {
+                stepsHtml = result.steps.map(step => `<li><strong>${step.operation}:</strong> ${step.result}</li>`).join('');
+            } else if (result.explanation) {
+                stepsHtml = result.explanation;
+            }
             transformationSteps.innerHTML = `
                 <div class="transformation-section">
                     <div class="transformation-header" onclick="toggleTransformation()" aria-expanded="true" role="button" tabindex="0" aria-controls="transformationContent">
@@ -58,7 +64,7 @@ function generatePassword() {
                     </div>
                     <div class="transformation-content" id="transformationContent">
                         <ol class="transformation-steps">
-                            ${result.steps.map(step => `<li><strong>${step.operation}:</strong> ${step.result}</li>`).join('')}
+                            ${stepsHtml}
                         </ol>
                         <p class="transformation-note">💡 <strong>Security Tip:</strong> Character substitution makes passwords harder to guess while keeping them memorable.</p>
                     </div>
