@@ -4,6 +4,37 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-16 19:59:49 +0530  
+**Commit:** [56b8faa](https://github.com/dhruvinrsoni/cipher-alchemist/commit/56b8faa1c944b03bcd51959e5e371532adcad17b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### refactor: remove advanced features and related code
+
+Refactored codebase to remove advanced features for simplification.
+
+- Removed plugin manager, advanced search, file operations, and dark mode plugin from UI and logic
+- Deleted related keyboard shortcuts and initialization code
+- Cleaned up theme manager to eliminate plugin integration
+- Updated service worker to stop caching removed scripts
+- Adjusted config and documentation comments for clarity
+
+Impact:
+- Reduces code complexity and maintenance overhead
+- No new dependencies introduced
+- No changes to CI/CD, runtime, database, security, or cloud integration
+- No impact on code style, logging, review, code quality, or coverage
+- No changes in code ownership
+
+Testing and Validation:
+- Manual regression testing required to ensure core features remain functional
+
+Backward Compatibility:
+- BREAKING CHANGE: Advanced features and their APIs are no longer available
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-16 19:52:14 +0530  
 **Commit:** [df1756b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/df1756b05c98b8f5dcf076567e8146ba192b3571)  
 **Author:** Dhruvin Rupesh Soni
@@ -1662,51 +1693,6 @@ Impact:
 - Enhances accessibility compliance
 - Preserves all functionality while reducing clutter
 - No breaking changes to existing features
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 16:01:44 +0530  
-**Commit:** [a84a8e3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/a84a8e36b9c181c9ed2d4b939476c71ac7571c39)  
-**Author:** Dhruvin Rupesh Soni
-
-#### refactor: implement modular architecture for improved maintainability
-
-Reason:
-- Restructured codebase from monolithic files to a clean, feature-based modular architecture
-- Original implementation had all code in single JS/CSS files, making maintenance difficult
-
-Changes:
-- Split monolithic CSS into 4 focused modules:
-     * themes.css - Theme system & CSS variables
-     * main.css - Core layout & base styles
-     * password-strength.css - Strength meter styling
-     * phrase-suggestions.css - Suggestion UI styles
-- Split monolithic JS into 4 functional modules:
-     * cipher-algorithms.js - Password generation logic
-     * password-strength.js - Strength analysis system
-     * phrase-suggestions.js - Suggestion management
-     * main.js - App initialization & core logic
-- Updated index.html to reference modular files
-- Preserved original files as backups (scripts.js, styles.css)
-- Updated documentation to reflect new architecture
-
-Impact:
-- Improved maintainability with separation of concerns
-- Enhanced code organization through smaller, focused files
-- Better developer experience for future feature development
-- Potential performance gains via parallel CSS loading
-- Easier debugging by isolating issues to specific modules
-
-Test:
-- Verified all functionality works identically to the monolithic version
-- Tested across different screen sizes for responsive behavior
-- Validated theme switching, password generation, and strength analysis
-
-Compatibility:
-- No breaking changes - functionality remains identical
-- Original files preserved as backups with warning headers
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
