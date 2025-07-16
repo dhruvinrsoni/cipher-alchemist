@@ -4,6 +4,51 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-16 19:01:16 +0530  
+**Commit:** [5bb0fdd](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5bb0fddeb832eaac8be7430d24330cd1c0cd6ac5)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: modularize UI, theme, version, and URL handling
+
+Refactor main app to modular architecture for maintainability
+
+- Split monolithic main.js into specialized modules:
+     - ui-controls.js: Centralizes UI toggles, copy/clear, section state
+     - theme-manager.js: Handles theme switching, plugin integration
+     - version-manager.js: Manages version display and dev/prod detection
+     - url-handler.js: Manages URL params, deep linking, sharing
+- Updated index.html to load new modules before main.js
+- Removed legacy inline scripts for collapsible sections from HTML
+- Added backward compatibility: global exports for key functions
+- Enhanced plugin-manager, advanced-search, file-operations for modular init
+- Updated phrase-suggestions to use new UI controls if available
+- Improved dark mode plugin to notify theme manager of status
+- No new runtime, database, or cloud dependencies introduced
+
+Impact:
+- Improves codebase maintainability, readability, and testability
+- Enables easier feature extension and isolated testing
+- No impact on CI/CD, database, or cloud integration
+- No breaking changes; backward compatibility maintained via global exports
+- No changes to logging, code style, or code coverage expected
+
+Test:
+- Manual regression: UI toggles, theme switching, version display, URL sharing
+- Verified plugin and advanced feature initialization
+- Confirmed backward compatibility for legacy HTML event handlers
+
+Dependencies:
+
+Backward Compatibility:
+- Maintained via global window exports for legacy handlers
+
+Docs:
+- Update architecture and module usage documentation to reflect new structure
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-14 18:35:52 +0530  
 **Commit:** [9da0347](https://github.com/dhruvinrsoni/cipher-alchemist/commit/9da0347452d3e61d2a6ef3459b33b34c5dc46d32)  
 **Author:** Dhruvin Rupesh Soni
@@ -1644,47 +1689,6 @@ Test:
 - Verified all 48 suggestions across 12 thematic groups work with cipher transformations
 - Confirmed responsive design with optimized 4-suggestion layout
 - Validated thematic coherence reduces cognitive load for users
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 12:21:30 +0530  
-**Commit:** [94c4ce8](https://github.com/dhruvinrsoni/cipher-alchemist/commit/94c4ce87cf1ecd0ca08c5a06642aa6541b85eb3c)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: Add comprehensive Phrase Suggestions system
-
-Reason:
-- Provide users with inspirational examples to easily get started with the cipher tool
-- Reduce complexity barrier for new users by offering curated, meaningful phrases
-- Enhance user experience with one-click phrase testing and exploration
-
-Changes:
-- Implemented 6 categories of phrase suggestions (Motivation, Tech, Wisdom, Success, Wellness, Spiritual)
-- Added 48+ carefully curated inspirational phrases with emoji indicators
-- Created interactive suggestion chips with smooth animations and visual feedback
-- Integrated one-click phrase insertion with automatic strength analysis
-- Added refresh functionality for discovering new suggestions
-- Implemented collapsible UI section to optimize screen space
-- Added keyboard navigation and accessibility support
-
-Impact:
-- Significantly improved user onboarding and discovery experience
-- Reduced friction for users unsure what phrases to test
-- Enhanced engagement through inspirational, meaningful examples
-- Maintained clean, professional UI while adding substantial functionality
-
-Test:
-- Verified all 48+ suggestions work correctly with cipher transformations
-- Tested responsive design across mobile and desktop devices
-- Confirmed accessibility features and keyboard navigation
-- Validated smooth animations and visual feedback systems
-
-Docs:
-- Updated README.md with feature highlights and descriptions
-- Added technical implementation details in DEVELOPMENT.md
-- Updated app description in manifest.json to mention the new feature
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
