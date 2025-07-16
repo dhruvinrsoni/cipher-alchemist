@@ -4,6 +4,56 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-16 19:52:14 +0530  
+**Commit:** [df1756b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/df1756b05c98b8f5dcf076567e8146ba192b3571)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: remove advanced features and plugins from codebase
+
+This commit removes advanced features and plugin infrastructure to simplify the codebase and reduce maintenance overhead.
+
+Reason:
+- Reduce code complexity and maintenance burden.
+- Remove features that are not core to the application's primary use case.
+- Address issues with unused or experimental modules.
+
+Changes:
+- Deleted advanced-search.js, file-operations.js, plugin-manager.js, plugins/dark-mode-plugin.js, main-backup.js, and main-refactored.js.
+- Removed references to advanced features and plugins from index.html and config.js.
+- Updated main.js to handle transformation steps gracefully if explanation is present.
+- Cleaned up README.md to remove documentation for deprecated features.
+
+Impact:
+- Users will no longer have access to advanced search, file operations, plugin management, or advanced dark mode.
+- Codebase is easier to maintain and less prone to bugs from unused/experimental code.
+- No impact on CI/CD, runtime, database, security, cloud integration, or VCS.
+- Code style, logging, review, code quality, and coverage are improved by reducing dead code.
+- Ownership and review process simplified due to fewer modules.
+
+Test:
+- Manual validation of core password generation and UI.
+- Verified that removed features are no longer accessible in the UI.
+- Confirmed no errors on application startup.
+
+Dependencies:
+- No new dependencies introduced.
+- No dependency removals required.
+
+Backward Compatibility:
+- BREAKING CHANGE: Removes advanced features and plugin support.
+- Users relying on these features must remain on previous versions.
+
+Docs:
+- Updated README.md to reflect removal of advanced features and plugins.
+
+Issue or Ticket Number:
+
+BREAKING CHANGE: Advanced features and plugin support have been removed.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-16 19:01:16 +0530  
 **Commit:** [5bb0fdd](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5bb0fddeb832eaac8be7430d24330cd1c0cd6ac5)  
 **Author:** Dhruvin Rupesh Soni
@@ -1657,38 +1707,6 @@ Test:
 Compatibility:
 - No breaking changes - functionality remains identical
 - Original files preserved as backups with warning headers
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-08 13:29:03 +0530  
-**Commit:** [7e4626e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/7e4626e9c1ff2245b18e11796e38750447f931f1)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: restructure phrase suggestions into 12 thematic groups
-
-Reason:
-- Improve user experience by organizing suggestions into cohesive themes
-- Reduce cognitive load with focused, related phrase options
-- Enhance discoverability through complete thematic groups
-
-Changes:
-- Reorganized 48 phrases from 6 mixed categories into 12 balanced thematic groups
-- Modified suggestion system to display 4 related phrases per group instead of 8 random ones
-- Updated getRandomSuggestions() to select complete thematic groups for better context
-- Enhanced refresh functionality to show thematically consistent suggestions
-- Updated documentation in README.md and DEVELOPMENT.md to reflect new organization
-
-Impact:
-- Improved user experience with more coherent, focused suggestion options
-- Enhanced discoverability of phrases through logical grouping
-- Maintained same feature functionality while improving organization and usability
-
-Test:
-- Verified all 48 suggestions across 12 thematic groups work with cipher transformations
-- Confirmed responsive design with optimized 4-suggestion layout
-- Validated thematic coherence reduces cognitive load for users
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
