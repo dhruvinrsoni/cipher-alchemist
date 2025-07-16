@@ -384,49 +384,7 @@ function initializeApp() {
         console.warn('⚠️ Sharing feature not available');
     }
     
-    // Initialize advanced features
-    if (typeof initializePluginManager === 'function') {
-        console.log('🧩 Initializing plugin manager...');
-        initializePluginManager();
-    }
-    
-    if (typeof initializeAdvancedSearch === 'function') {
-        console.log('🔍 Initializing advanced search...');
-        initializeAdvancedSearch();
-    }
-    
-    if (typeof initializeFileOperations === 'function') {
-        console.log('📁 Initializing file operations...');
-        initializeFileOperations();
-    }
-    
-    // Setup advanced feature buttons
-    const advancedSearchBtn = document.getElementById('advancedSearchBtn');
-    if (advancedSearchBtn) {
-        advancedSearchBtn.addEventListener('click', () => {
-            if (typeof openAdvancedSearch === 'function') {
-                openAdvancedSearch();
-            }
-        });
-    }
-    
-    const pluginManagerBtn = document.getElementById('pluginManagerBtn');
-    if (pluginManagerBtn) {
-        pluginManagerBtn.addEventListener('click', () => {
-            if (typeof openPluginManager === 'function') {
-                openPluginManager();
-            }
-        });
-    }
-    
-    const fileOperationsBtn = document.getElementById('fileOperationsBtn');
-    if (fileOperationsBtn) {
-        fileOperationsBtn.addEventListener('click', () => {
-            if (typeof openFileOperations === 'function') {
-                openFileOperations();
-            }
-        });
-    }
+    // Removed initialization and button listeners for plugin manager, advanced search, file operations
     
     // Initialize secret developer access
     document.addEventListener('keydown', handleDevSequence);

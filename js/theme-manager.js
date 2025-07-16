@@ -6,7 +6,7 @@
 class ThemeManager {
     constructor() {
         this.currentTheme = 'light-theme';
-        this.isDarkModePluginActive = false;
+        // Removed dark mode plugin integration
         this.initialized = false;
         
         this.init();
@@ -15,9 +15,7 @@ class ThemeManager {
     init() {
         this.loadTheme();
         this.setupEventListeners();
-        this.checkForDarkModePlugin();
         this.initialized = true;
-        
         console.log('🎨 Theme Manager initialized');
     }
     
@@ -45,7 +43,6 @@ class ThemeManager {
         
         this.currentTheme = theme;
         localStorage.setItem('theme', theme);
-        
         // Trigger theme change event for other modules
         window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
     }
@@ -54,19 +51,9 @@ class ThemeManager {
      * Toggle between light and dark themes
      */
     toggleTheme() {
-        // Don't allow basic toggle if dark mode plugin is active
-        if (this.isDarkModePluginActive) {
-            if (typeof notify !== 'undefined') {
-                notify.info('🌚 Advanced Dark Mode is active. Use the dark mode button for more options.');
-            }
-            return;
-        }
-        
         const isDark = this.currentTheme === 'dark-theme';
         const newTheme = isDark ? 'light-theme' : 'dark-theme';
-        
         this.applyTheme(newTheme);
-        
         console.log(`Theme changed to: ${newTheme}`);
     }
     
@@ -78,41 +65,20 @@ class ThemeManager {
         if (themeBtn) {
             themeBtn.addEventListener('click', () => this.toggleTheme());
         }
-        
-        // Listen for dark mode plugin status changes
-        window.addEventListener('darkModePluginStatusChanged', (e) => {
-            this.isDarkModePluginActive = e.detail.isActive;
-            this.updateThemeButtonState();
-        });
     }
     
     /**
      * Check if dark mode plugin is available and active
      */
     checkForDarkModePlugin() {
-        // Check if dark mode plugin is loaded and active
-        setTimeout(() => {
-            if (window.darkModePlugin && window.darkModePlugin.isEnabled) {
-                this.isDarkModePluginActive = true;
-                this.updateThemeButtonState();
-            }
-        }, 100);
+        // Removed dark mode plugin check
     }
     
     /**
      * Update theme button state based on plugin status
      */
     updateThemeButtonState() {
-        const themeBtn = document.getElementById('themeToggleBtn');
-        if (themeBtn) {
-            if (this.isDarkModePluginActive) {
-                themeBtn.style.opacity = '0.6';
-                themeBtn.title = 'Advanced Dark Mode is active. Use 🌚 button for theme options.';
-            } else {
-                themeBtn.style.opacity = '1';
-                themeBtn.title = this.currentTheme === 'dark-theme' ? 'Switch to light theme' : 'Switch to dark theme';
-            }
-        }
+        // Removed dark mode plugin button state logic
     }
     
     /**
@@ -140,16 +106,14 @@ class ThemeManager {
      * Disable basic theme toggle (used by plugins)
      */
     disableBasicToggle() {
-        this.isDarkModePluginActive = true;
-        this.updateThemeButtonState();
+        // Removed dark mode plugin disable logic
     }
     
     /**
      * Enable basic theme toggle (used by plugins)
      */
     enableBasicToggle() {
-        this.isDarkModePluginActive = false;
-        this.updateThemeButtonState();
+        // Removed dark mode plugin enable logic
     }
 }
 
