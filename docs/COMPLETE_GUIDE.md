@@ -37,65 +37,6 @@ The Cipher Alchemist codebase has been completely refactored into a clean, modul
 
 1. **Feature Isolation** - Each feature is self-contained with its own module
 2. **Configuration-Driven** - All features can be enabled/disabled via configuration
-3. **Progressive Enhancement** - Application works even with features disabled
-4. **Backward Compatibility** - Legacy code continues to work during transition
-5. **Error Boundaries** - Feature failures don't cascade to other components
-
-### **Architecture Components**
-
-| Component | Purpose | Location |
-|-----------|---------|----------|
-| **Configuration System** | Central feature management | `js/config.js` |
-| **Application Coordinator** | Feature initialization & lifecycle | `js/app.js` |
-| **Feature Modules** | Self-contained functionality | `js/` |
-| **Legacy Support** | Backward compatibility | `js/main.js` |
-| **Styling** | Feature-specific CSS | `css/` |
-
----
-
-## 📁 **Project Structure**
-
-### **New Modular Structure**
-```
-cipher-alchemist/
-├── index.html (UPDATED) - Updated script/style references
-├── js/
-│   ├── config.js (NEW) - Centralized feature configuration
-│   ├── app.js (NEW) - Main application coordinator  
-│   ├── main.js (REFACTORED) - Legacy function redirects
-│   ├── cipher-algorithms.js - Core encryption algorithms
-│   ├── keyboard-shortcuts.js - Keyboard navigation system
-│   ├── password-strength.js - Password strength analysis
-│   ├── phrase-suggestions.js - Inspirational phrase system
-│   ├── sharing.js - Social sharing, Web Share API, modal templates
-│   ├── theme.js - Light/dark theme management
-│   ├── pwa.js - PWA install prompts, service worker
-│   ├── version.js - Version display and management
-│   ├── urlHandler.js - URL parameter handling
-│   ├── sections.js - Collapsible UI sections
-│   └── uiUtilities.js - UI helpers (copy, clear, examples)
-├── css/
-│   ├── main.css - Core application styles
-│   ├── themes.css - Light/dark theme styles
-│   ├── sharing.css (NEW) - Sharing feature styles
-│   ├── modal.css - Modal component styles
-│   ├── keyboard-shortcuts.css - Keyboard help modal styles
-│   ├── password-strength.css - Password strength indicator styles
-│   └── phrase-suggestions.css - Suggestion system styles
-└── docs/
-    └── COMPLETE_GUIDE.md (THIS FILE) - Merged documentation
-```
-
----
-
-## 🔧 **Modular Features**
-
-### **1. Sharing Feature** (`js/sharing.js` + `css/sharing.css`)
-- **Purpose**: Complete sharing functionality including social media, native Web Share API, and URL generation
-- **Key Functions**: 
-  - `shareExample()` - Main sharing entry point
-  - `showSharingModal()` - Display sharing options modal
-  - `useNativeShare()` - Native Web Share API integration
   - `shareToTwitter()`, `shareToLinkedIn()`, `shareToReddit()` - Social platform sharing
 - **Templates**: Embedded HTML templates for sharing modal
 - **Features**: 
@@ -123,108 +64,58 @@ cipher-alchemist/
   - `registerServiceWorker()` - Offline functionality
   - `handlePWAInstall()` - Install process management
 - **Features**:
-  - Smart install button visibility
-  - Cross-browser compatibility
-  - Offline functionality via service worker
-  - Install detection and hiding
-
-### **4. Version Management** (`js/version.js`)
-- **Purpose**: Application version display and management
-- **Key Functions**:
-  - `initializeVersion()` - Setup version display
-  - `displayVersion()` - Show version information
-  - `getVersionFromFile()` - Read from version.txt
-- **Features**:
-  - Automatic version reading
-  - Version display in UI
-  - Development vs production handling
-
-### **5. URL Handler** (`js/urlHandler.js`)
-- **Purpose**: Deep linking and URL parameter processing
-- **Key Functions**:
-  - `handleURLParameters()` - Process URL parameters
-  - `getURLParameter()` - Extract specific parameters
-  - `updateURLWithPhrase()` - Update URL for sharing
-- **Features**:
-  - Direct phrase sharing via URLs
-  - Parameter validation
-  - Browser history management
-
-### **6. UI Utilities** (`js/uiUtilities.js`)
-- **Purpose**: Common UI utility functions
-- **Key Functions**:
-  - `copyPassword()` - Clipboard operations
-  - `clearTextarea()` - Form management
-  - `tryExample()` - Example phrase insertion
-  - `toggleClearButton()` - Button state management
-  - `downloadPDF()` - File download functionality
-- **Features**:
   - Modern clipboard API
-  - Fallback for older browsers
-  - User feedback and notifications
 
-### **7. Sections Management** (`js/sections.js`)
-- **Purpose**: Collapsible UI sections management
-- **Key Functions**:
-  - `toggleDescription()` - Description panel
-  - `toggleTransformation()` - Transformation details
-  - `initializeSections()` - Setup collapsible sections
-- **Features**:
-  - Smooth animations
-  - State persistence
-  - Accessibility support
+# Cipher Alchemist - Minimal Architecture Guide
 
----
+## Structure
+- Modular JS: one feature per file in `js/`
+- Modular CSS: one feature per file in `css/`
+- Service worker: `sw.js` for offline
+- Manifest: `manifest.json` for PWA
 
-## ⚙️ **Configuration System**
+## Main Features
+- Password logic: `cipher-algorithms.js`
+- Phrase suggestions: `phrase-suggestions.js`
+- Keyboard shortcuts: `keyboard-shortcuts.js`
+- Notifications: `notifications.js`
+- Sharing: `sharing.js`
+- Theme: `theme.js`
+- PWA: `pwa.js`
+- Version: `version.js`
+- URL handler: `urlHandler.js`
+- Sections: `sections.js`
+- UI utilities: `uiUtilities.js`
 
-### **Central Configuration** (`js/config.js`)
+## Configuration
+- All features toggled in `js/config.js`
+- Use `window.Config.isFeatureEnabled('feature')` for checks
 
-```javascript
-window.CipherAlchemistConfig = {
-    features: {
-        // Core features
-        sharing: true,          // Social media sharing, URL sharing, Web Share API
-        theme: true,            // Light/dark theme toggle
-        pwa: true,              // Progressive Web App install prompts
-        version: true,          // Version display and management
-        urlHandler: true,       // URL parameter handling for deep linking
-        sections: true,         // Collapsible UI sections
-        uiUtilities: true,      // UI helpers (copy, clear, example buttons)
-        
-        // Advanced features  
-        keyboardShortcuts: true,    // Keyboard navigation and shortcuts
-        passwordStrength: true,     // Real-time password strength analysis
-        phraseSuggestions: true,    // Inspirational phrase suggestions
-        
-        // Experimental features
-        analytics: false,       // Usage analytics (not implemented)
-        darkModeAuto: false,    // Automatic dark mode detection
-        offlineMode: true,      // Offline functionality via service worker
-        shareHistory: false,    // Remember shared phrases (not implemented)
-    },
-    
-    settings: {
-        theme: {
-            defaultTheme: 'light',
-            persistTheme: true,
-            autoDetectSystem: false
-        },
-        sharing: {
-            enableNativeShare: true,
-            enableSocialMedia: true,
-            enableUrlCopy: true,
-            defaultHashtags: ['CipherAlchemist', 'PasswordSecurity', 'WebSecurity']
-        },
-        pwa: {
-            enableInstallPrompt: true,
-            enableServiceWorker: true,
-            enablePushNotifications: false
-        }
-    }
-};
-```
+## Add a Feature
+1. Create `js/my-feature.js`
+2. Add to config in `js/config.js`
+3. Initialize in `js/app.js`
+4. Reference in `index.html`
 
+## Testing
+- Loads without errors
+- Features toggle and work offline
+- Keyboard accessible
+
+## Best Practices
+- Centralize config
+- Use error boundaries
+- Load features only if enabled
+- Always support keyboard navigation
+
+## Roadmap
+- Lazy loading
+- Plugin system
+- Config UI
+- Analytics
+
+## Status
+- Modular, configurable, maintainable, robust
 ### **Configuration Access Pattern**
 
 ```javascript

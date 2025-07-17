@@ -1,103 +1,31 @@
-# ⌨️ Complete Keyboard Accessibility Guide
 
-> **Cipher Alchemist is fully keyboard accessible. This guide covers all keyboard shortcuts, testing procedures, and accessibility features.**
+# ⌨️ Keyboard Shortcuts & Testing
 
+Cipher Alchemist is fully keyboard accessible.
 
-## 🚀 **Quick Start - Keyboard Shortcuts**
+**Shortcuts:**
+| Shortcut            | Action                        |
+|---------------------|-------------------------------|
+| Ctrl+Enter          | Generate password             |
+| Ctrl+C              | Copy password                 |
+| Ctrl+D              | Download PDF cheat sheet      |
+| Ctrl+T              | Toggle theme                  |
+| Ctrl+? / F1         | Open keyboard help            |
+| Tab / Shift+Tab     | Navigate elements             |
+| Alt+1 / Alt+2       | Toggle sections               |
+| Escape              | Close modal/sections          |
+| Delete              | Clear input                   |
+| Ctrl+Shift+d,e,v    | Developer dashboard           |
+| 5x Title Clicks     | Alt developer access          |
 
-### **Help Modal Access**
-Press any of these to see all shortcuts in the application:
+**Testing:**
+- Modal opens/closes with shortcuts
+- Password generates/copies
+- Theme toggles
+- All navigation works by keyboard
+- PWA install prompt available
 
-
-## 🎯 **Complete Keyboard Shortcut Reference**
-| `Ctrl + Enter` | Generate password | Anywhere in app |
-| `Ctrl + C` | Copy password | When password field focused |
-| `Ctrl + D` | Download PDF cheat sheet | Anywhere in app |
-| `Space` | Activate focused button | Any button |
-| `Enter` | Activate focused button | Any button |
-
-### **🧭 Navigation**
-| Shortcut | Action | Context |
-|----------|--------|---------|
-| `Tab` | Next focusable element | Global navigation |
-| `Shift + Tab` | Previous focusable element | Global navigation |
-| `Alt + 1` | Toggle description section | Section navigation |
-| `Alt + 2` | Toggle suggestions section | Section navigation |
-| `Escape` | Close modal/sections | Context-sensitive |
-
-### **🎨 Interface Controls**
-| Shortcut | Action | Context |
-|----------|--------|---------|
-| `Ctrl + T` | Toggle theme (dark/light) | Global |
-| `📱 Button` | Install as PWA app | Top-right install button |
-| `Ctrl + ?` | Open keyboard shortcuts help | Global |
-| `F1` | Open keyboard shortcuts help | Global |
-
-### **📋 Content Management**
-| Shortcut | Action | Context |
-|----------|--------|---------|
-| `Ctrl + A` | Select all text | Text areas |
-| `Ctrl + Z` | Undo | Text areas |
-| `Ctrl + Y` | Redo | Text areas |
-| `Delete` | Clear focused input | Input fields |
-
-### **🕵️ Developer Access (Advanced)**
-| Shortcut | Action | Context |
-|----------|--------|---------|
-| `Ctrl + Shift + d,e,v` | Access developer dashboard | Secure developer access |
-| **5x Title Clicks** | Alternative developer access | Click app title rapidly |
-
-> **Note**: Developer access opens comprehensive test suite (`dev.html`) for advanced testing and debugging. This is a secure access method designed for developers and not discoverable by regular users.
-
----
-
-## ✅ **Testing Procedures**
-
-### **🔍 Basic Functionality Testing**
-
-#### **1. Modal Operation**
-```
-✅ Press Ctrl+? → Modal opens
-✅ Press Escape → Modal closes
-✅ Click outside modal → Modal closes
-✅ Press Tab → Focus moves within modal
-✅ Press Shift+Tab → Focus moves backward
-✅ Click X button → Modal closes
-```
-
-#### **2. Core Functions**
-```
-✅ Type in phrase input → Text appears
-✅ Press Ctrl+Enter → Password generates
-✅ Tab to password field → Field gets focus
-✅ Press Ctrl+C → Password copies to clipboard
-✅ Press Ctrl+D → PDF downloads
-```
-
-#### **3. Navigation**
-```
-✅ Press Tab repeatedly → Focus moves through all elements
-✅ Press Shift+Tab → Focus moves backward
-✅ Press Alt+1 → Description section toggles
-✅ Press Alt+2 → Suggestions section toggles
-✅ Press Escape → Sections close
-```
-
-#### **4. Theme System**
-```
-✅ Press Ctrl+T → Theme toggles
-✅ Click 📱 button → PWA install prompt appears (if available)
-✅ System preference detection works
-✅ Theme persists after page reload
-✅ High contrast mode support
-```
-
-### **🎯 Advanced Testing**
-
-#### **Focus Management**
-- [ ] **Focus Trapping**: Tab navigation stays within modal when open
-- [ ] **Focus Restoration**: Focus returns to trigger element after modal closes
-- [ ] **Skip Links**: Hidden skip navigation links work
+Advanced: Focus stays in modal, returns after close.
 - [ ] **Focus Indicators**: Clear visual focus indicators on all interactive elements
 
 #### **Screen Reader Testing**

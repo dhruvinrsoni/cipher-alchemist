@@ -1,67 +1,31 @@
-# 💼 Case Studies - Real-World Applications
-# Case Studies
+## Case Studies
 
-See README for project overview and usage examples.
+
+Cipher Alchemist: create strong, memorable passwords from phrases. No storage, works offline, free.
+
+**Quick Examples:**
+- "Q4Target2025Sales" → 0_4T@r9e+2o25S@1e5 ([Try](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales))
+- "HiringGoals2025HR" → #!r!|\|9G0@152o25#R ([Try](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=HiringGoals2025HR))
+
+**Benefits:**
+- Unique passwords for every account
+- Easy to remember
+- Works offline
 
 **Results:**
-- ✅ **100% Unique Passwords** - Each account has different password
-- ✅ **Easy to Remember** - Based on personal timeline and context
-- ✅ **No Storage Needed** - Can regenerate anywhere with internet
-- ✅ **Budget-Friendly** - Completely free solution
-- ✅ **Works Offline** - Available on any device after first visit
+- Better password habits
+- Stronger security
+- Fast generation
 
-**Sarah's Feedback:** *"I went from using 'password123' for everything to having unique, strong passwords I can actually remember. Perfect for college life!"*
+**Accessibility:**
+- Keyboard shortcuts
+- Screen reader support
 
----
+**Mobile & Teams:**
+- Responsive design
+- Use for onboarding, training, and demos
 
-### 👨‍💼 **Case Study 2: Corporate IT Manager - David**
-
-**Background:** IT Security Manager at a 200-employee company implementing new password policies.
-
-**Challenge:**
-- Employee resistance to complex password requirements
-- High password reset ticket volume (50+ per week)
-- Need for security training that employees actually use
-- Balance between security and usability
-
-**Cipher Alchemist Implementation:**
-
-**Corporate Training Program:**
-1. **Workshop Sessions** using Cipher Alchemist for live demonstrations
-2. **Employee Phrase Creation** workshops with security best practices
-3. **Company-Specific Examples** for different departments
-
-**Department-Specific Examples:**
-
-**Sales Team:**
-```
-Phrase: "Q4Target2025Sales"
-Result: 0_4T@r9e+2o25S@1e5
-Strength: 98% - Excellent
-```
-[🚀 **Try Sales Example**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales)
-
-**HR Department:**
-```
-Phrase: "HiringGoals2025HR"
-Result: #!r!|\|9G0@152o25#R
-Strength: 95% - Excellent
-```
-[🚀 **Try HR Example**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=HiringGoals2025HR)
-
-**Implementation Results:**
-
-**Implementation Results:**
-- 🎯 **Improved Employee Adoption** - Better password practices across teams  
-- 🔒 **Enhanced Security Compliance** - Stronger passwords meeting policy requirements
-- ⏱️ **Streamlined Password Creation** - Faster secure password generation process
-
-**Training Metrics:**
-- **Before Cipher Alchemist:** 23% of passwords met security requirements
-- **After Implementation:** 91% of passwords exceeded minimum requirements
-
-**David's Implementation Strategy:**
-> *"We deployed Cipher Alchemist internally and created company-specific phrase templates. Employees love that they can create strong passwords without memorizing random characters. Our security posture improved dramatically while support tickets plummeted."*
+**Try it:** [Cipher Alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
 
 ---
 
