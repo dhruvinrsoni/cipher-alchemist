@@ -1,11 +1,152 @@
 # 📝 Changelog
 
-# Changelog
+_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._
 
-- Modularized JS and CSS
-- Removed advanced features/plugins
-- Improved accessibility and keyboard navigation
-- Enhanced PWA support
+---
+
+**Date:** 2025-07-17 14:12:23 +0530  
+**Commit:** [79ccb0f](https://github.com/dhruvinrsoni/cipher-alchemist/commit/79ccb0f6179999a7e79f44addb801b40541b2a47)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: simplify and consolidate documentation
+
+Reason:
+• Reduce documentation clutter and improve navigation
+• Address feedback for concise, minimalist docs
+
+Impact:
+• Easier onboarding for new users and contributors
+• Faster access to key guides and references
+• No impact on runtime, CI/CD, database, security, cloud, VCS, code style, logging, review, code quality, coverage, or ownership
+
+Test:
+• Manual review of all docs for broken links and clarity
+• Verified navigation and quickstart usability
+
+Dependencies:
+
+Backward Compatibility:
+• Fully backward compatible; no breaking changes
+
+Docs:
+• Major updates to README, FAQ, INDEX, CASE_STUDIES, CHANGELOG, DEVELOPMENT, COMPLETE_GUIDE, KEYBOARD_TESTING_GUIDE, RELEASES, GIT_WORKFLOW_GUIDE, copilot-instructions.md
+• Deprecated and merged redundant sections
+• Added docs index and streamlined quickstart
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-07-17 10:06:09 +0530  
+**Commit:** [dceebd1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/dceebd17989e244c95734f5a3045220a3cb7b2ad)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: add Copilot instructions for contributors
+
+- Introduced .github/copilot-instructions.md to guide AI code generation
+- Details project architecture, modular JS structure, and PWA conventions
+- Specifies developer workflows, accessibility, and testing standards
+- Outlines integration points for service worker, manifest, and assets
+- Clarifies code style, review, and ownership expectations
+
+Reason:
+- Improve onboarding and code consistency for contributors
+- Enable Copilot to generate code aligned with project standards
+
+Impact:
+- Enhances code quality and review process
+- Reduces onboarding time for new developers
+- No impact on runtime, CI/CD, database, or security
+
+Testing and Validation:
+- Manual review of instructions for clarity and completeness
+
+Dependencies:
+- None introduced
+
+Backward Compatibility:
+- Fully backward compatible; documentation only
+
+Docs:
+- New documentation file added for contributor reference
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-07-16 20:20:19 +0530  
+**Commit:** [6900b4c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/6900b4c51fd90bfb4328a8d82297caa207c7c484)  
+**Author:** Dhruvin Rupesh Soni
+
+#### refactor: remove redundant file/module headers
+
+Refactor codebase to eliminate verbose file/module header comments for improved clarity and maintainability.
+
+- Removed multi-line header comments from all major JS modules and index.html
+- Retained all functional code and documentation within functions/classes
+- No changes to runtime logic, CI/CD, database, or security
+- No new dependencies introduced
+
+Issue or Ticket Number:
+
+Reason:
+- Reduce code clutter and improve readability
+- Encourage use of inline documentation and self-explanatory code
+
+Impact:
+- Codebase is cleaner and easier to navigate
+- No impact on users or application behavior
+
+Testing and Validation:
+- Manual review to ensure only comments were removed
+- Application tested to confirm no functional changes
+
+Dependencies:
+
+Backward Compatibility:
+- Fully backward compatible; no breaking changes
+
+Docs:
+- No documentation updates required
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-07-16 19:59:49 +0530  
+**Commit:** [56b8faa](https://github.com/dhruvinrsoni/cipher-alchemist/commit/56b8faa1c944b03bcd51959e5e371532adcad17b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### refactor: remove advanced features and related code
+
+Refactored codebase to remove advanced features for simplification.
+
+- Removed plugin manager, advanced search, file operations, and dark mode plugin from UI and logic
+- Deleted related keyboard shortcuts and initialization code
+- Cleaned up theme manager to eliminate plugin integration
+- Updated service worker to stop caching removed scripts
+- Adjusted config and documentation comments for clarity
+
+Impact:
+- Reduces code complexity and maintenance overhead
+- No new dependencies introduced
+- No changes to CI/CD, runtime, database, security, or cloud integration
+- No impact on code style, logging, review, code quality, or coverage
+- No changes in code ownership
+
+Testing and Validation:
+- Manual regression testing required to ensure core features remain functional
+
+Backward Compatibility:
+- BREAKING CHANGE: Advanced features and their APIs are no longer available
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-07-16 19:52:14 +0530  
+**Commit:** [df1756b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/df1756b05c98b8f5dcf076567e8146ba192b3571)  
+**Author:** Dhruvin Rupesh Soni
 
 #### feat: remove advanced features and plugins from codebase
 
@@ -1538,91 +1679,6 @@ Impact:
 Compatibility:
 • Backward compatible change with no breaking modifications
 • Maintains existing workflow functionality
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 01:37:24 +0530  
-**Commit:** [8a0da56](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8a0da56d31acad73f232a38081dd8b404b7350b0)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: add comprehensive keyboard shortcuts with help modal
-
-Added full keyboard accessibility support to improve user experience and
-meet accessibility standards. Users can now navigate and control the entire
-application using keyboard shortcuts.
-
-• Added keyboard shortcuts help modal (Ctrl+?, Ctrl+/, Ctrl+., F1)
-• Implemented global keyboard shortcuts for quick actions:
-     - Ctrl+Enter: Generate password
-     - Ctrl+C: Copy password when focused
-     - Alt+1: Toggle description section
-     - Alt+2: Toggle suggestions section
-     - Escape: Close sections/modal
-• Added suggestion chips navigation with arrow keys, Home/End
-• Created comprehensive help documentation and testing guide
-• Enhanced top controls layout with keyboard help button
-• Implemented proper focus management and modal accessibility
-• Added support for reduced motion and high contrast preferences
-
-Files modified:
-• css/keyboard-shortcuts.css: Modal styles with theme support
-• css/main.css: Updated top controls layout
-• css/modal.css: Duplicate modal styles (cleanup needed)
-• js/keyboard-shortcuts.js: Modal functionality and navigation
-• js/main.js: Global shortcuts integration and escape handling
-• index.html: Added modal markup and help button
-• docs/README.md: Updated feature list
-• docs/KEYBOARD_TESTING_GUIDE.md: Comprehensive testing guide
-
-Impact:
-• Significantly improves accessibility for keyboard-only users
-• Enhances power user experience with shortcuts
-• Meets WCAG accessibility guidelines
-• No breaking changes to existing functionality
-
-Dependencies:
-• No new external dependencies added
-• Uses existing CSS custom properties for theming
-
-Compatibility:
-• Fully backward compatible
-• Progressive enhancement approach
-• Graceful degradation if JavaScript disabled
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 00:47:05 +0530  
-**Commit:** [fa04cd7](https://github.com/dhruvinrsoni/cipher-alchemist/commit/fa04cd78ba13eb5e574c732753109d32972db410)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: add automated changelog generation to CI workflow
-
-Reason:
-• Improve project documentation by automatically tracking changes
-• Provide users with detailed commit history in a readable format
-• Eliminate manual changelog maintenance overhead
-
-Changes:
-• Added CHANGELOG.md generation step to update-version workflow
-• Modified paths-ignore to prevent recursive triggers from CHANGELOG updates
-• Enhanced skip logic to handle both version.txt and CHANGELOG.md changes
-• Updated commit message to reflect both file updates
-• Improved output messages with changelog information
-
-Impact:
-• Documentation automatically kept up-to-date with latest 50 commits
-• Developers and users can easily track meaningful project changes
-• Reduces manual effort in maintaining changelog information
-• Enhanced project transparency and change visibility
-
-CI/CD: Workflow enhanced with additional documentation generation step
-Runtime: No impact on application runtime performance
-Code Quality: Improved project documentation standards
-VCS: Additional automated commits for changelog updates
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
