@@ -2,8 +2,20 @@
 
 > **Latest Update**: Comprehensive modular architecture with feature toggling, progressive web app capabilities, and full keyboard accessibility system.
 
-## 📋 **Table of Contents**
+## Cipher Alchemist - Architecture Guide
 
+## Modular Structure
+- `js/`: Each feature in its own file
+- `css/`: Modular styles
+- `sw.js`: Service worker
+- `manifest.json`: PWA config
+
+## Main Modules
+- `cipher-algorithms.js`: Password logic
+- `phrase-suggestions.js`: Suggestions
+- `keyboard-shortcuts.js`: Accessibility
+- `notifications.js`: User feedback
+- `sharing.js`: Share phrases
 1. [🏗️ Architecture Overview](#️-architecture-overview)
 2. [📁 Project Structure](#-project-structure)
 3. [🔧 Modular Features](#-modular-features)

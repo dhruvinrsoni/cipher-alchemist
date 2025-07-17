@@ -1,83 +1,13 @@
 # 🛠️ Cipher Alchemist - Complete Development Guide
+Developer Quickstart
 
-> **Latest Update**: Now featuring comprehensive keyboard accessibility with help modal system, enhanced CI/CD workflows, and professional documentation structure.
+Local dev:
+- Open `index.html` directly
+- For PWA/network: `python -m http.server 8000` or `npx live-server --port=8000`
 
-## 📋 **Table of Contents**
-- [🆕 Recent Improvements](#-recent-improvements)
-- [🎯 Application Development](#-application-development)
-- [📦 Modular Architecture](#-modular-architecture)
-- [🔮 Cipher Implementation](#-cipher-implementation)
-- [🏗️ Actual Project Structure](#️-actual-project-structure)
-- [🚀 CI/CD Pipeline](#-cicd-pipeline)
-- [🔧 Local Development & Testing](#-local-development--testing)
-- [📚 Documentation & Resources](#-documentation--resources)
-- [🎯 Next Steps & Roadmap](#-next-steps--roadmap)
-
----
-
-## 🆕 **Recent Improvements**
-
-### **⌨️ Keyboard Accessibility System (Latest)**
-- **Comprehensive Keyboard Navigation** - Full app control via keyboard
-- **YouTube-style Help Modal** - `Ctrl+?` opens shortcuts guide (like YouTube)
-- **Multiple Trigger Methods** - `Ctrl+?`, `Ctrl+/`, `Ctrl+.`, `F1`, and button click
-- **Focus Management** - Proper focus trapping and restoration
-- **ARIA Support** - Screen reader compatibility and WCAG 2.1 AA compliance
-
-### **📱 PWA Install Enhancement (Latest)**
-- **Smart Install Button** - Appears only when PWA is installable
-- **Cross-Browser Support** - Works on Chrome, Firefox, Safari, Edge
-- **Manual Fallback** - Instructions for browsers without automatic prompt
-- **Install Detection** - Button hides when app is already installed
-- **User-Friendly Prompts** - Clear instructions for different browsers
-
-### **🔧 Enhanced CI/CD Pipeline**
-- **Fixed Tag Detection** - Added `fetch-depth: 0` to deployment status workflow
-- **Comprehensive Documentation** - Added `[skip ci]` usage guide for emergency scenarios
-- **Automated Health Monitoring** - Regular deployment status checks
-- **Smart Version Management** - IST timezone timestamps with proper loop prevention
-
-### **📚 Professional Documentation Structure**
-- **Refactored README** - Clean, badge-enhanced overview with clear sections
-- **Enhanced Git Workflow Guide** - Comprehensive `[skip ci]` documentation
-- **Complete Keyboard Testing Guide** - Full accessibility testing procedures
-- **Documentation Index** - Centralized navigation for all documentation
-
-### **🎨 UI/UX Enhancements**
-- **Top Controls Layout** - Reorganized header with keyboard help and PWA install buttons
-- **Professional Modal Design** - Material Design-inspired help modal
-- **Responsive Design** - Mobile-optimized keyboard shortcuts interface
-- **Theme Integration** - Dark/light mode support for help modal
-- **Smart Install UX** - Context-aware PWA installation prompts
-
----
-
-## 🎯 **Application Development**
-
-### **🔮 Core Application Overview**
-Cipher Alchemist is a **client-side password generation tool** built with vanilla HTML, CSS, and JavaScript. It implements character substitution to transform memorable phrases into strong passwords with a modern, responsive interface.
-
-### **🏗️ Architecture Principles**
-- **🌐 Client-Side Only** - No server dependencies, runs entirely in browser
-- **📱 Progressive Enhancement** - Works on all devices and browsers
-- **⚡ Performance First** - Optimized for speed and responsiveness
-- **🛡️ Security Focused** - Implements password generation best practices
-- **🎨 Modern UI/UX** - Clean, intuitive interface design
-
-### **🔗 URL Parameter Integration**
-The application supports direct phrase input via URL parameters for instant password generation and sharing examples:
-
-**Implementation Details:**
-```javascript
-// Location: js/main.js - handleURLParameters()
-function handleURLParameters() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const phraseParam = urlParams.get('phrase');
-    
-    if (phraseParam) {
-        const decodedPhrase = decodeURIComponent(phraseParam);
-        // Auto-load, generate, and display with visual feedback
-    }
+Modules:
+- JS: Modular, no cross-imports unless needed
+- CSS: Modular, theme support
 }
 ```
 

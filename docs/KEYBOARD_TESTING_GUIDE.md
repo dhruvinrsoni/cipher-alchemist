@@ -2,25 +2,14 @@
 
 > **Cipher Alchemist is fully keyboard accessible. This guide covers all keyboard shortcuts, testing procedures, and accessibility features.**
 
----
 
 ## 🚀 **Quick Start - Keyboard Shortcuts**
 
 ### **Help Modal Access**
 Press any of these to see all shortcuts in the application:
-- **`Ctrl + ?`** - Primary shortcut (like YouTube)
-- **`Ctrl + /`** - Alternative shortcut 
-- **`Ctrl + .`** - Another alternative
-- **`F1`** - Standard help key
-- **Click ⌨️ button** - Top-right keyboard icon
 
----
 
 ## 🎯 **Complete Keyboard Shortcut Reference**
-
-### **🔥 Quick Actions**
-| Shortcut | Action | Context |
-|----------|--------|---------|
 | `Ctrl + Enter` | Generate password | Anywhere in app |
 | `Ctrl + C` | Copy password | When password field focused |
 | `Ctrl + D` | Download PDF cheat sheet | Anywhere in app |

@@ -26,42 +26,21 @@
 - **⌨️ Full Keyboard Accessibility** - Navigate everything via keyboard (press `Ctrl+?` for shortcuts)
 - **🌙 Dark/Light Theme Toggle** - Automatic system preference detection
 - **💡 Smart Phrase Suggestions** - 48+ inspirational phrases across 12 themed categories
-- **📋 One-Click Copy** - Instant clipboard integration
-- **🔗 Social Sharing** - Share educational examples securely with enhanced UI and native share support (phrases only, never passwords)
-- **📄 PDF Cheat Sheet** - Downloadable reference guide
-
-### 🚀 **Progressive Web App**
-- **📱 Mobile-First Design** - Responsive across all devices
+- ** Mobile-First Design** - Responsive across all devices
 - **⚡ Offline Support** - Works without internet connection
 - **🏠 Installable** - Add to home screen on mobile/desktop
 - **🔄 Auto-Updates** - Background service worker updates
 
 ---
-
 ## 🚀 Quick Start
 
 ### **Option 1: Use Online (Recommended)**
 Visit **[https://dhruvinrsoni.github.io/cipher-alchemist/](https://dhruvinrsoni.github.io/cipher-alchemist/)** - No installation required!
-
-### **Option 2: Install as PWA**
-1. Visit the live demo link
-2. Look for the install button (📱) in the top-right corner
 3. Click the install button and confirm
 4. The app will be added to your device as a standalone application
 
-**Alternative methods:**
-- Look for "Install" prompt in your browser
-- Use browser menu: "Install Cipher Alchemist" or "Add to Home Screen"
-
-### **Option 3: Local Development**
-
 #### **Quick Start**
-```bash
-git clone https://github.com/dhruvinrsoni/cipher-alchemist.git
-cd cipher-alchemist
-# Open index.html in your browser
 ```
-
 #### **🌐 Serve on Local Network (WiFi Access)**
 
 **Option A: Python HTTP Server** *(Recommended - Built into most systems)*
@@ -75,8 +54,6 @@ python -m SimpleHTTPServer 8000
 # Then access from any device on your network:
 # http://YOUR_LOCAL_IP:8000
 # Example: http://192.168.1.100:8000
-```
-
 **Option B: Node.js/npm Servers** *(Shows network info automatically)*
 ```bash
 # Using npx (no installation needed)
@@ -134,12 +111,7 @@ npx live-server --port=8000 --host=0.0.0.0
 ipconfig | findstr "IPv4"  # Windows
 ifconfig | grep "inet "    # macOS/Linux
 
-# Access from phone: http://YOUR_IP:8000
-```
 
-**Tech Stack:** Vanilla HTML/CSS/JS • PWA • No dependencies • Mobile-first
-
----
 
 ## 📖 How It Works
 
@@ -156,23 +128,13 @@ Output: "1 10\/e (0phphee !|\| +#e /\/\0r|\|!|\|9"
 
 ### 🔗 **Direct Link Examples**
 Try these examples instantly with URL parameters:
-- [**Q4Target2025Sales**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales) - Sales team password example
-- [**AccessibleTech2025**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=AccessibleTech2025) - Accessibility-focused phrase  
-- [**SecureMoney2025**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=SecureMoney2025) - Banking security example
-- [**MyUni2025Spring**](https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyUni2025Spring) - Student-friendly pattern
 
 *Format: `https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=YourPhrase`*
 
----
 
 ## 🎯 Use Cases
 
-- **Personal Passwords** - Create memorable yet secure passwords
-- **Educational Tool** - Learn about cryptographic concepts
-- **Security Training** - Demonstrate password creation best practices
-- **Accessibility Demo** - Showcase full keyboard navigation
 
----
 
 ## 📺 Tutorial Videos
 
@@ -181,29 +143,15 @@ Try these examples instantly with URL parameters:
 👉 **[View Complete Tutorial Guide](TUTORIALS.md)** - Comprehensive video series covering everything from basic usage to advanced development.
 
 **Coming Soon:**
-- 🚀 Getting Started tutorials
-- 🔐 Password generation techniques  
-- ♿ Accessibility demonstrations
-- 🛠️ Developer walkthroughs
 
 > ⭐ **Star this repository** to get notified when videos are released!
 
----
 
 ## 🛠️ For Developers
 
 ### **Technology Stack**
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Architecture**: Modular, component-based design
-- **PWA**: Service Worker, Web App Manifest
-- **CI/CD**: GitHub Actions with automated versioning
 
 ### **Key Documentation**
-- **[📺 Video Tutorials](TUTORIALS.md)** - Comprehensive video guides for all skill levels
-- **[Development Guide](DEVELOPMENT.md)** - Complete technical documentation
-- **[Git Workflow](GIT_WORKFLOW_GUIDE.md)** - Contribution guidelines and CI/CD workflows
-- **[Keyboard Testing](KEYBOARD_TESTING_GUIDE.md)** - Accessibility testing procedures
-- **[Changelog](CHANGELOG.md)** - Version history and updates
 
 ### **Project Structure**
 ```
@@ -216,7 +164,6 @@ cipher-alchemist/
 └── .github/workflows/      # CI/CD automation
 ```
 
----
 
 ## 🚀 Deployment
 
@@ -234,15 +181,10 @@ cipher-alchemist/
 2. Add your domain: `www.yourdomain.com`
 3. Configure DNS: CNAME record pointing to `yourusername.github.io`
 
----
 
 ## 🤝 Contributing
 
 We welcome contributions! Please see our [Development Guide](DEVELOPMENT.md) for:
-- Code organization and architecture
-- Development setup instructions
-- Testing procedures
-- Pull request guidelines
 
 ### **Quick Contribution Steps**
 1. Fork the repository
@@ -251,22 +193,15 @@ We welcome contributions! Please see our [Development Guide](DEVELOPMENT.md) for
 4. Test thoroughly (especially keyboard accessibility)
 5. Submit a pull request
 
----
 
 ## 📄 License
 
 This project is licensed under the **MIT License** - see the [LICENSE](../LICENSE) file for details.
 
----
 
 ## 🌟 Support
 
-- **❓ Common Questions?** Check our [FAQ](FAQ.md) for answers about security, usage, and deployment
-- **🐛 Found a bug?** [Open an issue](https://github.com/dhruvinrsoni/cipher-alchemist/issues)
-- **💡 Have a suggestion?** [Start a discussion](https://github.com/dhruvinrsoni/cipher-alchemist/discussions)
-- **📚 Need help?** Check our [Development Guide](DEVELOPMENT.md)
 
----
 
 <div align="center">
 
@@ -276,18 +211,13 @@ This project is licensed under the **MIT License** - see the [LICENSE](../LICENS
 
 </div>
 
----
 
 ## 🧪 Secret Developer Access
 
 Cipher Alchemist includes a hidden developer dashboard for advanced testing and diagnostics.
 
 **How to access:**
-- **Keyboard Sequence:** Hold `Ctrl+Shift` and type `d`, `e`, `v` in order (Ctrl+Shift+D+E+V)
-- **Rapid Clicks:** Click the app title (`Cipher Alchemist`) 5 times rapidly (within 2 seconds)
 
 **What you get:**
-- Access to developer dashboard (local/dev mode only)
-- Test password generation, URL parameters, sharing, theme, PWA features, and keyboard shortcuts
 
 _This feature is only available in local/development mode or via a special overlay in production._

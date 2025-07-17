@@ -1,82 +1,11 @@
 # 📝 Changelog
 
-_Last 50 meaningful changes (excluding version bumps). Auto-generated on each push to main._
+# Changelog
 
----
-
-**Date:** 2025-07-16 20:20:19 +0530  
-**Commit:** [6900b4c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/6900b4c51fd90bfb4328a8d82297caa207c7c484)  
-**Author:** Dhruvin Rupesh Soni
-
-#### refactor: remove redundant file/module headers
-
-Refactor codebase to eliminate verbose file/module header comments for improved clarity and maintainability.
-
-- Removed multi-line header comments from all major JS modules and index.html
-- Retained all functional code and documentation within functions/classes
-- No changes to runtime logic, CI/CD, database, or security
-- No new dependencies introduced
-
-Issue or Ticket Number:
-
-Reason:
-- Reduce code clutter and improve readability
-- Encourage use of inline documentation and self-explanatory code
-
-Impact:
-- Codebase is cleaner and easier to navigate
-- No impact on users or application behavior
-
-Testing and Validation:
-- Manual review to ensure only comments were removed
-- Application tested to confirm no functional changes
-
-Dependencies:
-
-Backward Compatibility:
-- Fully backward compatible; no breaking changes
-
-Docs:
-- No documentation updates required
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-07-16 19:59:49 +0530  
-**Commit:** [56b8faa](https://github.com/dhruvinrsoni/cipher-alchemist/commit/56b8faa1c944b03bcd51959e5e371532adcad17b)  
-**Author:** Dhruvin Rupesh Soni
-
-#### refactor: remove advanced features and related code
-
-Refactored codebase to remove advanced features for simplification.
-
-- Removed plugin manager, advanced search, file operations, and dark mode plugin from UI and logic
-- Deleted related keyboard shortcuts and initialization code
-- Cleaned up theme manager to eliminate plugin integration
-- Updated service worker to stop caching removed scripts
-- Adjusted config and documentation comments for clarity
-
-Impact:
-- Reduces code complexity and maintenance overhead
-- No new dependencies introduced
-- No changes to CI/CD, runtime, database, security, or cloud integration
-- No impact on code style, logging, review, code quality, or coverage
-- No changes in code ownership
-
-Testing and Validation:
-- Manual regression testing required to ensure core features remain functional
-
-Backward Compatibility:
-- BREAKING CHANGE: Advanced features and their APIs are no longer available
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-07-16 19:52:14 +0530  
-**Commit:** [df1756b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/df1756b05c98b8f5dcf076567e8146ba192b3571)  
-**Author:** Dhruvin Rupesh Soni
+- Modularized JS and CSS
+- Removed advanced features/plugins
+- Improved accessibility and keyboard navigation
+- Enhanced PWA support
 
 #### feat: remove advanced features and plugins from codebase
 

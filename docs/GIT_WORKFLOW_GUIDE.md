@@ -189,3 +189,8 @@ git status              # Check current state
 git log --oneline -5    # Recent commits
 git diff                # Current changes
 ```
+# Git Workflow
+
+- Main branch: deploys to GitHub Pages
+- Use feature branches for changes
+- PRs required for merge

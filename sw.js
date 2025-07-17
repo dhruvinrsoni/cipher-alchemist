@@ -120,4 +120,3 @@ self.addEventListener('fetch', (event) => {
     );
 });
 
-// Optionally, you can add a version to your cache and update it on each deploy for more control.

@@ -1,82 +1,14 @@
 # ❓ Cipher Alchemist - Frequently Asked Questions
+# FAQ
 
-Comprehensive answers to common questions about security, usage, deployment, and accessibility.
+Q: How do I use Cipher Alchemist?
+A: Open `index.html` and enter a phrase.
 
----
+Q: Is it secure?
+A: Passwords are generated client-side, never sent to a server.
 
-## 🔐 Security & Privacy
-
-### **Q: Is my data safe? Where is it processed?**
-**A:** Your data is completely safe! Cipher Alchemist processes everything **locally in your browser**. No phrases, passwords, or personal data is ever sent to external servers. The app works entirely offline, ensuring your information never leaves your device.
-
-### **Q: How secure are the generated passwords?**
-**A:** Very secure! The cipher algorithm uses advanced symbolic substitution that significantly increases password entropy:
-- **Character Complexity**: Simple letters become complex symbols (e.g., `m` → `/\/\`, `n` → `|\|`)
-- **Entropy Boost**: Multi-character substitutions exponentially increase password space
-- **Real-time Analysis**: Built-in strength meter evaluates cryptographic security
-- **Length Scaling**: Longer phrases create exponentially stronger passwords
-
-### **Q: Can someone reverse-engineer my password to get my phrase?**
-**A:** While theoretically possible with enough time and computing power, it's practically infeasible:
-- **One-way Nature**: The cipher is designed for forward transformation
-- **Symbol Complexity**: Many-to-many character mappings obscure patterns
-- **Length Advantage**: Longer phrases create virtually unbreakable passwords
-- **Personal Phrases**: Unique personal references add unpredictability
-
-### **Q: What if the algorithm has vulnerabilities?**
-**A:** The algorithm is **open source** and available for security review:
-- **Transparency**: Full code available in `js/cipher-algorithms.js`
-- **Community Review**: Open for security audits and improvements
-- **Deterministic**: Predictable, testable transformations
-- **No Hidden Logic**: Everything is visible and verifiable
-
-### **Q: Should I use this for banking or high-security accounts?**
-**A:** Yes, but with best practices:
-- **Use long, complex phrases** (12+ characters with mixed case, numbers, symbols)
-- **Combine with 2FA** for critical accounts
-- **Use unique phrases** for different account categories
-- **Keep phrase hints secure** (not the full phrase)
-
----
-
-## 💻 Usage & Features
-
-### **Q: How do I create a strong phrase?**
-**A:** Follow these guidelines for maximum security:
-
-**Good Phrase Structure:**
-```
-Personal reference + Numbers + Symbols = Strong base
-Example: "MyDog Luna2023!" → Strong cipher password
-```
-
-**Best Practices:**
-- **Personal but not obvious**: Use meaningful references others can't guess
-- **Mix case and symbols**: Include uppercase, numbers, and special characters
-- **Avoid dictionary words**: Use personal abbreviations or misspellings
-- **Include dates/numbers**: Personal dates or meaningful numbers
-- **12+ characters**: Longer phrases create exponentially stronger passwords
-
-### **Q: How do phrase suggestions work?**
-**A:** The app includes 48+ curated phrases across 12 themed categories:
-- **💪 Power & Motivation**: Inspirational phrases for personal growth
-- **🏆 Achievement & Victory**: Success-oriented phrases
-- **🧠 Learning & Growth**: Education and development themes
-- **💻 Technology & Innovation**: Tech-focused suggestions
-- **🧘 Health & Vitality**: Wellness and mindfulness phrases
-- **🕉️ Spiritual & Wisdom**: Philosophical and spiritual references
-
-**Usage Tips:**
-- Click any suggestion to try it instantly
-- Use as inspiration for personal variations
-- Combine multiple suggestions for longer phrases
-
-### **Q: Can I save my generated passwords?**
-**A:** The app doesn't store passwords for security reasons, but you can:
-- **Copy to clipboard** for immediate use
-- **Use a password manager** to store generated passwords
-- **Remember your phrase** to regenerate the same password anytime
-- **Create phrase hints** (not full phrases) for memory aids
+Q: How do I install as a PWA?
+A: Use the install button or browser prompt.
 
 ### **Q: What's the maximum phrase length?**
 **A:** There's no hard limit! However, practical considerations:
