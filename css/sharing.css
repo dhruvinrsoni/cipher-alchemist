@@ -373,8 +373,11 @@
     }
     
     .share-url-input {
-        font-size: 0.8rem;
-        padding: 0.6rem 0.8rem;
+        font-size: 1.1rem;
+        padding: 0.8rem 1.2rem;
+        min-width: 90vw;
+        max-width: 98vw;
+        box-sizing: border-box;
     }
     
     .url-copy-btn {
