@@ -4,6 +4,42 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-18 12:37:05 +0530  
+**Commit:** [dfdd47e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/dfdd47e568a6d3df4f71b4b904fa7a6c2c908de9)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: improve service worker fetch fallback logic
+
+- Refactored fetch event to use async/await for clarity and reliability
+- Enhanced offline fallback for navigation requests to serve correct cached HTML
+- Improved cache-first strategy for navigation, network-first for assets
+- Reduced code duplication and improved error handling for offline scenarios
+
+Reason:
+- Addressed reliability issues with offline navigation and asset loading
+
+Impact:
+- Users experience more robust offline support and fewer blank screens
+- Codebase benefits from improved readability and maintainability
+
+Testing and Validation:
+- Manual testing in Chrome and Firefox DevTools with network throttling
+- Verified navigation and asset loading in offline mode
+
+Dependencies:
+
+Backward Compatibility:
+- No breaking changes; maintains compatibility with existing cache version
+
+Docs:
+- No documentation updates required
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-18 12:30:37 +0530  
 **Commit:** [01350f6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/01350f6dd30e542a287ef034be1410625da75fb9)  
 **Author:** Dhruvin Rupesh Soni
@@ -1638,38 +1674,6 @@ Fixed inconsistent emoji rendering across different browsers and operating syste
 • Improved emoji centering with explicit alignment properties
 • Standardized line-height for better vertical alignment
 • Reduced font size slightly to ensure proper fit within button bounds
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 03:35:34 +0530  
-**Commit:** [45e71ae](https://github.com/dhruvinrsoni/cipher-alchemist/commit/45e71ae85352663462285e3d5fa6ac86c51ca177)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: update development guide to reflect actual architecture
-
-Comprehensive documentation update to align with current password generation implementation and correct misleading cipher algorithm references.
-
-- Replace outdated cipher algorithm documentation with actual character substitution implementation
-- Update project structure to reflect current modular architecture (css/, js/ directories)
-- Correct file references to match actual codebase organization
-- Simplify development workflow to focus on password generation enhancements
-- Remove complex cipher testing frameworks that don't apply to current implementation
-- Update feature roadmap to reflect completed PWA and accessibility work
-- Fix broken internal documentation links and file paths
-- Align terminology throughout guide (password generation vs cryptographic toolkit)
-
-Impact:
-- Developers now have accurate documentation matching the actual codebase
-- Eliminates confusion between documented cipher algorithms and implemented character substitution
-- Provides correct file paths for contributing developers
-- Updated development setup reflects actual technology stack and requirements
-
-Docs:
-- Updated DEVELOPMENT.md with accurate architecture documentation
-- Corrected INDEX.md links to match actual documentation structure
-- All internal references now point to existing files and implementations
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
