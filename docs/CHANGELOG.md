@@ -4,6 +4,75 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-18 11:53:09 +0530  
+**Commit:** [0bda410](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0bda41079c9d6cfc7bc077ae66e89991c201e425)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: add unified guide, update service worker cache
+
+Reason:
+- Improve onboarding and developer experience
+- Ensure new features and assets are cached for offline use
+
+Impact:
+- Users and contributors have a concise, accessible guide
+- PWA caches new modules and styles, improving reliability
+
+Test:
+- Verified offline loading of new assets
+- Confirmed GUIDE.md renders and is accessible
+
+Dependencies:
+- No new external dependencies
+
+Backward Compatibility:
+- Fully backward compatible; no breaking changes
+
+Docs:
+- Added docs/GUIDE.md with quickstart, features, and best practices
+- Updated sw.js to cache new JS/CSS modules
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-07-17 19:16:53 +0530  
+**Commit:** [7efdbed](https://github.com/dhruvinrsoni/cipher-alchemist/commit/7efdbed4bbcb267246dd9088e5fddcc9ee081dba)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: simplify and condense all documentation guides
+
+Reason:
+- Reduce documentation complexity for easier onboarding and maintenance
+- Address feedback about excessive length and redundancy in docs
+
+Impact:
+- All major guides (architecture, dev, FAQ, workflow, keyboard, index) rewritten to minimalist, bullet-point format
+- Improves clarity for new contributors and users
+- Removes outdated, verbose, or redundant sections
+- Documentation now matches project coding guidelines and UI philosophy
+- No impact on runtime, CI/CD, security, or codebase logic
+
+Testing and Validation:
+- Manual review of all docs for completeness and accuracy
+- Verified links and references are correct
+- Confirmed docs are concise and readable
+
+Dependencies:
+- None added or removed
+
+Backward Compatibility:
+- No breaking changes; documentation only
+- All previous information is preserved in simplified form
+
+Docs:
+- Updated: CASE_STUDIES.md, COMPLETE_GUIDE.md, DEVELOPMENT.md, FAQ.md, GIT_WORKFLOW_GUIDE.md, INDEX.md, KEYBOARD_TESTING_GUIDE.md
+- All docs now follow minimalist, modular, and accessible format
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-17 14:51:29 +0530  
 **Commit:** [430c91a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/430c91a2e9ccf80b26227379051de5cc376d0c1c)  
 **Author:** Dhruvin Rupesh Soni
@@ -1613,88 +1682,6 @@ Documentation Updates:
 • Enhanced DEVELOPMENT.md with PWA install feature details
 • Updated keyboard testing guide with install button reference
 • Improved documentation index with PWA installation links
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 02:48:18 +0530  
-**Commit:** [4b7df8d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/4b7df8dfbf22101ef40d71ef8c9ec28e7392873b)  
-**Author:** Dhruvin Rupesh Soni
-
-#### Create FUNDING.yml
-
-docs: Add comprehensive GitHub funding configuration
-
-Reason:
-• Establish funding infrastructure to support open-source development
-• Enable community contributions for project sustainability
-• Provide multiple sponsorship options for different user preferences
-
-Impact:
-• Users can now easily support the project through various funding platforms
-• Improves project visibility and potential for community contributions
-• Establishes foundation for long-term project maintenance and development
-• No impact on CI/CD, runtime, database, security, cloud integration, or VCS
-• Code style, logging, review process, code quality, and coverage remain unchanged
-• Project ownership and contribution guidelines are enhanced
-
-Changes:
-• Added GitHub Sponsors configuration (commented for future activation)
-• Included multiple alternative funding platforms (Patreon, Ko-fi, Buy Me a Coffee, etc.)
-• Added custom sponsorship URLs for project homepage and repository
-• Documented funding use cases including security research, accessibility, and documentation
-• Included clear messaging about supporting open-source security tools
-
-Dependencies:
-• No new code dependencies introduced
-• Relies on GitHub's native funding.yml support
-
-Compatibility:
-• Fully backward compatible
-• No breaking changes to existing functionality
-
-Docs:
-• Self-documenting funding configuration with inline comments
-• Clear explanation of funding goals and impact areas
-
----
-
-**Date:** 2025-06-11 02:24:34 +0530  
-**Commit:** [c0ca58c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c0ca58c5783f5084d8a1141ce3bd4efe971eb23f)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: enhance documentation with comprehensive index and accessibility guide
-
-Significantly improved documentation structure and accessibility support across the project.
-
-• Added comprehensive documentation index (docs/INDEX.md) for centralized navigation
-• Enhanced keyboard accessibility guide with complete testing procedures and WCAG compliance
-• Expanded development guide with recent improvements section highlighting new features
-• Updated git workflow guide with detailed CI/CD documentation and emergency scenarios
-• Restructured main README with professional badges, clear sections, and improved navigation
-• Added thorough documentation for keyboard shortcuts, help modal system, and accessibility features
-• Included deployment guides, contribution guidelines, and troubleshooting procedures
-
-Impact:
-• Developers can now easily navigate all project documentation through centralized index
-• Complete accessibility testing procedures ensure WCAG 2.1 AA compliance
-• Enhanced onboarding experience for new contributors with clear setup instructions
-• Improved user experience with comprehensive keyboard shortcut documentation
-• Better project maintainability through organized documentation structure
-
-Test:
-• All documentation links verified and functional
-• Keyboard accessibility features tested across browsers
-• Documentation structure validated for completeness
-• Cross-references between documents confirmed
-
-Docs:
-• Added docs/INDEX.md as centralized documentation hub
-• Enhanced KEYBOARD_TESTING_GUIDE.md with comprehensive accessibility procedures
-• Updated DEVELOPMENT.md with recent improvements and architecture details
-• Expanded GIT_WORKFLOW_GUIDE.md with CI/CD workflows and emergency scenarios
-• Restructured README.md with professional presentation and clear navigation
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
