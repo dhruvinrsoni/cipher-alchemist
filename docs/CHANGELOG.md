@@ -4,6 +4,33 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-18 12:30:37 +0530  
+**Commit:** [01350f6](https://github.com/dhruvinrsoni/cipher-alchemist/commit/01350f6dd30e542a287ef034be1410625da75fb9)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: cache dev and testlab HTML for offline use
+
+Reason:
+- Improve offline support for development and testing pages
+
+Impact:
+- Users can access /dev.html and /testlab.html offline
+- Enhances reliability for development and QA workflows
+
+Testing and Validation:
+- Manual testing: verified offline access to new pages
+- Confirmed navigation fallback logic for all HTML routes
+
+Dependencies:
+
+Backward Compatibility:
+
+Docs:
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-18 11:53:09 +0530  
 **Commit:** [0bda410](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0bda41079c9d6cfc7bc077ae66e89991c201e425)  
 **Author:** Dhruvin Rupesh Soni
@@ -1643,45 +1670,6 @@ Docs:
 - Updated DEVELOPMENT.md with accurate architecture documentation
 - Corrected INDEX.md links to match actual documentation structure
 - All internal references now point to existing files and implementations
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 03:04:11 +0530  
-**Commit:** [b6e43de](https://github.com/dhruvinrsoni/cipher-alchemist/commit/b6e43de7567dfefb3d08ff8e3974b3d3fd0246bb)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: add smart PWA install button with cross-browser support
-
-Enhanced PWA installation experience with intelligent install button that appears only when the app is installable and provides fallback instructions for different browsers.
-
-Changes:
-• Add install button (📱) to top-right controls with smart visibility
-• Implement beforeinstallprompt event handling for Chrome/Edge
-• Add cross-browser detection with manual install instructions
-• Include install detection to hide button when app already installed
-• Add pulse animation and hover effects for install button
-• Update keyboard shortcuts help to include PWA install option
-• Enhance documentation with PWA installation guidance
-
-Impact:
-• Improved user experience with one-click PWA installation
-• Better discoverability of PWA functionality across browsers
-• Seamless installation flow with visual feedback
-• Enhanced mobile and desktop app adoption
-
-Technical Details:
-• Event-driven install prompt management
-• Standalone mode detection for iOS Safari
-• Display mode checking for installed state
-• User choice tracking and UI state management
-
-Documentation Updates:
-• Updated README.md with smart install button instructions
-• Enhanced DEVELOPMENT.md with PWA install feature details
-• Updated keyboard testing guide with install button reference
-• Improved documentation index with PWA installation links
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
