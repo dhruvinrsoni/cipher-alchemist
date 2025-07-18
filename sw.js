@@ -99,19 +99,25 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
-        try {
-            // For navigation requests, always serve cached HTML if offline
-            if (event.request.mode === 'navigate') {
-                const url = new URL(event.request.url);
-                let cachedPage = '/index.html';
-                if (url.pathname === '/dev.html') cachedPage = '/dev.html';
-                if (url.pathname === '/testlab.html') cachedPage = '/testlab.html';
-                const cachedResponse = await caches.match(cachedPage);
-                if (cachedResponse) return cachedResponse;
-                // fallback to index.html if specific page not cached
-                return await caches.match('/index.html');
+        const url = new URL(event.request.url);
+        // Always try cache first
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) return cachedResponse;
+        // For navigation requests, serve correct HTML from cache if offline
+        if (event.request.mode === 'navigate') {
+            if (url.pathname === '/dev.html') {
+                const devCached = await caches.match('/dev.html');
+                if (devCached) return devCached;
             }
-            // For other requests, try network first
+            if (url.pathname === '/testlab.html') {
+                const testlabCached = await caches.match('/testlab.html');
+                if (testlabCached) return testlabCached;
+            }
+            const indexCached = await caches.match('/index.html');
+            if (indexCached) return indexCached;
+        }
+        // Try network
+        try {
             const networkResponse = await fetch(event.request);
             if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
                 const responseToCache = networkResponse.clone();
@@ -120,25 +126,9 @@ self.addEventListener('fetch', (event) => {
                 });
                 return networkResponse;
             }
-            // fallback to cache if network fails or not basic
-            const cachedResponse = await caches.match(event.request);
-            if (cachedResponse) return cachedResponse;
-            return new Response('', { status: 200, statusText: 'Offline' });
-        } catch (err) {
-            // On error, fallback to cache for navigation, else blank
-            if (event.request.mode === 'navigate') {
-                const url = new URL(event.request.url);
-                let cachedPage = '/index.html';
-                if (url.pathname === '/dev.html') cachedPage = '/dev.html';
-                if (url.pathname === '/testlab.html') cachedPage = '/testlab.html';
-                const cachedResponse = await caches.match(cachedPage);
-                if (cachedResponse) return cachedResponse;
-                return await caches.match('/index.html');
-            }
-            const cachedResponse = await caches.match(event.request);
-            if (cachedResponse) return cachedResponse;
-            return new Response('', { status: 200, statusText: 'Offline' });
-        }
+        } catch (err) {}
+        // Fallback to blank response
+        return new Response('', { status: 200, statusText: 'Offline' });
     })());
 });
 
