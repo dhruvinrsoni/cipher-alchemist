@@ -4,6 +4,35 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-18 12:42:35 +0530  
+**Commit:** [c7913d2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c7913d2dbb88d5f653d6c2efa6638b5c6e622474)  
+**Author:** Dhruvin Rupesh Soni
+
+#### refactor: simplify service worker fetch logic
+
+Reason:
+- Reduce complexity and improve readability of fetch event handler
+- Remove redundant cache fallback logic for navigation requests
+
+Impact:
+- Streamlines offline handling for navigation and asset requests
+- Ensures cached HTML is served when offline, with blank fallback for uncached requests
+- No impact on CI/CD, runtime, database, security, cloud integration, VCS, code style, logging, review, code quality, coverage, or ownership
+
+Testing and Validation:
+- Manual testing of offline navigation and asset requests
+- Verified correct fallback behavior for uncached resources
+
+Dependencies:
+
+Backward Compatibility:
+
+Docs:
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-18 12:37:05 +0530  
 **Commit:** [dfdd47e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/dfdd47e568a6d3df4f71b4b904fa7a6c2c908de9)  
 **Author:** Dhruvin Rupesh Soni
@@ -1657,23 +1686,6 @@ Compatibility:
 • BREAKING CHANGE: Removes staging environment option from manual deployments
 • All deployments now target github-pages environment exclusively
 • Existing deployment URLs and functionality remain unchanged
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 03:42:46 +0530  
-**Commit:** [5da8ac1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5da8ac110a9411d1564886bd3b4de4026b275a8d)  
-**Author:** Dhruvin Rupesh Soni
-
-#### style: improve emoji rendering and alignment in install button
-
-Fixed inconsistent emoji rendering across different browsers and operating systems by standardizing font family usage. The install button emoji (phone icon) now displays consistently and is properly centered within its circular container.
-
-• Added cross-platform emoji font stack to ensure consistent rendering
-• Improved emoji centering with explicit alignment properties
-• Standardized line-height for better vertical alignment
-• Reduced font size slightly to ensure proper fit within button bounds
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
