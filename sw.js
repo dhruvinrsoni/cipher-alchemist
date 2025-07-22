@@ -120,14 +120,16 @@ self.addEventListener('fetch', (event) => {
             }
         }
 
-        // For all other requests: cache first, then network, then blank
+        // For all other requests: cache only, never network if offline
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) return cachedResponse;
-        try {
-            return await fetch(event.request);
-        } catch (err) {
-            return new Response('', { status: 200 });
+        // If not in cache, try network (will fail if offline)
+        if (navigator.onLine) {
+            try {
+                return await fetch(event.request);
+            } catch (err) {}
         }
+        return new Response('', { status: 200 });
     })());
 });
 
