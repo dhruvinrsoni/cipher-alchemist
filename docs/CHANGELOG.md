@@ -4,6 +4,35 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-22 12:38:56 +0530  
+**Commit:** [1226172](https://github.com/dhruvinrsoni/cipher-alchemist/commit/12261728a110dbf99b4061550f7b8046f9a6e4ba)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: improve service worker cache strategy for navigation
+
+- Refines fetch event logic to prioritize correct HTML from cache for navigation requests
+- Ensures /, /index.html, /dev.html, and /testlab.html are served from cache when offline
+- Applies cache-first strategy for all other requests, with network fallback and blank response if offline
+- Reduces redundant cache lookups and simplifies code paths
+
+Impact:
+- Enhances offline experience and reliability for navigation
+- No changes to CI/CD, runtime, database, security, cloud, VCS, code style, logging, review, code quality, or coverage
+
+Testing and Validation:
+- Manual testing of navigation and offline scenarios in supported browsers
+
+Dependencies:
+
+Backward Compatibility:
+- Fully backward compatible
+
+Docs:
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-18 12:42:35 +0530  
 **Commit:** [c7913d2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/c7913d2dbb88d5f653d6c2efa6638b5c6e622474)  
 **Author:** Dhruvin Rupesh Soni
@@ -1652,40 +1681,6 @@ Remove unnecessary `display: inline-block` property from button CSS rules.
 
 • Reason: Clean up redundant CSS property that was not providing additional value
 • Impact: Slightly reduces CSS bundle size and improves code maintainability
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 03:52:06 +0530  
-**Commit:** [a19d6d4](https://github.com/dhruvinrsoni/cipher-alchemist/commit/a19d6d464b95e216046bef9dd26d05c9a936066b)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: simplify GitHub Pages deployment configuration
-
-Streamlined deployment workflows by removing environment selection complexity and fixing syntax errors in verification scripts.
-
-• Removed environment input parameter from deploy-by-version workflow
-• Fixed hardcoded github-pages environment configuration
-• Corrected syntax error in post-deployment verification loop
-• Added consistent github-pages environment to update-version workflow
-• Updated deployment summary to reflect simplified environment setup
-
-Impact:
-• Eliminates user confusion from environment selection options
-• Ensures consistent GitHub Pages deployment across all workflows
-• Improves deployment reliability with fixed verification script
-• Reduces workflow complexity and potential misconfiguration
-
-Test:
-• Deployment verification script syntax corrected
-• Environment configuration standardized across workflows
-• Post-deployment checks will execute properly without syntax errors
-
-Compatibility:
-• BREAKING CHANGE: Removes staging environment option from manual deployments
-• All deployments now target github-pages environment exclusively
-• Existing deployment URLs and functionality remain unchanged
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
