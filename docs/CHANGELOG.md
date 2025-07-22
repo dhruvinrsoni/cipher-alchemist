@@ -4,6 +4,41 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-22 19:11:54 +0530  
+**Commit:** [923bf2f](https://github.com/dhruvinrsoni/cipher-alchemist/commit/923bf2f8af1cfab3f4c508a1cb1e92614201c1ca)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: improve offline fallback for navigation requests
+
+- Ensures navigation requests always serve cached HTML or offline message
+- Removes network fallback for navigation, improving offline reliability
+- Simplifies fetch handler for non-navigation requests
+- Returns minimal offline response for uncached assets
+
+Reason:
+- Addressed inconsistent offline experience and improved PWA reliability
+
+Impact:
+- Users receive clear offline feedback for main pages
+- No runtime, CI/CD, database, security, or cloud integration changes
+- No new dependencies introduced
+
+Testing and Validation:
+- Manual offline testing in browser
+- Verified navigation and asset requests offline
+
+Dependencies:
+
+Backward Compatibility:
+- Fully backward compatible
+
+Docs:
+- No documentation updates required
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-22 12:38:56 +0530  
 **Commit:** [1226172](https://github.com/dhruvinrsoni/cipher-alchemist/commit/12261728a110dbf99b4061550f7b8046f9a6e4ba)  
 **Author:** Dhruvin Rupesh Soni
@@ -1666,21 +1701,6 @@ Impact:
 Test:
 • Workflow syntax validation passes
 • No breaking changes to existing automation processes
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 03:56:16 +0530  
-**Commit:** [86db909](https://github.com/dhruvinrsoni/cipher-alchemist/commit/86db9091103fb9954ca9a2b755d9afdf1f0aa92b)  
-**Author:** Dhruvin Rupesh Soni
-
-#### style: Remove redundant display property from button styles
-
-Remove unnecessary `display: inline-block` property from button CSS rules.
-
-• Reason: Clean up redundant CSS property that was not providing additional value
-• Impact: Slightly reduces CSS bundle size and improves code maintainability
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
