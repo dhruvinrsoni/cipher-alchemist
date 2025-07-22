@@ -100,23 +100,26 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
         const url = new URL(event.request.url);
-        // Always try cache first
-        const cachedResponse = await caches.match(event.request);
-        if (cachedResponse) return cachedResponse;
-        // For navigation requests, serve correct HTML from cache if offline
+
+        // Navigation: serve correct HTML from cache
         if (event.request.mode === 'navigate') {
+            if (url.pathname === '/' || url.pathname === '/index.html') {
+                const cached = await caches.match('/index.html');
+                if (cached) return cached;
+            }
             if (url.pathname === '/dev.html') {
-                const devCached = await caches.match('/dev.html');
-                if (devCached) return devCached;
+                const cached = await caches.match('/dev.html');
+                if (cached) return cached;
             }
             if (url.pathname === '/testlab.html') {
-                const testlabCached = await caches.match('/testlab.html');
-                if (testlabCached) return testlabCached;
+                const cached = await caches.match('/testlab.html');
+                if (cached) return cached;
             }
-            const indexCached = await caches.match('/index.html');
-            if (indexCached) return indexCached;
         }
-        // Try network
+
+        // For all other requests: cache first, then network, then blank
+        const cachedResponse = await caches.match(event.request);
+        if (cachedResponse) return cachedResponse;
         try {
             const networkResponse = await fetch(event.request);
             if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
@@ -127,7 +130,6 @@ self.addEventListener('fetch', (event) => {
                 return networkResponse;
             }
         } catch (err) {}
-        // Fallback to blank response
         return new Response('', { status: 200, statusText: 'Offline' });
     })());
 });
