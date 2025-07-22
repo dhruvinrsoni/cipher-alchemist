@@ -4,6 +4,23 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-22 19:34:33 +0530  
+**Commit:** [2067c6d](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2067c6d398d02ca1b63b603bb01f74cbf8c27dd3)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: improve cache matching for navigation and assets
+
+- Ensures HTML is served from cache for navigation, ignoring query params
+- Updates asset cache matching to ignore search parameters for better offline support
+- Returns blank response for uncached requests, never falling back to network
+- No new dependencies introduced
+- No impact on CI/CD, runtime, database, security, cloud, VCS, code style, logging, review, code quality, or coverage
+- No documentation updates required
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-22 19:29:33 +0530  
 **Commit:** [4758169](https://github.com/dhruvinrsoni/cipher-alchemist/commit/47581690959aa4d9ff8beb782a0eb50eba829f4b)  
 **Author:** Dhruvin Rupesh Soni
@@ -1668,36 +1685,6 @@ the fundamental display declaration needed for proper flex behavior.
 • Added `display: flex !important;` to complement existing alignment rules
 • Ensures emoji elements are properly centered within their containers
 • Maintains consistency with other flex-based layout components
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 04:19:28 +0530  
-**Commit:** [e089ee4](https://github.com/dhruvinrsoni/cipher-alchemist/commit/e089ee427ec47fcbb56f971a76688ad3a9a7a542)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: enhance service worker with error handling and offline support
-
-Improve Progressive Web App functionality by upgrading service worker
-implementation with comprehensive error handling and offline capabilities.
-
-• Updated cache version from v2 to v3 for proper cache invalidation
-• Fixed resource paths from relative to absolute URLs for consistency
-• Added error handling with fallback caching for individual resources
-• Implemented robust fetch strategy with cache-first approach
-• Enhanced offline support with fallback to cached index.html for navigation
-• Added proper response validation before caching
-• Included graceful degradation for failed network requests
-
-Impact:
-• Improved PWA reliability and offline user experience
-• Better error recovery when resources fail to cache initially
-• Enhanced application availability during network issues
-• Reduced failed cache operations through individual resource handling
-
-Runtime: Enhanced offline performance and error resilience
-Code Quality: Improved error handling and resource management
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
