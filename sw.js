@@ -100,31 +100,46 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
-        const url = new URL(event.request.url);
-
-        // Navigation: always serve correct HTML from cache, ignore query params
-        if (event.request.mode === 'navigate') {
-            if (url.pathname === '/' || url.pathname === '/index.html') {
-                const cached = await caches.match('/index.html');
-                if (cached) return cached;
-                return new Response('<h1>Offline</h1>', { status: 200, headers: { 'Content-Type': 'text/html' } });
+        try {
+            // For navigation requests, always serve cached HTML if offline
+            if (event.request.mode === 'navigate') {
+                const url = new URL(event.request.url);
+                let cachedPage = '/index.html';
+                if (url.pathname === '/dev.html') cachedPage = '/dev.html';
+                if (url.pathname === '/testlab.html') cachedPage = '/testlab.html';
+                const cachedResponse = await caches.match(cachedPage);
+                if (cachedResponse) return cachedResponse;
+                // fallback to index.html if specific page not cached
+                return await caches.match('/index.html');
             }
-            if (url.pathname === '/dev.html') {
-                const cached = await caches.match('/dev.html');
-                if (cached) return cached;
-                return new Response('<h1>Offline</h1>', { status: 200, headers: { 'Content-Type': 'text/html' } });
+            // For other requests, try network first
+            const networkResponse = await fetch(event.request);
+            if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+                const responseToCache = networkResponse.clone();
+                caches.open('cipher-alchemist-v4').then((cache) => {
+                    cache.put(event.request, responseToCache);
+                });
+                return networkResponse;
             }
-            if (url.pathname === '/testlab.html') {
-                const cached = await caches.match('/testlab.html');
-                if (cached) return cached;
-                return new Response('<h1>Offline</h1>', { status: 200, headers: { 'Content-Type': 'text/html' } });
+            // fallback to cache if network fails or not basic
+            const cachedResponse = await caches.match(event.request);
+            if (cachedResponse) return cachedResponse;
+            return new Response('', { status: 200, statusText: 'Offline' });
+        } catch (err) {
+            // On error, fallback to cache for navigation, else blank
+            if (event.request.mode === 'navigate') {
+                const url = new URL(event.request.url);
+                let cachedPage = '/index.html';
+                if (url.pathname === '/dev.html') cachedPage = '/dev.html';
+                if (url.pathname === '/testlab.html') cachedPage = '/testlab.html';
+                const cachedResponse = await caches.match(cachedPage);
+                if (cachedResponse) return cachedResponse;
+                return await caches.match('/index.html');
             }
+            const cachedResponse = await caches.match(event.request);
+            if (cachedResponse) return cachedResponse;
+            return new Response('', { status: 200, statusText: 'Offline' });
         }
-
-        // For all other requests: always serve from cache if available
-        const cachedResponse = await caches.match(event.request, { ignoreSearch: true });
-        if (cachedResponse) return cachedResponse;
-        return new Response('', { status: 200 });
     })());
 });
 
