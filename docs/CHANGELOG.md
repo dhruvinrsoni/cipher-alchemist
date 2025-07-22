@@ -4,6 +4,41 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-22 19:24:02 +0530  
+**Commit:** [01edfd9](https://github.com/dhruvinrsoni/cipher-alchemist/commit/01edfd9b9e89060e74bb1a77bc6a5a60e5733e36)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: improve offline fetch handling in service worker
+
+- Ensures cache-only strategy when offline for non-API requests
+- Prevents unnecessary network attempts if offline, reducing errors
+- Returns blank response if resource is not cached and offline
+
+Reason:
+- Previous logic attempted network fetch even when offline, causing delays or errors
+
+Impact:
+- Faster, more reliable offline experience for users
+- No impact on CI/CD, runtime, database, security, or cloud integration
+- No changes to code style, logging, review, code quality, or coverage
+
+Testing and Validation:
+- Manual testing in offline and online scenarios
+- Verified cache fallback and blank response behavior
+
+Dependencies:
+- No new dependencies introduced
+
+Backward Compatibility:
+- Fully backward compatible; no breaking changes
+
+Docs:
+- No documentation updates required
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-22 19:11:54 +0530  
 **Commit:** [923bf2f](https://github.com/dhruvinrsoni/cipher-alchemist/commit/923bf2f8af1cfab3f4c508a1cb1e92614201c1ca)  
 **Author:** Dhruvin Rupesh Soni
@@ -1674,33 +1709,6 @@ Compatibility:
 • Maintains backward compatibility with existing workflow triggers
 • No breaking changes to version.txt or CHANGELOG.md format
 • Preserves existing skip conditions and bot detection
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 04:04:30 +0530  
-**Commit:** [3edcb22](https://github.com/dhruvinrsoni/cipher-alchemist/commit/3edcb2257bbf9a52640ab0731f731e5b1ae5204f)  
-**Author:** Dhruvin Rupesh Soni
-
-#### style: Fix indentation and formatting in GitHub workflow
-
-Fixed inconsistent indentation and formatting issues in the update-version.yml workflow file to improve code readability and maintain consistent style standards.
-
-• Fixed indentation for comment about skipping version.txt changes
-• Corrected indentation for echo statement in version generation
-• Fixed malformed syntax with 'done' statement in changelog generation
-• Added proper spacing around git add command
-• Fixed indentation for echo statement in error handling section
-
-Impact:
-• Improved code readability and maintainability
-• Ensures consistent formatting standards across workflow files
-• No functional changes to CI/CD pipeline behavior
-
-Test:
-• Workflow syntax validation passes
-• No breaking changes to existing automation processes
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
