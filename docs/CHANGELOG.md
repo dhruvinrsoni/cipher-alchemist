@@ -4,6 +4,16 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-22 20:04:04 +0530  
+**Commit:** [87f71a8](https://github.com/dhruvinrsoni/cipher-alchemist/commit/87f71a8a98df4389252d10061a05eb62959594ff)  
+**Author:** Dhruvin Rupesh Soni
+
+#### Revert "feat: improve service worker fetch fallback logic"
+
+This reverts commit dfdd47e568a6d3df4f71b4b904fa7a6c2c908de9.
+
+---
+
 **Date:** 2025-07-22 19:54:45 +0530  
 **Commit:** [8b1f88b](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8b1f88b214fe26ded77d41b39dd5d59b44d79324)  
 **Author:** Dhruvin Rupesh Soni
@@ -1646,37 +1656,6 @@ Impact:
 Test:
 • Validated YAML syntax using GitHub Actions linter
 • Verified workflow logic flow for tag validation scenarios
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 04:26:32 +0530  
-**Commit:** [cc972c7](https://github.com/dhruvinrsoni/cipher-alchemist/commit/cc972c719df3658d3631e926ed422435b526132a)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: Update release history to v1.2.0 with comprehensive bug fixes
-
-Added detailed v1.2.0 release documentation covering critical PWA fixes,
-service worker improvements, and workflow corrections. This release marks
-significant stability improvements for offline functionality and deployment.
-
-Key changes documented:
-• PWA install button icon alignment fixes using flexbox
-• Service worker cache path corrections from relative to absolute
-• GitHub Actions workflow YAML syntax error resolutions
-• Documentation truth reconciliation removing false claims
-• Enhanced offline mode with improved resource caching strategies
-
-Impact:
-• Users now have properly functioning PWA installation experience
-• Offline mode works reliably with corrected cache paths
-• CI/CD pipeline stability improved with workflow fixes
-• Documentation accuracy restored for better developer experience
-
-The release notes provide comprehensive tracking of all technical
-improvements made in v1.2.0, ensuring proper version history
-maintenance for future reference.
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
