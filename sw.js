@@ -101,7 +101,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
         const url = new URL(event.request.url);
 
-        // Navigation: serve correct HTML from cache, never network
+        // Navigation: always serve correct HTML from cache
         if (event.request.mode === 'navigate') {
             if (url.pathname === '/' || url.pathname === '/index.html') {
                 const cached = await caches.match('/index.html');
@@ -120,15 +120,10 @@ self.addEventListener('fetch', (event) => {
             }
         }
 
-        // For all other requests: cache only, never network if offline
+        // For all other requests: always serve from cache if available
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) return cachedResponse;
-        // If not in cache, try network (will fail if offline)
-        if (navigator.onLine) {
-            try {
-                return await fetch(event.request);
-            } catch (err) {}
-        }
+        // If not in cache, return blank (never try network if offline)
         return new Response('', { status: 200 });
     })());
 });
