@@ -4,6 +4,39 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-22 19:29:33 +0530  
+**Commit:** [4758169](https://github.com/dhruvinrsoni/cipher-alchemist/commit/47581690959aa4d9ff8beb782a0eb50eba829f4b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix: serve cached assets only, never fallback to network
+
+- Ensures all navigation and asset requests are served from cache
+- Removes network fallback logic for offline scenarios
+- Returns blank response if asset is not cached
+
+Reason:
+- Prevents unexpected network requests when offline
+- Improves offline reliability and predictability
+
+Impact:
+- Users always get cached content or blank if unavailable
+- No runtime, CI/CD, database, or security impact
+- No changes to logging, code style, or ownership
+
+Testing and Validation:
+- Manual testing in offline and online modes
+
+Dependencies:
+
+Backward Compatibility:
+- Fully backward compatible
+
+Docs:
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-22 19:24:02 +0530  
 **Commit:** [01edfd9](https://github.com/dhruvinrsoni/cipher-alchemist/commit/01edfd9b9e89060e74bb1a77bc6a5a60e5733e36)  
 **Author:** Dhruvin Rupesh Soni
@@ -1665,50 +1698,6 @@ Impact:
 
 Runtime: Enhanced offline performance and error resilience
 Code Quality: Improved error handling and resource management
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 04:18:01 +0530  
-**Commit:** [f7a78c1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/f7a78c17959156acc333499b02f395ad0de15bfe)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: add enhanced GitHub Actions workflow with conflict prevention
-
-This commit introduces a new auto-version update workflow with advanced
-conflict prevention mechanisms and retry logic to ensure reliable CI/CD
-operations.
-
-• Added comprehensive pre-sync safety checks to detect remote changes
-• Implemented smart commit logic with 3-attempt retry mechanism
-• Enhanced skip logic to prevent conflicts when remote is ahead
-• Added exponential backoff strategy for push retries
-• Included automatic rebase/merge fallback for conflict resolution
-• Enhanced logging and developer guidance for manual resolution scenarios
-
-Impact:
-• Eliminates merge conflicts in automated version updates
-• Reduces failed workflow runs due to concurrent pushes
-• Improves developer experience with clearer conflict resolution guidance
-• Ensures reliable GitHub Pages deployment even with multiple contributors
-
-Test:
-• Workflow includes comprehensive validation steps
-• Pre-sync checks verify repository state before operations
-• Multiple retry attempts with different conflict resolution strategies
-• Graceful fallback handling for unresolvable conflicts
-
-Dependencies:
-• actions/checkout@v4
-• actions/configure-pages@v4
-• actions/upload-pages-artifact@v3
-• actions/deploy-pages@v4
-
-Compatibility:
-• Maintains backward compatibility with existing workflow triggers
-• No breaking changes to version.txt or CHANGELOG.md format
-• Preserves existing skip conditions and bot detection
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
