@@ -101,19 +101,22 @@ self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
         const url = new URL(event.request.url);
 
-        // Navigation: serve correct HTML from cache
+        // Navigation: serve correct HTML from cache, never network
         if (event.request.mode === 'navigate') {
             if (url.pathname === '/' || url.pathname === '/index.html') {
                 const cached = await caches.match('/index.html');
                 if (cached) return cached;
+                return new Response('<h1>Offline</h1>', { status: 200, headers: { 'Content-Type': 'text/html' } });
             }
             if (url.pathname === '/dev.html') {
                 const cached = await caches.match('/dev.html');
                 if (cached) return cached;
+                return new Response('<h1>Offline</h1>', { status: 200, headers: { 'Content-Type': 'text/html' } });
             }
             if (url.pathname === '/testlab.html') {
                 const cached = await caches.match('/testlab.html');
                 if (cached) return cached;
+                return new Response('<h1>Offline</h1>', { status: 200, headers: { 'Content-Type': 'text/html' } });
             }
         }
 
@@ -121,16 +124,10 @@ self.addEventListener('fetch', (event) => {
         const cachedResponse = await caches.match(event.request);
         if (cachedResponse) return cachedResponse;
         try {
-            const networkResponse = await fetch(event.request);
-            if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
-                const responseToCache = networkResponse.clone();
-                caches.open('cipher-alchemist-v4').then((cache) => {
-                    cache.put(event.request, responseToCache);
-                });
-                return networkResponse;
-            }
-        } catch (err) {}
-        return new Response('', { status: 200, statusText: 'Offline' });
+            return await fetch(event.request);
+        } catch (err) {
+            return new Response('', { status: 200 });
+        }
     })());
 });
 
