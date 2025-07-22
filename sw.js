@@ -97,11 +97,12 @@ self.addEventListener('activate', (event) => {
     );
 });
 
+
 self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
         const url = new URL(event.request.url);
 
-        // Navigation: always serve correct HTML from cache
+        // Navigation: always serve correct HTML from cache, ignore query params
         if (event.request.mode === 'navigate') {
             if (url.pathname === '/' || url.pathname === '/index.html') {
                 const cached = await caches.match('/index.html');
@@ -121,9 +122,8 @@ self.addEventListener('fetch', (event) => {
         }
 
         // For all other requests: always serve from cache if available
-        const cachedResponse = await caches.match(event.request);
+        const cachedResponse = await caches.match(event.request, { ignoreSearch: true });
         if (cachedResponse) return cachedResponse;
-        // If not in cache, return blank (never try network if offline)
         return new Response('', { status: 200 });
     })());
 });
