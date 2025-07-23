@@ -4,6 +4,16 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-23 10:50:28 +0530  
+**Commit:** [3dd0421](https://github.com/dhruvinrsoni/cipher-alchemist/commit/3dd042122f7c55ab38da32d761e37f2f6b5a31c8)  
+**Author:** Dhruvin Rupesh Soni
+
+#### Revert "feat: improve sharing UI and offline fallback"
+
+This reverts commit 430c91a2e9ccf80b26227379051de5cc376d0c1c.
+
+---
+
 **Date:** 2025-07-23 10:42:00 +0530  
 **Commit:** [0d93ca1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0d93ca11557c854135637b7adb8e637533c140bb)  
 **Author:** Dhruvin Rupesh Soni
@@ -1618,29 +1628,6 @@ Compatibility:
 Docs:
 - RELEASES.md moved to docs/RELEASES.md
 - File path references updated in workflow
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 04:37:10 +0530  
-**Commit:** [ebb7d81](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ebb7d81ecf73da8ca70b502a69946eaa9050fc7a)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: remove duplicate validation logic in release workflow
-
-Fixed duplicate validation block that was causing workflow syntax errors.
-The validation logic was repeated, including an unreachable exit 1 statement
-that would prevent successful releases.
-
-• Removed duplicated version validation echo statement
-• Eliminated unreachable exit 1 command
-• Cleaned up workflow logic flow
-
-Impact:
-• CI/CD: Fixes release workflow execution failures
-• Runtime: Eliminates syntax errors in GitHub Actions
-• Code Quality: Removes unreachable/dead code
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
