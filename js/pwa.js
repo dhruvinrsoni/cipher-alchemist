@@ -108,32 +108,32 @@ async function handleInstallClick() {
  */
 function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) {
-        console.log('Service Worker not supported');
+        console.error('Service Worker not supported in this browser.');
         return Promise.resolve(null);
     }
-    
-    return navigator.serviceWorker.register('sw.js')
+
+    return navigator.serviceWorker.register('/sw.js')
         .then((registration) => {
             console.log('Service Worker registered successfully:', registration);
             serviceWorkerRegistration = registration;
-            
-            // Check for updates
+
             registration.addEventListener('updatefound', () => {
                 const newWorker = registration.installing;
                 if (newWorker) {
                     newWorker.addEventListener('statechange', () => {
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            // New content available, show update notification
+                            console.info('New service worker installed. Prompting user to update.');
                             handleServiceWorkerUpdate();
                         }
                     });
                 }
             });
-            
+
             return registration;
         })
         .catch((error) => {
-            console.log('Service Worker registration failed:', error);
+            console.error('Service Worker registration failed:', error);
+            alert('Failed to register service worker. Some features may not work offline.');
             return null;
         });
 }

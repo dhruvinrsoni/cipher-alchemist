@@ -5,6 +5,8 @@ self.addEventListener('install', (event) => {
             return cache.addAll([
                 '/',
                 '/index.html',
+                '/dev.html',
+                '/testlab.html',
                 '/css/themes.css',
                 '/css/main.css',
                 '/css/modal.css',
@@ -29,35 +31,6 @@ self.addEventListener('install', (event) => {
                 '/assets/icons/favicon.ico'
             ]).catch((error) => {
                 console.error('Service Worker: Failed to cache resources:', error);
-                // Cache individual resources that succeed
-                const resources = [
-                    '/',
-                    '/index.html',
-                    '/css/themes.css',
-                    '/css/main.css',
-                    '/css/modal.css',
-                    '/css/keyboard-shortcuts.css',
-                    '/css/password-strength.css',
-                    '/css/phrase-suggestions.css',
-                    '/css/sharing.css',
-                    '/js/config.js',
-                    '/js/cipher-algorithms.js',
-                    '/js/main.js',
-                    '/js/password-strength.js',
-                    '/js/phrase-suggestions.js',
-                    '/js/keyboard-shortcuts.js',
-                    '/js/sharing.js',
-                    '/js/pwa.js',
-                    '/manifest.json'
-                ];
-                
-                return Promise.allSettled(
-                    resources.map(resource => 
-                        cache.add(resource).catch(err => 
-                            console.warn(`Failed to cache ${resource}:`, err)
-                        )
-                    )
-                );
             });
         })
     );
@@ -89,22 +62,11 @@ self.addEventListener('fetch', (event) => {
             if (response) {
                 return response;
             }
-            // For navigation requests, serve the correct cached HTML file
             if (event.request.mode === 'navigate') {
-                const url = new URL(event.request.url);
-                if (url.pathname === '/' || url.pathname === '/index.html') {
-                    return caches.match('/index.html');
-                }
-                if (url.pathname === '/dev.html') {
-                    return caches.match('/dev.html');
-                }
-                if (url.pathname === '/testlab.html') {
-                    return caches.match('/testlab.html');
-                }
-                // fallback to index.html for any other navigation
-                return caches.match('/index.html');
+                return caches.match(event.request.url).then((cachedResponse) => {
+                    return cachedResponse || caches.match('/index.html');
+                });
             }
-            // For other requests, try network and cache
             return fetch(event.request).then((networkResponse) => {
                 if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
                     return networkResponse;
@@ -115,21 +77,9 @@ self.addEventListener('fetch', (event) => {
                 });
                 return networkResponse;
             }).catch(() => {
-                // For navigation, fallback to correct HTML
                 if (event.request.mode === 'navigate') {
-                    const url = new URL(event.request.url);
-                    if (url.pathname === '/' || url.pathname === '/index.html') {
-                        return caches.match('/index.html');
-                    }
-                    if (url.pathname === '/dev.html') {
-                        return caches.match('/dev.html');
-                    }
-                    if (url.pathname === '/testlab.html') {
-                        return caches.match('/testlab.html');
-                    }
                     return caches.match('/index.html');
                 }
-                // For other requests, return a minimal offline fallback
                 return new Response('', { status: 200, statusText: 'Offline' });
             });
         })
