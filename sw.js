@@ -5,8 +5,6 @@ self.addEventListener('install', (event) => {
             return cache.addAll([
                 '/',
                 '/index.html',
-                '/dev.html',
-                '/testlab.html',
                 '/css/themes.css',
                 '/css/main.css',
                 '/css/modal.css',
@@ -40,8 +38,6 @@ self.addEventListener('install', (event) => {
                 const resources = [
                     '/',
                     '/index.html',
-                    '/dev.html',
-                    '/testlab.html',
                     '/css/themes.css',
                     '/css/main.css',
                     '/css/modal.css',
@@ -104,19 +100,8 @@ self.addEventListener('fetch', (event) => {
             if (response) {
                 return response;
             }
-            // For navigation requests, serve the correct cached HTML file
+            // For navigation requests, always serve cached index.html if offline
             if (event.request.mode === 'navigate') {
-                const url = new URL(event.request.url);
-                if (url.pathname === '/' || url.pathname === '/index.html') {
-                    return caches.match('/index.html');
-                }
-                if (url.pathname === '/dev.html') {
-                    return caches.match('/dev.html');
-                }
-                if (url.pathname === '/testlab.html') {
-                    return caches.match('/testlab.html');
-                }
-                // fallback to index.html for any other navigation
                 return caches.match('/index.html');
             }
             // For other requests, try network and cache
@@ -130,18 +115,8 @@ self.addEventListener('fetch', (event) => {
                 });
                 return networkResponse;
             }).catch(() => {
-                // For navigation, fallback to correct HTML
+                // Always fallback to cached index.html for navigation
                 if (event.request.mode === 'navigate') {
-                    const url = new URL(event.request.url);
-                    if (url.pathname === '/' || url.pathname === '/index.html') {
-                        return caches.match('/index.html');
-                    }
-                    if (url.pathname === '/dev.html') {
-                        return caches.match('/dev.html');
-                    }
-                    if (url.pathname === '/testlab.html') {
-                        return caches.match('/testlab.html');
-                    }
                     return caches.match('/index.html');
                 }
                 // For other requests, return a minimal offline fallback
