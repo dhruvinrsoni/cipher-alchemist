@@ -97,30 +97,36 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((response) => {
+            // Return cached version if available
             if (response) {
                 return response;
             }
-            // For navigation requests, always serve cached index.html if offline
-            if (event.request.mode === 'navigate') {
-                return caches.match('/index.html');
-            }
-            // For other requests, try network and cache
-            return fetch(event.request).then((networkResponse) => {
-                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                    return networkResponse;
+            
+            // For network requests, try to fetch and cache
+            return fetch(event.request).then((response) => {
+                // Don't cache non-successful responses
+                if (!response || response.status !== 200 || response.type !== 'basic') {
+                    return response;
                 }
-                const responseToCache = networkResponse.clone();
+                
+                // Clone the response for caching
+                const responseToCache = response.clone();
+                
                 caches.open('cipher-alchemist-v4').then((cache) => {
                     cache.put(event.request, responseToCache);
                 });
-                return networkResponse;
+                
+                return response;
             }).catch(() => {
-                // Always fallback to cached index.html for navigation
+                // If both cache and network fail, return the cached index.html for navigation
                 if (event.request.mode === 'navigate') {
                     return caches.match('/index.html');
                 }
-                // For other requests, return a minimal offline fallback
-                return new Response('', { status: 200, statusText: 'Offline' });
+                // For other requests, return a fallback response
+                return new Response('Resource not available offline', {
+                    status: 503,
+                    statusText: 'Service Unavailable'
+                });
             });
         })
     );
