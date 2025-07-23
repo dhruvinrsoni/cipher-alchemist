@@ -4,6 +4,45 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-23 12:35:21 +0530  
+**Commit:** [8aef1cc](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8aef1ccb7f14eeacf7c6d591bf287b30f0d62db1)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: improve service worker caching and error handling
+
+- Refactored service worker registration to use absolute path and enhanced error logging
+- Added alert for failed service worker registration to inform users of offline limitations
+- Expanded service worker cache to include dev.html and testlab.html for better offline support
+- Simplified fetch event navigation fallback logic for maintainability
+- Removed redundant resource caching and fallback code for clarity
+
+Reason:
+- Improve reliability and maintainability of PWA offline features
+- Reduce code complexity and enhance user feedback on registration errors
+
+Impact:
+- Users receive clearer notifications if service worker registration fails
+- Offline access now includes dev and testlab pages
+- Codebase is easier to maintain and debug
+
+Testing and Validation:
+- Manual testing in Chrome and Firefox for offline access and update notifications
+- Verified fallback behavior for navigation requests
+
+Dependencies:
+
+Backward Compatibility:
+- No breaking changes; existing offline functionality remains intact
+
+Docs:
+- No documentation updates required
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-23 11:14:01 +0530  
 **Commit:** [515f972](https://github.com/dhruvinrsoni/cipher-alchemist/commit/515f9726e70878c2c761667ea2485bb95e98f72b)  
 **Author:** Dhruvin Rupesh Soni
@@ -1564,18 +1603,6 @@ Test:
 • Deployment trigger functionality preserved
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 07:46:39 +0000  
-**Commit:** [399aa05](https://github.com/dhruvinrsoni/cipher-alchemist/commit/399aa05c2a987c95fc8dd6cd9ce25dd4ca17a4e3)  
-**Author:** github-actions[bot]
-
-#### 🔖 Release v1.2.0
-
-  - Updated version.txt with release information
-  - Updated docs/RELEASES.md with new release notes
-  - Updated manifest.json version (if applicable)
 
 ---
 
