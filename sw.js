@@ -86,36 +86,51 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request).then((response) => {
-            // Return cached version if available
             if (response) {
                 return response;
             }
-            
-            // For network requests, try to fetch and cache
-            return fetch(event.request).then((response) => {
-                // Don't cache non-successful responses
-                if (!response || response.status !== 200 || response.type !== 'basic') {
-                    return response;
+            // For navigation requests, serve the correct cached HTML file
+            if (event.request.mode === 'navigate') {
+                const url = new URL(event.request.url);
+                if (url.pathname === '/' || url.pathname === '/index.html') {
+                    return caches.match('/index.html');
                 }
-                
-                // Clone the response for caching
-                const responseToCache = response.clone();
-                
+                if (url.pathname === '/dev.html') {
+                    return caches.match('/dev.html');
+                }
+                if (url.pathname === '/testlab.html') {
+                    return caches.match('/testlab.html');
+                }
+                // fallback to index.html for any other navigation
+                return caches.match('/index.html');
+            }
+            // For other requests, try network and cache
+            return fetch(event.request).then((networkResponse) => {
+                if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+                    return networkResponse;
+                }
+                const responseToCache = networkResponse.clone();
                 caches.open('cipher-alchemist-v4').then((cache) => {
                     cache.put(event.request, responseToCache);
                 });
-                
-                return response;
+                return networkResponse;
             }).catch(() => {
-                // If both cache and network fail, return the cached index.html for navigation
+                // For navigation, fallback to correct HTML
                 if (event.request.mode === 'navigate') {
+                    const url = new URL(event.request.url);
+                    if (url.pathname === '/' || url.pathname === '/index.html') {
+                        return caches.match('/index.html');
+                    }
+                    if (url.pathname === '/dev.html') {
+                        return caches.match('/dev.html');
+                    }
+                    if (url.pathname === '/testlab.html') {
+                        return caches.match('/testlab.html');
+                    }
                     return caches.match('/index.html');
                 }
-                // For other requests, return a fallback response
-                return new Response('Resource not available offline', {
-                    status: 503,
-                    statusText: 'Service Unavailable'
-                });
+                // For other requests, return a minimal offline fallback
+                return new Response('', { status: 200, statusText: 'Offline' });
             });
         })
     );
