@@ -4,6 +4,16 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-23 10:42:00 +0530  
+**Commit:** [0d93ca1](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0d93ca11557c854135637b7adb8e637533c140bb)  
+**Author:** Dhruvin Rupesh Soni
+
+#### Revert "feat: cache dev and testlab HTML for offline use"
+
+This reverts commit 01350f6dd30e542a287ef034be1410625da75fb9.
+
+---
+
 **Date:** 2025-07-22 20:04:04 +0530  
 **Commit:** [87f71a8](https://github.com/dhruvinrsoni/cipher-alchemist/commit/87f71a8a98df4389252d10061a05eb62959594ff)  
 **Author:** Dhruvin Rupesh Soni
@@ -1631,31 +1641,6 @@ Impact:
 • CI/CD: Fixes release workflow execution failures
 • Runtime: Eliminates syntax errors in GitHub Actions
 • Code Quality: Removes unreachable/dead code
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 04:33:57 +0530  
-**Commit:** [00319bd](https://github.com/dhruvinrsoni/cipher-alchemist/commit/00319bd1c5b1c6ba5db6f2139007800a94e30bd2)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: correct syntax error in GitHub workflow validation
-
-Fixed malformed conditional statement in create-tag-release.yml that was causing workflow failures.
-
-• Removed duplicate "exit 1" and "fi" statements
-• Fixed broken if-statement structure in tag validation logic
-• Ensured proper bash syntax for version checking workflow
-
-Impact:
-• Resolves CI/CD pipeline failures during tag creation process
-• Ensures GitHub Actions workflow executes successfully
-• Prevents deployment blocking due to syntax errors
-
-Test:
-• Validated YAML syntax using GitHub Actions linter
-• Verified workflow logic flow for tag validation scenarios
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
