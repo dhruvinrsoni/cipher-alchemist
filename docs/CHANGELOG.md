@@ -4,6 +4,16 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-23 11:05:42 +0530  
+**Commit:** [e24027f](https://github.com/dhruvinrsoni/cipher-alchemist/commit/e24027f0422a3c60b2ceb38f4e4990dcff134d7a)  
+**Author:** Dhruvin Rupesh Soni
+
+#### Revert "docs: add unified guide, update service worker cache"
+
+This reverts commit 0bda41079c9d6cfc7bc077ae66e89991c201e425.
+
+---
+
 **Date:** 2025-07-23 10:50:28 +0530  
 **Commit:** [3dd0421](https://github.com/dhruvinrsoni/cipher-alchemist/commit/3dd042122f7c55ab38da32d761e37f2f6b5a31c8)  
 **Author:** Dhruvin Rupesh Soni
@@ -1587,47 +1597,6 @@ Backward Compatibility:
 • Fully backward compatible
 • Existing cache behavior preserved for current version
 • Manifest changes enhance existing PWA functionality without breaking changes
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 09:20:23 +0530  
-**Commit:** [06cd3db](https://github.com/dhruvinrsoni/cipher-alchemist/commit/06cd3dbfe64e1877e8d2ebb025d7908d568a20c7)  
-**Author:** Dhruvin Rupesh Soni
-
-#### fix: improve workflow file structure and error handling
-
-Fixed multiple issues in the GitHub Actions workflow:
-- Moved RELEASES.md to docs/ directory for better organization
-- Improved heredoc handling to prevent variable expansion issues
-- Enhanced error handling for manifest.json operations
-- Cleaned up inline comments and code formatting
-- Fixed file path references throughout the workflow
-- Improved changelog generation logic
-
-Impact:
-- Better file organization with docs/ structure
-- More reliable release process with improved error handling
-- Cleaner code without excessive inline comments
-- Safer variable handling in shell scripts
-
-Test:
-- Workflow syntax validation required
-- Release process testing recommended
-- File path operations need verification
-
-Dependencies:
-- No new dependencies added
-- Maintains existing jq dependency for JSON processing
-
-Compatibility:
-- Maintains backward compatibility for existing releases
-- File structure change may require documentation updates
-
-Docs:
-- RELEASES.md moved to docs/RELEASES.md
-- File path references updated in workflow
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
