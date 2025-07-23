@@ -4,6 +4,16 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-23 11:14:01 +0530  
+**Commit:** [515f972](https://github.com/dhruvinrsoni/cipher-alchemist/commit/515f9726e70878c2c761667ea2485bb95e98f72b)  
+**Author:** Dhruvin Rupesh Soni
+
+#### Revert "feat: improve service worker fetch fallback logic"
+
+This reverts commit dfdd47e568a6d3df4f71b4b904fa7a6c2c908de9.
+
+---
+
 **Date:** 2025-07-23 11:05:42 +0530  
 **Commit:** [e24027f](https://github.com/dhruvinrsoni/cipher-alchemist/commit/e24027f0422a3c60b2ceb38f4e4990dcff134d7a)  
 **Author:** Dhruvin Rupesh Soni
@@ -1566,39 +1576,6 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
   - Updated version.txt with release information
   - Updated docs/RELEASES.md with new release notes
   - Updated manifest.json version (if applicable)
-
----
-
-**Date:** 2025-06-11 12:55:08 +0530  
-**Commit:** [005dd53](https://github.com/dhruvinrsoni/cipher-alchemist/commit/005dd53c9cf114e557b7b2ec914088a0d9a5f468)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: improve PWA caching and manifest configuration
-
-Reason:
-• Fixed service worker cache management to prevent deletion of current cache
-• Enhanced PWA manifest for better installation and scoping
-
-Impact:
-• Improves PWA performance by preserving active cache during updates
-• Better debugging with enhanced logging in service worker activation
-• Clearer PWA scope definition for proper resource handling
-• Enhanced user experience during app updates and installations
-
-Testing and Validation:
-• Service worker cache retention should be verified during updates
-• PWA installation behavior should be tested across different browsers
-• Cache deletion logs should appear in browser console during activation
-
-Dependencies:
-• No new dependencies added
-
-Backward Compatibility:
-• Fully backward compatible
-• Existing cache behavior preserved for current version
-• Manifest changes enhance existing PWA functionality without breaking changes
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
 ---
 
