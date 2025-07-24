@@ -4,6 +4,46 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-24 16:01:35 +0530  
+**Commit:** [8d0b720](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8d0b720d77675957d2713b9d607a6191ee028048)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: Complete PWA offline support and cleanup
+
+- Implements robust offline-first PWA architecture
+- Adds pwa-test.html for comprehensive offline/PWA testing
+- Rewrites sw.js with cache versioning, error handling, and navigation fallbacks
+- Removes non-existent/legacy scripts from dev.html for clean dependency graph
+- Updates main.js to prefer new PWA initialization logic
+- Adds detailed documentation: OFFLINE_FUNCTIONALITY_COMPLETE.md and PWA_IMPLEMENTATION_GUIDE.md
+
+Reason:
+- Resolve all offline/PWA issues and ensure reliable, production-ready offline support
+- Remove broken dependencies and legacy code for maintainability
+
+Impact:
+- All app pages now load instantly offline after first visit
+- No more 404s or missing resources in offline mode
+- Cleaner codebase, easier maintenance, and improved user experience
+- No impact on CI/CD, runtime, database, security, or cloud integration
+- No new runtime dependencies; no breaking changes
+
+Test:
+- Manual validation using pwa-test.html and browser DevTools
+- Verified cache contents, navigation, and installability offline
+
+Dependencies:
+
+Compatibility:
+- Fully backward compatible; no breaking changes
+
+Docs:
+- New and updated documentation for offline/PWA features and testing
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-23 12:35:21 +0530  
 **Commit:** [8aef1cc](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8aef1ccb7f14eeacf7c6d591bf287b30f0d62db1)  
 **Author:** Dhruvin Rupesh Soni
@@ -1576,33 +1616,6 @@ Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
   - Updated version.txt with release information
   - Updated docs/RELEASES.md with new release notes
   - Updated manifest.json version (if applicable)
-
----
-
-**Date:** 2025-06-11 17:25:39 +0530  
-**Commit:** [916d08a](https://github.com/dhruvinrsoni/cipher-alchemist/commit/916d08a8d65cf402e5d49138a5fa2c2f0fc10bbf)  
-**Author:** Dhruvin Rupesh Soni
-
-#### refactor: clean up workflow dispatch script formatting
-
-Fixed indentation and removed unused environment parameter from the
-deployment workflow trigger to improve code readability and simplify
-the workflow configuration.
-
-• Corrected indentation in the GitHub Actions script block
-• Removed unused 'environment: production' parameter from workflow inputs
-• Maintained functionality while improving code style consistency
-
-Impact:
-• No functional changes to the deployment process
-• Improved code readability and maintainability
-• Simplified workflow input parameters
-
-Test:
-• Workflow syntax remains valid
-• Deployment trigger functionality preserved
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
 ---
 
