@@ -352,9 +352,18 @@ function initializeApp() {
     }, 400);
     
     // Initialize other features if available
-    if (typeof initializePWAInstall === 'function') {
-        console.log('📱 Initializing PWA features...');
+    if (typeof initializePWA === 'function') {
+        console.log('📱 Initializing complete PWA features...');
+        initializePWA();
+    } else if (typeof initializePWAInstall === 'function') {
+        console.log('📱 Initializing PWA install features...');
         initializePWAInstall();
+        
+        // Also register service worker manually if not done by initializePWA
+        if (typeof registerServiceWorker === 'function') {
+            console.log('⚙️ Registering service worker...');
+            registerServiceWorker();
+        }
     }
     
     if (typeof initializeKeyboardHelp === 'function') {
