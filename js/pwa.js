@@ -106,45 +106,93 @@ async function handleInstallClick() {
 /**
  * Register service worker for PWA functionality
  */
-function registerServiceWorker() {
+async function registerServiceWorker() {
     if (!('serviceWorker' in navigator)) {
-        console.error('Service Worker not supported in this browser.');
-        return Promise.resolve(null);
+        console.error('PWA: Service Worker not supported in this browser.');
+        return null;
     }
 
-    return navigator.serviceWorker.register('/sw.js')
-        .then((registration) => {
-            console.log('Service Worker registered successfully:', registration);
-            serviceWorkerRegistration = registration;
-
-            registration.addEventListener('updatefound', () => {
-                const newWorker = registration.installing;
-                if (newWorker) {
-                    newWorker.addEventListener('statechange', () => {
-                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            console.info('New service worker installed. Prompting user to update.');
-                            handleServiceWorkerUpdate();
-                        }
-                    });
-                }
-            });
-
-            return registration;
-        })
-        .catch((error) => {
-            console.error('Service Worker registration failed:', error);
-            alert('Failed to register service worker. Some features may not work offline.');
-            return null;
+    try {
+        console.log('PWA: Attempting to register service worker...');
+        
+        // Unregister any existing service workers first for clean install
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (let registration of registrations) {
+            console.log('PWA: Unregistering old service worker:', registration.scope);
+            await registration.unregister();
+        }
+        
+        // Register new service worker with proper scope
+        const registration = await navigator.serviceWorker.register('./sw.js', {
+            scope: './'
         });
+        
+        console.log('PWA: Service Worker registered successfully');
+        console.log('PWA: Registration scope:', registration.scope);
+        serviceWorkerRegistration = registration;
+
+        // Handle service worker updates
+        registration.addEventListener('updatefound', () => {
+            console.log('PWA: Service worker update found');
+            const newWorker = registration.installing;
+            
+            if (newWorker) {
+                newWorker.addEventListener('statechange', () => {
+                    console.log('PWA: New worker state:', newWorker.state);
+                    
+                    if (newWorker.state === 'installed') {
+                        if (navigator.serviceWorker.controller) {
+                            console.log('PWA: New service worker available');
+                            handleServiceWorkerUpdate();
+                        } else {
+                            console.log('PWA: Service worker installed for first time');
+                        }
+                    }
+                });
+            }
+        });
+
+        // Check if there's a waiting service worker
+        if (registration.waiting) {
+            console.log('PWA: Service worker is waiting, handling update...');
+            handleServiceWorkerUpdate();
+        }
+
+        // Listen for service worker messages
+        navigator.serviceWorker.addEventListener('message', (event) => {
+            console.log('PWA: Message from service worker:', event.data);
+            if (event.data && event.data.type === 'RELOAD_PAGE') {
+                window.location.reload();
+            }
+        });
+
+        return registration;
+
+    } catch (error) {
+        console.error('PWA: Service Worker registration failed:', error);
+        if (window.showNotification) {
+            window.showNotification('Failed to register service worker. App may not work offline.', 'error');
+        }
+        return null;
+    }
 }
 
 /**
  * Handle service worker updates
  */
 function handleServiceWorkerUpdate() {
-    const shouldUpdate = confirm('New version available! Click OK to update.');
-    if (shouldUpdate) {
-        window.location.reload();
+    console.log('PWA: Handling service worker update');
+    
+    if (window.showNotification) {
+        window.showNotification('🚀 New version available! App will update in 3 seconds...', 'info');
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    } else {
+        const shouldUpdate = confirm('🚀 New version available! Click OK to update now.');
+        if (shouldUpdate) {
+            window.location.reload();
+        }
     }
 }
 
