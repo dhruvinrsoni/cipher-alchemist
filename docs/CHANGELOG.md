@@ -4,6 +4,48 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2025-07-28 11:18:23 +0530  
+**Commit:** [2893d0e](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2893d0e89768397792f3318a97b5597005e0deba)  
+**Author:** Dhruvin Rupesh Soni
+
+#### feat: rewrite PWA service worker and registration
+
+- Reason:
+    - Improve offline reliability and maintainability of the PWA
+    - Remove legacy test artifacts and streamline service worker logic
+
+- Changes:
+    - Rewrote `sw.js` with modular, atomic precaching and runtime cache strategies
+    - Enhanced navigation and asset fetch handling for robust offline support
+    - Removed `pwa-test.html` (manual test page) from repo
+    - Refactored `js/pwa.js` to unregister old service workers before registering new ones, improving update flow and error handling
+    - Improved update notification and reload UX for end users
+
+- Impact:
+    - Users experience more reliable offline access and seamless updates
+    - Codebase is easier to maintain and extend for future PWA features
+    - No impact on CI/CD, database, or cloud integration
+    - Logging is more consistent for debugging service worker events
+
+- Test:
+    - Manual testing of offline/online transitions, navigation, and asset loading
+    - Verified service worker registration, update, and cache cleanup on multiple browsers
+
+- Dependencies:
+    - No new dependencies introduced
+
+- Compatibility:
+    - BREAKING CHANGE: Removes `pwa-test.html` and changes service worker registration flow; users may need to refresh to activate new SW
+
+- Docs:
+    - Update PWA and offline documentation to reflect new service worker architecture
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
 **Date:** 2025-07-24 16:01:35 +0530  
 **Commit:** [8d0b720](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8d0b720d77675957d2713b9d607a6191ee028048)  
 **Author:** Dhruvin Rupesh Soni
@@ -1604,18 +1646,6 @@ Impact:
 • No functional changes to CI/CD behavior
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 14:02:36 +0000  
-**Commit:** [0847654](https://github.com/dhruvinrsoni/cipher-alchemist/commit/0847654095b078ada1310f2dd4593b526ca5e546)  
-**Author:** github-actions[bot]
-
-#### 🔖 Release v1.2.0
-
-  - Updated version.txt with release information
-  - Updated docs/RELEASES.md with new release notes
-  - Updated manifest.json version (if applicable)
 
 ---
 
