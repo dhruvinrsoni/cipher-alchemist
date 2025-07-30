@@ -114,21 +114,19 @@ cipher-alchemist/
 
 ---
 
-## 📚 **Documentation**
 
-### **User Guides**
-- **[Complete Guide](docs/COMPLETE_GUIDE.md)** - Comprehensive usage instructions
-- **[FAQ](docs/FAQ.md)** - Frequently asked questions and troubleshooting
-- **[Case Studies](docs/CASE_STUDIES.md)** - Real-world usage examples and success stories
+## 📚 **Documentation & Resources**
 
-### **Developer Resources**
-- **[Development Guide](docs/DEVELOPMENT.md)** - Technical implementation and architecture
-- **[Changelog](docs/CHANGELOG.md)** - Version history and updates
-- **[Releases](docs/RELEASES.md)** - Release notes and download information
+- **[Documentation Index](docs/INDEX.md)** – All guides, developer docs, FAQ, LTS, and more
+- **[FAQ](docs/FAQ.md)** – Frequently asked questions and troubleshooting
+- **[Case Studies](docs/CASE_STUDIES.md)** – Real-world usage and accessibility examples
+- **[Development Guide](docs/DEVELOPMENT.md)** – Setup, architecture, and contribution
+- **[Testing Guide](docs/TESTING_GUIDE.md)** – Testing, troubleshooting, and best practices
+- **[LTS Implementation & Protection](docs/LTS_IMPLEMENTATION_COMPLETE.md)** – LTS status, critical file list, and safe modification protocol
 
-### **Project Information**
-- **[LTS Protection](docs/LTS_PROTECTION.md)** - Long-term support guidelines
-- **[LTS Implementation](docs/LTS_IMPLEMENTATION_COMPLETE.md)** - Complete LTS documentation
+For release notes and version history, see:
+- **[Releases](docs/RELEASES.md)** (auto-generated)
+- **[Changelog](docs/CHANGELOG.md)** (auto-generated)
 
 ---
 

@@ -130,12 +130,13 @@ Absolutely! Cipher Alchemist is designed as an educational tool for:
 - **Security awareness** - Password best practices and entropy
 - **Accessibility advocacy** - Inclusive design demonstration
 
+
 **Is there educational documentation?**
-Yes! Check out:
-- **[Complete Guide](COMPLETE_GUIDE.md)** - Comprehensive usage instructions
-- **[Development Guide](DEVELOPMENT.md)** - Technical implementation details
-- **[Case Studies](CASE_STUDIES.md)** - Real-world usage examples
-- **[README](../README.md)** - Overview and quick start
+Yes! See the [Documentation Index](INDEX.md) for all guides, or jump to:
+- **[Main README](../README.md)** – Quick start, features, and user guide
+- **[Development Guide](DEVELOPMENT.md)** – Technical implementation details
+- **[Case Studies](CASE_STUDIES.md)** – Real-world usage examples
+- **[Testing Guide](TESTING_GUIDE.md)** – Testing, troubleshooting, and best practices
 
 ---
 

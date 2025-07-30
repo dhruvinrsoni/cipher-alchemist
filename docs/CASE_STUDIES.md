@@ -25,7 +25,16 @@ Cipher Alchemist: create strong, memorable passwords from phrases. No storage, w
 - Responsive design
 - Use for onboarding, training, and demos
 
+
 **Try it:** [Cipher Alchemist](https://dhruvinrsoni.github.io/cipher-alchemist/)
+
+---
+
+**See also:**
+- [Documentation Index](INDEX.md)
+- [FAQ](FAQ.md)
+- [Development Guide](DEVELOPMENT.md)
+- [Testing Guide](TESTING_GUIDE.md)
 
 ---
 
