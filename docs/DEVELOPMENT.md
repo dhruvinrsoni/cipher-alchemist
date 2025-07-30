@@ -1,194 +1,651 @@
-# 🛠️ Cipher Alchemist - Complete Development Guide
-Developer Quickstart
+# 🛠️ Cipher Alchemist - Development Guide
 
-Local dev:
-- Open `index.html` directly
-- For PWA/network: `python -m http.server 8000` or `npx live-server --port=8000`
+## 🚀 **Quick Start**
 
-Modules:
-- JS: Modular, no cross-imports unless needed
-- CSS: Modular, theme support
+### **Local Development**
+```bash
+# Option 1: Direct file access (fastest)
+# Open index.html directly in browser
+
+# Option 2: Local server (for PWA testing)
+python -m http.server 8000
+# Visit: http://localhost:8000
+
+# Option 3: Alternative servers
+npx live-server --port=8000
+php -S localhost:8000
+```
+
+### **Development Files**
+- **`index.html`** - Main application
+- **`dev.html`** - Developer dashboard with debugging tools
+- **`testlab.html`** - Comprehensive testing environment
+
+---
+
+## 🏗️ **Architecture**
+
+### **Modular Structure**
+```
+cipher-alchemist/
+├── index.html          # Main app
+├── dev.html           # Dev tools
+├── testlab.html       # Testing
+├── sw.js              # Service worker
+├── manifest.json      # PWA config
+├── js/                # JavaScript modules
+│   ├── main.js        # Core logic
+│   ├── cipher-algorithms.js
+│   ├── pwa.js
+│   ├── notifications.js
+│   └── [other modules]
+└── css/               # Modular stylesheets
+```
+
+### **Core Principles**
+- **One feature per JS file** - No cross-imports unless necessary
+- **Modular CSS** - Feature-specific stylesheets
+- **Zero dependencies** - Pure HTML, CSS, JavaScript
+- **PWA-first** - Offline functionality built-in
+- **Keyboard accessible** - Full keyboard navigation support
+
+---
+
+## 📱 **PWA & Offline Functionality - Complete Implementation**
+
+### **✅ What Has Been Implemented**
+
+#### **1. Service Worker Implementation** (`sw.js`)
+- ✅ **Complete rewrite** with robust caching strategy
+- ✅ **Cache versioning** system (v7) with proper cleanup
+- ✅ **Essential resource caching** including all HTML, CSS, JS, and assets
+- ✅ **Intelligent fetch handler** with cache-first strategy for navigation
+- ✅ **Perfect offline fallback** with beautiful offline pages
+- ✅ **Error handling** for missing resources
+- ✅ **Cross-origin request filtering**
+
+#### **2. PWA Registration Fixed** (`js/pwa.js`)
+- ✅ **Absolute path registration** (`/sw.js` instead of `./sw.js`)
+- ✅ **Enhanced error handling** with user feedback
+- ✅ **Proper update mechanism** with user prompts
+- ✅ **Install prompt management** with platform detection
+
+#### **3. Offline Testing Infrastructure**
+- ✅ **`pwa-test.html`** - Comprehensive PWA testing page
+- ✅ **Service worker status monitoring**
+- ✅ **Cache inspection tools**
+- ✅ **Offline simulation testing**
+- ✅ **Resource loading verification**
+
+### **🧪 PWA Testing Instructions**
+
+#### **Step 1: Basic Functionality Test**
+1. Open any file in a modern browser:
+   - `index.html` - Main application
+   - `dev.html` - Developer dashboard  
+   - `testlab.html` - Testing laboratory
+
+#### **Step 2: Service Worker Registration Test**
+1. Open browser DevTools (F12)
+2. Go to Application/Storage tab → Service Workers
+3. Verify that service worker is registered for the domain
+4. Check that status shows "activated and running"
+
+#### **Step 3: Cache Verification Test**
+1. In DevTools → Application → Storage → Cache Storage
+2. Verify `cipher-alchemist-v7` cache exists
+3. Confirm all resources are cached:
+   - HTML files: `index.html`, `dev.html`, `testlab.html`
+   - CSS files: All files from `/css/` directory
+   - JS files: All files from `/js/` directory
+   - Assets: Icons and documents
+
+#### **Step 4: Offline Functionality Test**
+1. **Method 1 - Browser DevTools:**
+   - Open DevTools → Network tab
+   - Check "Offline" checkbox
+   - Reload the page - should work perfectly
+   - Navigate between pages - all should load instantly
+
+2. **Method 2 - Network Disconnection:**
+   - Disconnect from internet
+   - Try reloading any page
+   - Try navigating to different pages
+   - All pages should load from cache
+
+#### **Step 5: PWA Installation Test**
+1. Open the app in Chrome/Edge
+2. Look for install button in address bar
+3. Click to install as PWA
+4. Verify app opens in standalone mode
+5. Test offline functionality in installed app
+
+### **🔧 Service Worker Architecture**
+
+```javascript
+// Cache Strategy: Cache-First for Navigation, Network-First for Resources
+const CACHE_NAME = 'cipher-alchemist-v7';
+
+// Organized resource categories - ESSENTIAL ONLY
+- CORE_RESOURCES: HTML pages and manifest
+- CSS_RESOURCES: All stylesheets  
+- JS_RESOURCES: Only existing JavaScript files (13 core files)
+- ASSET_RESOURCES: Icons, documents, images
+```
+
+### **📊 PWA Performance Benefits**
+
+- **Instant loading** after first visit
+- **Zero network requests** when offline
+- **Perfect user experience** regardless of connection
+- **Fast navigation** between pages
+- **Reliable caching** with proper versioning
+
+---
+
+## 🏗️ **Modular Architecture Guide**
+
+### **Configuration System**
+- **Central config**: All features toggled in `js/config.js`
+- **Feature detection**: Use `window.Config.isFeatureEnabled('feature')` for checks
+- **Namespaced access**: Always use `window.Config.methodName()` pattern
+
+### **Main Feature Modules**
+
+#### **Core Features**
+- **`cipher-algorithms.js`** - Password generation logic
+- **`phrase-suggestions.js`** - Smart phrase suggestions
+- **`keyboard-shortcuts.js`** - Full keyboard accessibility
+- **`notifications.js`** - User feedback system
+- **`sharing.js`** - Social sharing capabilities
+- **`password-strength.js`** - Real-time strength analysis
+
+#### **UI & Experience**
+- **`main.js`** - Core application logic
+- **`pwa.js`** - Progressive Web App functionality
+- **`notifications.js`** - Toast notifications and alerts
+- **`file-operations.js`** - File import/export features
+
+### **Adding New Features**
+
+1. **Create Feature Module**
+   ```javascript
+   // js/my-feature.js
+   window.MyFeature = {
+       initializeMyFeature: function() {
+           // Setup code
+           return { enabled: true };
+       },
+       // Public methods
+   };
+   ```
+
+2. **Add Configuration**
+   ```javascript
+   // js/config.js
+   window.CipherAlchemistConfig.features.myFeature = true;
+   ```
+
+3. **Update App Initialization**
+   ```javascript
+   // js/main.js - in initializeFeature()
+   case 'myFeature':
+       if (typeof window.MyFeature !== 'undefined') {
+           result = window.MyFeature.initializeMyFeature();
+       }
+       break;
+   ```
+
+4. **Add to HTML**
+   ```html
+   <!-- index.html -->
+   <script src="js/my-feature.js"></script>
+   ```
+
+---
+
+## 📂 **File Structure & Dependencies**
+
+### **Current Cached Files (13 core JS files)**
+- `config.js` ✅
+- `cipher-algorithms.js` ✅
+- `notifications.js` ✅
+- `main.js` ✅
+- `password-strength.js` ✅
+- `phrase-suggestions.js` ✅
+- `keyboard-shortcuts.js` ✅
+- `sharing.js` ✅
+- `pwa.js` ✅
+- `file-operations.js` ✅
+- `advanced-search.js` ✅
+- `plugin-manager.js` ✅
+- And additional utility modules ✅
+
+### **HTML Entry Points**
+- **`index.html`** - Main application ✅
+- **`dev.html`** - Developer dashboard ✅  
+- **`testlab.html`** - Testing laboratory ✅
+
+### **CSS Modules**
+- All existing CSS files in `/css/` directory ✅
+- Feature-specific stylesheets for modularity
+- Theme support via CSS custom properties
+
+### **Assets**
+- Icons, documents, and other static assets ✅
+- PWA manifest and service worker files ✅
+
+---
+
+## ⚙️ **Configuration System**
+
+### **Feature Toggles**
+```javascript
+// js/config.js
+window.CipherAlchemistConfig = {
+    features: {
+        phrasesuggestions: true,
+        keyboardShortcuts: true,
+        notifications: true,
+        sharing: true,
+        themes: true
+    }
+};
+
+// Usage in modules
+if (window.Config.isFeatureEnabled('notifications')) {
+    // Initialize feature
 }
 ```
 
-**Supported Parameters:**
-- **`?phrase=YourPhrase`** - Pre-fills input and auto-generates password
-- **URL Encoding** - Handles special characters automatically
-- **Visual Feedback** - Subtle animation shows parameter was loaded
+### **Adding New Features**
 
-**Use Cases:**
-- **Documentation Links** - Direct examples in README and case studies
-- **Training Materials** - Instant demos for security education
-- **Team Sharing** - Share specific password patterns
-- **Live Demonstrations** - No manual typing needed for presentations
-
-**Example URLs:**
-```
-https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=Q4Target2025Sales
-https://dhruvinrsoni.github.io/cipher-alchemist/?phrase=MyUni2025Spring
-
-# Cipher Alchemist - Minimal Development Guide
-
-## Quickstart
-- Open `index.html` for instant preview
-- For PWA: `python -m http.server 8000` or `npx live-server --port=8000`
-
-## Structure
-- Modular JS: one feature per file in `js/`
-- Modular CSS: one feature per file in `css/`
-- Service worker: `sw.js` for offline
-- Manifest: `manifest.json` for PWA
-
-## Main Features
-- Password logic: `cipher-algorithms.js`
-- Phrase suggestions: `phrase-suggestions.js`
-- Keyboard shortcuts: `keyboard-shortcuts.js`
-- Notifications: `notifications.js`
-- Sharing: `sharing.js`
-- Theme: `theme.js`
-- PWA: `pwa.js`
-
-## Configuration
-- All features toggled in `js/config.js`
-- Use `window.Config.isFeatureEnabled('feature')` for checks
-
-## Add a Feature
-1. Create `js/my-feature.js`
-2. Add to config in `js/config.js`
-3. Initialize in `js/app.js`
-4. Reference in `index.html`
-
-## Testing
-- Loads without errors
-- Features toggle and work offline
-- Keyboard accessible
-
-## Best Practices
-- Centralize config
-- Load features only if enabled
-- Always support keyboard navigation
-
-## Roadmap
-- Lazy loading
-- Plugin system
-- Config UI
-- Analytics
-**🕵️ Secret Developer Access Testing:**
-
-The application includes a secure secret access system for developers to access the comprehensive test dashboard (`dev.html`). This system is designed to prevent accidental activation while providing secure access for development and testing purposes.
-
-**Access Methods:**
-1. **Keyboard Sequence** (Primary Method):
-   - Hold `Ctrl + Shift` simultaneously
-   - Type `d`, `e`, `v` in sequence
-   - Release all keys
-   - Developer dashboard will open in a new tab/window
-
-2. **Title Click Method** (Alternative):
-   - Click the app title "Cipher Alchemist" 5 times rapidly
-   - All clicks must occur within 2 seconds
-   - Developer dashboard will open after the 5th click
-
-**Security Features:**
-- **Non-Accidental Activation**: Much more secure than simple "dev" typing
-- **Time-based Validation**: Click sequence has a 2-second window
-- **Key Combination Required**: Ctrl+Shift modifier prevents accidental activation
-- **Production Safe**: Works in both local and production environments
-- **Clean Timeout**: Sequences reset automatically after timeout
-
-**Testing the Secret Access:**
+1. **Create Module**: `js/my-feature.js`
 ```javascript
-// Test keyboard sequence
-// 1. Hold Ctrl+Shift
-// 2. Press 'd' (while holding modifiers)
-// 3. Press 'e' (while holding modifiers) 
-// 4. Press 'v' (while holding modifiers)
-// 5. Release all keys → Developer dashboard opens
-
-// Test title clicks
-// 1. Click app title 5 times rapidly (within 2 seconds)
-// 2. After 5th click → Developer dashboard opens
+window.MyFeature = {
+    initializeMyFeature: function() {
+        // Setup code
+        return { enabled: true };
+    }
+};
 ```
 
-**Implementation Details:**
-- Located in `js/main.js` - Secret access system
-- Accessible dashboard: `dev.html` - Comprehensive test suite
-- Fallback test file: `test-suite-comprehensive.html` - Alternative testing interface
-- Zero performance impact when not activated
-- No console output to prevent discovery in production
+2. **Add Configuration**: Update `js/config.js`
+```javascript
+window.CipherAlchemistConfig.features.myFeature = true;
+```
 
-**Browser Testing:**
-- Chrome/Edge (Chromium-based)
-- Firefox
-- Safari (WebKit-based)
-- Mobile browsers (iOS Safari, Chrome Mobile)
-
-**Key Test Scenarios:**
-1. **Basic Functionality** - Enter phrase → Generate password → Check strength
-2. **Suggestion System** - Click suggestion → Auto-populate → Generate
-3. **PWA Install** - Click install button → Follow prompts → Verify installation
-4. **Keyboard Help** - Press Ctrl+? → Modal opens → Navigate with keyboard
-5. **Theme Switching** - Toggle theme → Verify all components update
-6. **Responsive Design** - Resize window → Check layout adaptation
-
-### **📝 Development Guidelines**
-
-**Code Style:**
-- Use modern JavaScript (ES6+)
-- Follow consistent naming conventions
-- Add comments for complex logic
-- Maintain modular architecture
-
-**File Organization:**
-- Keep related functionality in focused modules
-- Use descriptive file and function names
-- Maintain clear separation of concerns
-- Update documentation with changes
+3. **Update HTML**: Add script reference
+```html
+<script src="js/my-feature.js"></script>
+```
 
 ---
 
-## 📚 **Documentation & Resources**
+## 🧪 **Testing**
 
-### **📖 Complete Documentation**
+### **Manual Testing Checklist**
+- ✅ **Password Generation**: Various phrases and lengths
+- ✅ **Theme Switching**: Dark/light mode transitions
+- ✅ **Offline Mode**: Disable network, test functionality
+- ✅ **PWA Installation**: Install/uninstall process
+- ✅ **Keyboard Navigation**: All shortcuts and accessibility
+- ✅ **Mobile Responsive**: Touch interactions and layouts
 
-- **[Main README](README.md)** - Project overview and quick start
-- **[Git Workflow Guide](GIT_WORKFLOW_GUIDE.md)** - CI/CD and `[skip ci]` usage
-- **[Keyboard Testing Guide](KEYBOARD_TESTING_GUIDE.md)** - Accessibility testing procedures
-- **[Documentation Index](INDEX.md)** - Central navigation hub
-- **[Changelog](CHANGELOG.md)** - Version history and updates
+### **Browser Compatibility**
+- **Chrome 80+**: Full PWA support
+- **Firefox 75+**: Core functionality
+- **Safari 13+**: iOS PWA support  
+- **Edge 80+**: Full compatibility
 
-### **🔗 External Resources**
-
-- **[GitHub Repository](https://github.com/dhruvinrsoni/cipher-alchemist)** - Source code and issues
-- **[Live Application](https://dhruvinrsoni.github.io/cipher-alchemist/)** - Deployed version
-- **[PWA Documentation](https://web.dev/progressive-web-apps/)** - Progressive Web App guides
-- **[Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - WCAG 2.1 reference
+### **Testing Tools**
+- **Dev Dashboard** (`dev.html`): Service worker status, cache inspection
+- **Test Lab** (`testlab.html`): Comprehensive test suite
+- **Browser DevTools**: PWA debugging, performance analysis
 
 ---
 
-## 🎯 **Next Steps & Roadmap**
+## 📝 **Development Guidelines**
 
-### **Completed Features ✅**
-- Character substitution password generation
-- Real-time password strength analysis  
-- 48 inspirational phrase suggestions across 12 themes
-- Comprehensive keyboard accessibility with help modal
-- PWA installation with cross-browser support
-- Professional documentation structure
-- Automated CI/CD pipeline with monitoring
+### **Code Style**
+```javascript
+// Use modern JavaScript (ES6+)
+const generatePassword = (phrase) => {
+    // Clear, descriptive naming
+    return processPhrase(phrase);
+};
 
-### **Potential Enhancements 🔮**
+// Consistent error handling
+try {
+    const result = someOperation();
+} catch (error) {
+    console.error('Operation failed:', error);
+    showNotification('Operation failed', 'error');
+}
+```
+
+### **File Organization**
+- **Focused modules**: Single responsibility per file
+- **Descriptive names**: Clear purpose from filename
+- **Consistent structure**: Similar organization across modules
+- **Documentation**: Update docs with changes
+
+### **Performance Best Practices**
+- **Lazy loading**: Load features on demand
+- **Efficient caching**: Smart service worker strategies
+- **Minimal DOM**: Reduce unnecessary manipulations
+- **Debounced events**: Prevent excessive function calls
+
+---
+
+## 🔒 **Security Considerations**
+
+### **Client-Side Security**
+- **No data transmission**: All processing stays local
+- **Secure clipboard**: Protected copy operations
+- **No password storage**: Deterministic generation only
+- **XSS prevention**: Sanitized inputs and outputs
+
+### **PWA Security**
+- **HTTPS requirement**: Service worker security
+- **Content Security Policy**: XSS mitigation
+- **Secure contexts**: Modern API requirements
+
+---
+
+## 🚀 **Deployment**
+
+### **GitHub Pages (Current)**
+1. Push to `main` branch
+2. Automatic deployment via GitHub Actions
+3. HTTPS and PWA support enabled
+
+### **Self-Hosting Requirements**
+- **HTTPS**: Required for PWA functionality
+- **Proper MIME types**: Ensure correct content serving
+- **Service worker support**: Modern browser compatibility
+
+### **Release Process**
+```bash
+# Manual releases via GitHub Actions
+# Go to: Actions → "LTS Manual Release"
+# Select: Version, Branch, Release Type
+# Options: Generate Changelog, LTS Validation
+```
+
+---
+
+## 🐛 **Troubleshooting**
+
+### **Common Issues**
+
+**Service Worker Problems**
+```javascript
+// Check registration in DevTools → Application → Service Workers
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations()
+        .then(registrations => console.log('SW Registrations:', registrations));
+}
+```
+
+**Cache Issues**
+```bash
+# Hard refresh
+Ctrl+Shift+R (Windows/Linux)
+Cmd+Shift+R (Mac)
+
+# Clear cache via DevTools
+Application → Storage → Clear Storage
+```
+
+**PWA Installation Failures**
+- Verify HTTPS connection
+- Check manifest.json validity
+- Ensure service worker registration
+- Test in supported browser
+
+---
+
+## 📚 **Resources**
+
+### **Internal Documentation**
+- **[README.md](../README.md)** - Complete user guide
+- **[LTS_PROTECTION.md](../LTS_PROTECTION.md)** - Critical file protection
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
+
+### **External References**
+- **[PWA Guidelines](https://web.dev/progressive-web-apps/)** - Progressive Web App standards
+- **[WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref/)** - Accessibility guidelines
+- **[Service Worker API](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)** - Advanced PWA features
+
+---
+
+## 📋 **Testing & Validation**
+
+### **WCAG 2.1 AA Standards Checklist**
+- [ ] **2.1.1**: All functionality available from keyboard
+- [ ] **2.1.2**: No keyboard trap exists
+- [ ] **2.4.3**: Focus order is logical
+- [ ] **2.4.7**: Focus indicators are visible
+- [ ] **3.2.1**: Focus doesn't trigger unexpected changes
+- [ ] **4.1.2**: All UI components properly identified
+
+### **Cross-Browser Testing**
+```bash
+# Test in multiple browsers
+Chrome/Edge: Standard keyboard handling
+Firefox: Alternative keyboard behavior
+Safari: Mac-specific shortcuts
+```
+
+### **Screen Reader Testing**
+```bash
+# Windows
+NVDA (Free): Most common screen reader
+JAWS: Professional screen reader
+
+# Mac
+VoiceOver: Built-in screen reader
+
+# Testing Commands
+Tab: Navigate elements
+Enter/Space: Activate buttons
+Arrow keys: Navigate within components
+```
+
+### **Automated Testing Tools**
+```bash
+# Accessibility scanners
+axe-core: Browser extension for automated checks
+WAVE: Web accessibility evaluation tool
+Lighthouse: Built-in Chrome accessibility audit
+
+# Keyboard testing
+Tab order visualization tools
+Focus management debugging
+```
+
+---
+
+## 🚀 **Git Workflow & CI/CD**
+
+### **Daily Development**
+```bash
+# Start development
+git pull origin main
+git add .
+git commit -m "feat: your change description"
+git push origin main
+```
+
+### **Emergency Fixes**
+```bash
+# Skip CI for urgent fixes
+git commit -m "hotfix: urgent fix [skip ci]"
+git push origin main
+```
+
+### **Release Management**
+```bash
+# Create release
+git tag -a v1.0.0 -m "Release v1.0.0"
+git push origin v1.0.0
+```
+
+### **Conflict Resolution**
+```bash
+# Handle merge conflicts
+git pull --rebase origin main
+# resolve conflicts in editor
+git add .
+git rebase --continue
+git push origin main
+```
+
+### **Best Practices**
+- Use `[skip ci]` for docs/auto commits
+- Test locally before pushing
+- Use feature branches for major changes
+- Check GitHub Actions logs for deployment status
+
+### **Deployment**
+- **Main branch auto-deploys** to GitHub Pages
+- **Production URL**: `https://dhruvinrsoni.github.io/cipher-alchemist/`
+- **For local testing**: Use `python -m http.server 8000` or `npx live-server --port=8000`
+
+### **Troubleshooting CI/CD**
+- Check GitHub Actions logs for errors
+- Fix issues and commit with `[skip ci]` if needed
+- Ensure all file paths are correct for deployment
+
+---
+
+## 🛠️ **Development Troubleshooting**
+
+### **Common Issues & Solutions**
+
+#### **Focus Problems**
+```javascript
+// Issue: Focus lost after modal opens
+// Solution: Implement focus trapping
+modal.addEventListener('keydown', trapFocus);
+
+// Issue: Focus not visible
+// Solution: Ensure focus indicators in CSS
+:focus { outline: 2px solid #007bff; }
+```
+
+#### **Screen Reader Issues**
+```html
+<!-- Issue: Button purpose unclear -->
+<!-- Solution: Proper ARIA labels -->
+<button aria-label="Generate secure password">Generate</button>
+
+<!-- Issue: Dynamic content not announced -->
+<!-- Solution: Live regions -->
+<div aria-live="polite" id="status-updates"></div>
+```
+
+#### **Keyboard Trap Issues**
+```javascript
+// Issue: User stuck in modal
+// Solution: Escape key handling
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalOpen) {
+        closeModal();
+    }
+});
+```
+
+#### **PWA Issues**
+```bash
+# Service worker not registering
+- Check absolute path: /sw.js not ./sw.js
+- Verify HTTPS in production
+- Clear browser cache and storage
+
+# Offline functionality not working
+- Check cache contents in DevTools
+- Verify service worker is active
+- Test with Network tab "Offline" checkbox
+```
+
+---
+
+## 🌟 **Best Practices & Guidelines**
+
+### **Implementation Guidelines**
+1. **Always provide keyboard alternatives** for mouse interactions
+2. **Test with actual screen readers**, not just automated tools
+3. **Implement proper focus management** in dynamic content
+4. **Use semantic HTML** as the foundation
+5. **Test with keyboard only** regularly during development
+
+### **Code Examples**
+```javascript
+// Good: Keyboard event handling
+element.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        handleActivation();
+    }
+});
+
+// Good: Focus management
+function openModal() {
+    modal.style.display = 'block';
+    firstFocusableElement.focus();
+    document.addEventListener('keydown', trapFocus);
+}
+```
+
+### **Configuration Access Pattern**
+```javascript
+// ✅ Correct - Use namespaced access
+if (window.Config.isFeatureEnabled('sharing')) {
+    // Feature logic here
+}
+
+// ❌ Deprecated - Legacy global functions (will show warnings)
+if (window.isFeatureEnabled('sharing')) {
+    // This works but shows deprecation warning
+}
+```
+
+---
+
+## 🔗 **External Resources**
+
+### **Documentation**
+- **[WebAIM Keyboard Testing](https://webaim.org/articles/keyboard/)** - Comprehensive keyboard testing guide
+- **[ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/)** - Official ARIA patterns
+- **[WCAG Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)** - Web accessibility standards
+
+### **Tools**
+- **[axe DevTools](https://www.deque.com/axe/devtools/)** - Browser accessibility testing
+- **[NVDA Screen Reader](https://www.nvaccess.org/)** - Free screen reader for testing
+- **[Keyboard Navigation Bookmarklet](https://accessibility-bookmarklets.org/)** - Visual focus testing
+
+---
+
+## 🚀 **Future Roadmap**
+
+### **Near-term Improvements**
+1. **Lazy Loading** - Load features on demand to reduce initial bundle size
+2. **Better Debugging** - Feature-specific debug modes and developer tools integration
+3. **Performance Monitoring** - Per-feature performance metrics and optimization
+
+### **Long-term Vision**
+1. **Plugin System** - External feature registration and third-party extensions
+2. **Configuration UI** - Admin interface for feature settings and visual toggling
+3. **Advanced Analytics** - Feature usage tracking and data-driven optimization
+
+### **Educational Enhancements**
 - Additional character substitution patterns
-- Password history and favorites
-- Custom phrase categories
-- Export/import functionality
-- Advanced strength analysis algorithms
-- Multi-language support
-- Offline phrase suggestion caching
-
-### **Contributing 🤝**
-Cipher Alchemist welcomes contributions! Please see our [Git Workflow Guide](GIT_WORKFLOW_GUIDE.md) for detailed contribution procedures, including proper use of `[skip ci]` for documentation updates.
+- Multi-language support for international education
+- Enhanced accessibility demonstrations
+- Interactive security concept tutorials
 
 ---
 
-**Built with ❤️ by [@dhruvinrsoni](https://github.com/dhruvinrsoni) - Transforming memorable phrases into unbreakable passwords**
+**Status: Development guide optimized for LTS maintenance** 🔒

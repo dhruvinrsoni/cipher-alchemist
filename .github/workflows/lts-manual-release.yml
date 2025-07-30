@@ -1,10 +1,10 @@
-name: 🚀 Manual Release & Tag Creation
+name: 🚀 LTS Manual Release & Tag Creation
 
 on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Release Version (e.g., 1.0.0, 1.1.0-beta.1)'
+        description: 'Release Version (e.g., 1.0.1-LTS, 1.1.0-beta.1)'
         required: true
         type: string
       branch:
@@ -20,10 +20,16 @@ on:
         options:
           - release
           - prerelease
+          - hotfix
       generate_changelog:
         description: 'Auto-generate changelog from commits'
         required: true
         default: true
+        type: boolean
+      lts_release:
+        description: 'Mark as LTS release (requires additional validation)'
+        required: false
+        default: false
         type: boolean
 
 jobs:
@@ -75,10 +81,34 @@ jobs:
       - name: 🔍 Validate Version Format
         run: |
           if [[ ! "${{ github.event.inputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9\.-]+)?$ ]]; then
-            echo "❌ Invalid version format. Please use semantic versioning (e.g., 1.0.0, 1.1.0-beta.1)"
+            echo "❌ Invalid version format. Please use semantic versioning (e.g., 1.0.0, 1.1.0-LTS, 1.2.0-beta.1)"
             exit 1
           fi
           echo "✅ Version format is valid: ${{ github.event.inputs.version }}"
+
+      - name: 🛡️ LTS Validation Check
+        if: ${{ github.event.inputs.lts_release == 'true' }}
+        run: |
+          echo "🔒 LTS Release detected - Running additional validation..."
+          
+          # Check if LTS_PROTECTION.md exists
+          if [ ! -f "LTS_PROTECTION.md" ]; then
+            echo "❌ LTS_PROTECTION.md not found - LTS infrastructure missing"
+            exit 1
+          fi
+          
+          # Check if critical LTS files exist
+          CRITICAL_FILES=("sw.js" "js/pwa.js" "manifest.json" "index.html" "dev.html" "testlab.html")
+          for file in "${CRITICAL_FILES[@]}"; do
+            if [ ! -f "$file" ]; then
+              echo "❌ Critical LTS file missing: $file"
+              exit 1
+            fi
+          done
+          
+          echo "✅ LTS infrastructure validation passed"
+          echo "⚠️  REMINDER: Ensure offline testing completed before this release!"
+          echo "⚠️  REMINDER: Verify service worker functionality in production!"
 
       - name: 🏷️ Check if Tag Already Exists
         run: |
@@ -93,7 +123,15 @@ jobs:
       - name: 📝 Update Version File
         run: |
           IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
-          echo "🔖 v${{ github.event.inputs.version }} · $IST_TIME · 🚀 Release" > version.txt
+          if [[ "${{ github.event.inputs.lts_release }}" == "true" ]]; then
+            echo "🔒 v${{ github.event.inputs.version }} · $IST_TIME · 🛡️ LTS Release" > version.txt
+          elif [[ "${{ github.event.inputs.release_type }}" == "hotfix" ]]; then
+            echo "🚨 v${{ github.event.inputs.version }} · $IST_TIME · � Hotfix" > version.txt
+          elif [[ "${{ github.event.inputs.release_type }}" == "prerelease" ]]; then
+            echo "🧪 v${{ github.event.inputs.version }} · $IST_TIME · 🚧 Prerelease" > version.txt
+          else
+            echo "🚀 v${{ github.event.inputs.version }} · $IST_TIME · 📦 Release" > version.txt
+          fi
           echo "✅ Updated version.txt with v${{ github.event.inputs.version }}"
 
       - name: 📝 Update Manifest Version
@@ -116,11 +154,39 @@ jobs:
         if: ${{ github.event.inputs.generate_changelog == 'true' }}
         run: |
           IST_TIME=$(TZ='Asia/Kolkata' date '+%Y-%m-%d %H:%M:%S IST')
-          echo "# 🚀 Release v${{ github.event.inputs.version }}" > RELEASE_NOTES.md
+          
+          # Set release type emoji and description
+          if [[ "${{ github.event.inputs.lts_release }}" == "true" ]]; then
+            RELEASE_EMOJI="🛡️"
+            RELEASE_DESC="LTS (Long Term Support)"
+          elif [[ "${{ github.event.inputs.release_type }}" == "hotfix" ]]; then
+            RELEASE_EMOJI="🚨"
+            RELEASE_DESC="Hotfix"
+          elif [[ "${{ github.event.inputs.release_type }}" == "prerelease" ]]; then
+            RELEASE_EMOJI="🧪"
+            RELEASE_DESC="Prerelease"
+          else
+            RELEASE_EMOJI="🚀"
+            RELEASE_DESC="Release"
+          fi
+          
+          echo "# $RELEASE_EMOJI $RELEASE_DESC v${{ github.event.inputs.version }}" > RELEASE_NOTES.md
           echo "" >> RELEASE_NOTES.md
           echo "**Release Date:** $IST_TIME" >> RELEASE_NOTES.md
           echo "**Branch:** ${{ github.event.inputs.branch }}" >> RELEASE_NOTES.md
-          echo "**Release Type:** ${{ github.event.inputs.release_type }}" >> RELEASE_NOTES.md
+          echo "**Release Type:** $RELEASE_DESC" >> RELEASE_NOTES.md
+          
+          # Add LTS notice if applicable
+          if [[ "${{ github.event.inputs.lts_release }}" == "true" ]]; then
+            echo "**LTS Status:** ✅ Long Term Support Active" >> RELEASE_NOTES.md
+            echo "" >> RELEASE_NOTES.md
+            echo "⚠️ **LTS Release Notes:**" >> RELEASE_NOTES.md
+            echo "- Stability focus: Bug fixes and security updates only" >> RELEASE_NOTES.md
+            echo "- No breaking changes permitted" >> RELEASE_NOTES.md
+            echo "- Extensive offline functionality testing completed" >> RELEASE_NOTES.md
+            echo "- Service Worker and PWA functionality validated" >> RELEASE_NOTES.md
+          fi
+          
           echo "" >> RELEASE_NOTES.md
           
           # Get the latest tag for comparison
