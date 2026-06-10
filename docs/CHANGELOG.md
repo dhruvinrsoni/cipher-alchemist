@@ -4,6 +4,114 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2026-06-11 02:02:20 +0530  
+**Commit:** [5994481](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5994481fd925b5402fef18939fb577afe9d75132)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix(site): add responsive overflow-safety baseline (prevent content escaping containers)
+
+---
+
+**Date:** 2025-07-30 15:46:24 +0530  
+**Commit:** [69556ba](https://github.com/dhruvinrsoni/cipher-alchemist/commit/69556ba44eddac98250e594e976d0a4b43a61830)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: unify and simplify documentation structure
+
+Reason:
+- Improve clarity and navigation for users and developers
+- Reduce redundancy and outdated references in documentation
+
+Changes:
+- Consolidated documentation links in README and docs/INDEX.md
+- Updated all guides to reference a single documentation index
+- Clarified LTS version and status in LTS_IMPLEMENTATION_COMPLETE.md
+- Added cross-links between FAQ, case studies, and development docs
+- Removed overlapping, outdated, or redundant documentation sections
+- Standardized section headings and navigation across all docs
+
+Impact:
+- Easier onboarding for new users and contributors
+- Faster access to troubleshooting, testing, and LTS information
+- Reduced confusion from duplicate or outdated documentation
+
+Test:
+- Manually reviewed all documentation navigation links
+- Verified all referenced files exist and are up to date
+
+Dependencies:
+
+Backward Compatibility:
+- No breaking changes; documentation only
+
+Docs:
+- All major documentation files updated and cross-referenced
+
+CI/CD, runtime, database, security, cloud, VCS, code style, logging, review, code quality, coverage, ownership:
+- No impact; documentation changes only
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-07-30 15:14:24 +0530  
+**Commit:** [8396cef](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8396cefb454233d976c70456a983a6ffade8f004)  
+**Author:** Dhruvin Rupesh Soni
+
+#### docs: consolidate LTS docs, update workflows, and enhance guides
+
+Reason:
+- Reduce documentation bloat and centralize LTS/protection/testing info.
+- Improve clarity and maintainability for LTS and developer workflows.
+
+Changes:
+- Renamed manual-release-old.yml to lts-manual-release.yml with enhanced LTS validation and changelog logic.
+- Deleted legacy/duplicate docs: LTS_PROTECTION.md, LTS_IMPLEMENTATION_COMPLETE.md, README_LTS.md, BRANCH_PROTECTION.md, GIT_WORKFLOW_GUIDE.md, KEYBOARD_TESTING_GUIDE.md, PWA_IMPLEMENTATION_GUIDE.md, OFFLINE_FUNCTIONALITY_COMPLETE.md, COMPLETE_GUIDE.md, update-version-fixed.yml.
+- Added new docs/LTS_IMPLEMENTATION_COMPLETE.md and docs/TESTING_GUIDE.md with consolidated, up-to-date LTS/testing instructions.
+- Major README.md rewrite: merged LTS, FAQ, accessibility, testing, and deployment info; added new sections for keyboard accessibility, release management, and troubleshooting.
+- Updated docs/INDEX.md for new minimal doc structure and navigation.
+- Expanded CASE_STUDIES.md with architectural/educational analysis.
+- Updated DEVELOPMENT.md and FAQ.md for new workflow, testing, and accessibility guidance.
+
+Impact:
+- Documentation is now easier to navigate and maintain.
+- LTS release workflow is safer and more robust.
+- CI/CD: Removes auto-versioning workflow in favor of manual, validated releases.
+- No runtime, database, or security changes; only docs and workflow YAMLs affected.
+- Improves onboarding, review, and code quality by reducing outdated/conflicting docs.
+
+Test:
+- Manual review of all documentation and workflow YAMLs.
+- LTS release workflow tested for validation logic.
+- Confirmed all references and links are up-to-date.
+
+Dependencies:
+
+Backward Compatibility:
+- No breaking changes to runtime or user experience.
+- All removed docs are replaced by more concise, up-to-date files.
+
+Docs:
+- Major update to README.md, DEVELOPMENT.md, FAQ.md, CASE_STUDIES.md, INDEX.md.
+- New: docs/LTS_IMPLEMENTATION_COMPLETE.md, docs/TESTING_GUIDE.md.
+- All legacy/duplicate docs removed.
+
+Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
+
+---
+
+**Date:** 2025-07-30 06:50:22 +0000  
+**Commit:** [d1ac00c](https://github.com/dhruvinrsoni/cipher-alchemist/commit/d1ac00c405d7a1a280952b3ef6241ada3e7b06c5)  
+**Author:** github-actions[bot]
+
+#### 🔖 Release v1.3.0
+
+  - Updated version.txt with release information
+  - Updated docs/RELEASES.md with new release notes
+  - Updated manifest.json version (if applicable)
+
+---
+
 **Date:** 2025-07-29 17:54:38 +0530  
 **Commit:** [2160d57](https://github.com/dhruvinrsoni/cipher-alchemist/commit/2160d57eed2dcfc51aadcabe77989e2c855c4150)  
 **Author:** Dhruvin Rupesh Soni
@@ -1554,123 +1662,6 @@ Documentation:
 • Comprehensive video tutorial roadmap
 • Production guidelines for consistent quality
 • Integration with existing documentation structure
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-12 01:20:00 +0530  
-**Commit:** [ffb47b8](https://github.com/dhruvinrsoni/cipher-alchemist/commit/ffb47b892589aa5a6b9ee0661ec9ee06e1ef3adb)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: enhance clear functionality to reset all UI elements
-
-Clear function now resets strength meter and transformation steps alongside
-existing phrase input and password output clearing for complete UI state reset.
-
-• Added clearing of strength meter element to remove previous assessments
-• Added clearing of transformation steps to reset explanation display
-• Improved user experience by ensuring clean slate on clear action
-• Maintains existing focus behavior on phrase input field
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-12 00:59:35 +0530  
-**Commit:** [eec15f3](https://github.com/dhruvinrsoni/cipher-alchemist/commit/eec15f37cac1264542788a2cab059494bfcd53c9)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: enhance accessibility with ARIA attributes and semantic HTML
-
-Improved web accessibility compliance by adding comprehensive ARIA labels, semantic HTML elements, and screen reader support to make the application more inclusive.
-
-• Added ARIA attributes (role, aria-label, aria-describedby, aria-controls, aria-haspopup, aria-expanded, aria-hidden, aria-live, aria-atomic, aria-modal) throughout the interface
-• Enhanced semantic structure with proper landmark roles (main, toolbar, contentinfo, dialog, region, status)
-• Improved keyboard navigation support with proper tabindex and ARIA controls
-• Added screen reader descriptions for form inputs and interactive elements
-• Enhanced modal accessibility with proper dialog roles and focus management
-• Implemented live regions for dynamic content updates (password output, strength meter)
-• Added semantic list structure for phrase suggestions with listbox role
-• Improved button accessibility with descriptive labels and title attributes
-
-Impact:
-• Better screen reader compatibility and navigation
-• Improved keyboard-only user experience
-• Enhanced compliance with WCAG accessibility guidelines
-• More inclusive user interface for users with disabilities
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 23:09:52 +0530  
-**Commit:** [8a0bb05](https://github.com/dhruvinrsoni/cipher-alchemist/commit/8a0bb05a8af36ec61499c8960c1496c06b3dc274)  
-**Author:** Dhruvin Rupesh Soni
-
-#### feat: add clear button and keyboard shortcut for textarea
-
-Enhanced user experience by adding a clear button to the phrase input textarea
-and implementing a keyboard shortcut for quick text clearing.
-
-Changes made:
-• Added clear button (✕) positioned absolutely within textarea container
-• Implemented Ctrl+Backspace keyboard shortcut to clear input
-• Added responsive styling for mobile devices with larger touch target
-• Enhanced textarea padding to accommodate clear button
-• Added keyboard shortcut documentation in help modal
-• Implemented auto-show/hide functionality based on input content
-• Added proper ARIA labels and focus management for accessibility
-
-Reason:
-• Improve user experience by providing quick way to clear input text
-• Address usability gap where users had to manually select and delete text
-• Enhance mobile accessibility with touch-friendly clear button
-
-Impact:
-• Users can now quickly clear input using visual button or keyboard shortcut
-• Improved mobile experience with appropriately sized touch targets
-• Better accessibility with proper ARIA labels and keyboard navigation
-• Enhanced visual feedback with hover and active states
-
-Test:
-• Verified clear button appears/disappears based on input content
-• Tested Ctrl+Backspace shortcut functionality across browsers
-• Validated mobile responsiveness and touch target sizing
-• Confirmed accessibility features work with screen readers
-
-Compatibility:
-• Fully backward compatible - existing functionality unchanged
-• Progressive enhancement approach ensures graceful degradation
-• No breaking changes to existing keyboard shortcuts or UI
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-11 22:44:40 +0530  
-**Commit:** [700efb2](https://github.com/dhruvinrsoni/cipher-alchemist/commit/700efb23f69a3a432cee67afc1210179db344e1c)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: update RELEASES.md with comprehensive v1.2.0 changelog
-
-Updated release documentation to accurately reflect all bug fixes,
-improvements, and technical enhancements delivered in v1.2.0.
-
-• Added detailed changelog with proper categorization of fixes
-• Documented PWA install button alignment fix with flexbox centering
-• Included service worker cache resolution with absolute path fixes
-• Added GitHub Actions workflow syntax error corrections
-• Documented UI/UX improvements and technical enhancements
-• Added previous release entry for v1.1.0 for historical tracking
-• Organized content with clear sections and emoji indicators
-• Removed inaccurate feature claims and completed truth reconciliation
-
-Impact:
-• Improved release transparency and developer communication
-• Better tracking of bug fixes and technical debt resolution
-• Enhanced documentation accuracy for future reference
-• Clearer understanding of PWA and service worker improvements
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
