@@ -4,6 +4,14 @@ _Last 50 meaningful changes (excluding version bumps). Auto-generated on each pu
 
 ---
 
+**Date:** 2026-06-11 15:00:29 +0530  
+**Commit:** [87210f7](https://github.com/dhruvinrsoni/cipher-alchemist/commit/87210f7f06f23a883ef47027c44ecf477ed2020c)  
+**Author:** Dhruvin Rupesh Soni
+
+#### fix(pwa): add distinct manifest id (+scope) so this app installs independently of the hub
+
+---
+
 **Date:** 2026-06-11 02:02:20 +0530  
 **Commit:** [5994481](https://github.com/dhruvinrsoni/cipher-alchemist/commit/5994481fd925b5402fef18939fb577afe9d75132)  
 **Author:** Dhruvin Rupesh Soni
@@ -1610,58 +1618,6 @@ Compatibility:
 • No breaking changes to existing functionality
 • Pure documentation enhancement with no code impact
 • Maintains existing URL structure and navigation patterns
-
-Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
-
----
-
-**Date:** 2025-06-12 01:41:08 +0530  
-**Commit:** [a1a3d51](https://github.com/dhruvinrsoni/cipher-alchemist/commit/a1a3d51702c98f779d34e27a407b4e07e1ca1f10)  
-**Author:** Dhruvin Rupesh Soni
-
-#### docs: add comprehensive video tutorial documentation
-
-This commit establishes the foundation for video-based learning resources
-to improve user onboarding and accessibility education.
-
-• Added TUTORIALS.md with detailed video guide structure covering:
-     - Beginner tutorials (Quick Tour, PWA installation)
-     - Intermediate content (phrase creation, strength analysis)
-     - Accessibility features (keyboard navigation, screen readers)
-     - Advanced developer content (architecture, contributing)
-
-• Created VIDEO_PRODUCTION_GUIDE.md with professional standards:
-     - Recording setup and equipment recommendations
-     - Content planning templates and video structure
-     - Post-production guidelines and YouTube optimization
-     - Community engagement and analytics tracking
-
-• Enhanced README.md with tutorial video section:
-     - Integrated video links into existing documentation flow
-     - Added tutorial reference to developer documentation
-     - Maintained consistent formatting and accessibility
-
-• Added tutorial button to main interface (index.html):
-     - New 📺 button in top controls for easy access
-     - Links to YouTube channel placeholder
-     - Enhanced footer with tutorial link
-
-• Included setup-recording.bat script for Windows users:
-     - Automated pre-recording environment setup
-     - Application cleanup and focus assist configuration
-     - Recording settings and OBS Studio guidance
-
-Impact:
-• Improves user onboarding through visual learning
-• Enhances accessibility education and awareness
-• Provides clear contribution pathway for developers
-• Establishes professional video production standards
-• Creates scalable tutorial content framework
-
-Documentation:
-• Comprehensive video tutorial roadmap
-• Production guidelines for consistent quality
-• Integration with existing documentation structure
 
 Signed-off-by: Dhruvin Rupesh Soni <dhruvinrsoni@gmail.com>
 
